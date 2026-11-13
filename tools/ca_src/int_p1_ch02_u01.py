@@ -209,7 +209,7 @@ def build():
     questions = [
         W('q1', 5, 'Explain the three fundamental accounting assumptions. When is disclosure needed in respect of them?',
           [p('The Framework recognises three fundamental accounting assumptions — going concern, accrual and consistency.'),
-           ul(['Going concern: the enterprise is assumed to continue in operation for the foreseeable future, with neither the intention nor the need to liquidate or materially curtail operations. If statements are prepared on another basis, such as realisable values, that basis must be disclosed.',
+           ul(['Going concern: the enterprise is expected to keep operating for the foreseeable future; it neither plans nor is forced to wind up or sharply cut back its operations. If statements are prepared on another basis, such as realisable values, that basis must be disclosed.',
                'Accrual: revenues and costs are recognised as they are earned or incurred, not as cash is received or paid, and recorded in the periods to which they relate. Section 128(1) of the Companies Act, 2013 requires companies to keep accounts on accrual basis.',
                'Consistency: accounting policies are applied consistently from one period to another; a change is permitted only if required by statute or an Accounting Standard, or for a more appropriate presentation.']),
            p('Disclosure: if these assumptions are followed, no disclosure is required because users presume them. If any of them is not followed, that fact must be disclosed.')],

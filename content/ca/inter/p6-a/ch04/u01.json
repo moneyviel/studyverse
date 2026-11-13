@@ -1,0 +1,1406 @@
+{
+ "schema": "ca-unit/1",
+ "id": "int-p6-a-ch04-u01",
+ "level": "inter",
+ "paper": "p6",
+ "chapter": "int-p6-a-ch04",
+ "n": 1,
+ "title": "Cost of Capital",
+ "outcomes": [
+  "Explain the meaning, significance and determinants of cost of capital.",
+  "Compute the cost of debt (irredeemable, redeemable, YTM, zero coupon, convertible) and of preference shares.",
+  "Compute the cost of equity by dividend, earnings, growth, realised yield and CAPM approaches, and the cost of retained earnings.",
+  "Compute WACC on book and market weights.",
+  "Compute marginal cost of capital and its break points."
+ ],
+ "meta": {
+  "difficulty": "hard",
+  "minutes": {
+   "learn": 55,
+   "practice": 55
+  },
+  "prereq": [
+   "int-p6-a-ch03-u01"
+  ],
+  "exam_tip": "Expect a full WACC sum: Kd by YTM, Kp, Ke by Gordon or CAPM, then book and market weights; MCC with break points is a favourite follow-up."
+ },
+ "concepts": [
+  {
+   "id": "c1",
+   "title": "Meaning, significance and determinants of cost of capital",
+   "body": [
+    "Cost of capital is the return that providers of funds expect for supplying capital; it is the minimum return a project must earn, also called the hurdle, cut-off or required rate.",
+    "Uses: discounting cash flows in capital budgeting, comparing sources in financing decisions, and pricing credit periods in receivables policy.",
+    "It is measured from investors' expectations, adjusted for flotation costs paid to intermediaries and for the tax saving on interest. A security priced below its face value tells you investors want more than its coupon.",
+    "Factors: supply and demand for funds, savings habits, risk of the business, inflation and, for multinationals, exchange-rate risk.",
+    "Exact cost = the IRR that equates net inflow at issue with the post-tax outflows; the shortcut formulas give approximations."
+   ],
+   "analogy": "Cost of capital is the rent a business pays for using other people's money.",
+   "work": "A finance head rejects a project yielding 11% when the firm's cost of capital is 12.5%."
+  },
+  {
+   "id": "c2",
+   "title": "Cost of debt — irredeemable and redeemable",
+   "body": [
+    "Interest is tax-deductible, so the post-tax cost of debt = pre-tax cost × (1 – t). The saving is called the tax shield.",
+    "Irredeemable debt: Kd = I(1 – t) ÷ NP, where NP is issue price less flotation (or the current market price for existing debt).",
+    "Redeemable debt (approximation): spread the gap between redemption value and net proceeds evenly over the remaining life and divide by the average of the two values (formula sheet). If discount on issue or premium on redemption is also tax-deductible, a variant applies the (1 – t) to the whole numerator.",
+    "Accuracy falls as RV and NP move apart; the shortcut also does not suit bonds repaid in instalments."
+   ],
+   "analogy": "The government pays part of your interest bill through lower tax.",
+   "work": "At a 25% tax rate, 12% debt really costs about 9% before adjusting for discount and premium.",
+   "blocks": [
+    {
+     "t": "table",
+     "head": [
+      "Instrument",
+      "Post-tax cost (approximation)"
+     ],
+     "rows": [
+      [
+       "Irredeemable debt",
+       "I(1 – t) ÷ NP"
+      ],
+      [
+       "Redeemable debt",
+       "[I(1 – t) + (RV – NP) ÷ n] ÷ [(RV + NP) ÷ 2]"
+      ],
+      [
+       "Irredeemable preference",
+       "PD ÷ NP"
+      ],
+      [
+       "Redeemable preference",
+       "[PD + (RV – NP) ÷ n] ÷ [(RV + NP) ÷ 2]"
+      ],
+      [
+       "Equity — constant dividend",
+       "D ÷ P0"
+      ],
+      [
+       "Equity — growth (Gordon)",
+       "D1 ÷ P0 + g  (new issue: D1 ÷ (P0 – F) + g)"
+      ],
+      [
+       "Equity — CAPM",
+       "Rf + β(Rm – Rf)"
+      ]
+     ],
+     "title": "Formula sheet (NP = issue price – flotation, or market price for existing securities)"
+    }
+   ]
+  },
+  {
+   "id": "c3",
+   "title": "Cost of debt — YTM, zero coupon, amortised and convertible bonds",
+   "body": [
+    "YTM (present-value) method: Kd is the IRR at which NP = PV of post-tax interest + PV of redemption value. Try two rates, then interpolate: L + NPV_L ÷ (NPV_L – NPV_H) × (H – L). Preferred in practice.",
+    "Zero coupon/deep discount bonds: solve RV = NP × (1 + r)ⁿ by trial; use trial and error rather than the shortcut because RV and NP differ widely.",
+    "Amortised bonds repay part of principal each year, so cash flows (principal + falling interest) are uneven; value = Σ Ct ÷ (1 + Kd)ᵗ.",
+    "Convertible debentures: take the redemption value as the higher of the cash amount and the expected value of shares on conversion, then compute Kd as for redeemable debt."
+   ],
+   "analogy": "YTM is simply the IRR seen from the issuer's side — an inflow today followed by outflows.",
+   "work": "A bond issued at ₹2,500 and repaid at ₹1,00,000 after 25 years needs trial and error, not the shortcut."
+  },
+  {
+   "id": "c4",
+   "title": "Cost of preference share capital",
+   "body": [
+    "Preference dividend is paid from post-tax profit, so no tax adjustment is made.",
+    "Irredeemable: Kp = PD ÷ NP. Redeemable: same shape as redeemable debt without (1 – t) (formula sheet), or the IRR of the issue cash flows.",
+    "Net proceeds deduct flotation costs; if issue price is not given, use the market price."
+   ],
+   "analogy": "Preference shares cost more after tax than debt of the same coupon because there is no tax shield.",
+   "work": "A 10% preference share issued at ₹95 costs about 10.5% even with no redemption premium."
+  },
+  {
+   "id": "c5",
+   "title": "Cost of equity — dividend, earnings and growth approaches",
+   "body": [
+    "Equity has no fixed return, so its cost is inferred from price and expected payouts.",
+    "Dividend price approach (constant dividend): Ke = D ÷ P0. Earnings price approach (all earnings paid or EPS constant): Ke = EPS ÷ P0.",
+    "Growth (Gordon) approach: Ke = D1 ÷ P0 + g, where D1 = D0(1 + g). For new shares use D1 ÷ (P0 – F) + g, F being flotation per share.",
+    "Growth can be estimated from the past trend of dividends or EPS (compound growth) or as g = b × r (retention ratio × return on equity)."
+   ],
+   "analogy": "Value = performance ÷ expectation, so if you know value and performance you can back out the expectation.",
+   "work": "A share at ₹60 paying ₹4.32 next year and growing 8% implies investors want about 15.2%."
+  },
+  {
+   "id": "c6",
+   "title": "Cost of equity — realised yield and CAPM",
+   "body": [
+    "Realised yield approach: Ke is the return shareholders actually earned (dividends plus price change) over past years, used where history is a fair guide to the future.",
+    "CAPM: Ke = Rf + β(Rm – Rf). Rf is the risk-free rate, Rm the market return, and β measures how sensitive the share is to market movements; only systematic risk is priced.",
+    "CAPM assumes efficient markets, borrowing and lending at the risk-free rate, homogeneous investor expectations and a single period."
+   ],
+   "analogy": "CAPM charges investors only for the risk they cannot diversify away.",
+   "work": "A share with β 1.3 needs 7% + 1.3 × 6% = 14.8% when the market premium is 6%."
+  },
+  {
+   "id": "c7",
+   "title": "Cost of retained earnings",
+   "body": [
+    "Retained earnings are not free: shareholders could have invested the dividend elsewhere, so their opportunity cost applies.",
+    "Kr equals Ke without flotation cost (no issue expenses). Where shareholders would pay personal tax and brokerage to reinvest a dividend, some texts adjust Kr down for these."
+   ],
+   "analogy": "Profit kept in the business still belongs to shareholders, who expect it to earn their required return.",
+   "work": "A company that ignores the cost of retained earnings may accept projects that destroy shareholder value."
+  },
+  {
+   "id": "c8",
+   "title": "Weighted average cost of capital (book and market weights)",
+   "body": [
+    "WACC = Σ (weight × after-tax cost of each source). It is the discount rate for projects of average risk.",
+    "Book-value weights come from the balance sheet — simple and stable, but historical. Market-value weights use current prices — closer to investors' view but change daily. Target weights use the planned capital structure.",
+    "With market weights, equity's market value already includes retained earnings; either do not weight retained earnings separately, or split equity market value in the ratio of book values."
+   ],
+   "analogy": "WACC blends the price of each slice of funding by how big that slice is.",
+   "work": "Rising share prices increase the equity weight and usually raise market-value WACC."
+  },
+  {
+   "id": "c9",
+   "title": "Marginal cost of capital",
+   "body": [
+    "Marginal cost of capital (MCC) is the WACC of the next rupee raised, using the proportions in which new funds will be raised (marginal weights), so the book-versus-market choice does not arise.",
+    "MCC stays flat while component costs are constant, then jumps at break points — for example, when retained earnings run out and costlier new equity is needed, or when cheap debt limits are exhausted.",
+    "Break point = funds available at a given cost ÷ that source's weight in the target mix."
+   ],
+   "analogy": "The first slices of funding are cheapest; the bill rises as you reach deeper into the market.",
+   "work": "With ₹12 lakh of retained earnings and equity at 80% of the mix, MCC rises once total new funds exceed ₹15 lakh."
+  }
+ ],
+ "illustrations": [
+  {
+   "id": "i1",
+   "title": "Three ways to measure the cost of debt",
+   "difficulty": "core",
+   "minutes": 12,
+   "q": "Tapti Textiles Ltd. (tax 25%) has (a) 11% irredeemable debentures of ₹100 quoted at ₹92, and (b) plans to issue 12% debentures of ₹100 at ₹96 with flotation cost ₹2, redeemable at ₹105 after 6 years. Compute the post-tax cost of (a), and of (b) by the approximation method and by the YTM (IRR) method using 10% and 12%.",
+   "solution": [
+    {
+     "t": "table",
+     "head": [
+      "Step",
+      "Working",
+      "Result"
+     ],
+     "rows": [
+      [
+       "(a) Irredeemable",
+       "11 × (1 – 0.25) ÷ 92",
+       "8.97%"
+      ],
+      [
+       "(b) Net proceeds",
+       "96 – 2",
+       "₹94"
+      ],
+      [
+       "(b) Approximation",
+       "[9 + (105 – 94) ÷ 6] ÷ [(105 + 94) ÷ 2] = 10.83 ÷ 99.5",
+       "10.89%"
+      ],
+      [
+       "NPV at 10%",
+       "9 × 4.355 + 105 × 0.564 – 94",
+       "₹4.41"
+      ],
+      [
+       "NPV at 12%",
+       "9 × 4.111 + 105 × 0.507 – 94",
+       "₹-3.77"
+      ],
+      [
+       "(b) YTM",
+       "10% + 4.41 ÷ (4.41 + 3.77) × 2%",
+       "11.08%"
+      ]
+     ],
+     "title": "Cost of debt"
+    },
+    {
+     "t": "note",
+     "text": "The post-tax interest is ₹12 × 0.75 = ₹9. YTM is the more exact figure; the shortcut drifts when redemption value and net proceeds are far apart."
+    }
+   ],
+   "checks": [
+    {
+     "expr": "round(11*0.75/92*100,2)",
+     "value": 8.97,
+     "label": "Irredeemable: I(1–t)/NP, %"
+    },
+    {
+     "expr": "96-2",
+     "value": 94,
+     "label": "Net proceeds = issue price – flotation"
+    },
+    {
+     "expr": "round((12*0.75+(105-94)/6)/((105+94)/2)*100,2)",
+     "value": 10.89,
+     "label": "Redeemable (approximation), %"
+    },
+    {
+     "expr": "round(9*4.355+105*0.564-94,2)",
+     "value": 4.41,
+     "label": "NPV at 10% (PVAF 4.355, PVF 0.564)"
+    },
+    {
+     "expr": "round(9*4.111+105*0.507-94,2)",
+     "value": -3.77,
+     "label": "NPV at 12% (PVAF 4.111, PVF 0.507)"
+    },
+    {
+     "expr": "round(10+ (4.42/(4.42+3.77))*2,2)",
+     "value": 11.08,
+     "label": "YTM by interpolation, %"
+    }
+   ]
+  },
+  {
+   "id": "i2",
+   "title": "Cost of equity two ways",
+   "difficulty": "core",
+   "minutes": 8,
+   "q": "Godavari Pumps Ltd. has just paid a dividend of ₹4 a share; dividends are expected to grow at 8% a year. The share trades at ₹60. A new issue would cost ₹3 a share in flotation. Its beta is 1.3, the risk-free rate is 7% and the market return is 13%. Compute the cost of retained earnings, the cost of new equity, and the CAPM cost of equity.",
+   "solution": [
+    {
+     "t": "table",
+     "head": [
+      "Measure",
+      "Working",
+      "Result"
+     ],
+     "rows": [
+      [
+       "D1",
+       "4 × 1.08",
+       "₹4.32"
+      ],
+      [
+       "Cost of retained earnings (no flotation)",
+       "4.32 ÷ 60 + 8%",
+       "15.2%"
+      ],
+      [
+       "Cost of new equity",
+       "4.32 ÷ (60 – 3) + 8%",
+       "15.58%"
+      ],
+      [
+       "CAPM Ke",
+       "7% + 1.3 × (13% – 7%)",
+       "14.8%"
+      ]
+     ],
+     "title": "Cost of equity"
+    },
+    {
+     "t": "note",
+     "text": "Retained earnings cost slightly less than a fresh issue only because no flotation cost is paid; the shareholders' required return is the same."
+    }
+   ],
+   "checks": [
+    {
+     "expr": "4*1.08",
+     "value": 4.32,
+     "label": "Next dividend D1 = D0(1 + g)"
+    },
+    {
+     "expr": "round((4.32/60+0.08)*100,2)",
+     "value": 15.2,
+     "label": "Ke (existing shares / retained earnings) = D1/P0 + g, %"
+    },
+    {
+     "expr": "round((4.32/(60-3)+0.08)*100,2)",
+     "value": 15.58,
+     "label": "Ke on a new issue = D1/(P0 – F) + g, %"
+    },
+    {
+     "expr": "7+1.3*(13-7)",
+     "value": 14.8,
+     "label": "CAPM: Rf + β(Rm – Rf), %"
+    }
+   ]
+  },
+  {
+   "id": "i3",
+   "title": "WACC — book versus market weights",
+   "difficulty": "hard",
+   "minutes": 10,
+   "q": "Krishna Cables Ltd.: equity capital ₹30 lakh (3,00,000 shares of ₹10), retained earnings ₹20 lakh, 11% preference ₹10 lakh, 10% debentures ₹40 lakh. Costs: equity and retained earnings 15%, preference 11.5%, debt 7.5% after tax. Market values: equity ₹30 a share, preference ₹9 lakh, debentures ₹38 lakh. Compute WACC on book and market weights.",
+   "solution": [
+    {
+     "t": "table",
+     "head": [
+      "Source",
+      "Book ₹",
+      "Market ₹",
+      "Cost %"
+     ],
+     "rows": [
+      [
+       "Equity capital",
+       "30,00,000",
+       "90,00,000 (3,00,000 × ₹30, covers retained earnings too)",
+       "15"
+      ],
+      [
+       "Retained earnings",
+       "20,00,000",
+       "—",
+       "15"
+      ],
+      [
+       "Preference",
+       "10,00,000",
+       "9,00,000",
+       "11.5"
+      ],
+      [
+       "Debentures",
+       "40,00,000",
+       "38,00,000",
+       "7.5"
+      ],
+      [
+       "Total",
+       "1,00,00,000",
+       "1,37,00,000",
+       ""
+      ]
+     ],
+     "title": "Weights"
+    },
+    {
+     "t": "p",
+     "text": "Book-value WACC = (50 × 15 + 10 × 11.5 + 40 × 7.5) ÷ 100 = 11.65%. Market-value WACC = (90 × 15 + 9 × 11.5 + 38 × 7.5) ÷ 137 = 12.69%."
+    },
+    {
+     "t": "note",
+     "text": "The market price of equity already reflects retained earnings, so retained earnings get no separate market weight."
+    }
+   ],
+   "checks": [
+    {
+     "expr": "round((3000000*15+2000000*15+1000000*11.5+4000000*7.5)/10000000,2)",
+     "value": 11.65,
+     "label": "WACC on book weights, %"
+    },
+    {
+     "expr": "9000000+900000+3800000",
+     "value": 13700000,
+     "label": "Total market value"
+    },
+    {
+     "expr": "round((9000000*15+900000*11.5+3800000*7.5)/13700000,2)",
+     "value": 12.69,
+     "label": "WACC on market weights, %"
+    }
+   ]
+  }
+ ],
+ "jobs": [
+  {
+   "id": "j1",
+   "title": "Setting a hurdle rate",
+   "role": "Finance analyst",
+   "situation": "The CFO asks for the company's WACC for next year's capital budget.",
+   "steps": [
+    "List each long-term source with book and market values.",
+    "Compute post-tax Kd (YTM), Kp and Ke (Gordon and CAPM as a cross-check).",
+    "Use target or market weights and compute WACC.",
+    "Flag break points where marginal cost will rise."
+   ],
+   "takeaway": "Present one hurdle rate, with a note on how it rises if new equity is needed."
+  },
+  {
+   "id": "j2",
+   "title": "Choosing between bond and preference issue",
+   "role": "Treasury assistant",
+   "situation": "Management compares a 10% bond with a 9.5% preference issue.",
+   "steps": [
+    "Compute post-tax cost of each, including flotation and redemption premium.",
+    "Note that preference dividend gets no tax shield.",
+    "Add qualitative points: financial risk, covenants, control."
+   ],
+   "takeaway": "Compare post-tax costs, not coupon rates."
+  }
+ ],
+ "mcqs": [
+  {
+   "id": "m1",
+   "q": "Which cost of capital is adjusted for tax?",
+   "options": [
+    "Cost of debentures",
+    "Cost of equity",
+    "Cost of preference shares",
+    "Cost of retained earnings"
+   ],
+   "answer": 0,
+   "explain": "Only interest on debt is a tax-deductible expense, so the cost of debt is multiplied by (1 – t). Preference and equity dividends are paid from post-tax profit, so no tax adjustment applies to them or to retained earnings. In practice: always state Kd after tax.",
+   "concept": "c2",
+   "topic": "Cost of debt — irredeemable and redeemable",
+   "difficulty": "core"
+  },
+  {
+   "id": "m2",
+   "q": "10% irredeemable debentures of ₹100 quoted at ₹80; tax 30%. Post-tax Kd is:",
+   "options": [
+    "8.75%",
+    "7%",
+    "12.5%",
+    "10%"
+   ],
+   "answer": 0,
+   "explain": "Kd = I(1 – t) ÷ NP = 10 × 0.70 ÷ 80 = 8.75%. The market price stands in for net proceeds because the debt already exists, and the low price pushes the cost above the coupon after tax. In practice: use the current price for existing debt.",
+   "concept": "c2",
+   "topic": "Cost of debt — irredeemable and redeemable",
+   "difficulty": "core",
+   "check": 8.75
+  },
+  {
+   "id": "m3",
+   "q": "The approximation formula for redeemable debt becomes unreliable when:",
+   "options": [
+    "Redemption value and net proceeds differ widely",
+    "The tax rate is high",
+    "Interest is paid annually",
+    "The bond is issued at par"
+   ],
+   "answer": 0,
+   "explain": "The shortcut spreads the redemption gap evenly and uses an average base; when RV and NP are far apart (deep discount bonds) the error grows large, so the IRR (YTM) method should be used instead. In practice: use trial and error for zero coupon bonds.",
+   "concept": "c3",
+   "topic": "Cost of debt — YTM, zero coupon, amortised and convertible bonds",
+   "difficulty": "moderate"
+  },
+  {
+   "id": "m4",
+   "q": "For a convertible debenture, the redemption value used in computing cost is:",
+   "options": [
+    "The higher of cash redemption value and expected value of shares on conversion",
+    "Always the face value",
+    "The lower of the two values",
+    "The current market price"
+   ],
+   "answer": 0,
+   "explain": "Investors are assumed to choose the more valuable option at maturity, so the higher of the cash amount and the expected value of the shares receivable is taken as RV. The rest of the computation is as for redeemable debt. In practice: project the share price with its growth rate.",
+   "concept": "c3",
+   "topic": "Cost of debt — YTM, zero coupon, amortised and convertible bonds",
+   "difficulty": "core"
+  },
+  {
+   "id": "m5",
+   "q": "12% irredeemable preference shares of ₹100 issued at ₹100 with 4% flotation cost. Kp is:",
+   "options": [
+    "12.5%",
+    "12%",
+    "11.52%",
+    "8.4%"
+   ],
+   "answer": 0,
+   "explain": "Net proceeds = ₹100 – ₹4 = ₹96, so Kp = 12 ÷ 96 = 12.5%. No tax adjustment is made because preference dividend is an appropriation of profit, not an expense. In practice: flotation pushes cost above the coupon.",
+   "concept": "c4",
+   "topic": "Cost of preference share capital",
+   "difficulty": "core",
+   "check": 12.5
+  },
+  {
+   "id": "m6",
+   "q": "D0 ₹2, growth 5%, market price ₹30. Cost of equity by the growth model is:",
+   "options": [
+    "12%",
+    "11.67%",
+    "6.67%",
+    "10%"
+   ],
+   "answer": 0,
+   "explain": "D1 = 2 × 1.05 = ₹2.10; Ke = 2.10 ÷ 30 + 5% = 7% + 5% = 12%. Using D0 instead of D1 would understate the cost. In practice: check whether the dividend given is just paid or next expected.",
+   "concept": "c5",
+   "topic": "Cost of equity — dividend, earnings and growth approaches",
+   "difficulty": "core",
+   "check": 12
+  },
+  {
+   "id": "m7",
+   "q": "For a new equity issue, the growth-model cost of equity is computed as:",
+   "options": [
+    "D1 ÷ (P0 – F) + g",
+    "D1 ÷ P0 + g",
+    "D0 ÷ P0",
+    "EPS ÷ P0"
+   ],
+   "answer": 0,
+   "explain": "New shares bring in only the price less flotation cost per share, so the denominator is P0 – F; this makes new equity costlier than retained earnings. The other forms apply to existing shares or to no-growth cases. In practice: note flotation per share, not per issue.",
+   "concept": "c5",
+   "topic": "Cost of equity — dividend, earnings and growth approaches",
+   "difficulty": "core"
+  },
+  {
+   "id": "m8",
+   "q": "Risk-free rate 6%, market return 12%, β 1.5. CAPM cost of equity is:",
+   "options": [
+    "15%",
+    "18%",
+    "9%",
+    "13.5%"
+   ],
+   "answer": 0,
+   "explain": "Ke = Rf + β(Rm – Rf) = 6% + 1.5 × (12% – 6%) = 6% + 9% = 15%. The market risk premium of 6% is scaled by beta. In practice: CAPM prices only systematic risk.",
+   "concept": "c6",
+   "topic": "Cost of equity — realised yield and CAPM",
+   "difficulty": "core",
+   "check": 15
+  },
+  {
+   "id": "m9",
+   "q": "Which is NOT an assumption of CAPM?",
+   "options": [
+    "Investors have different expectations about risk and return",
+    "Investors can borrow and lend at the risk-free rate",
+    "Markets are efficient",
+    "Decisions are made for a single period"
+   ],
+   "answer": 0,
+   "explain": "CAPM assumes homogeneous expectations — all investors see the same risk and return — along with risk-free borrowing and lending, efficient markets and a single-period horizon. Different expectations contradict the model. In practice: real markets only approximate these assumptions.",
+   "concept": "c6",
+   "topic": "Cost of equity — realised yield and CAPM",
+   "difficulty": "moderate"
+  },
+  {
+   "id": "m10",
+   "q": "The cost of retained earnings is usually taken as:",
+   "options": [
+    "Cost of equity without flotation cost",
+    "Zero, since no payment is made",
+    "Cost of debt",
+    "Cost of preference shares"
+   ],
+   "answer": 0,
+   "explain": "Retained profits belong to shareholders, who could have invested them elsewhere; their required return applies, but no issue expenses are incurred, so Kr equals Ke excluding flotation. Treating it as free overstates project returns. In practice: Kr is slightly below the cost of new equity.",
+   "concept": "c7",
+   "topic": "Cost of retained earnings",
+   "difficulty": "core"
+  },
+  {
+   "id": "m11",
+   "q": "Equity is 70% of capital (Ke 10%) and debt 30% (pre-tax 5%); tax 30%. WACC is:",
+   "options": [
+    "8.05%",
+    "8.5%",
+    "7.55%",
+    "8.70%"
+   ],
+   "answer": 0,
+   "explain": "Post-tax Kd = 5% × 0.70 = 3.5%. WACC = 0.70 × 10% + 0.30 × 3.5% = 7% + 1.05% = 8.05%. Forgetting the tax shield gives 8.5%. In practice: weights must add up to 100%.",
+   "concept": "c8",
+   "topic": "Weighted average cost of capital (book and market weights)",
+   "difficulty": "core",
+   "check": 8.05
+  },
+  {
+   "id": "m12",
+   "q": "Market-value weights for WACC are preferred mainly because they:",
+   "options": [
+    "Reflect the current opportunity cost of investors",
+    "Never change",
+    "Are taken directly from the balance sheet",
+    "Ignore retained earnings"
+   ],
+   "answer": 0,
+   "explain": "Market values show what investors would pay for the firm's securities today, so they align with current required returns. Book values are historical; market values change with prices but are more relevant. In practice: many firms use target weights based on market values.",
+   "concept": "c8",
+   "topic": "Weighted average cost of capital (book and market weights)",
+   "difficulty": "core"
+  },
+  {
+   "id": "m13",
+   "q": "Marginal cost of capital is the cost of:",
+   "options": [
+    "Raising an additional rupee of funds",
+    "Existing capital at book value",
+    "Only new equity",
+    "Debt alone"
+   ],
+   "answer": 0,
+   "explain": "MCC is the weighted cost of new funds using the proportions in which they will be raised. It rises at break points when cheaper sources are exhausted. In practice: it is the relevant rate for new projects.",
+   "concept": "c9",
+   "topic": "Marginal cost of capital",
+   "difficulty": "core"
+  },
+  {
+   "id": "m14",
+   "q": "Retained earnings available ₹9,00,000; equity is 60% of the target mix. The break point beyond which new equity is needed is:",
+   "options": [
+    "₹15,00,000",
+    "₹9,00,000",
+    "₹5,40,000",
+    "₹22,50,000"
+   ],
+   "answer": 0,
+   "explain": "Break point = funds available at the lower cost ÷ weight of that source = ₹9,00,000 ÷ 0.60 = ₹15,00,000. Beyond that total, the equity part must come from a costlier new issue. In practice: compute one break point per source.",
+   "concept": "c9",
+   "topic": "Marginal cost of capital",
+   "difficulty": "hard",
+   "check": 1500000
+  }
+ ],
+ "questions": [
+  {
+   "id": "q1",
+   "marks": 6,
+   "minutes": 11,
+   "difficulty": "core",
+   "pad": "table",
+   "q": "Tapti Textiles Ltd. (tax 25%) has (a) 11% irredeemable debentures of ₹100 quoted at ₹92, and (b) plans to issue 12% debentures of ₹100 at ₹96 with flotation cost ₹2, redeemable at ₹105 after 6 years. Compute the post-tax cost of (a), and of (b) by the approximation method and by the YTM (IRR) method using 10% and 12%.",
+   "model": [
+    {
+     "t": "table",
+     "head": [
+      "Step",
+      "Working",
+      "Result"
+     ],
+     "rows": [
+      [
+       "(a) Irredeemable",
+       "11 × (1 – 0.25) ÷ 92",
+       "8.97%"
+      ],
+      [
+       "(b) Net proceeds",
+       "96 – 2",
+       "₹94"
+      ],
+      [
+       "(b) Approximation",
+       "[9 + (105 – 94) ÷ 6] ÷ [(105 + 94) ÷ 2] = 10.83 ÷ 99.5",
+       "10.89%"
+      ],
+      [
+       "NPV at 10%",
+       "9 × 4.355 + 105 × 0.564 – 94",
+       "₹4.41"
+      ],
+      [
+       "NPV at 12%",
+       "9 × 4.111 + 105 × 0.507 – 94",
+       "₹-3.77"
+      ],
+      [
+       "(b) YTM",
+       "10% + 4.41 ÷ (4.41 + 3.77) × 2%",
+       "11.08%"
+      ]
+     ],
+     "title": "Cost of debt"
+    },
+    {
+     "t": "note",
+     "text": "The post-tax interest is ₹12 × 0.75 = ₹9. YTM is the more exact figure; the shortcut drifts when redemption value and net proceeds are far apart."
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "Irredeemable Kd",
+     "m": 1,
+     "skill": "computation",
+     "kw": [
+      "0.75|25%"
+     ],
+     "min": 1,
+     "nums": [
+      8.97
+     ]
+    },
+    {
+     "id": "s2",
+     "pt": "Net proceeds",
+     "m": 0.5,
+     "skill": "computation",
+     "kw": [
+      "net proceeds|94"
+     ],
+     "min": 1,
+     "nums": [
+      94
+     ]
+    },
+    {
+     "id": "s3",
+     "pt": "Approximation",
+     "m": 2,
+     "skill": "computation",
+     "kw": [
+      "approximation|average"
+     ],
+     "min": 1,
+     "nums": [
+      10.89
+     ]
+    },
+    {
+     "id": "s4",
+     "pt": "NPV at two rates",
+     "m": 1.5,
+     "skill": "computation",
+     "kw": [
+      "npv"
+     ],
+     "min": 1,
+     "nums": [
+      4.41,
+      -3.77
+     ]
+    },
+    {
+     "id": "s5",
+     "pt": "YTM",
+     "m": 1,
+     "skill": "computation",
+     "kw": [
+      "ytm|irr"
+     ],
+     "min": 1,
+     "nums": [
+      11.08
+     ]
+    }
+   ],
+   "remarks": [
+    "Show post-tax interest first."
+   ],
+   "mistakes": [
+    "Using face value instead of net proceeds."
+   ],
+   "tips": [
+    "Table."
+   ],
+   "extra_ok": true,
+   "checks": [
+    {
+     "expr": "round(11*0.75/92*100,2)",
+     "value": 8.97,
+     "label": "Irredeemable: I(1–t)/NP, %"
+    },
+    {
+     "expr": "96-2",
+     "value": 94,
+     "label": "Net proceeds = issue price – flotation"
+    },
+    {
+     "expr": "round((12*0.75+(105-94)/6)/((105+94)/2)*100,2)",
+     "value": 10.89,
+     "label": "Redeemable (approximation), %"
+    },
+    {
+     "expr": "round(9*4.355+105*0.564-94,2)",
+     "value": 4.41,
+     "label": "NPV at 10% (PVAF 4.355, PVF 0.564)"
+    },
+    {
+     "expr": "round(9*4.111+105*0.507-94,2)",
+     "value": -3.77,
+     "label": "NPV at 12% (PVAF 4.111, PVF 0.507)"
+    },
+    {
+     "expr": "round(10+ (4.42/(4.42+3.77))*2,2)",
+     "value": 11.08,
+     "label": "YTM by interpolation, %"
+    }
+   ]
+  },
+  {
+   "id": "q2",
+   "marks": 4,
+   "minutes": 7,
+   "difficulty": "core",
+   "pad": "table",
+   "q": "Godavari Pumps Ltd. has just paid a dividend of ₹4 a share; dividends are expected to grow at 8% a year. The share trades at ₹60. A new issue would cost ₹3 a share in flotation. Its beta is 1.3, the risk-free rate is 7% and the market return is 13%. Compute the cost of retained earnings, the cost of new equity, and the CAPM cost of equity.",
+   "model": [
+    {
+     "t": "table",
+     "head": [
+      "Measure",
+      "Working",
+      "Result"
+     ],
+     "rows": [
+      [
+       "D1",
+       "4 × 1.08",
+       "₹4.32"
+      ],
+      [
+       "Cost of retained earnings (no flotation)",
+       "4.32 ÷ 60 + 8%",
+       "15.2%"
+      ],
+      [
+       "Cost of new equity",
+       "4.32 ÷ (60 – 3) + 8%",
+       "15.58%"
+      ],
+      [
+       "CAPM Ke",
+       "7% + 1.3 × (13% – 7%)",
+       "14.8%"
+      ]
+     ],
+     "title": "Cost of equity"
+    },
+    {
+     "t": "note",
+     "text": "Retained earnings cost slightly less than a fresh issue only because no flotation cost is paid; the shareholders' required return is the same."
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "D1",
+     "m": 1,
+     "skill": "computation",
+     "kw": [
+      "d1"
+     ],
+     "min": 1,
+     "nums": [
+      4.32
+     ]
+    },
+    {
+     "id": "s2",
+     "pt": "Kr",
+     "m": 1,
+     "skill": "computation",
+     "kw": [
+      "retained"
+     ],
+     "min": 1,
+     "nums": [
+      15.2
+     ]
+    },
+    {
+     "id": "s3",
+     "pt": "New equity",
+     "m": 1,
+     "skill": "computation",
+     "kw": [
+      "new|flotation"
+     ],
+     "min": 1,
+     "nums": [
+      15.58
+     ]
+    },
+    {
+     "id": "s4",
+     "pt": "CAPM",
+     "m": 1,
+     "skill": "computation",
+     "kw": [
+      "capm|beta"
+     ],
+     "min": 1,
+     "nums": [
+      14.8
+     ]
+    }
+   ],
+   "remarks": [
+    "Grow D0 to D1."
+   ],
+   "mistakes": [
+    "Deducting flotation for retained earnings."
+   ],
+   "tips": [
+    "Table."
+   ],
+   "extra_ok": true,
+   "checks": [
+    {
+     "expr": "4*1.08",
+     "value": 4.32,
+     "label": "Next dividend D1 = D0(1 + g)"
+    },
+    {
+     "expr": "round((4.32/60+0.08)*100,2)",
+     "value": 15.2,
+     "label": "Ke (existing shares / retained earnings) = D1/P0 + g, %"
+    },
+    {
+     "expr": "round((4.32/(60-3)+0.08)*100,2)",
+     "value": 15.58,
+     "label": "Ke on a new issue = D1/(P0 – F) + g, %"
+    },
+    {
+     "expr": "7+1.3*(13-7)",
+     "value": 14.8,
+     "label": "CAPM: Rf + β(Rm – Rf), %"
+    }
+   ]
+  },
+  {
+   "id": "q3",
+   "marks": 6,
+   "minutes": 11,
+   "difficulty": "core",
+   "pad": "table",
+   "q": "Krishna Cables Ltd.: equity capital ₹30 lakh (3,00,000 shares of ₹10), retained earnings ₹20 lakh, 11% preference ₹10 lakh, 10% debentures ₹40 lakh. Costs: equity and retained earnings 15%, preference 11.5%, debt 7.5% after tax. Market values: equity ₹30 a share, preference ₹9 lakh, debentures ₹38 lakh. Compute WACC on book and market weights.",
+   "model": [
+    {
+     "t": "table",
+     "head": [
+      "Source",
+      "Book ₹",
+      "Market ₹",
+      "Cost %"
+     ],
+     "rows": [
+      [
+       "Equity capital",
+       "30,00,000",
+       "90,00,000 (3,00,000 × ₹30, covers retained earnings too)",
+       "15"
+      ],
+      [
+       "Retained earnings",
+       "20,00,000",
+       "—",
+       "15"
+      ],
+      [
+       "Preference",
+       "10,00,000",
+       "9,00,000",
+       "11.5"
+      ],
+      [
+       "Debentures",
+       "40,00,000",
+       "38,00,000",
+       "7.5"
+      ],
+      [
+       "Total",
+       "1,00,00,000",
+       "1,37,00,000",
+       ""
+      ]
+     ],
+     "title": "Weights"
+    },
+    {
+     "t": "p",
+     "text": "Book-value WACC = (50 × 15 + 10 × 11.5 + 40 × 7.5) ÷ 100 = 11.65%. Market-value WACC = (90 × 15 + 9 × 11.5 + 38 × 7.5) ÷ 137 = 12.69%."
+    },
+    {
+     "t": "note",
+     "text": "The market price of equity already reflects retained earnings, so retained earnings get no separate market weight."
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "Book weights",
+     "m": 2,
+     "skill": "computation",
+     "kw": [
+      "book"
+     ],
+     "min": 1,
+     "nums": [
+      11.65
+     ]
+    },
+    {
+     "id": "s2",
+     "pt": "Market values",
+     "m": 1.5,
+     "skill": "computation",
+     "kw": [
+      "market"
+     ],
+     "min": 1,
+     "nums": [
+      13700000
+     ]
+    },
+    {
+     "id": "s3",
+     "pt": "Market WACC",
+     "m": 2,
+     "skill": "computation",
+     "kw": [
+      "market"
+     ],
+     "min": 1,
+     "nums": [
+      12.69
+     ]
+    },
+    {
+     "id": "s4",
+     "pt": "Retained earnings in market weights",
+     "m": 0.5,
+     "skill": "concept",
+     "kw": [
+      "retained"
+     ],
+     "min": 1
+    }
+   ],
+   "remarks": [
+    "Keep retained earnings out of market weights."
+   ],
+   "mistakes": [
+    "Adding retained earnings to market value of equity."
+   ],
+   "tips": [
+    "Table + working."
+   ],
+   "extra_ok": true,
+   "checks": [
+    {
+     "expr": "round((3000000*15+2000000*15+1000000*11.5+4000000*7.5)/10000000,2)",
+     "value": 11.65,
+     "label": "WACC on book weights, %"
+    },
+    {
+     "expr": "9000000+900000+3800000",
+     "value": 13700000,
+     "label": "Total market value"
+    },
+    {
+     "expr": "round((9000000*15+900000*11.5+3800000*7.5)/13700000,2)",
+     "value": 12.69,
+     "label": "WACC on market weights, %"
+    }
+   ]
+  },
+  {
+   "id": "q4",
+   "marks": 4,
+   "minutes": 7,
+   "difficulty": "core",
+   "pad": "text",
+   "q": "Explain the marginal cost of capital and why it rises in steps.",
+   "model": [
+    {
+     "t": "p",
+     "text": "The marginal cost of capital is the weighted average cost of each additional rupee raised, using the proportions in which the new funds will be raised. While each source can be obtained at an unchanged cost, the MCC equals the existing WACC. It rises at break points: when cheap sources run out — for example retained earnings are exhausted and new shares with flotation cost must be issued, or a lender charges more beyond a borrowing limit. Break point = funds available at a cost ÷ that source's proportion in the mix. New projects should be judged against the MCC at the level of funding they need."
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "Definition",
+     "m": 1,
+     "skill": "concept",
+     "kw": [
+      "additional|next rupee|new funds"
+     ],
+     "min": 1
+    },
+    {
+     "id": "s2",
+     "pt": "Marginal weights",
+     "m": 1,
+     "skill": "concept",
+     "kw": [
+      "proportion|weights"
+     ],
+     "min": 1
+    },
+    {
+     "id": "s3",
+     "pt": "Break points",
+     "m": 1.5,
+     "skill": "concept",
+     "kw": [
+      "break point|exhausted|run out"
+     ],
+     "min": 1
+    },
+    {
+     "id": "s4",
+     "pt": "Use for projects",
+     "m": 0.5,
+     "skill": "concept",
+     "kw": [
+      "project"
+     ],
+     "min": 1
+    }
+   ],
+   "remarks": [
+    "Define, then explain steps."
+   ],
+   "mistakes": [
+    "Confusing MCC with book WACC."
+   ],
+   "tips": [
+    "Short paragraph."
+   ],
+   "extra_ok": true
+  }
+ ],
+ "revision": {
+  "summary": [
+   "Cost of capital = investors' required return; the hurdle rate for projects.",
+   "Kd after tax = I(1 – t)/NP; redeemable adds (RV – NP)/n over average value; YTM is exact.",
+   "Kp = PD/NP (no tax adjustment).",
+   "Ke: D/P0, EPS/P0, D1/P0 + g, realised yield, CAPM.",
+   "New equity: D1/(P0 – F) + g; retained earnings: no flotation.",
+   "WACC = Σ weight × cost; book, market or target weights.",
+   "MCC rises at break points = funds at a cost ÷ weight."
+  ],
+  "remember": [
+   "Use D1, not D0, in Gordon's model.",
+   "Market value of equity already includes retained earnings."
+  ],
+  "traps": [
+   "No tax adjustment for preference dividend.",
+   "Shortcut formula fails for deep discount bonds."
+  ]
+ },
+ "quickref": [
+  {
+   "k": "Irredeemable Kd",
+   "v": "I(1–t)/NP"
+  },
+  {
+   "k": "Gordon Ke",
+   "v": "D1/P0 + g"
+  },
+  {
+   "k": "New equity",
+   "v": "D1/(P0–F) + g"
+  },
+  {
+   "k": "CAPM",
+   "v": "Rf + β(Rm–Rf)"
+  },
+  {
+   "k": "Kp",
+   "v": "PD/NP"
+  },
+  {
+   "k": "Break point",
+   "v": "Funds ÷ weight"
+  }
+ ],
+ "viva": [
+  {
+   "id": "v1",
+   "q": "Why is the cost of debt lower than the cost of equity?",
+   "model": "Lenders bear less risk because interest and repayment are contractual and rank first, and interest is tax-deductible, which further lowers the effective cost.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Lower risk for lenders",
+     "w": 5,
+     "kw": [
+      "risk|priority|first"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Tax-deductible interest",
+     "w": 5,
+     "kw": [
+      "tax"
+     ]
+    }
+   ],
+   "concept": "c2"
+  },
+  {
+   "id": "v2",
+   "q": "How is the cost of a new equity issue different from the cost of retained earnings?",
+   "model": "New equity bears flotation costs, so the company receives the price less those costs and its cost is higher; retained earnings have no flotation cost.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Flotation cost",
+     "w": 6,
+     "kw": [
+      "flotation|issue cost"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "New equity costs more",
+     "w": 4,
+     "kw": [
+      "higher|more"
+     ]
+    }
+   ],
+   "concept": "c7"
+  },
+  {
+   "id": "v3",
+   "q": "What does beta measure in CAPM?",
+   "model": "Beta measures the sensitivity of a share's returns to market returns, that is, its systematic or non-diversifiable risk.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Sensitivity to market",
+     "w": 6,
+     "kw": [
+      "sensitiv|market"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Systematic risk",
+     "w": 4,
+     "kw": [
+      "systematic|non-diversifiable"
+     ]
+    }
+   ],
+   "concept": "c6"
+  },
+  {
+   "id": "v4",
+   "q": "Why is YTM preferred to the approximation formula for debt?",
+   "model": "YTM finds the exact rate that equates net proceeds with the present value of post-tax interest and redemption, while the shortcut is only an average and loses accuracy when values differ widely.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Exact IRR",
+     "w": 6,
+     "kw": [
+      "exact|irr|present value"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Shortcut inaccurate",
+     "w": 4,
+     "kw": [
+      "approximate|accuracy|differ"
+     ]
+    }
+   ],
+   "concept": "c3"
+  },
+  {
+   "id": "v5",
+   "q": "Which weights can be used for WACC?",
+   "model": "Book-value weights from the balance sheet, market-value weights from current prices, and target or marginal weights for planned financing.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Book value",
+     "w": 3,
+     "kw": [
+      "book"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Market value",
+     "w": 4,
+     "kw": [
+      "market"
+     ]
+    },
+    {
+     "id": "p3",
+     "pt": "Target or marginal",
+     "w": 3,
+     "kw": [
+      "target|marginal"
+     ]
+    }
+   ],
+   "concept": "c8"
+  }
+ ],
+ "cases": [
+  {
+   "id": "k1",
+   "title": "Sahyog Agro's expansion",
+   "difficulty": "moderate",
+   "case": "Sahyog Agro Ltd. plans ₹20 lakh of new investment in a 40% debt / 60% equity mix. It has ₹6 lakh of retained earnings. Debt costs 10% before tax (tax 25%). Its share sells at ₹50, the next dividend is ₹3 and growth is 6%. A new issue would cost ₹2.50 a share in flotation.",
+   "mcqs": [
+    {
+     "id": "k1a",
+     "q": "Cost of retained earnings is:",
+     "options": [
+      "12%",
+      "12.32%",
+      "6%",
+      "7.5%"
+     ],
+     "answer": 0,
+     "explain": "Kr = D1 ÷ P0 + g = 3 ÷ 50 + 6% = 6% + 6% = 12%. No flotation cost applies to retained earnings, which makes them cheaper than a fresh issue. In practice: use D1, the next dividend.",
+     "difficulty": "core",
+     "check": 12,
+     "topic": "Cost of retained earnings"
+    },
+    {
+     "id": "k1b",
+     "q": "Cost of new equity is about:",
+     "options": [
+      "12.32%",
+      "12%",
+      "13%",
+      "6.32%"
+     ],
+     "answer": 0,
+     "explain": "Ke = 3 ÷ (50 – 2.50) + 6% = 6.32% + 6% = 12.32%. The flotation cost reduces what the company receives per share and so raises the cost. In practice: compute it per share.",
+     "difficulty": "moderate",
+     "check": 12.32,
+     "topic": "Cost of equity — dividend, earnings and growth approaches"
+    },
+    {
+     "id": "k1c",
+     "q": "The break point for retained earnings is:",
+     "options": [
+      "₹10,00,000",
+      "₹6,00,000",
+      "₹15,00,000",
+      "₹3,60,000"
+     ],
+     "answer": 0,
+     "explain": "Retained earnings of ₹6 lakh can finance the equity part of total funding up to ₹6 lakh ÷ 0.60 = ₹10 lakh. Beyond that, new equity at the higher cost is needed. In practice: MCC jumps at this point.",
+     "difficulty": "hard",
+     "check": 1000000,
+     "topic": "Marginal cost of capital"
+    },
+    {
+     "id": "k1d",
+     "q": "MCC for the first ₹10 lakh is:",
+     "options": [
+      "10.2%",
+      "10.39%",
+      "9.2%",
+      "11%"
+     ],
+     "answer": 0,
+     "explain": "Post-tax Kd = 10% × 0.75 = 7.5%. MCC = 0.40 × 7.5% + 0.60 × 12% = 3% + 7.2% = 10.2%. Beyond ₹10 lakh it becomes 0.40 × 7.5% + 0.60 × 12.32% ≈ 10.39%. In practice: report both slabs.",
+     "difficulty": "hard",
+     "check": 10.2,
+     "topic": "Marginal cost of capital"
+    }
+   ]
+  }
+ ],
+ "topics": [
+  "Introduction",
+  "Meaning of Cost of Capital",
+  "Significance of Cost of Capital",
+  "Determination of Cost of Capital",
+  "Cost of Long-term Debt",
+  "Cost of Preference Share Capital",
+  "Cost of Equity Share Capital",
+  "Cost of Retained Earnings",
+  "Weighted Average Cost of Capital",
+  "Marginal Cost of Capital"
+ ]
+}
