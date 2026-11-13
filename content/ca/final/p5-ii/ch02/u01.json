@@ -1,0 +1,788 @@
+{
+ "schema": "ca-unit/1",
+ "id": "fin-p5-ii-ch02-u01",
+ "level": "final",
+ "paper": "p5",
+ "chapter": "fin-p5-ii-ch02",
+ "n": 1,
+ "title": "Types of Duty",
+ "outcomes": [
+  "Explain BCD, IGST, SWS and AIDC on imports.",
+  "Apply safeguard measures and emergency powers.",
+  "Apply countervailing and anti-dumping duties.",
+  "Compute total customs duty on imports."
+ ],
+ "meta": {
+  "difficulty": "hard",
+  "minutes": {
+   "learn": 45,
+   "practice": 30
+  },
+  "prereq": [
+   "fin-p5-ii-ch01-u01"
+  ],
+  "exam_tip": "Keep two bases separate: SWS excludes trade-remedy duties; the IGST base includes them."
+ },
+ "concepts": [
+  {
+   "id": "c1",
+   "title": "Basic customs duty, IGST and surcharges",
+   "body": [
+    "BCD is levied under section 12 of the Customs Act at rates in the First Schedule (imports, 8-digit, HSN-aligned) or Second Schedule (exports, a short list). Preferential rates apply to imports from notified areas if the importer claims them and proves origin under rules of origin; otherwise the standard rate applies.",
+    "IGST under section 3(7) of the Customs Tariff Act applies at the rate on like goods supplied in India (cap 40%), on assessable value plus BCD and other customs duties, excluding IGST itself. GST compensation cess under section 3(9) has been phased out. For warehoused goods sold before clearance, IGST value is the higher of that value and the last transaction value.",
+    "Social welfare surcharge is 10% of aggregate customs duties, excluding safeguard duty, CVD, anti-dumping duty and SWS itself; IGST is exempt from SWS. AIDC is levied on specified goods at notified rates. Additional duty under section 3(1) now matters mainly for petroleum and tobacco."
+   ],
+   "analogy": "Layers of duty, each with its own base.",
+   "work": "SWS on BCD of ₹1,00,000 is ₹10,000."
+  },
+  {
+   "id": "c2",
+   "title": "Safeguard measures and emergency powers",
+   "body": [
+    "Sections 8 and 8A give emergency power to raise export or import duty by notification. Section 8B lets the Government impose safeguard measures — duty, tariff-rate quota or other measures — where increased imports cause or threaten serious injury to the domestic industry.",
+    "Safeguard measures last up to 4 years, extendable while the industry adjusts, but not beyond 10 years in total. A provisional measure may last up to 200 days. Tariff-rate quotas ordinarily keep imports at least at the average of the last three representative years.",
+    "Exclusions: a developing country with import share not exceeding 3%, provided such countries together do not exceed 9%. Imports by EOU/SEZ units are excluded unless cleared into DTA, when duty applies on the portion cleared."
+   ],
+   "analogy": "Safeguards protect against surges, regardless of fairness of trade.",
+   "work": "A sudden import surge of solar glass can trigger a safeguard duty."
+  },
+  {
+   "id": "c3",
+   "title": "Countervailing and anti-dumping duties",
+   "body": [
+    "Section 9 allows countervailing duty on subsidised imports, capped at the subsidy amount; section 9A allows anti-dumping duty, capped at the margin of dumping (normal value less export price) and in practice the lower of dumping margin and injury margin. Both apply irrespective of other duties and may be provisional.",
+    "Both duties last 5 years unless revoked, extendable by up to 5 years on review. Retrospective levy is possible in case of massive dumping or subsidisation causing hard-to-repair injury, but not beyond 90 days before the provisional duty notification.",
+    "Section 9B: the same article cannot bear both CVD and ADD for the same situation; no levy merely because of exemption from domestic taxes on exports; provisional duties are restricted for WTO members unless injury is found. Appeals lie to the CESTAT Special Bench within 90 days under section 9C with a fee of ₹15,000."
+   ],
+   "analogy": "Unfair trade remedies need proof of subsidy or dumping plus injury.",
+   "work": "An exporter selling at ₹500 when home price is ₹600 is dumping by ₹100."
+  },
+  {
+   "id": "c4",
+   "title": "Computing total import duty",
+   "body": [
+    "Sequence for computing duty: assessable value; BCD on assessable value; SWS on BCD (and other duties in its base); safeguard, CVD or ADD as applicable; IGST on assessable value plus all customs duties.",
+    "ADD, CVD and safeguard duty enter the IGST base but stay out of the SWS base.",
+    "Registered importers may take ITC of IGST paid on imports; BCD, SWS and ADD are costs."
+   ],
+   "analogy": "Order of computation matters.",
+   "work": "Importer's ITC covers IGST but not BCD."
+  }
+ ],
+ "illustrations": [
+  {
+   "id": "i1",
+   "title": "Total duty with anti-dumping duty",
+   "difficulty": "hard",
+   "minutes": 10,
+   "q": "Orbit Glassware imports 1,000 units with assessable value ₹10,00,000. BCD is 10%, SWS 10%, IGST 18%. The export price is ₹500 per unit against a normal value of ₹600; the injury margin is ₹70 per unit. Compute total duty and IGST.",
+   "solution": [
+    {
+     "t": "table",
+     "head": [
+      "Item",
+      "Working",
+      "₹"
+     ],
+     "rows": [
+      [
+       "BCD",
+       "10% of 10,00,000",
+       "1,00,000"
+      ],
+      [
+       "SWS",
+       "10% of BCD",
+       "10,000"
+      ],
+      [
+       "ADD",
+       "Lower of ₹100 and ₹70 × 1,000",
+       "70,000"
+      ],
+      [
+       "Value for IGST",
+       "AV + BCD + SWS + ADD",
+       "11,80,000"
+      ],
+      [
+       "IGST",
+       "18%",
+       "2,12,400"
+      ],
+      [
+       "Total",
+       "BCD + SWS + ADD + IGST",
+       "3,92,400"
+      ]
+     ],
+     "title": "Customs Tariff Act"
+    }
+   ],
+   "checks": [
+    {
+     "expr": "1000000*0.10",
+     "value": 100000,
+     "label": "Basic customs duty at 10% (₹)"
+    },
+    {
+     "expr": "1000000*0.10*0.10",
+     "value": 10000,
+     "label": "Social welfare surcharge at 10% of BCD (₹)"
+    },
+    {
+     "expr": "min(600-500,70)*1000",
+     "value": 70000,
+     "label": "Anti-dumping duty: lower of dumping margin and injury margin × units (₹)"
+    },
+    {
+     "expr": "1000000+1000000*0.10+1000000*0.10*0.10+min(600-500,70)*1000",
+     "value": 1180000,
+     "label": "Value for IGST including BCD, SWS and ADD (₹)"
+    },
+    {
+     "expr": "(1000000+1000000*0.10+1000000*0.10*0.10+min(600-500,70)*1000)*0.18",
+     "value": 212400,
+     "label": "IGST at 18% (₹)"
+    },
+    {
+     "expr": "1000000*0.10+1000000*0.10*0.10+min(600-500,70)*1000+(1000000+1000000*0.10+1000000*0.10*0.10+min(600-500,70)*1000)*0.18",
+     "value": 392400,
+     "label": "Total customs duty and tax (₹)"
+    }
+   ]
+  },
+  {
+   "id": "i2",
+   "title": "Developing-country exclusion from safeguard duty",
+   "difficulty": "moderate",
+   "minutes": 6,
+   "q": "Safeguard duty is imposed on an article. Notified developing countries A, B and C supply 2.5%, 2.8% and 3.6% of India's imports respectively. Which countries are excluded?",
+   "solution": [
+    {
+     "t": "table",
+     "head": [
+      "Test",
+      "Rule",
+      "Result"
+     ],
+     "rows": [
+      [
+       "Individual share",
+       "Each below 3%",
+       "A and B qualify; C does not"
+      ],
+      [
+       "Aggregate of below-3% countries",
+       "A + B = 5.3%, within 9%",
+       "A and B excluded"
+      ],
+      [
+       "Country C",
+       "Share above 3%",
+       "Duty applies"
+      ]
+     ],
+     "title": "Section 8B proviso"
+    }
+   ],
+   "checks": [
+    {
+     "expr": "2.5",
+     "value": 2.5,
+     "label": "Share of imports from country A (%)"
+    },
+    {
+     "expr": "2.5+2.8+3.6",
+     "value": 8.9,
+     "label": "Combined share of countries each below 3% (%)"
+    }
+   ]
+  }
+ ],
+ "jobs": [
+  {
+   "id": "j1",
+   "title": "Landed cost sheet",
+   "role": "Import costing analyst",
+   "situation": "Procurement asks for landed cost of a dumped item.",
+   "steps": [
+    "Fix assessable value.",
+    "Apply BCD and SWS.",
+    "Add ADD per notification.",
+    "Compute IGST and identify credit."
+   ],
+   "takeaway": "ADD can change sourcing decisions."
+  }
+ ],
+ "mcqs": [
+  {
+   "id": "m1",
+   "q": "SWS is excluded from being charged on:",
+   "options": [
+    "Anti-dumping duty",
+    "Basic customs duty",
+    "Additional duty under section 3(1)",
+    "All customs duties"
+   ],
+   "answer": 0,
+   "explain": "Excluded list. In practice: also CVD, safeguard.",
+   "concept": "c1",
+   "topic": "Basic customs duty, IGST and surcharges",
+   "difficulty": "core"
+  },
+  {
+   "id": "m2",
+   "q": "IGST on imports is computed on:",
+   "options": [
+    "Assessable value plus customs duties",
+    "Assessable value only",
+    "BCD only",
+    "Invoice value only"
+   ],
+   "answer": 0,
+   "explain": "Section 3(8). In practice: excludes IGST.",
+   "concept": "c1",
+   "topic": "Basic customs duty, IGST and surcharges",
+   "difficulty": "core"
+  },
+  {
+   "id": "m3",
+   "q": "Maximum total duration of safeguard measures is:",
+   "options": [
+    "Ten years",
+    "Four years",
+    "Five years",
+    "Eight years"
+   ],
+   "answer": 0,
+   "explain": "Section 8B. In practice: initial four years.",
+   "concept": "c2",
+   "topic": "Safeguard measures and emergency powers",
+   "difficulty": "core"
+  },
+  {
+   "id": "m4",
+   "q": "Developing-country exclusion requires individual import share not above:",
+   "options": [
+    "Three percent",
+    "Five percent",
+    "Nine percent",
+    "One percent"
+   ],
+   "answer": 0,
+   "explain": "Aggregate cap nine percent. In practice: notified countries.",
+   "concept": "c2",
+   "topic": "Safeguard measures and emergency powers",
+   "difficulty": "core"
+  },
+  {
+   "id": "m5",
+   "q": "Anti-dumping duty cannot exceed:",
+   "options": [
+    "Margin of dumping",
+    "Injury margin plus ten percent",
+    "Normal value",
+    "Export price"
+   ],
+   "answer": 0,
+   "explain": "Section 9A(1). In practice: lesser duty.",
+   "concept": "c3",
+   "topic": "Countervailing and anti-dumping duties",
+   "difficulty": "core"
+  },
+  {
+   "id": "m6",
+   "q": "Duration of anti-dumping duty unless revoked:",
+   "options": [
+    "Five years",
+    "Four years",
+    "Ten years",
+    "Three years"
+   ],
+   "answer": 0,
+   "explain": "Extendable up to five years. In practice: sunset review.",
+   "concept": "c3",
+   "topic": "Countervailing and anti-dumping duties",
+   "difficulty": "core"
+  },
+  {
+   "id": "m7",
+   "q": "Appeal against anti-dumping determination lies to:",
+   "options": [
+    "CESTAT",
+    "High Court",
+    "Commissioner (Appeals)",
+    "Designated Authority"
+   ],
+   "answer": 0,
+   "explain": "Section 9C. In practice: within 90 days.",
+   "concept": "c3",
+   "topic": "Countervailing and anti-dumping duties",
+   "difficulty": "core"
+  },
+  {
+   "id": "m8",
+   "q": "Can CVD and ADD both apply to the same article to cover the same situation?",
+   "options": [
+    "No",
+    "Yes",
+    "Only for EOU",
+    "Only provisionally"
+   ],
+   "answer": 0,
+   "explain": "Section 9B. In practice: one remedy.",
+   "concept": "c3",
+   "topic": "Countervailing and anti-dumping duties",
+   "difficulty": "core"
+  }
+ ],
+ "questions": [
+  {
+   "id": "q1",
+   "marks": 8,
+   "minutes": 14,
+   "difficulty": "core",
+   "pad": "table",
+   "q": "Orbit Glassware imports 1,000 units with assessable value ₹10,00,000. BCD is 10%, SWS 10%, IGST 18%. The export price is ₹500 per unit against a normal value of ₹600; the injury margin is ₹70 per unit. Compute total duty and IGST.",
+   "model": [
+    {
+     "t": "table",
+     "head": [
+      "Item",
+      "Working",
+      "₹"
+     ],
+     "rows": [
+      [
+       "BCD",
+       "10% of 10,00,000",
+       "1,00,000"
+      ],
+      [
+       "SWS",
+       "10% of BCD",
+       "10,000"
+      ],
+      [
+       "ADD",
+       "Lower of ₹100 and ₹70 × 1,000",
+       "70,000"
+      ],
+      [
+       "Value for IGST",
+       "AV + BCD + SWS + ADD",
+       "11,80,000"
+      ],
+      [
+       "IGST",
+       "18%",
+       "2,12,400"
+      ],
+      [
+       "Total",
+       "BCD + SWS + ADD + IGST",
+       "3,92,400"
+      ]
+     ],
+     "title": "Customs Tariff Act"
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "BCD and SWS",
+     "m": 2,
+     "skill": "computation",
+     "kw": [
+      "BCD"
+     ],
+     "min": 1,
+     "nums": [
+      100000,
+      10000
+     ]
+    },
+    {
+     "id": "s2",
+     "pt": "ADD",
+     "m": 2,
+     "skill": "computation",
+     "kw": [
+      "injury margin"
+     ],
+     "min": 1,
+     "nums": [
+      70000
+     ]
+    },
+    {
+     "id": "s3",
+     "pt": "IGST and total",
+     "m": 4,
+     "skill": "computation",
+     "kw": [
+      "18%"
+     ],
+     "min": 1,
+     "nums": [
+      1180000,
+      212400,
+      392400
+     ]
+    }
+   ],
+   "remarks": [
+    "Keep ADD out of SWS base."
+   ],
+   "mistakes": [
+    "Charging SWS on ADD."
+   ],
+   "tips": [
+    "Table."
+   ],
+   "extra_ok": true,
+   "checks": [
+    {
+     "expr": "1000000*0.10",
+     "value": 100000,
+     "label": "Basic customs duty at 10% (₹)"
+    },
+    {
+     "expr": "1000000*0.10*0.10",
+     "value": 10000,
+     "label": "Social welfare surcharge at 10% of BCD (₹)"
+    },
+    {
+     "expr": "min(600-500,70)*1000",
+     "value": 70000,
+     "label": "Anti-dumping duty: lower of dumping margin and injury margin × units (₹)"
+    },
+    {
+     "expr": "1000000+1000000*0.10+1000000*0.10*0.10+min(600-500,70)*1000",
+     "value": 1180000,
+     "label": "Value for IGST including BCD, SWS and ADD (₹)"
+    },
+    {
+     "expr": "(1000000+1000000*0.10+1000000*0.10*0.10+min(600-500,70)*1000)*0.18",
+     "value": 212400,
+     "label": "IGST at 18% (₹)"
+    },
+    {
+     "expr": "1000000*0.10+1000000*0.10*0.10+min(600-500,70)*1000+(1000000+1000000*0.10+1000000*0.10*0.10+min(600-500,70)*1000)*0.18",
+     "value": 392400,
+     "label": "Total customs duty and tax (₹)"
+    }
+   ]
+  },
+  {
+   "id": "q2",
+   "marks": 4,
+   "minutes": 7,
+   "difficulty": "core",
+   "pad": "table",
+   "q": "Safeguard duty is imposed on an article. Notified developing countries A, B and C supply 2.5%, 2.8% and 3.6% of India's imports respectively. Which countries are excluded?",
+   "model": [
+    {
+     "t": "table",
+     "head": [
+      "Test",
+      "Rule",
+      "Result"
+     ],
+     "rows": [
+      [
+       "Individual share",
+       "Each below 3%",
+       "A and B qualify; C does not"
+      ],
+      [
+       "Aggregate of below-3% countries",
+       "A + B = 5.3%, within 9%",
+       "A and B excluded"
+      ],
+      [
+       "Country C",
+       "Share above 3%",
+       "Duty applies"
+      ]
+     ],
+     "title": "Section 8B proviso"
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "Individual test",
+     "m": 2,
+     "skill": "analysis",
+     "kw": [
+      "3%"
+     ],
+     "min": 1,
+     "nums": [
+      2.5
+     ]
+    },
+    {
+     "id": "s2",
+     "pt": "Aggregate test",
+     "m": 2,
+     "skill": "computation",
+     "kw": [
+      "9%"
+     ],
+     "min": 1
+    }
+   ],
+   "remarks": [
+    "Apply both tests."
+   ],
+   "mistakes": [
+    "Adding C into aggregate."
+   ],
+   "tips": [
+    "Table."
+   ],
+   "extra_ok": true,
+   "checks": [
+    {
+     "expr": "2.5",
+     "value": 2.5,
+     "label": "Share of imports from country A (%)"
+    },
+    {
+     "expr": "2.5+2.8+3.6",
+     "value": 8.9,
+     "label": "Combined share of countries each below 3% (%)"
+    }
+   ]
+  }
+ ],
+ "revision": {
+  "summary": [
+   "BCD under section 12; preferential rate needs origin proof.",
+   "IGST on AV + duties; cap 40%.",
+   "SWS 10%; excludes safeguard, CVD, ADD.",
+   "Safeguard 4 years, max 10; developing country 3%/9%.",
+   "CVD/ADD 5 + 5 years; appeal CESTAT 90 days."
+  ],
+  "remember": [
+   "ADD = lower of dumping margin and injury margin."
+  ],
+  "traps": [
+   "Charging SWS on IGST."
+  ]
+ },
+ "quickref": [
+  {
+   "k": "BCD",
+   "v": "Section 12"
+  },
+  {
+   "k": "IGST",
+   "v": "Section 3(7) CTA"
+  },
+  {
+   "k": "Safeguard",
+   "v": "Section 8B"
+  },
+  {
+   "k": "CVD",
+   "v": "Section 9"
+  },
+  {
+   "k": "ADD",
+   "v": "Section 9A"
+  }
+ ],
+ "viva": [
+  {
+   "id": "v1",
+   "q": "What is dumping?",
+   "model": "Export of an article to India at a price below its normal value in the exporting country.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Normal value",
+     "w": 5,
+     "kw": [
+      "normal value"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Export price",
+     "w": 5,
+     "kw": [
+      "price"
+     ]
+    }
+   ],
+   "concept": "c3"
+  },
+  {
+   "id": "v2",
+   "q": "What is a tariff-rate quota?",
+   "model": "A safeguard measure allowing a quantity at lower duty with higher duty beyond it.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Quantity",
+     "w": 5,
+     "kw": [
+      "quantity"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Higher duty",
+     "w": 5,
+     "kw": [
+      "higher duty"
+     ]
+    }
+   ],
+   "concept": "c2"
+  },
+  {
+   "id": "v3",
+   "q": "How far back can anti-dumping duty be imposed?",
+   "model": "Up to 90 days before the provisional duty notification, in case of massive dumping.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Ninety days",
+     "w": 5,
+     "kw": [
+      "90 days"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Provisional",
+     "w": 5,
+     "kw": [
+      "provisional"
+     ]
+    }
+   ],
+   "concept": "c3"
+  },
+  {
+   "id": "v4",
+   "q": "When does a preferential rate apply?",
+   "model": "When the importer claims it and proves origin from a notified preferential area under origin rules.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Origin",
+     "w": 5,
+     "kw": [
+      "origin"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Notified area",
+     "w": 5,
+     "kw": [
+      "notified"
+     ]
+    }
+   ],
+   "concept": "c1"
+  },
+  {
+   "id": "v5",
+   "q": "Is IGST on imports creditable?",
+   "model": "Yes, a registered importer can take ITC of IGST paid on imports used in business.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "ITC",
+     "w": 5,
+     "kw": [
+      "itc"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Registered",
+     "w": 5,
+     "kw": [
+      "registered"
+     ]
+    }
+   ],
+   "concept": "c4"
+  }
+ ],
+ "cases": [
+  {
+   "id": "k1",
+   "title": "Subsidised steel imports",
+   "difficulty": "moderate",
+   "case": "An exporting government pays a subsidy of ₹40 per kg on steel exported to India; Indian producers suffer injury.",
+   "mcqs": [
+    {
+     "id": "k1a",
+     "q": "The remedy is:",
+     "options": [
+      "Countervailing duty under section 9",
+      "Safeguard duty",
+      "Export duty",
+      "AIDC"
+     ],
+     "answer": 0,
+     "explain": "Subsidy remedy. In practice: DGTR inquiry.",
+     "difficulty": "moderate",
+     "topic": "Countervailing and anti-dumping duties"
+    },
+    {
+     "id": "k1b",
+     "q": "Maximum CVD per kg (₹):",
+     "options": [
+      "40",
+      "80",
+      "20",
+      "60"
+     ],
+     "answer": 0,
+     "explain": "Capped at subsidy. In practice: lesser if adequate.",
+     "difficulty": "moderate",
+     "check": 40,
+     "topic": "Countervailing and anti-dumping duties"
+    },
+    {
+     "id": "k1c",
+     "q": "Can ADD also be levied for the same situation?",
+     "options": [
+      "No",
+      "Yes",
+      "Only on EOU",
+      "Only retrospectively"
+     ],
+     "answer": 0,
+     "explain": "Section 9B. In practice: avoid double remedy.",
+     "difficulty": "moderate",
+     "topic": "Countervailing and anti-dumping duties"
+    },
+    {
+     "id": "k1d",
+     "q": "Is CVD included in the SWS base?",
+     "options": [
+      "No",
+      "Yes",
+      "Half of it",
+      "Only for steel"
+     ],
+     "answer": 0,
+     "explain": "Excluded. In practice: included in IGST base.",
+     "difficulty": "moderate",
+     "topic": "Basic customs duty, IGST and surcharges"
+    }
+   ]
+  }
+ ]
+}
