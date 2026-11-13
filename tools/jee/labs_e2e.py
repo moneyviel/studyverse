@@ -342,6 +342,11 @@ async def _(pg):
     await tap(pg, '#gtG button', 3); await tap(pg, '#gtIB')
     await tap(pg, '#gtG button', 1); await tap(pg, '#gtIA'); await tap(pg, '#gtG button', 4)
 
+@lab('phy-u20', 'vernier')
+async def _(pg):
+    for v in (0, 12.7, 23.4, 35.9): await setr(pg, 'input[data-k=L]', v)
+    await tap(pg, '#vnN button', 1); await setr(pg, 'input[data-k=L]', 8.35)
+
 async def main(only=None):
     async with async_playwright() as pw:
         b = await pw.chromium.launch(executable_path='/usr/bin/google-chrome', args=['--no-sandbox'])
