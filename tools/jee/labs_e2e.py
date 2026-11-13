@@ -365,6 +365,13 @@ async def _(pg):
     await tap(pg, '#cfI button', 10); await tap(pg, '#cfL button', 5)  # Cu2+ en: 16000 → 625 nm (red)
     await tap(pg, '#cfI button', 6); await tap(pg, '#cfL button', 6)   # Fe2+ CN-: diamagnetic
 
+@lab('chem-u13', 'tlc')
+async def _(pg):
+    await setr(pg, 'input[data-k=s]', 0); await setr(pg, 'input[data-k=f]', 4)       # hexane: acid stays on baseline
+    await setr(pg, 'input[data-k=s]', 45)                              # B at Rf 0.5
+    await setr(pg, 'input[data-k=s]', 50); await setr(pg, 'input[data-k=f]', 8)      # separated, A > 6 cm
+    await setr(pg, 'input[data-k=s]', 100)                             # acid past the middle
+
 async def main(only=None):
     async with async_playwright() as pw:
         b = await pw.chromium.launch(executable_path='/usr/bin/google-chrome', args=['--no-sandbox'])
