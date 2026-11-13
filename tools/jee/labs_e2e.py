@@ -323,6 +323,13 @@ async def _(pg):
     await tap(pg, '#hxP button', 2); await setr(pg, 'input[data-k=B]', 1); await setr(pg, 'input[data-k=v]', 3)
     await setr(pg, 'input[data-k=v]', 5); await setr(pg, 'input[data-k=al]', 45)
 
+@lab('phy-u14', 'lcr')
+async def _(pg):
+    await setr(pg, 'input[data-k=L]', 1); await setr(pg, 'input[data-k=C]', 100); await setr(pg, 'input[data-k=w]', 100); await setr(pg, 'input[data-k=R]', 10)
+    await setr(pg, 'input[data-k=w]', 50)
+    await setr(pg, 'input[data-k=R]', 40); await setr(pg, 'input[data-k=L]', 0.7); await setr(pg, 'input[data-k=C]', 50); await setr(pg, 'input[data-k=w]', 200)
+    await setr(pg, 'input[data-k=R]', 10); await setr(pg, 'input[data-k=L]', 1); await setr(pg, 'input[data-k=C]', 10); await setr(pg, 'input[data-k=w]', 600)
+
 async def main(only=None):
     async with async_playwright() as pw:
         b = await pw.chromium.launch(executable_path='/usr/bin/google-chrome', args=['--no-sandbox'])
