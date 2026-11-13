@@ -307,6 +307,12 @@ async def _(pg):
     await setr(pg, 'input[data-k=th]', 90); await setr(pg, 'input[data-k=a]', 3); await setr(pg, 'input[data-k=b]', 4)
     await setr(pg, 'input[data-k=th]', 45); await setr(pg, 'input[data-k=th]', 120); await setr(pg, 'input[data-k=th]', 180)
 
+@lab('math-u13', 'bayes')
+async def _(pg):
+    await setr(pg, 'input[data-k=prev]', 2); await setr(pg, 'input[data-k=sens]', 95); await setr(pg, 'input[data-k=fp]', 10)
+    await setr(pg, 'input[data-k=prev]', 10); await setr(pg, 'input[data-k=sens]', 90)
+    await setr(pg, 'input[data-k=prev]', 50); await setr(pg, 'input[data-k=fp]', 5); await setr(pg, 'input[data-k=fp]', 0)
+
 async def main(only=None):
     async with async_playwright() as pw:
         b = await pw.chromium.launch(executable_path='/usr/bin/google-chrome', args=['--no-sandbox'])
