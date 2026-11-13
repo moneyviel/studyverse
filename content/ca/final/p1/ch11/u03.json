@@ -1,0 +1,768 @@
+{
+ "schema": "ca-unit/1",
+ "id": "fin-p1-ch11-u03",
+ "level": "final",
+ "paper": "p1",
+ "chapter": "fin-p1-ch11",
+ "n": 3,
+ "title": "Financial Instruments: Equity and Financial Liabilities",
+ "outcomes": [
+  "Apply the obligation-to-deliver-cash test.",
+  "Classify contracts settled in own equity instruments.",
+  "Split and account for compound instruments.",
+  "Account for treasury shares, distributions and offsetting."
+ ],
+ "meta": {
+  "difficulty": "hard",
+  "minutes": {
+   "learn": 40,
+   "practice": 30
+  },
+  "prereq": [
+   "fin-p1-ch11-u02"
+  ],
+  "exam_tip": "Look for any feature that forces the issuer to pay — one such clause makes the whole instrument, or a component, a liability."
+ },
+ "concepts": [
+  {
+   "id": "c1",
+   "title": "Obligation to deliver cash: the core test",
+   "body": [
+    "The key feature of a financial liability is a contractual obligation that the issuer cannot avoid to deliver cash or another financial asset. If the issuer has an unconditional right to avoid payment, the instrument is equity.",
+    "Substance over form: preference shares mandatorily redeemable, or redeemable at the holder's option, are liabilities; dividends on them are interest expense. Perpetual instruments with mandatory interest are liabilities. Economic compulsion (pressure to pay) does not by itself create a liability.",
+    "Contingent settlement provisions — paying cash on uncertain future events beyond both parties' control — make the instrument a liability unless the provision is not genuine or applies only on liquidation."
+   ],
+   "analogy": "Ask: can the issuer legally refuse to pay? If not, it is a liability.",
+   "work": "Dividend-discretionary perpetual preference shares are equity."
+  },
+  {
+   "id": "c2",
+   "title": "Settlement in own equity instruments",
+   "body": [
+    "A contract settled by delivering a variable number of own shares equal to a fixed amount (or an amount varying with something other than share price) is a financial liability — shares are used like currency.",
+    "A derivative settled by exchanging a fixed number of own shares for a fixed amount of cash (fixed-for-fixed) is equity. Settlement options (net cash or net shares) make a derivative a financial asset or liability unless all alternatives give equity.",
+    "An obligation to buy back own shares for cash (a written put) creates a financial liability measured at the discounted amount payable on buy-back, even if the derivative itself is equity. Rights issues offered pro rata to all owners for a fixed amount in any currency are equity."
+   ],
+   "analogy": "Fixed shares for fixed cash is equity; anything that floats is a liability.",
+   "work": "A promise to issue shares worth exactly ₹10 lakh is debt in disguise."
+  },
+  {
+   "id": "c3",
+   "title": "Compound financial instruments",
+   "body": [
+    "A compound instrument contains both a liability and an equity component, such as a bond convertible into a fixed number of shares. The issuer presents them separately (split accounting).",
+    "The liability component is measured first at the fair value of a similar liability without the equity feature; the equity component is the residual. No gain or loss arises at issue. Transaction costs are allocated in proportion.",
+    "Classification is not revised for changes in likelihood of conversion. On conversion at maturity, the liability is transferred to equity with no gain or loss; early redemption allocates the payment between components using fair values at that date."
+   ],
+   "analogy": "Value the debt first; equity is what is left.",
+   "work": "A 5% convertible issued where debt yields 9% has a sizeable equity part."
+  },
+  {
+   "id": "c4",
+   "title": "Treasury shares, distributions and offsetting",
+   "body": [
+    "Treasury shares (own shares reacquired) are deducted from equity; no gain or loss is recognised on purchase, sale, issue or cancellation, and consideration is recognised directly in equity.",
+    "Interest, dividends, gains and losses on financial liabilities go to profit or loss; distributions to holders of equity instruments are recognised directly in equity. Transaction costs of equity transactions are deducted from equity.",
+    "A financial asset and liability are offset only when the entity currently has a legally enforceable right to set off and intends either to settle net or to realise and settle simultaneously. The right must not depend on future events and must be enforceable in normal business, default and insolvency."
+   ],
+   "analogy": "Own-share dealings never hit profit; offsetting needs both a right and an intent.",
+   "work": "A bank deposit and an overdraft with different banks cannot be offset."
+  }
+ ],
+ "illustrations": [
+  {
+   "id": "i1",
+   "title": "Splitting a convertible bond",
+   "difficulty": "moderate",
+   "minutes": 10,
+   "q": "Falcon Ltd. issues 3-year convertible bonds for ₹100 lakh with a 5% annual coupon. Each bond converts into a fixed number of shares at maturity. Similar bonds without conversion carry 9% (3-year annuity factor 2.5313; discount factor year 3: 0.7722). Split the instrument and compute year-1 interest and closing liability.",
+   "solution": [
+    {
+     "t": "table",
+     "head": [
+      "Item",
+      "Working",
+      "₹ lakh"
+     ],
+     "rows": [
+      [
+       "Liability component",
+       "5 × 2.5313 + 100 × 0.7722",
+       "89.88"
+      ],
+      [
+       "Equity component (residual)",
+       "100 − 89.88",
+       "10.12"
+      ],
+      [
+       "Interest expense year 1",
+       "89.8765 × 9%",
+       "8.09"
+      ],
+      [
+       "Liability at end of year 1",
+       "89.8765 + 8.09 − 5",
+       "92.97"
+      ],
+      [
+       "Equity component",
+       "Not remeasured",
+       "10.12"
+      ]
+     ],
+     "title": "Split accounting"
+    }
+   ],
+   "checks": [
+    {
+     "expr": "5*2.5313+100*0.7722",
+     "value": 89.88,
+     "label": "Liability component at 9% (₹ lakh)"
+    },
+    {
+     "expr": "100-(5*2.5313+100*0.7722)",
+     "value": 10.12,
+     "label": "Equity component (₹ lakh)"
+    },
+    {
+     "expr": "(5*2.5313+100*0.7722)*0.09",
+     "value": 8.09,
+     "label": "Interest expense year 1 (₹ lakh)"
+    },
+    {
+     "expr": "(5*2.5313+100*0.7722)*1.09-5",
+     "value": 92.97,
+     "label": "Liability at end of year 1 (₹ lakh)"
+    }
+   ]
+  },
+  {
+   "id": "i2",
+   "title": "Liability or equity?",
+   "difficulty": "moderate",
+   "minutes": 8,
+   "q": "Classify: (a) non-redeemable preference shares with discretionary dividends; (b) preference shares redeemable at a fixed date; (c) perpetual bonds with mandatory interest; (d) a written call on own shares — fixed shares for fixed cash; (e) a contract to deliver shares worth ₹10 lakh; (f) preference shares redeemable at the issuer's option with dividends that become mandatory if ordinary dividends are paid.",
+   "solution": [
+    {
+     "t": "table",
+     "head": [
+      "Item",
+      "Classification",
+      "Reason"
+     ],
+     "rows": [
+      [
+       "(a)",
+       "Equity",
+       "No contractual obligation to pay"
+      ],
+      [
+       "(b)",
+       "Liability",
+       "Must pay cash on redemption"
+      ],
+      [
+       "(c)",
+       "Liability",
+       "Interest is unavoidable for ever"
+      ],
+      [
+       "(d)",
+       "Equity",
+       "Fixed for fixed"
+      ],
+      [
+       "(e)",
+       "Liability",
+       "Variable number of shares"
+      ],
+      [
+       "(f)",
+       "Equity",
+       "Issuer can avoid payment by not paying ordinary dividends"
+      ]
+     ],
+     "title": "Ind AS 32 classification"
+    }
+   ],
+   "checks": []
+  }
+ ],
+ "jobs": [
+  {
+   "id": "j1",
+   "title": "Reviewing an instrument term sheet",
+   "role": "Corporate finance analyst",
+   "situation": "The board plans to issue convertible preference shares to an investor.",
+   "steps": [
+    "Identify any unavoidable payment obligations.",
+    "Apply fixed-for-fixed to the conversion feature.",
+    "Split compound elements at issue.",
+    "Assess presentation of dividends."
+   ],
+   "takeaway": "Term-sheet wording drives balance sheet classification."
+  }
+ ],
+ "mcqs": [
+  {
+   "id": "m1",
+   "q": "The deciding feature of a financial liability is:",
+   "options": [
+    "An unavoidable contractual obligation to deliver cash or financial assets",
+    "Its legal name",
+    "Its maturity",
+    "The holder's intention"
+   ],
+   "answer": 0,
+   "explain": "Substance over form. In practice: read the contract terms.",
+   "concept": "c1",
+   "topic": "Obligation to deliver cash: the core test",
+   "difficulty": "core"
+  },
+  {
+   "id": "m2",
+   "q": "In a compound instrument, the component measured first is:",
+   "options": [
+    "The liability",
+    "The equity",
+    "Both at fair value",
+    "Neither"
+   ],
+   "answer": 0,
+   "explain": "Equity is the residual. In practice: discount at market rate for similar debt.",
+   "concept": "c3",
+   "topic": "Compound financial instruments",
+   "difficulty": "core"
+  },
+  {
+   "id": "m3",
+   "q": "Dividends on mandatorily redeemable preference shares are:",
+   "options": [
+    "Interest expense in profit or loss",
+    "Distributions in equity",
+    "OCI items",
+    "Capital reserve"
+   ],
+   "answer": 0,
+   "explain": "They follow the liability classification. In practice: include in finance costs.",
+   "concept": "c1",
+   "topic": "Obligation to deliver cash: the core test",
+   "difficulty": "core"
+  },
+  {
+   "id": "m4",
+   "q": "Gains on resale of treasury shares are:",
+   "options": [
+    "Recognised directly in equity",
+    "Profit or loss",
+    "OCI",
+    "Revenue"
+   ],
+   "answer": 0,
+   "explain": "No profit from own equity. In practice: adjust securities premium.",
+   "concept": "c4",
+   "topic": "Treasury shares, distributions and offsetting",
+   "difficulty": "core"
+  },
+  {
+   "id": "m5",
+   "q": "Offsetting a financial asset and liability requires:",
+   "options": [
+    "A legally enforceable right and intention to settle net",
+    "Same counterparty only",
+    "Same currency only",
+    "Auditor approval"
+   ],
+   "answer": 0,
+   "explain": "Both conditions are needed. In practice: master netting alone may not suffice.",
+   "concept": "c4",
+   "topic": "Treasury shares, distributions and offsetting",
+   "difficulty": "core"
+  },
+  {
+   "id": "m6",
+   "q": "Economic compulsion to pay dividends:",
+   "options": [
+    "Does not by itself create a liability",
+    "Creates a liability",
+    "Creates a provision",
+    "Is equity reserve"
+   ],
+   "answer": 0,
+   "explain": "Only contractual obligations count. In practice: step-up clauses need analysis.",
+   "concept": "c1",
+   "topic": "Obligation to deliver cash: the core test",
+   "difficulty": "core"
+  },
+  {
+   "id": "m7",
+   "q": "A written put on own shares creates:",
+   "options": [
+    "A liability at the discounted buy-back amount",
+    "Only equity",
+    "Nothing",
+    "An asset"
+   ],
+   "answer": 0,
+   "explain": "The entity may have to pay cash. In practice: reclassify from equity.",
+   "concept": "c2",
+   "topic": "Settlement in own equity instruments",
+   "difficulty": "core"
+  },
+  {
+   "id": "m8",
+   "q": "Classification of a convertible's components is revised when conversion becomes likely:",
+   "options": [
+    "No, it is not revised",
+    "Yes",
+    "Only at maturity",
+    "Only if exercised"
+   ],
+   "answer": 0,
+   "explain": "Initial split stands. In practice: transfer on conversion.",
+   "concept": "c3",
+   "topic": "Compound financial instruments",
+   "difficulty": "core"
+  }
+ ],
+ "questions": [
+  {
+   "id": "q1",
+   "marks": 7,
+   "minutes": 13,
+   "difficulty": "core",
+   "pad": "table",
+   "q": "Falcon Ltd. issues 3-year convertible bonds for ₹100 lakh with a 5% annual coupon. Each bond converts into a fixed number of shares at maturity. Similar bonds without conversion carry 9% (3-year annuity factor 2.5313; discount factor year 3: 0.7722). Split the instrument and compute year-1 interest and closing liability.",
+   "model": [
+    {
+     "t": "table",
+     "head": [
+      "Item",
+      "Working",
+      "₹ lakh"
+     ],
+     "rows": [
+      [
+       "Liability component",
+       "5 × 2.5313 + 100 × 0.7722",
+       "89.88"
+      ],
+      [
+       "Equity component (residual)",
+       "100 − 89.88",
+       "10.12"
+      ],
+      [
+       "Interest expense year 1",
+       "89.8765 × 9%",
+       "8.09"
+      ],
+      [
+       "Liability at end of year 1",
+       "89.8765 + 8.09 − 5",
+       "92.97"
+      ],
+      [
+       "Equity component",
+       "Not remeasured",
+       "10.12"
+      ]
+     ],
+     "title": "Split accounting"
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "Liability",
+     "m": 2,
+     "skill": "computation",
+     "kw": [
+      "liability"
+     ],
+     "min": 1,
+     "nums": [
+      89.88
+     ]
+    },
+    {
+     "id": "s2",
+     "pt": "Equity",
+     "m": 2,
+     "skill": "computation",
+     "kw": [
+      "equity"
+     ],
+     "min": 1,
+     "nums": [
+      10.12
+     ]
+    },
+    {
+     "id": "s3",
+     "pt": "Interest",
+     "m": 1.5,
+     "skill": "computation",
+     "kw": [
+      "interest"
+     ],
+     "min": 1,
+     "nums": [
+      8.09
+     ]
+    },
+    {
+     "id": "s4",
+     "pt": "Closing",
+     "m": 1.5,
+     "skill": "computation",
+     "kw": [
+      "closing"
+     ],
+     "min": 1,
+     "nums": [
+      92.97
+     ]
+    }
+   ],
+   "remarks": [
+    "Value debt first."
+   ],
+   "mistakes": [
+    "Using the coupon rate."
+   ],
+   "tips": [
+    "Table."
+   ],
+   "extra_ok": true,
+   "checks": [
+    {
+     "expr": "5*2.5313+100*0.7722",
+     "value": 89.88,
+     "label": "Liability component at 9% (₹ lakh)"
+    },
+    {
+     "expr": "100-(5*2.5313+100*0.7722)",
+     "value": 10.12,
+     "label": "Equity component (₹ lakh)"
+    },
+    {
+     "expr": "(5*2.5313+100*0.7722)*0.09",
+     "value": 8.09,
+     "label": "Interest expense year 1 (₹ lakh)"
+    },
+    {
+     "expr": "(5*2.5313+100*0.7722)*1.09-5",
+     "value": 92.97,
+     "label": "Liability at end of year 1 (₹ lakh)"
+    }
+   ]
+  },
+  {
+   "id": "q2",
+   "marks": 6,
+   "minutes": 11,
+   "difficulty": "core",
+   "pad": "table",
+   "q": "Classify: (a) non-redeemable preference shares with discretionary dividends; (b) preference shares redeemable at a fixed date; (c) perpetual bonds with mandatory interest; (d) a written call on own shares — fixed shares for fixed cash; (e) a contract to deliver shares worth ₹10 lakh; (f) preference shares redeemable at the issuer's option with dividends that become mandatory if ordinary dividends are paid.",
+   "model": [
+    {
+     "t": "table",
+     "head": [
+      "Item",
+      "Classification",
+      "Reason"
+     ],
+     "rows": [
+      [
+       "(a)",
+       "Equity",
+       "No contractual obligation to pay"
+      ],
+      [
+       "(b)",
+       "Liability",
+       "Must pay cash on redemption"
+      ],
+      [
+       "(c)",
+       "Liability",
+       "Interest is unavoidable for ever"
+      ],
+      [
+       "(d)",
+       "Equity",
+       "Fixed for fixed"
+      ],
+      [
+       "(e)",
+       "Liability",
+       "Variable number of shares"
+      ],
+      [
+       "(f)",
+       "Equity",
+       "Issuer can avoid payment by not paying ordinary dividends"
+      ]
+     ],
+     "title": "Ind AS 32 classification"
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "Equity items",
+     "m": 3,
+     "skill": "concept",
+     "kw": [
+      "equity"
+     ],
+     "min": 1
+    },
+    {
+     "id": "s2",
+     "pt": "Liability items",
+     "m": 3,
+     "skill": "concept",
+     "kw": [
+      "liability"
+     ],
+     "min": 1
+    }
+   ],
+   "remarks": [
+    "Reason each."
+   ],
+   "mistakes": [
+    "Ignoring the issuer option."
+   ],
+   "tips": [
+    "Table."
+   ],
+   "extra_ok": true
+  }
+ ],
+ "revision": {
+  "summary": [
+   "Liability: unavoidable obligation to pay.",
+   "Equity: fixed-for-fixed; issuer can avoid paying.",
+   "Compound: debt at fair value, equity residual.",
+   "Treasury shares: deduct from equity.",
+   "Offset: enforceable right + intent."
+  ],
+  "remember": [
+   "Economic compulsion is not an obligation."
+  ],
+  "traps": [
+   "Treating redeemable preference shares as equity."
+  ]
+ },
+ "quickref": [
+  {
+   "k": "Core test",
+   "v": "Can issuer avoid paying?"
+  },
+  {
+   "k": "Fixed-for-fixed",
+   "v": "Equity"
+  },
+  {
+   "k": "Compound",
+   "v": "Debt first"
+  },
+  {
+   "k": "Treasury",
+   "v": "Equity, no P&L"
+  }
+ ],
+ "viva": [
+  {
+   "id": "v1",
+   "q": "When is an instrument classified as equity under Ind AS 32?",
+   "model": "When the issuer has an unconditional right to avoid delivering cash or financial assets, and any share settlement is fixed-for-fixed.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Unconditional right to avoid",
+     "w": 6,
+     "kw": [
+      "unconditional|avoid"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Fixed-for-fixed",
+     "w": 4,
+     "kw": [
+      "fixed"
+     ]
+    }
+   ],
+   "concept": "c1"
+  },
+  {
+   "id": "v2",
+   "q": "How is a compound instrument split?",
+   "model": "The liability is measured at the fair value of similar debt without conversion, and the equity component is the residual amount.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Liability at fair value",
+     "w": 5,
+     "kw": [
+      "liability|fair value"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Equity residual",
+     "w": 5,
+     "kw": [
+      "residual"
+     ]
+    }
+   ],
+   "concept": "c3"
+  },
+  {
+   "id": "v3",
+   "q": "How are treasury shares accounted for?",
+   "model": "They are deducted from equity, and any difference on buying, reselling or cancelling them stays within equity rather than profit.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Deducted from equity",
+     "w": 5,
+     "kw": [
+      "deduct"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Stays in equity",
+     "w": 5,
+     "kw": [
+      "within equity"
+     ]
+    }
+   ],
+   "concept": "c4"
+  },
+  {
+   "id": "v4",
+   "q": "Why is a contract to deliver shares worth a fixed amount a liability?",
+   "model": "Because the shares are used as currency: the holder receives a fixed value and does not share in residual risk.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Shares as currency",
+     "w": 5,
+     "kw": [
+      "currency"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Fixed value",
+     "w": 5,
+     "kw": [
+      "fixed value"
+     ]
+    }
+   ],
+   "concept": "c2"
+  },
+  {
+   "id": "v5",
+   "q": "What are the offsetting conditions?",
+   "model": "A set-off right that the law will enforce today, plus a plan to settle net or at the same moment.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Enforceable right",
+     "w": 5,
+     "kw": [
+      "enforce"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Intention to settle net",
+     "w": 5,
+     "kw": [
+      "net|simultaneous"
+     ]
+    }
+   ],
+   "concept": "c4"
+  }
+ ],
+ "cases": [
+  {
+   "id": "k1",
+   "title": "Summit Infra Ltd.",
+   "difficulty": "moderate",
+   "case": "Summit Infra Ltd. issues ₹50 crore of 8% preference shares, redeemable at the holder's option after 3 years. It buys back 1 lakh of its own shares at ₹200 each and later resells them at ₹230. It holds a ₹10 crore deposit with Bank A and owes ₹6 crore to Bank A, with a legal set-off right but plans to settle separately.",
+   "mcqs": [
+    {
+     "id": "k1a",
+     "q": "The preference shares are:",
+     "options": [
+      "A financial liability",
+      "Equity",
+      "Compound",
+      "Outside scope"
+     ],
+     "answer": 0,
+     "explain": "Holder can demand cash. In practice: dividends as interest.",
+     "difficulty": "core",
+     "topic": "Obligation to deliver cash: the core test"
+    },
+    {
+     "id": "k1b",
+     "q": "The ₹30 lakh gain on resale of treasury shares goes to:",
+     "options": [
+      "Equity",
+      "Profit or loss",
+      "OCI",
+      "Revenue"
+     ],
+     "answer": 0,
+     "explain": "No gain is recognised on own shares. In practice: credit securities premium.",
+     "difficulty": "core",
+     "topic": "Treasury shares, distributions and offsetting"
+    },
+    {
+     "id": "k1c",
+     "q": "The deposit and loan with Bank A are:",
+     "options": [
+      "Not offset, as there is no intention to settle net",
+      "Offset to ₹4 crore",
+      "Offset only in notes",
+      "Shown as equity"
+     ],
+     "answer": 0,
+     "explain": "Both conditions are needed. In practice: disclose the right.",
+     "difficulty": "moderate",
+     "topic": "Treasury shares, distributions and offsetting"
+    },
+    {
+     "id": "k1d",
+     "q": "Amount deducted from equity on buy-back (₹ lakh):",
+     "options": [
+      "200",
+      "230",
+      "30",
+      "Nil"
+     ],
+     "answer": 0,
+     "explain": "1 lakh × ₹200 = ₹200 lakh. In practice: shown as treasury shares.",
+     "difficulty": "core",
+     "check": 200,
+     "topic": "Treasury shares, distributions and offsetting"
+    }
+   ]
+  }
+ ]
+}
