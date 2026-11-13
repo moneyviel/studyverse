@@ -1,0 +1,765 @@
+{
+ "schema": "ca-unit/1",
+ "id": "fin-p2-ch11-u01",
+ "level": "final",
+ "paper": "p2",
+ "chapter": "fin-p2-ch11",
+ "n": 1,
+ "title": "International Financial Management",
+ "outcomes": [
+  "Evaluate foreign projects from the parent's perspective.",
+  "Describe international sources of finance.",
+  "Explain IFCs, GIFT City and sovereign funds.",
+  "Apply international working capital techniques."
+ ],
+ "meta": {
+  "difficulty": "hard",
+  "minutes": {
+   "learn": 40,
+   "practice": 35
+  },
+  "prereq": [
+   "fin-p2-ch10-u01"
+  ],
+  "exam_tip": "Discount foreign flows at a foreign rate or home flows at a home rate — never mix."
+ },
+ "concepts": [
+  {
+   "id": "c1",
+   "title": "International capital budgeting",
+   "body": [
+    "Foreign projects are more complex: cash flows differ between the project and the parent (remittance restrictions, taxes, transfer prices, royalties and fees), exchange rates fluctuate, inflation rates differ, political and country risks exist, and subsidised financing may be available.",
+    "Approaches: (1) discount foreign currency flows at a foreign-currency rate, then convert the NPV at spot; or (2) convert flows at forecast exchange rates (via PPP or IRP) and discount at the home rate — the results agree if parity holds. The parent's perspective (remittable cash flows) decides the investment.",
+    "Adjusted present value suits foreign projects: base NPV plus PV of financing side effects such as subsidised loans and tax shields. Scenarios include a foreign firm investing in India, and an Indian firm investing abroad with funds raised in the same or a different country."
+   ],
+   "analogy": "Value what the parent can actually bring home.",
+   "work": "A project with blocked profits is worth less to the parent than to the subsidiary."
+  },
+  {
+   "id": "c2",
+   "title": "International sources of finance",
+   "body": [
+    "Foreign currency convertible bonds (FCCBs) are bonds issued abroad in foreign currency, convertible into equity of the issuer; low coupons but currency and redemption risk if not converted.",
+    "Depository receipts: ADRs are issued in the US and traded on US exchanges; GDRs are issued in multiple markets, often listed in Luxembourg or London. A depository bank abroad issues receipts against shares held by a custodian in India.",
+    "Other sources: external commercial borrowings, euro-convertible bonds, euro bonds and foreign bonds (e.g. Yankee, Samurai, masala bonds — rupee-denominated bonds issued abroad), syndicated loans and export credit."
+   ],
+   "analogy": "Global markets offer cheaper or larger funds — with currency and regulatory strings.",
+   "work": "A masala bond lets an Indian company borrow abroad without taking currency risk."
+  },
+  {
+   "id": "c3",
+   "title": "International financial centres, GIFT City and sovereign funds",
+   "body": [
+    "An international financial centre (IFC) serves non-residents and residents in foreign currency transactions — banking, capital markets, insurance, asset management — with competitive regulation and tax.",
+    "GIFT City in Gujarat houses India's International Financial Services Centre, regulated by the IFSCA, offering tax benefits, international exchanges, banking units and fund management, aiming to bring offshore financial business onshore.",
+    "Sovereign wealth funds are state-owned investment funds (from commodity revenues, trade surpluses or reserves) that invest globally in equities, bonds, infrastructure and private assets; they provide long-term capital but raise governance and strategic concerns."
+   ],
+   "analogy": "IFCs and sovereign funds shape global capital flows.",
+   "work": "An Indian firm can list bonds on an exchange in GIFT IFSC."
+  },
+  {
+   "id": "c4",
+   "title": "International working capital management",
+   "body": [
+    "Multinational cash management aims to minimise idle cash, currency and tax costs: accelerating inflows, managing blocked funds (via royalties, fees, transfer pricing, parallel loans), leading and lagging, netting of intra-group payments, and centralised investment of surplus cash.",
+    "Transfer pricing can shift profits to lower-tax jurisdictions, but is constrained by arm's-length rules and tax authorities.",
+    "International inventory management weighs stockpiling against currency changes and supply disruptions; receivables management covers credit terms, currency of invoicing, factoring and forfaiting."
+   ],
+   "analogy": "Centralise, net and time payments to save cost.",
+   "work": "Netting cut three payments totalling 120 to two payments totalling 20."
+  }
+ ],
+ "illustrations": [
+  {
+   "id": "i1",
+   "title": "Evaluating a US project",
+   "difficulty": "moderate",
+   "minutes": 9,
+   "q": "An Indian company considers a US project costing USD 1,000 thousand now, generating USD 400, 500 and 600 thousand in years 1–3. The USD required return is 10%. Spot is ₹84/USD; Indian inflation 6% and US inflation 2%. Compute the NPV in USD and in rupees (home-currency equivalent at spot), and the expected year-1 spot rate.",
+   "solution": [
+    {
+     "t": "table",
+     "head": [
+      "Step",
+      "Working",
+      "Result"
+     ],
+     "rows": [
+      [
+       "PV of inflows",
+       "400/1.1 + 500/1.21 + 600/1.331",
+       "1,227.65"
+      ],
+      [
+       "NPV in USD",
+       "1,227.65 − 1,000",
+       "227.65 thousand"
+      ],
+      [
+       "NPV in rupees",
+       "227.65 × 84",
+       "₹19,122.46 thousand"
+      ],
+      [
+       "Year-1 spot by PPP",
+       "84 × 1.06 ÷ 1.02",
+       "₹87.29"
+      ]
+     ],
+     "title": "Foreign currency approach"
+    }
+   ],
+   "checks": [
+    {
+     "expr": "round(400/1.1+500/1.1**2+600/1.1**3-1000,2)",
+     "value": 227.65,
+     "label": "Project NPV (USD thousand)"
+    },
+    {
+     "expr": "round((400/1.1+500/1.1**2+600/1.1**3-1000)*84,2)",
+     "value": 19122.46,
+     "label": "Project NPV in rupees (₹ thousand)"
+    },
+    {
+     "expr": "round(84*1.06/1.02,2)",
+     "value": 87.29,
+     "label": "Expected spot rate in year 1 by PPP (₹)"
+    }
+   ]
+  },
+  {
+   "id": "i2",
+   "title": "Multilateral netting",
+   "difficulty": "core",
+   "minutes": 6,
+   "q": "Within a group, A owes B USD 50 thousand, B owes C USD 30 thousand and C owes A USD 40 thousand. Show the net positions and the payments needed after netting.",
+   "solution": [
+    {
+     "t": "table",
+     "head": [
+      "Entity",
+      "Working",
+      "Net (USD thousand)"
+     ],
+     "rows": [
+      [
+       "A",
+       "−50 + 40",
+       "−10 (pays)"
+      ],
+      [
+       "B",
+       "+50 − 30",
+       "+20 (receives)"
+      ],
+      [
+       "C",
+       "+30 − 40",
+       "−10 (pays)"
+      ],
+      [
+       "Gross payments before netting",
+       "50 + 30 + 40",
+       "120"
+      ],
+      [
+       "Payments after netting",
+       "A and C pay 10 each to B",
+       "20"
+      ]
+     ],
+     "title": "Netting centre"
+    }
+   ],
+   "checks": [
+    {
+     "expr": "50+30+40",
+     "value": 120,
+     "label": "Gross intra-group payments (USD thousand)"
+    },
+    {
+     "expr": "abs(-50+40)+abs(50-30)+abs(30-40)",
+     "value": 40,
+     "label": "Sum of absolute net positions (USD thousand)"
+    },
+    {
+     "expr": "(abs(-50+40)+abs(50-30)+abs(30-40))/2",
+     "value": 20,
+     "label": "Payments needed after netting (USD thousand)"
+    }
+   ]
+  }
+ ],
+ "jobs": [
+  {
+   "id": "j1",
+   "title": "Overseas expansion appraisal",
+   "role": "International finance analyst",
+   "situation": "The company plans a plant in Vietnam funded by a subsidised loan.",
+   "steps": [
+    "Forecast project and remittable cash flows.",
+    "Forecast exchange rates using parity.",
+    "Compute APV including loan subsidy.",
+    "Add political risk adjustments and funding options."
+   ],
+   "takeaway": "Parent perspective plus APV gives a fair picture of foreign projects."
+  }
+ ],
+ "mcqs": [
+  {
+   "id": "m1",
+   "q": "Foreign projects should be evaluated from the viewpoint of:",
+   "options": [
+    "The parent's remittable cash flows",
+    "The host government only",
+    "Local banks",
+    "Customers"
+   ],
+   "answer": 0,
+   "explain": "Only cash reaching the parent creates value for its shareholders. In practice: consider restrictions.",
+   "concept": "c1",
+   "topic": "International capital budgeting",
+   "difficulty": "core"
+  },
+  {
+   "id": "m2",
+   "q": "ADRs are issued and traded in:",
+   "options": [
+    "The United States",
+    "India",
+    "Luxembourg only",
+    "Japan only"
+   ],
+   "answer": 0,
+   "explain": "US depository receipts. In practice: GDRs elsewhere.",
+   "concept": "c2",
+   "topic": "International sources of finance",
+   "difficulty": "core"
+  },
+  {
+   "id": "m3",
+   "q": "Masala bonds are:",
+   "options": [
+    "Rupee-denominated bonds issued abroad",
+    "Dollar bonds in India",
+    "Gold bonds",
+    "Equity shares"
+   ],
+   "answer": 0,
+   "explain": "Currency risk with investors. In practice: London listings.",
+   "concept": "c2",
+   "topic": "International sources of finance",
+   "difficulty": "core"
+  },
+  {
+   "id": "m4",
+   "q": "GIFT City IFSC is regulated by:",
+   "options": [
+    "IFSCA",
+    "SEBI only",
+    "RBI only",
+    "IRDAI only"
+   ],
+   "answer": 0,
+   "explain": "Unified regulator. In practice: offshore business onshore.",
+   "concept": "c3",
+   "topic": "International financial centres, GIFT City and sovereign funds",
+   "difficulty": "core"
+  },
+  {
+   "id": "m5",
+   "q": "Multilateral netting reduces:",
+   "options": [
+    "Number and value of intra-group payments",
+    "Sales",
+    "Taxes always",
+    "Inventory"
+   ],
+   "answer": 0,
+   "explain": "Lower transfer costs. In practice: netting centre.",
+   "concept": "c4",
+   "topic": "International working capital management",
+   "difficulty": "core"
+  },
+  {
+   "id": "m6",
+   "q": "Blocked funds can be partly released through:",
+   "options": [
+    "Royalties, fees and transfer pricing",
+    "Higher dividends only",
+    "Ignoring rules",
+    "Selling shares"
+   ],
+   "answer": 0,
+   "explain": "Alternative channels. In practice: within law.",
+   "concept": "c4",
+   "topic": "International working capital management",
+   "difficulty": "core"
+  },
+  {
+   "id": "m7",
+   "q": "FCCBs are:",
+   "options": [
+    "Foreign currency bonds convertible into equity",
+    "Domestic rupee bonds",
+    "Preference shares",
+    "Commercial paper"
+   ],
+   "answer": 0,
+   "explain": "Low coupons. In practice: redemption risk if not converted.",
+   "concept": "c2",
+   "topic": "International sources of finance",
+   "difficulty": "core"
+  },
+  {
+   "id": "m8",
+   "q": "Sovereign wealth funds are:",
+   "options": [
+    "State-owned investment funds",
+    "Private hedge funds",
+    "Mutual funds",
+    "Pension funds of companies"
+   ],
+   "answer": 0,
+   "explain": "Long-term global investors. In practice: governance concerns.",
+   "concept": "c3",
+   "topic": "International financial centres, GIFT City and sovereign funds",
+   "difficulty": "core"
+  }
+ ],
+ "questions": [
+  {
+   "id": "q1",
+   "marks": 6,
+   "minutes": 11,
+   "difficulty": "core",
+   "pad": "table",
+   "q": "An Indian company considers a US project costing USD 1,000 thousand now, generating USD 400, 500 and 600 thousand in years 1–3. The USD required return is 10%. Spot is ₹84/USD; Indian inflation 6% and US inflation 2%. Compute the NPV in USD and in rupees (home-currency equivalent at spot), and the expected year-1 spot rate.",
+   "model": [
+    {
+     "t": "table",
+     "head": [
+      "Step",
+      "Working",
+      "Result"
+     ],
+     "rows": [
+      [
+       "PV of inflows",
+       "400/1.1 + 500/1.21 + 600/1.331",
+       "1,227.65"
+      ],
+      [
+       "NPV in USD",
+       "1,227.65 − 1,000",
+       "227.65 thousand"
+      ],
+      [
+       "NPV in rupees",
+       "227.65 × 84",
+       "₹19,122.46 thousand"
+      ],
+      [
+       "Year-1 spot by PPP",
+       "84 × 1.06 ÷ 1.02",
+       "₹87.29"
+      ]
+     ],
+     "title": "Foreign currency approach"
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "USD NPV",
+     "m": 2.5,
+     "skill": "computation",
+     "kw": [
+      "usd|npv"
+     ],
+     "min": 1,
+     "nums": [
+      227.65
+     ]
+    },
+    {
+     "id": "s2",
+     "pt": "Rupee NPV",
+     "m": 2,
+     "skill": "computation",
+     "kw": [
+      "rupee"
+     ],
+     "min": 1,
+     "nums": [
+      19122.46
+     ]
+    },
+    {
+     "id": "s3",
+     "pt": "PPP",
+     "m": 1.5,
+     "skill": "computation",
+     "kw": [
+      "ppp|spot"
+     ],
+     "min": 1,
+     "nums": [
+      87.29
+     ]
+    }
+   ],
+   "remarks": [
+    "State approach."
+   ],
+   "mistakes": [
+    "Discounting USD flows at the INR rate."
+   ],
+   "tips": [
+    "Table."
+   ],
+   "extra_ok": true,
+   "checks": [
+    {
+     "expr": "round(400/1.1+500/1.1**2+600/1.1**3-1000,2)",
+     "value": 227.65,
+     "label": "Project NPV (USD thousand)"
+    },
+    {
+     "expr": "round((400/1.1+500/1.1**2+600/1.1**3-1000)*84,2)",
+     "value": 19122.46,
+     "label": "Project NPV in rupees (₹ thousand)"
+    },
+    {
+     "expr": "round(84*1.06/1.02,2)",
+     "value": 87.29,
+     "label": "Expected spot rate in year 1 by PPP (₹)"
+    }
+   ]
+  },
+  {
+   "id": "q2",
+   "marks": 4,
+   "minutes": 7,
+   "difficulty": "core",
+   "pad": "table",
+   "q": "Within a group, A owes B USD 50 thousand, B owes C USD 30 thousand and C owes A USD 40 thousand. Show the net positions and the payments needed after netting.",
+   "model": [
+    {
+     "t": "table",
+     "head": [
+      "Entity",
+      "Working",
+      "Net (USD thousand)"
+     ],
+     "rows": [
+      [
+       "A",
+       "−50 + 40",
+       "−10 (pays)"
+      ],
+      [
+       "B",
+       "+50 − 30",
+       "+20 (receives)"
+      ],
+      [
+       "C",
+       "+30 − 40",
+       "−10 (pays)"
+      ],
+      [
+       "Gross payments before netting",
+       "50 + 30 + 40",
+       "120"
+      ],
+      [
+       "Payments after netting",
+       "A and C pay 10 each to B",
+       "20"
+      ]
+     ],
+     "title": "Netting centre"
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "Net positions",
+     "m": 2,
+     "skill": "computation",
+     "kw": [
+      "net"
+     ],
+     "min": 1,
+     "nums": [
+      120
+     ]
+    },
+    {
+     "id": "s2",
+     "pt": "Payments",
+     "m": 2,
+     "skill": "computation",
+     "kw": [
+      "after netting"
+     ],
+     "min": 1,
+     "nums": [
+      20
+     ]
+    }
+   ],
+   "remarks": [
+    "Show each entity."
+   ],
+   "mistakes": [
+    "Paying gross."
+   ],
+   "tips": [
+    "Table."
+   ],
+   "extra_ok": true,
+   "checks": [
+    {
+     "expr": "50+30+40",
+     "value": 120,
+     "label": "Gross intra-group payments (USD thousand)"
+    },
+    {
+     "expr": "abs(-50+40)+abs(50-30)+abs(30-40)",
+     "value": 40,
+     "label": "Sum of absolute net positions (USD thousand)"
+    },
+    {
+     "expr": "(abs(-50+40)+abs(50-30)+abs(30-40))/2",
+     "value": 20,
+     "label": "Payments needed after netting (USD thousand)"
+    }
+   ]
+  }
+ ],
+ "revision": {
+  "summary": [
+   "Parent perspective; remittable flows.",
+   "Two consistent NPV approaches; APV for subsidies.",
+   "FCCB, ADR, GDR, ECB, masala bonds.",
+   "GIFT IFSC regulated by IFSCA.",
+   "Netting, leading/lagging, transfer pricing."
+  ],
+  "remember": [
+   "Blocked funds reduce value to parent."
+  ],
+  "traps": [
+   "Mixing currencies and discount rates."
+  ]
+ },
+ "quickref": [
+  {
+   "k": "ADR",
+   "v": "US"
+  },
+  {
+   "k": "GDR",
+   "v": "Global/Europe"
+  },
+  {
+   "k": "Masala bond",
+   "v": "Rupee bond abroad"
+  },
+  {
+   "k": "Netting",
+   "v": "Pay net only"
+  }
+ ],
+ "viva": [
+  {
+   "id": "v1",
+   "q": "Why may project and parent cash flows differ?",
+   "model": "Because of remittance restrictions, taxes, transfer pricing, royalties and fees, and exchange rate effects.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Remittance and tax",
+     "w": 5,
+     "kw": [
+      "remittance|tax"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Exchange rates",
+     "w": 5,
+     "kw": [
+      "exchange"
+     ]
+    }
+   ],
+   "concept": "c1"
+  },
+  {
+   "id": "v2",
+   "q": "Distinguish ADRs and GDRs.",
+   "model": "ADRs are issued and traded in the US; GDRs are issued in several markets and usually listed in Europe.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "US",
+     "w": 5,
+     "kw": [
+      "us"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Several markets",
+     "w": 5,
+     "kw": [
+      "several|europe"
+     ]
+    }
+   ],
+   "concept": "c2"
+  },
+  {
+   "id": "v3",
+   "q": "What is GIFT City IFSC?",
+   "model": "India's international financial services centre in Gujarat, regulated by IFSCA, for offshore financial business.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "IFSC in Gujarat",
+     "w": 5,
+     "kw": [
+      "gujarat|ifsc"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "IFSCA",
+     "w": 5,
+     "kw": [
+      "ifsca"
+     ]
+    }
+   ],
+   "concept": "c3"
+  },
+  {
+   "id": "v4",
+   "q": "What is multilateral netting?",
+   "model": "Offsetting intra-group receivables and payables so that only net amounts are transferred.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Offsetting",
+     "w": 5,
+     "kw": [
+      "offset"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Net amounts",
+     "w": 5,
+     "kw": [
+      "net amount"
+     ]
+    }
+   ],
+   "concept": "c4"
+  },
+  {
+   "id": "v5",
+   "q": "How can APV help foreign projects?",
+   "model": "It values the base project separately and adds financing benefits such as subsidised loans and tax shields.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Base project",
+     "w": 5,
+     "kw": [
+      "base"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Financing benefits",
+     "w": 5,
+     "kw": [
+      "subsid|tax shield"
+     ]
+    }
+   ],
+   "concept": "c1"
+  }
+ ],
+ "cases": [
+  {
+   "id": "k1",
+   "title": "Indus Pharma Global",
+   "difficulty": "moderate",
+   "case": "Indus Pharma's German subsidiary can remit only 50% of profits each year; the rest is blocked. Profits are EUR 10 million a year. Spot is ₹90/EUR. Indus is considering a GDR issue in Luxembourg and an FCCB with a 1% coupon.",
+   "mcqs": [
+    {
+     "id": "k1a",
+     "q": "Annual remittable profit (EUR million):",
+     "options": [
+      "5",
+      "10",
+      "2.5",
+      "Nil"
+     ],
+     "answer": 0,
+     "explain": "50% of 10. In practice: parent cash flow.",
+     "difficulty": "core",
+     "check": 5,
+     "topic": "International capital budgeting"
+    },
+    {
+     "id": "k1b",
+     "q": "Rupee value of remittance at spot (₹ crore):",
+     "options": [
+      "45",
+      "90",
+      "22.5",
+      "9"
+     ],
+     "answer": 0,
+     "explain": "5 million × 90 = ₹45 crore. In practice: forecast future rates.",
+     "difficulty": "core",
+     "check": 45,
+     "topic": "International capital budgeting"
+    },
+    {
+     "id": "k1c",
+     "q": "A GDR issue gives Indus:",
+     "options": [
+      "Equity funding from foreign investors",
+      "A loan",
+      "A rupee bond",
+      "Commercial paper"
+     ],
+     "answer": 0,
+     "explain": "Receipts represent shares. In practice: listed abroad.",
+     "difficulty": "core",
+     "topic": "International sources of finance"
+    },
+    {
+     "id": "k1d",
+     "q": "A key risk of the FCCB is:",
+     "options": [
+      "Repaying principal in foreign currency if not converted",
+      "High coupon",
+      "No conversion option",
+      "Domestic listing only"
+     ],
+     "answer": 0,
+     "explain": "Currency and redemption risk. In practice: falling share prices deter conversion.",
+     "difficulty": "moderate",
+     "topic": "International sources of finance"
+    }
+   ]
+  }
+ ]
+}
