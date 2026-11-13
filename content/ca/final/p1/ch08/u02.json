@@ -1,0 +1,780 @@
+{
+ "schema": "ca-unit/1",
+ "id": "fin-p1-ch08-u02",
+ "level": "final",
+ "paper": "p1",
+ "chapter": "fin-p1-ch08",
+ "n": 2,
+ "title": "Ind AS 33 \"Earnings per Share\"",
+ "outcomes": [
+  "Compute basic EPS with correct earnings and weighted shares.",
+  "Adjust for bonus, rights and other share changes.",
+  "Compute diluted EPS by ranking potential shares.",
+  "Present and disclose EPS."
+ ],
+ "meta": {
+  "difficulty": "core",
+  "minutes": {
+   "learn": 35,
+   "practice": 35
+  },
+  "prereq": [
+   "fin-p1-ch08-u01"
+  ],
+  "exam_tip": "For diluted EPS, compute incremental EPS for each instrument and add them in order, starting with the lowest."
+ },
+ "concepts": [
+  {
+   "id": "c1",
+   "title": "Basic EPS: earnings and weighted shares",
+   "body": [
+    "Basic EPS takes the parent's ordinary shareholders' share of profit or loss and divides it by the time-weighted count of ordinary shares in issue over the period. It is calculated both for profit from continuing operations and for total profit.",
+    "Earnings are adjusted for preference dividends (cumulative: the full year's dividend whether declared or not; non-cumulative: only declared amounts), differences on settlement of preference shares, and similar items, all after tax.",
+    "Shares are weighted from the date consideration is receivable (generally the issue date). Shares issued for cash count from the cash receivable date; contingently issuable shares count from when all conditions are met; partly paid shares count to the extent of dividend participation."
+   ],
+   "analogy": "EPS is earnings for ordinary shareholders spread over the average shares in issue.",
+   "work": "Shares issued halfway through the year count as half."
+  },
+  {
+   "id": "c2",
+   "title": "Bonus, rights and other share changes",
+   "body": [
+    "Bonus issues, share splits and consolidations change the number of shares without changing resources; the number is adjusted as if the event had happened at the start of the earliest period presented, and comparatives are restated.",
+    "A rights issue below fair value contains a bonus element. Adjustment factor = fair value per share immediately before exercise ÷ theoretical ex-rights fair value per share. Shares before the issue are multiplied by this factor.",
+    "If such changes occur after the reporting period but before approval, the EPS figures are also restated. Share buy-backs at fair value reduce shares from the buy-back date."
+   ],
+   "analogy": "Free shares shrink EPS for all years shown; fully paid issues affect only the period after issue.",
+   "work": "A 1-for-4 bonus turns 200 shares into 250 for every year shown."
+  },
+  {
+   "id": "c3",
+   "title": "Diluted EPS and potential shares",
+   "body": [
+    "Diluted EPS adjusts earnings and weighted shares for all dilutive potential ordinary shares — options, warrants, convertible instruments and contingently issuable shares.",
+    "Earnings are adjusted for post-tax effects of dividends, interest and other changes from conversion. Options and warrants are treated as exercised; only the shares deemed issued for no consideration (difference between shares issued and those that could be bought at average market price) are dilutive.",
+    "Potential shares are dilutive only if conversion would decrease EPS (or increase loss per share) from continuing operations. They are ranked from most dilutive (lowest incremental EPS) to least, and included one by one; anti-dilutive items are excluded."
+   ],
+   "analogy": "Diluted EPS shows the worst realistic case for ordinary shareholders.",
+   "work": "Options in the money with no earnings effect are added first."
+  },
+  {
+   "id": "c4",
+   "title": "Presentation and restatement",
+   "body": [
+    "Basic and diluted EPS appear in the main profit and loss statement itself for each class of ordinary shares with different rights, with equal prominence, for all periods — even if negative (loss per share).",
+    "An entity reporting a discontinued operation discloses basic and diluted EPS for it, on the face or in the notes.",
+    "Disclosures include the earnings used and their reconciliation to profit, weighted average shares used and their reconciliation, instruments excluded because anti-dilutive, and share transactions after the reporting period. Additional per-share figures using other earnings measures may be shown in the notes using the same share numbers."
+   ],
+   "analogy": "Both EPS figures sit side by side on the face of the statement.",
+   "work": "A loss year still shows basic and diluted loss per share."
+  }
+ ],
+ "illustrations": [
+  {
+   "id": "i1",
+   "title": "Basic and diluted EPS",
+   "difficulty": "hard",
+   "minutes": 12,
+   "q": "Zenith Ltd.: profit after tax ₹1,200 lakh; dividend on cumulative preference shares ₹200 lakh. Equity shares: 100 lakh at 1 April; 30 lakh issued at full market price on 1 October. Potential shares: 10 lakh options exercisable at ₹40 (average market price ₹50); convertible debentures with interest of ₹60 lakh this year, convertible into 20 lakh shares. Tax rate 25%. Compute basic and diluted EPS.",
+   "solution": [
+    {
+     "t": "table",
+     "head": [
+      "Step",
+      "Working",
+      "Result"
+     ],
+     "rows": [
+      [
+       "Earnings for equity",
+       "1,200 − 200",
+       "₹1,000 lakh"
+      ],
+      [
+       "Weighted shares",
+       "100 + 30 × 6/12",
+       "115 lakh"
+      ],
+      [
+       "Basic EPS",
+       "1,000 ÷ 115",
+       "₹8.7"
+      ],
+      [
+       "Options — free shares",
+       "10 × (50 − 40)/50",
+       "2 lakh"
+      ],
+      [
+       "Convertibles — incremental EPS",
+       "60 × 75% ÷ 20",
+       "₹2.25 — dilutive"
+      ],
+      [
+       "Diluted EPS",
+       "1,045 ÷ 137",
+       "₹7.63"
+      ]
+     ],
+     "title": "Ind AS 33"
+    }
+   ],
+   "checks": [
+    {
+     "expr": "100+30*6/12",
+     "value": 115,
+     "label": "Weighted average shares (lakh)"
+    },
+    {
+     "expr": "round(1000/(100+30*6/12),2)",
+     "value": 8.7,
+     "label": "Basic EPS (₹)"
+    },
+    {
+     "expr": "10*(1-40/50)",
+     "value": 2,
+     "label": "Shares issued for no consideration under options (lakh)"
+    },
+    {
+     "expr": "round(60*0.75/20,2)",
+     "value": 2.25,
+     "label": "Incremental EPS of convertibles (₹)"
+    },
+    {
+     "expr": "round((1000+60*0.75)/(100+30*6/12+10*(1-40/50)+20),2)",
+     "value": 7.63,
+     "label": "Diluted EPS (₹)"
+    }
+   ]
+  },
+  {
+   "id": "i2",
+   "title": "A bonus issue",
+   "difficulty": "core",
+   "minutes": 5,
+   "q": "Last year, Quartz Ltd. had 200 lakh shares and earnings of ₹480 lakh (EPS ₹2.40). This year it makes a 1-for-4 bonus issue. Restate last year's EPS for comparison.",
+   "solution": [
+    {
+     "t": "table",
+     "head": [
+      "Item",
+      "Working",
+      "Result"
+     ],
+     "rows": [
+      [
+       "Bonus shares",
+       "200 ÷ 4",
+       "50 lakh"
+      ],
+      [
+       "Adjusted prior-year shares",
+       "200 × 1.25",
+       "250 lakh"
+      ],
+      [
+       "Restated prior-year EPS",
+       "480 ÷ 250",
+       "₹1.92"
+      ]
+     ],
+     "title": "Retrospective adjustment"
+    }
+   ],
+   "checks": [
+    {
+     "expr": "round(480/(200*1.25),2)",
+     "value": 1.92,
+     "label": "Restated prior-year EPS after 1-for-4 bonus (₹)"
+    }
+   ]
+  }
+ ],
+ "jobs": [
+  {
+   "id": "j1",
+   "title": "Preparing EPS for the annual report",
+   "role": "Reporting analyst",
+   "situation": "The company had a rights issue, ESOPs and convertibles during the year.",
+   "steps": [
+    "Compute earnings for equity holders.",
+    "Build the weighted share schedule with rights factor.",
+    "Rank potential shares by incremental EPS.",
+    "Restate comparatives for bonus elements."
+   ],
+   "takeaway": "Ranking potential shares prevents overstating dilution."
+  }
+ ],
+ "mcqs": [
+  {
+   "id": "m1",
+   "q": "Dividends on cumulative preference shares are deducted for basic EPS:",
+   "options": [
+    "For the period whether declared or not",
+    "Only if declared",
+    "Never",
+    "Only if paid"
+   ],
+   "answer": 0,
+   "explain": "Cumulative rights accrue each year. In practice: non-cumulative only if declared.",
+   "concept": "c1",
+   "topic": "Basic EPS: earnings and weighted shares",
+   "difficulty": "core"
+  },
+  {
+   "id": "m2",
+   "q": "A bonus issue during the year affects EPS by:",
+   "options": [
+    "Adjusting shares as if issued at the start of the earliest period",
+    "Weighting from the issue date",
+    "No adjustment",
+    "Adjusting only the current year"
+   ],
+   "answer": 0,
+   "explain": "No resources were received. In practice: restate comparatives.",
+   "concept": "c2",
+   "topic": "Bonus, rights and other share changes",
+   "difficulty": "core"
+  },
+  {
+   "id": "m3",
+   "q": "Options are dilutive when:",
+   "options": [
+    "The exercise price is below the average market price",
+    "Exercise price exceeds market price",
+    "Always",
+    "Never"
+   ],
+   "answer": 0,
+   "explain": "Only then are shares effectively issued for nothing. In practice: out-of-the-money options are excluded.",
+   "concept": "c3",
+   "topic": "Diluted EPS and potential shares",
+   "difficulty": "core"
+  },
+  {
+   "id": "m4",
+   "q": "Potential ordinary shares are included in diluted EPS:",
+   "options": [
+    "From most dilutive to least dilutive",
+    "In issue order",
+    "From least to most",
+    "All at once regardless"
+   ],
+   "answer": 0,
+   "explain": "Sequencing finds maximum dilution. In practice: compute incremental EPS.",
+   "concept": "c3",
+   "topic": "Diluted EPS and potential shares",
+   "difficulty": "core"
+  },
+  {
+   "id": "m5",
+   "q": "For a rights issue, the adjustment factor equals:",
+   "options": [
+    "Fair value before exercise ÷ theoretical ex-rights value",
+    "Rights price ÷ fair value",
+    "New shares ÷ old shares",
+    "Market price ÷ par"
+   ],
+   "answer": 0,
+   "explain": "This captures the bonus element. In practice: apply to pre-issue shares.",
+   "concept": "c2",
+   "topic": "Bonus, rights and other share changes",
+   "difficulty": "core"
+  },
+  {
+   "id": "m6",
+   "q": "Interest on convertible debentures is added back for diluted EPS:",
+   "options": [
+    "Net of tax",
+    "Gross",
+    "Not at all",
+    "Twice"
+   ],
+   "answer": 0,
+   "explain": "Conversion saves interest after tax. In practice: include related expenses.",
+   "concept": "c3",
+   "topic": "Diluted EPS and potential shares",
+   "difficulty": "core"
+  },
+  {
+   "id": "m7",
+   "q": "Basic and diluted EPS are presented:",
+   "options": [
+    "On the face with equal prominence",
+    "Only in notes",
+    "Only basic on the face",
+    "Only if positive"
+   ],
+   "answer": 0,
+   "explain": "Even for losses. In practice: discontinued EPS may be in notes.",
+   "concept": "c4",
+   "topic": "Presentation and restatement",
+   "difficulty": "core"
+  },
+  {
+   "id": "m8",
+   "q": "Anti-dilutive potential shares are:",
+   "options": [
+    "Excluded from diluted EPS",
+    "Included",
+    "Halved",
+    "Shown separately in EPS"
+   ],
+   "answer": 0,
+   "explain": "They would increase EPS. In practice: disclose them.",
+   "concept": "c3",
+   "topic": "Diluted EPS and potential shares",
+   "difficulty": "core"
+  }
+ ],
+ "questions": [
+  {
+   "id": "q1",
+   "marks": 8,
+   "minutes": 14,
+   "difficulty": "core",
+   "pad": "table",
+   "q": "Zenith Ltd.: profit after tax ₹1,200 lakh; dividend on cumulative preference shares ₹200 lakh. Equity shares: 100 lakh at 1 April; 30 lakh issued at full market price on 1 October. Potential shares: 10 lakh options exercisable at ₹40 (average market price ₹50); convertible debentures with interest of ₹60 lakh this year, convertible into 20 lakh shares. Tax rate 25%. Compute basic and diluted EPS.",
+   "model": [
+    {
+     "t": "table",
+     "head": [
+      "Step",
+      "Working",
+      "Result"
+     ],
+     "rows": [
+      [
+       "Earnings for equity",
+       "1,200 − 200",
+       "₹1,000 lakh"
+      ],
+      [
+       "Weighted shares",
+       "100 + 30 × 6/12",
+       "115 lakh"
+      ],
+      [
+       "Basic EPS",
+       "1,000 ÷ 115",
+       "₹8.7"
+      ],
+      [
+       "Options — free shares",
+       "10 × (50 − 40)/50",
+       "2 lakh"
+      ],
+      [
+       "Convertibles — incremental EPS",
+       "60 × 75% ÷ 20",
+       "₹2.25 — dilutive"
+      ],
+      [
+       "Diluted EPS",
+       "1,045 ÷ 137",
+       "₹7.63"
+      ]
+     ],
+     "title": "Ind AS 33"
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "Basic",
+     "m": 3,
+     "skill": "computation",
+     "kw": [
+      "basic"
+     ],
+     "min": 1,
+     "nums": [
+      115,
+      8.7
+     ]
+    },
+    {
+     "id": "s2",
+     "pt": "Options",
+     "m": 1.5,
+     "skill": "computation",
+     "kw": [
+      "option"
+     ],
+     "min": 1,
+     "nums": [
+      2
+     ]
+    },
+    {
+     "id": "s3",
+     "pt": "Incremental",
+     "m": 1.5,
+     "skill": "computation",
+     "kw": [
+      "incremental"
+     ],
+     "min": 1,
+     "nums": [
+      2.25
+     ]
+    },
+    {
+     "id": "s4",
+     "pt": "Diluted",
+     "m": 2,
+     "skill": "computation",
+     "kw": [
+      "diluted"
+     ],
+     "min": 1,
+     "nums": [
+      7.63
+     ]
+    }
+   ],
+   "remarks": [
+    "Rank potential shares."
+   ],
+   "mistakes": [
+    "Adding back gross interest."
+   ],
+   "tips": [
+    "Table."
+   ],
+   "extra_ok": true,
+   "checks": [
+    {
+     "expr": "100+30*6/12",
+     "value": 115,
+     "label": "Weighted average shares (lakh)"
+    },
+    {
+     "expr": "round(1000/(100+30*6/12),2)",
+     "value": 8.7,
+     "label": "Basic EPS (₹)"
+    },
+    {
+     "expr": "10*(1-40/50)",
+     "value": 2,
+     "label": "Shares issued for no consideration under options (lakh)"
+    },
+    {
+     "expr": "round(60*0.75/20,2)",
+     "value": 2.25,
+     "label": "Incremental EPS of convertibles (₹)"
+    },
+    {
+     "expr": "round((1000+60*0.75)/(100+30*6/12+10*(1-40/50)+20),2)",
+     "value": 7.63,
+     "label": "Diluted EPS (₹)"
+    }
+   ]
+  },
+  {
+   "id": "q2",
+   "marks": 3,
+   "minutes": 5,
+   "difficulty": "core",
+   "pad": "table",
+   "q": "Last year, Quartz Ltd. had 200 lakh shares and earnings of ₹480 lakh (EPS ₹2.40). This year it makes a 1-for-4 bonus issue. Restate last year's EPS for comparison.",
+   "model": [
+    {
+     "t": "table",
+     "head": [
+      "Item",
+      "Working",
+      "Result"
+     ],
+     "rows": [
+      [
+       "Bonus shares",
+       "200 ÷ 4",
+       "50 lakh"
+      ],
+      [
+       "Adjusted prior-year shares",
+       "200 × 1.25",
+       "250 lakh"
+      ],
+      [
+       "Restated prior-year EPS",
+       "480 ÷ 250",
+       "₹1.92"
+      ]
+     ],
+     "title": "Retrospective adjustment"
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "Adjusted shares",
+     "m": 1.5,
+     "skill": "computation",
+     "kw": [
+      "adjusted"
+     ],
+     "min": 1,
+     "nums": [
+      250
+     ]
+    },
+    {
+     "id": "s2",
+     "pt": "Restated EPS",
+     "m": 1.5,
+     "skill": "computation",
+     "kw": [
+      "restated"
+     ],
+     "min": 1,
+     "nums": [
+      1.92
+     ]
+    }
+   ],
+   "remarks": [
+    "Explain retrospective effect."
+   ],
+   "mistakes": [
+    "Weighting the bonus."
+   ],
+   "tips": [
+    "Table."
+   ],
+   "extra_ok": true,
+   "checks": [
+    {
+     "expr": "round(480/(200*1.25),2)",
+     "value": 1.92,
+     "label": "Restated prior-year EPS after 1-for-4 bonus (₹)"
+    }
+   ]
+  }
+ ],
+ "revision": {
+  "summary": [
+   "Basic EPS: ordinary earnings ÷ weighted shares.",
+   "Cumulative preference dividend deducted always.",
+   "Bonus: restate all periods.",
+   "Rights: apply adjustment factor.",
+   "Diluted: rank instruments; exclude anti-dilutive."
+  ],
+  "remember": [
+   "Options only add the free-share element."
+  ],
+  "traps": [
+   "Gross interest add-back for convertibles."
+  ]
+ },
+ "quickref": [
+  {
+   "k": "Basic EPS",
+   "v": "Earnings ÷ weighted shares"
+  },
+  {
+   "k": "Rights factor",
+   "v": "FV ÷ TERP"
+  },
+  {
+   "k": "Options",
+   "v": "Free shares only"
+  },
+  {
+   "k": "Order",
+   "v": "Most dilutive first"
+  }
+ ],
+ "viva": [
+  {
+   "id": "v1",
+   "q": "How is basic EPS calculated?",
+   "model": "The parent's ordinary shareholders' share of profit, divided by the weighted average number of ordinary shares in issue.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Profit to ordinary holders",
+     "w": 5,
+     "kw": [
+      "ordinary"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Weighted average shares",
+     "w": 5,
+     "kw": [
+      "weighted"
+     ]
+    }
+   ],
+   "concept": "c1"
+  },
+  {
+   "id": "v2",
+   "q": "What is the bonus element in a rights issue?",
+   "model": "The value given to shareholders by issuing shares below fair value, adjusted using fair value before exercise divided by theoretical ex-rights value.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Below fair value",
+     "w": 5,
+     "kw": [
+      "below fair value"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Ex-rights value",
+     "w": 5,
+     "kw": [
+      "ex-rights"
+     ]
+    }
+   ],
+   "concept": "c2"
+  },
+  {
+   "id": "v3",
+   "q": "When is a potential share dilutive?",
+   "model": "When converting it would lower EPS, or deepen the loss per share, measured on continuing operations.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Lower EPS",
+     "w": 6,
+     "kw": [
+      "lower"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Continuing operations",
+     "w": 4,
+     "kw": [
+      "continuing"
+     ]
+    }
+   ],
+   "concept": "c3"
+  },
+  {
+   "id": "v4",
+   "q": "How are options treated in diluted EPS?",
+   "model": "They are assumed exercised, and only the shares treated as issued free, measured at average market price, are added.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Assumed exercised",
+     "w": 5,
+     "kw": [
+      "exercised"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Free shares",
+     "w": 5,
+     "kw": [
+      "free"
+     ]
+    }
+   ],
+   "concept": "c3"
+  },
+  {
+   "id": "v5",
+   "q": "Where are EPS figures presented?",
+   "model": "In the main profit and loss statement itself, basic and diluted shown with equal prominence for every period.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Main statement",
+     "w": 5,
+     "kw": [
+      "main"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Equal prominence",
+     "w": 5,
+     "kw": [
+      "prominence"
+     ]
+    }
+   ],
+   "concept": "c4"
+  }
+ ],
+ "cases": [
+  {
+   "id": "k1",
+   "title": "Beryl Ltd.",
+   "difficulty": "moderate",
+   "case": "Beryl Ltd. has 50 lakh shares throughout the year and profit of ₹200 lakh. It has 5 lakh options at an exercise price of ₹60; average market price is ₹80. It also has non-cumulative preference shares on which no dividend was declared.",
+   "mcqs": [
+    {
+     "id": "k1a",
+     "q": "Basic EPS (₹):",
+     "options": [
+      "4",
+      "4.4",
+      "3.64",
+      "3.81"
+     ],
+     "answer": 0,
+     "explain": "200 ÷ 50 = 4. In practice: no preference deduction as none declared.",
+     "difficulty": "core",
+     "check": 4,
+     "topic": "Basic EPS: earnings and weighted shares"
+    },
+    {
+     "id": "k1b",
+     "q": "Shares deemed issued for no consideration (lakh):",
+     "options": [
+      "1.25",
+      "5",
+      "3.75",
+      "1"
+     ],
+     "answer": 0,
+     "explain": "5 × (80 − 60)/80 = 1.25. In practice: use average price.",
+     "difficulty": "moderate",
+     "check": 1.25,
+     "topic": "Diluted EPS and potential shares"
+    },
+    {
+     "id": "k1c",
+     "q": "Diluted EPS (₹, rounded to two decimals):",
+     "options": [
+      "3.9",
+      "4",
+      "3.64",
+      "3.5"
+     ],
+     "answer": 0,
+     "explain": "200 ÷ 51.25 = 3.90. In practice: present with basic.",
+     "difficulty": "moderate",
+     "check": 3.9,
+     "topic": "Diluted EPS and potential shares"
+    },
+    {
+     "id": "k1d",
+     "q": "Non-cumulative preference dividend deducted from earnings:",
+     "options": [
+      "Nil, as none was declared",
+      "Full year amount",
+      "Half",
+      "Estimated"
+     ],
+     "answer": 0,
+     "explain": "Only declared amounts are deducted for non-cumulative. In practice: check board minutes.",
+     "difficulty": "core",
+     "topic": "Basic EPS: earnings and weighted shares"
+    }
+   ]
+  }
+ ]
+}
