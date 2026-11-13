@@ -1,0 +1,771 @@
+{
+ "schema": "ca-unit/1",
+ "id": "fin-p4-ch22-u01",
+ "level": "final",
+ "paper": "p4",
+ "chapter": "fin-p4-ch22",
+ "n": 1,
+ "title": "Double Taxation Relief",
+ "outcomes": [
+  "Explain double taxation and methods of relief.",
+  "Apply bilateral relief and treaty conditions.",
+  "Compute unilateral relief under section 160.",
+  "Compute foreign tax credit under Rule 76."
+ ],
+ "meta": {
+  "difficulty": "moderate",
+  "minutes": {
+   "learn": 30,
+   "practice": 25
+  },
+  "prereq": [
+   "fin-p4-ch21-u01"
+  ],
+  "exam_tip": "Compute both average rates to two decimals and apply the lower one."
+ },
+ "concepts": [
+  {
+   "id": "c1",
+   "title": "Concept and methods of double taxation relief",
+   "body": [
+    "Double taxation arises when the same income is taxed in two countries — usually because one taxes on residence and another on source. Relief may be juridical (same person) or economic (same income in different hands).",
+    "Methods: exemption (income taxed only in one country, fully or with progression), credit (home country allows credit for foreign tax — full or ordinary, limited to home tax), and tax sparing (credit for tax foregone by the source country under incentives).",
+    "Relief is bilateral when given under a treaty between two countries, and unilateral when a country grants it on its own where no treaty exists. India uses the credit method in most treaties."
+   ],
+   "analogy": "Treaties allocate taxing rights; credits avoid paying twice.",
+   "work": "An Indian resident taxed in the UK on rent gets credit in India for UK tax."
+  },
+  {
+   "id": "c2",
+   "title": "Bilateral relief under section 159",
+   "body": [
+    "Section 159 empowers the Central Government to enter into agreements with other countries or specified territories to grant relief, avoid double taxation, exchange information and assist in recovery; agreements with specified associations may also be adopted.",
+    "Where an agreement exists, its provisions apply to the extent more beneficial than the Act; however, a non-resident claiming treaty benefit must furnish a Tax Residence Certificate from his country and prescribed information (Form No. 41), and treaty benefits cannot override GAAR.",
+    "Terms not defined in the treaty or Act take meanings notified by the Government. Treaty relief cannot be used to avoid tax through treaty shopping where a principal purpose test or limitation-of-benefit clause applies."
+   ],
+   "analogy": "Treaty or Act, whichever is better — with a TRC in hand.",
+   "work": "A Mauritius resident without a TRC cannot claim the treaty rate."
+  },
+  {
+   "id": "c3",
+   "title": "Unilateral relief under section 160",
+   "body": [
+    "Section 160 grants unilateral relief to a resident where income accrues outside India (and is not deemed to accrue in India), has been taxed in a country with no treaty with India, and tax has been paid there.",
+    "Relief is the doubly taxed income multiplied by the lower of the Indian rate and the foreign rate (or the Indian rate if equal). The Indian rate is Indian tax after reliefs but before double taxation relief, divided by total income; the foreign rate is foreign tax actually paid divided by income assessed there.",
+    "Agricultural income from a non-treaty country is also covered where it is taxed abroad."
+   ],
+   "analogy": "Relief equals doubly taxed income times the lower average rate.",
+   "work": "At an Indian average rate of 7.28%, ₹5 lakh of foreign income earns relief of ₹36,400."
+  },
+  {
+   "id": "c4",
+   "title": "Foreign tax credit rules",
+   "body": [
+    "Rule 76: foreign tax credit is allowed to residents in the year the corresponding income is offered to tax in India, against tax, surcharge and cess (not interest, fee or penalty), and is computed source-wise and country-wise as the lower of Indian tax on that income and foreign tax paid.",
+    "Foreign tax paid in excess of treaty limits is ignored. Disputed foreign tax is allowed later once the dispute is settled, on a claim within six months from the end of the month of settlement. Currency is converted at the TT buying rate on the last day of the month before tax was paid.",
+    "A statement in the prescribed form with proof of foreign tax must be filed by the return due date (and FTC against MAT/AMT is computed similarly)."
+   ],
+   "analogy": "Credit is the lower of the two taxes, source by source.",
+   "work": "Royalty taxed at 30% abroad under a 15% treaty cap earns credit of only 15%."
+  }
+ ],
+ "illustrations": [
+  {
+   "id": "i1",
+   "title": "Unilateral relief",
+   "difficulty": "moderate",
+   "minutes": 8,
+   "q": "Ritu, a resident under the default regime, has Indian income of ₹10,00,000 and income of ₹5,00,000 from Country Z (no tax treaty with India), on which she paid tax of ₹50,000 there. Compute her tax liability for T.Y. 2026-27 after relief under section 160.",
+   "solution": [
+    {
+     "t": "table",
+     "head": [
+      "Step",
+      "Working",
+      "₹ / %"
+     ],
+     "rows": [
+      [
+       "Tax on ₹15 lakh with cess",
+       "1,05,000 × 1.04",
+       "1,09,200"
+      ],
+      [
+       "Indian average rate",
+       "1,09,200 ÷ 15,00,000",
+       "7.28%"
+      ],
+      [
+       "Foreign rate",
+       "50,000 ÷ 5,00,000",
+       "10%"
+      ],
+      [
+       "Relief",
+       "5,00,000 × lower rate (7.28%)",
+       "36,400"
+      ],
+      [
+       "Net tax payable",
+       "",
+       "72,800"
+      ]
+     ],
+     "title": "Section 160"
+    }
+   ],
+   "checks": [
+    {
+     "expr": "(400000*0.05+400000*0.10+300000*0.15)*1.04",
+     "value": 109200,
+     "label": "Indian tax on ₹15 lakh incl. cess (₹)"
+    },
+    {
+     "expr": "round((400000*0.05+400000*0.10+300000*0.15)*1.04/1500000*100,2)",
+     "value": 7.28,
+     "label": "Indian average rate (%)"
+    },
+    {
+     "expr": "500000*min(0.0728,0.10)",
+     "value": 36400,
+     "label": "Relief on ₹5 lakh at lower rate (₹)"
+    },
+    {
+     "expr": "(400000*0.05+400000*0.10+300000*0.15)*1.04-500000*0.0728",
+     "value": 72800,
+     "label": "Net tax payable (₹)"
+    }
+   ]
+  },
+  {
+   "id": "i2",
+   "title": "Credit capped by the treaty",
+   "difficulty": "moderate",
+   "minutes": 6,
+   "q": "Indus Tech Ltd (Indian rate 25%; ignore surcharge and cess) earns ₹20,00,000 of royalty from Country K, which withheld tax at 30%. The India–K treaty limits source taxation of royalty to 15%. Compute the foreign tax credit.",
+   "solution": [
+    {
+     "t": "table",
+     "head": [
+      "Item",
+      "Working",
+      "₹"
+     ],
+     "rows": [
+      [
+       "Indian tax on the income",
+       "25% × 20,00,000",
+       "5,00,000"
+      ],
+      [
+       "Foreign tax paid",
+       "30% × 20,00,000",
+       "6,00,000"
+      ],
+      [
+       "Tax as per treaty",
+       "15% × 20,00,000 (excess ignored)",
+       "3,00,000"
+      ],
+      [
+       "FTC",
+       "Lower of Indian tax and treaty-permitted foreign tax",
+       "3,00,000"
+      ]
+     ],
+     "title": "Rule 76"
+    }
+   ],
+   "checks": [
+    {
+     "expr": "2000000*0.25",
+     "value": 500000,
+     "label": "Indian tax on foreign income at 25% (₹)"
+    },
+    {
+     "expr": "2000000*0.30",
+     "value": 600000,
+     "label": "Foreign tax actually paid (₹)"
+    },
+    {
+     "expr": "2000000*0.15",
+     "value": 300000,
+     "label": "Foreign tax permitted under treaty (₹)"
+    },
+    {
+     "expr": "min(2000000*0.25,2000000*0.30,2000000*0.15)",
+     "value": 300000,
+     "label": "Foreign tax credit allowed (₹)"
+    }
+   ]
+  }
+ ],
+ "jobs": [
+  {
+   "id": "j1",
+   "title": "FTC claim for an expatriate",
+   "role": "Tax associate",
+   "situation": "A returning employee paid tax in two countries on foreign salary.",
+   "steps": [
+    "Identify treaty or non-treaty countries.",
+    "Compute Indian tax on each source.",
+    "Apply treaty limits to foreign tax.",
+    "File the FTC statement with proof by the due date."
+   ],
+   "takeaway": "Credit is lost if paperwork is late."
+  }
+ ],
+ "mcqs": [
+  {
+   "id": "m1",
+   "q": "Unilateral relief under section 160 is available when:",
+   "options": [
+    "There is no treaty with the other country",
+    "There is a treaty",
+    "Income is deemed to accrue in India",
+    "The assessee is non-resident"
+   ],
+   "answer": 0,
+   "explain": "Conditions. In practice: resident only.",
+   "concept": "c3",
+   "topic": "Unilateral relief under section 160",
+   "difficulty": "core"
+  },
+  {
+   "id": "m2",
+   "q": "Relief under section 160 is computed at:",
+   "options": [
+    "The lower of the Indian and foreign rates",
+    "The Indian rate always",
+    "The foreign rate always",
+    "The higher rate"
+   ],
+   "answer": 0,
+   "explain": "Average rates. In practice: equal = Indian rate.",
+   "concept": "c3",
+   "topic": "Unilateral relief under section 160",
+   "difficulty": "core"
+  },
+  {
+   "id": "m3",
+   "q": "A non-resident must furnish which document to claim treaty benefit?",
+   "options": [
+    "Tax Residence Certificate",
+    "Passport only",
+    "Bank statement",
+    "Audit report"
+   ],
+   "answer": 0,
+   "explain": "Section 159. In practice: plus Form No. 41.",
+   "concept": "c2",
+   "topic": "Bilateral relief under section 159",
+   "difficulty": "core"
+  },
+  {
+   "id": "m4",
+   "q": "Treaty provisions apply:",
+   "options": [
+    "To the extent more beneficial than the Act",
+    "Always over the Act",
+    "Never over the Act",
+    "Only to companies"
+   ],
+   "answer": 0,
+   "explain": "Section 159. In practice: GAAR may override.",
+   "concept": "c2",
+   "topic": "Bilateral relief under section 159",
+   "difficulty": "core"
+  },
+  {
+   "id": "m5",
+   "q": "Foreign tax credit is NOT available against:",
+   "options": [
+    "Interest and penalty",
+    "Income-tax",
+    "Surcharge",
+    "Health and education cess"
+   ],
+   "answer": 0,
+   "explain": "Rule 76(4). In practice: only tax components.",
+   "concept": "c4",
+   "topic": "Foreign tax credit rules",
+   "difficulty": "core"
+  },
+  {
+   "id": "m6",
+   "q": "Foreign tax paid above the treaty rate is:",
+   "options": [
+    "Ignored for credit",
+    "Fully credited",
+    "Refunded by India",
+    "Carried forward"
+   ],
+   "answer": 0,
+   "explain": "Rule 76. In practice: seek refund abroad.",
+   "concept": "c4",
+   "topic": "Foreign tax credit rules",
+   "difficulty": "core"
+  },
+  {
+   "id": "m7",
+   "q": "The method where the home country credits foreign tax limited to home tax is:",
+   "options": [
+    "Ordinary credit",
+    "Full credit",
+    "Exemption",
+    "Tax sparing"
+   ],
+   "answer": 0,
+   "explain": "Common method. In practice: India uses credit.",
+   "concept": "c1",
+   "topic": "Concept and methods of double taxation relief",
+   "difficulty": "core"
+  },
+  {
+   "id": "m8",
+   "q": "Claim for credit of a disputed foreign tax after settlement must be made within:",
+   "options": [
+    "Six months from end of month of settlement",
+    "One year",
+    "Thirty days",
+    "Two years"
+   ],
+   "answer": 0,
+   "explain": "Rule 76(6). In practice: with proof.",
+   "concept": "c4",
+   "topic": "Foreign tax credit rules",
+   "difficulty": "core"
+  }
+ ],
+ "questions": [
+  {
+   "id": "q1",
+   "marks": 6,
+   "minutes": 11,
+   "difficulty": "core",
+   "pad": "table",
+   "q": "Ritu, a resident under the default regime, has Indian income of ₹10,00,000 and income of ₹5,00,000 from Country Z (no tax treaty with India), on which she paid tax of ₹50,000 there. Compute her tax liability for T.Y. 2026-27 after relief under section 160.",
+   "model": [
+    {
+     "t": "table",
+     "head": [
+      "Step",
+      "Working",
+      "₹ / %"
+     ],
+     "rows": [
+      [
+       "Tax on ₹15 lakh with cess",
+       "1,05,000 × 1.04",
+       "1,09,200"
+      ],
+      [
+       "Indian average rate",
+       "1,09,200 ÷ 15,00,000",
+       "7.28%"
+      ],
+      [
+       "Foreign rate",
+       "50,000 ÷ 5,00,000",
+       "10%"
+      ],
+      [
+       "Relief",
+       "5,00,000 × lower rate (7.28%)",
+       "36,400"
+      ],
+      [
+       "Net tax payable",
+       "",
+       "72,800"
+      ]
+     ],
+     "title": "Section 160"
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "Indian tax and rate",
+     "m": 3,
+     "skill": "computation",
+     "kw": [
+      "average"
+     ],
+     "min": 1,
+     "nums": [
+      109200
+     ]
+    },
+    {
+     "id": "s2",
+     "pt": "Relief and net tax",
+     "m": 3,
+     "skill": "computation",
+     "kw": [
+      "relief"
+     ],
+     "min": 1,
+     "nums": [
+      36400,
+      72800
+     ]
+    }
+   ],
+   "remarks": [
+    "Define rates."
+   ],
+   "mistakes": [
+    "Using the foreign rate when higher."
+   ],
+   "tips": [
+    "Table."
+   ],
+   "extra_ok": true,
+   "checks": [
+    {
+     "expr": "(400000*0.05+400000*0.10+300000*0.15)*1.04",
+     "value": 109200,
+     "label": "Indian tax on ₹15 lakh incl. cess (₹)"
+    },
+    {
+     "expr": "round((400000*0.05+400000*0.10+300000*0.15)*1.04/1500000*100,2)",
+     "value": 7.28,
+     "label": "Indian average rate (%)"
+    },
+    {
+     "expr": "500000*min(0.0728,0.10)",
+     "value": 36400,
+     "label": "Relief on ₹5 lakh at lower rate (₹)"
+    },
+    {
+     "expr": "(400000*0.05+400000*0.10+300000*0.15)*1.04-500000*0.0728",
+     "value": 72800,
+     "label": "Net tax payable (₹)"
+    }
+   ]
+  },
+  {
+   "id": "q2",
+   "marks": 5,
+   "minutes": 9,
+   "difficulty": "core",
+   "pad": "table",
+   "q": "Indus Tech Ltd (Indian rate 25%; ignore surcharge and cess) earns ₹20,00,000 of royalty from Country K, which withheld tax at 30%. The India–K treaty limits source taxation of royalty to 15%. Compute the foreign tax credit.",
+   "model": [
+    {
+     "t": "table",
+     "head": [
+      "Item",
+      "Working",
+      "₹"
+     ],
+     "rows": [
+      [
+       "Indian tax on the income",
+       "25% × 20,00,000",
+       "5,00,000"
+      ],
+      [
+       "Foreign tax paid",
+       "30% × 20,00,000",
+       "6,00,000"
+      ],
+      [
+       "Tax as per treaty",
+       "15% × 20,00,000 (excess ignored)",
+       "3,00,000"
+      ],
+      [
+       "FTC",
+       "Lower of Indian tax and treaty-permitted foreign tax",
+       "3,00,000"
+      ]
+     ],
+     "title": "Rule 76"
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "Taxes compared",
+     "m": 3,
+     "skill": "computation",
+     "kw": [
+      "treaty"
+     ],
+     "min": 1,
+     "nums": [
+      500000,
+      600000,
+      300000
+     ]
+    },
+    {
+     "id": "s2",
+     "pt": "FTC",
+     "m": 2,
+     "skill": "computation",
+     "kw": [
+      "credit"
+     ],
+     "min": 1,
+     "nums": [
+      300000
+     ]
+    }
+   ],
+   "remarks": [
+    "Mention excess ignored."
+   ],
+   "mistakes": [
+    "Allowing full foreign tax."
+   ],
+   "tips": [
+    "Table."
+   ],
+   "extra_ok": true,
+   "checks": [
+    {
+     "expr": "2000000*0.25",
+     "value": 500000,
+     "label": "Indian tax on foreign income at 25% (₹)"
+    },
+    {
+     "expr": "2000000*0.30",
+     "value": 600000,
+     "label": "Foreign tax actually paid (₹)"
+    },
+    {
+     "expr": "2000000*0.15",
+     "value": 300000,
+     "label": "Foreign tax permitted under treaty (₹)"
+    },
+    {
+     "expr": "min(2000000*0.25,2000000*0.30,2000000*0.15)",
+     "value": 300000,
+     "label": "Foreign tax credit allowed (₹)"
+    }
+   ]
+  }
+ ],
+ "revision": {
+  "summary": [
+   "Methods: exemption, credit, tax sparing.",
+   "Section 159 treaties; TRC and Form No. 41.",
+   "Section 160 relief at the lower average rate.",
+   "Rule 76 FTC: lower of Indian tax and foreign tax; excess over treaty ignored."
+  ],
+  "remember": [
+   "No FTC on interest, fee or penalty."
+  ],
+  "traps": [
+   "Granting relief at the higher foreign rate."
+  ]
+ },
+ "quickref": [
+  {
+   "k": "Bilateral relief",
+   "v": "Section 159"
+  },
+  {
+   "k": "Unilateral relief",
+   "v": "Section 160"
+  },
+  {
+   "k": "FTC",
+   "v": "Rule 76"
+  }
+ ],
+ "viva": [
+  {
+   "id": "v1",
+   "q": "What is tax sparing?",
+   "model": "Credit by the residence country for tax the source country gave up under incentives, as if it had been paid.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Credit",
+     "w": 5,
+     "kw": [
+      "credit"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Incentives",
+     "w": 5,
+     "kw": [
+      "incentive"
+     ]
+    }
+   ],
+   "concept": "c1"
+  },
+  {
+   "id": "v2",
+   "q": "What is the Indian rate of tax for section 160?",
+   "model": "Indian income-tax after reliefs but before double taxation relief, divided by total income.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Divided by total income",
+     "w": 5,
+     "kw": [
+      "total income"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Before relief",
+     "w": 5,
+     "kw": [
+      "before"
+     ]
+    }
+   ],
+   "concept": "c3"
+  },
+  {
+   "id": "v3",
+   "q": "Is a TRC alone enough for treaty benefit?",
+   "model": "A TRC is necessary, and prescribed information in Form No. 41 must also be furnished.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Necessary",
+     "w": 5,
+     "kw": [
+      "necessary"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Form No. 41",
+     "w": 5,
+     "kw": [
+      "41"
+     ]
+    }
+   ],
+   "concept": "c2"
+  },
+  {
+   "id": "v4",
+   "q": "How is FTC computed when income comes from several countries?",
+   "model": "Separately for each source of income from each country, then aggregated.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Separately",
+     "w": 5,
+     "kw": [
+      "separately"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Aggregated",
+     "w": 5,
+     "kw": [
+      "aggregat"
+     ]
+    }
+   ],
+   "concept": "c4"
+  },
+  {
+   "id": "v5",
+   "q": "Which exchange rate applies to convert foreign tax?",
+   "model": "The TT buying rate on the last day of the month before the month of payment or deduction.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "TT buying",
+     "w": 5,
+     "kw": [
+      "tt buying"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Last day",
+     "w": 5,
+     "kw": [
+      "last day"
+     ]
+    }
+   ],
+   "concept": "c4"
+  }
+ ],
+ "cases": [
+  {
+   "id": "k1",
+   "title": "Kapoor's foreign rent",
+   "difficulty": "core",
+   "case": "Aman Kapoor, resident, earns rent from a flat in a country with which India has no treaty. The rent is ₹8,00,000 and he paid tax of ₹1,20,000 there. His Indian average rate of tax works out to 12%.",
+   "mcqs": [
+    {
+     "id": "k1a",
+     "q": "Foreign average rate (%):",
+     "options": [
+      "15",
+      "12",
+      "10",
+      "20"
+     ],
+     "answer": 0,
+     "explain": "1,20,000 ÷ 8,00,000. In practice: actual tax paid.",
+     "difficulty": "core",
+     "check": 15,
+     "topic": "Unilateral relief under section 160"
+    },
+    {
+     "id": "k1b",
+     "q": "Rate used for relief (%):",
+     "options": [
+      "12",
+      "15",
+      "13.5",
+      "27"
+     ],
+     "answer": 0,
+     "explain": "Lower rate. In practice: Indian rate.",
+     "difficulty": "core",
+     "check": 12,
+     "topic": "Unilateral relief under section 160"
+    },
+    {
+     "id": "k1c",
+     "q": "Relief under section 160 (₹):",
+     "options": [
+      "96,000",
+      "1,20,000",
+      "24,000",
+      "1,08,000"
+     ],
+     "answer": 0,
+     "explain": "8,00,000 × 12%. In practice: deducted from Indian tax.",
+     "difficulty": "core",
+     "check": 96000,
+     "topic": "Unilateral relief under section 160"
+    },
+    {
+     "id": "k1d",
+     "q": "Is the extra foreign tax (above relief) refundable in India?",
+     "options": [
+      "No",
+      "Yes",
+      "Only for companies",
+      "Only if treaty exists"
+     ],
+     "answer": 0,
+     "explain": "Relief limited. In practice: cost to taxpayer.",
+     "difficulty": "core",
+     "topic": "Unilateral relief under section 160"
+    }
+   ]
+  }
+ ]
+}
