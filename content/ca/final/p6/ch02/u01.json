@@ -1,0 +1,775 @@
+{
+ "schema": "ca-unit/1",
+ "id": "fin-p6-ch02-u01",
+ "level": "final",
+ "paper": "p6",
+ "chapter": "fin-p6-ch02",
+ "n": 1,
+ "title": "IBS Case Study Digest Volume-II",
+ "outcomes": [
+  "Use portfolio and value chain analysis on a case.",
+  "Apply strategic cost management tools.",
+  "Evaluate acquisitions and hedging choices.",
+  "Apply related party, revenue and audit requirements."
+ ],
+ "meta": {
+  "difficulty": "hard",
+  "minutes": {
+   "learn": 40,
+   "practice": 40
+  },
+  "prereq": [
+   "fin-p6-ch01-u01"
+  ],
+  "exam_tip": "In merger questions, always comment on EPS effect and synergies, not just the ratio."
+ },
+ "concepts": [
+  {
+   "id": "c1",
+   "title": "Portfolio and value chain analysis",
+   "body": [
+    "The BCG matrix places businesses by market growth and relative market share: stars (high growth, high share), cash cows (low growth, high share), question marks (high growth, low share) and dogs (low growth, low share). Cash from cows funds stars and selected question marks.",
+    "Porter's value chain splits a firm into primary activities (inbound logistics, operations, outbound logistics, marketing and sales, service) and support activities (infrastructure, HR, technology, procurement). Advantage comes from performing activities at lower cost or in a way that creates differentiation.",
+    "Combining the two shows where to invest and which activities to strengthen, outsource or integrate."
+   ],
+   "analogy": "Know where cash comes from and where value is made.",
+   "work": "A mature biscuit brand with leading share is a cash cow."
+  },
+  {
+   "id": "c2",
+   "title": "Strategic cost management",
+   "body": [
+    "Target costing starts from the market price, deducts the required margin and treats the result as the maximum allowable cost; the gap to current cost is closed through value engineering before launch.",
+    "Life-cycle costing tracks costs from design to withdrawal; activity-based costing traces overheads to products by drivers, exposing loss-making SKUs; Kaizen supports continuous small improvements after launch.",
+    "Pricing strategies — penetration, skimming, premium — must align with the competitive strategy (cost leadership or differentiation)."
+   ],
+   "analogy": "Price first, cost to fit.",
+   "work": "A ₹8 per pack gap on 25 lakh packs means ₹2 crore of savings to find."
+  },
+  {
+   "id": "c3",
+   "title": "Acquisitions and risk management",
+   "body": [
+    "Acquisitions are tested on strategic fit, valuation and post-merger effects. Swap ratios may use EPS, market price, book value or intrinsic value; paying a higher P/E than the acquirer's dilutes EPS unless synergies add earnings.",
+    "Due diligence covers financial, tax, legal and operational areas; integration risk often decides success.",
+    "Risk management uses forwards, futures, options and swaps to hedge currency, commodity and interest exposures; the hedge decision compares the locked-in cost with the expected unhedged cost and the company's risk appetite."
+   ],
+   "analogy": "Deals must create value after integration.",
+   "work": "Booking a forward at ₹84.20 for an import payable removes the risk of the rupee weakening."
+  },
+  {
+   "id": "c4",
+   "title": "Governance, reporting and related parties",
+   "body": [
+    "Section 188 of the Companies Act covers contracts with related parties (sale or purchase of goods, leasing, services, agency, appointment to office). They need board approval, and shareholders' approval by ordinary resolution where prescribed limits are crossed; interested members cannot vote. Transactions in the ordinary course of business at arm's length are outside these approvals.",
+    "Ind AS 24 requires disclosure of related party relationships and transactions; Ind AS 115 treats trade discounts, rebates and price concessions as variable consideration, estimated and constrained, reducing revenue.",
+    "Auditors assess related party risks (SA 550) and may report significant matters as key audit matters for listed entities (SA 701)."
+   ],
+   "analogy": "Related party deals need approvals, disclosure and audit focus.",
+   "work": "Buying packaging from a director's firm above market price needs scrutiny."
+  }
+ ],
+ "illustrations": [
+  {
+   "id": "i1",
+   "title": "Target costing for a new snack line",
+   "difficulty": "moderate",
+   "minutes": 8,
+   "q": "Hearthstone Foods Ltd. plans a millet snack. Market research fixes the price at ₹120 per pack, and the company wants a 25% margin on price. The current engineered cost is ₹98 per pack and volume is 25 lakh packs a year. Compute the target cost, cost gap and the annual saving needed, and suggest how to close the gap.",
+   "solution": [
+    {
+     "t": "table",
+     "head": [
+      "Item",
+      "Working",
+      "Result"
+     ],
+     "rows": [
+      [
+       "Target cost",
+       "₹120 × 75%",
+       "₹90"
+      ],
+      [
+       "Cost gap",
+       "₹98 − target cost",
+       "₹8"
+      ],
+      [
+       "Annual saving needed",
+       "Gap × 25,00,000 packs",
+       "₹2,00,00,000"
+      ]
+     ],
+     "title": "Target costing"
+    },
+    {
+     "t": "p",
+     "text": "Close the gap through value engineering (lighter packaging, fewer SKUs), supplier collaboration on millet sourcing, and process redesign; launch only when the gap is closed or the price strategy changes."
+    }
+   ],
+   "checks": [
+    {
+     "expr": "120*(1-0.25)",
+     "value": 90,
+     "label": "Target cost: target price less 25% margin (₹ per pack)"
+    },
+    {
+     "expr": "98-120*(1-0.25)",
+     "value": 8,
+     "label": "Cost gap: current cost less target cost (₹ per pack)"
+    },
+    {
+     "expr": "(98-120*(1-0.25))*2500000",
+     "value": 20000000,
+     "label": "Annual saving needed on 25 lakh packs (₹)"
+    }
+   ]
+  },
+  {
+   "id": "i2",
+   "title": "Share exchange for Rasoi Spices",
+   "difficulty": "hard",
+   "minutes": 10,
+   "q": "Hearthstone (2 crore shares, earnings ₹60 crore, price ₹400) acquires Rasoi Spices (50 lakh shares, earnings ₹9 crore, price ₹120) through a share swap based on market prices. Compute the swap ratio, shares issued and post-merger EPS assuming no synergy. Compare with Hearthstone's pre-merger EPS.",
+   "solution": [
+    {
+     "t": "table",
+     "head": [
+      "Item",
+      "Working",
+      "Result"
+     ],
+     "rows": [
+      [
+       "Swap ratio",
+       "120 ÷ 400",
+       "0.3 Hearthstone share per Rasoi share"
+      ],
+      [
+       "Shares issued",
+       "50,00,000 × 0.3",
+       "15,00,000"
+      ],
+      [
+       "Post-merger EPS",
+       "(₹60 crore + ₹9 crore) ÷ 2.15 crore shares",
+       "₹32.09"
+      ],
+      [
+       "Pre-merger EPS",
+       "₹60 crore ÷ 2 crore",
+       "₹30.00"
+      ]
+     ],
+     "title": "Merger arithmetic"
+    },
+    {
+     "t": "p",
+     "text": "EPS rises from ₹30 to about ₹32.09 even without synergy, because Rasoi is bought at a P/E of 6.67 (₹120 ÷ ₹18 EPS) against Hearthstone's own 13.33. EPS accretion alone does not prove value creation; the board should still test strategic fit, synergies and integration risk."
+    }
+   ],
+   "checks": [
+    {
+     "expr": "120/400",
+     "value": 0.3,
+     "label": "Swap ratio on market prices: target price ÷ acquirer price"
+    },
+    {
+     "expr": "5000000*120/400",
+     "value": 1500000,
+     "label": "New Hearthstone shares issued for 50 lakh target shares"
+    },
+    {
+     "expr": "(600000000+90000000)/(20000000+5000000*120/400)",
+     "value": 32.09,
+     "label": "Post-merger EPS: combined earnings ÷ total shares (₹)"
+    }
+   ]
+  }
+ ],
+ "jobs": [
+  {
+   "id": "j1",
+   "title": "Acquisition screening memo",
+   "role": "Corporate strategy analyst",
+   "situation": "The board wants a view on acquiring a regional spice brand.",
+   "steps": [
+    "Assess strategic fit and BCG position.",
+    "Compute swap ratio and EPS effect.",
+    "List synergies and risks.",
+    "Note approvals and disclosures."
+   ],
+   "takeaway": "EPS dilution is acceptable only with credible synergies."
+  }
+ ],
+ "mcqs": [
+  {
+   "id": "m1",
+   "q": "A business with low market growth and high relative share is a:",
+   "options": [
+    "Cash cow",
+    "Star",
+    "Question mark",
+    "Dog"
+   ],
+   "answer": 0,
+   "explain": "BCG. In practice: funds growth.",
+   "concept": "c1",
+   "topic": "Portfolio and value chain analysis",
+   "difficulty": "core"
+  },
+  {
+   "id": "m2",
+   "q": "Procurement in Porter's value chain is a:",
+   "options": [
+    "Support activity",
+    "Primary activity",
+    "Outbound activity",
+    "Service activity"
+   ],
+   "answer": 0,
+   "explain": "Support. In practice: sourcing.",
+   "concept": "c1",
+   "topic": "Portfolio and value chain analysis",
+   "difficulty": "core"
+  },
+  {
+   "id": "m3",
+   "q": "Target cost equals:",
+   "options": [
+    "Target price minus required margin",
+    "Current cost plus margin",
+    "Market price plus margin",
+    "Standard cost"
+   ],
+   "answer": 0,
+   "explain": "Market-driven. In practice: value engineering.",
+   "concept": "c2",
+   "topic": "Strategic cost management",
+   "difficulty": "core"
+  },
+  {
+   "id": "m4",
+   "q": "Activity-based costing assigns overheads using:",
+   "options": [
+    "Cost drivers",
+    "Direct labour hours only",
+    "Sales value",
+    "Equal shares"
+   ],
+   "answer": 0,
+   "explain": "ABC. In practice: SKU profitability.",
+   "concept": "c2",
+   "topic": "Strategic cost management",
+   "difficulty": "core"
+  },
+  {
+   "id": "m5",
+   "q": "Paying a higher P/E for the target than the acquirer's own P/E, without synergy, tends to:",
+   "options": [
+    "Dilute acquirer EPS",
+    "Increase acquirer EPS",
+    "Leave EPS unchanged",
+    "Eliminate goodwill"
+   ],
+   "answer": 0,
+   "explain": "Merger arithmetic. In practice: synergies needed.",
+   "concept": "c3",
+   "topic": "Acquisitions and risk management",
+   "difficulty": "core"
+  },
+  {
+   "id": "m6",
+   "q": "A forward contract for an import payable protects against:",
+   "options": [
+    "Rupee depreciation",
+    "Rupee appreciation gains",
+    "Credit risk of supplier",
+    "Inflation"
+   ],
+   "answer": 0,
+   "explain": "Locks the rate. In practice: forgoes upside.",
+   "concept": "c3",
+   "topic": "Acquisitions and risk management",
+   "difficulty": "core"
+  },
+  {
+   "id": "m7",
+   "q": "Related party transactions in the ordinary course at arm's length under section 188:",
+   "options": [
+    "Need no board or shareholder approval under the section",
+    "Always need special resolution",
+    "Need Central Government approval",
+    "Are prohibited"
+   ],
+   "answer": 0,
+   "explain": "Third proviso. In practice: document arm's length.",
+   "concept": "c4",
+   "topic": "Governance, reporting and related parties",
+   "difficulty": "core"
+  },
+  {
+   "id": "m8",
+   "q": "Volume rebates to distributors are treated under Ind AS 115 as:",
+   "options": [
+    "Variable consideration reducing revenue",
+    "Selling expense",
+    "Other income",
+    "Finance cost"
+   ],
+   "answer": 0,
+   "explain": "Estimate and constrain. In practice: accrue rebates.",
+   "concept": "c4",
+   "topic": "Governance, reporting and related parties",
+   "difficulty": "core"
+  }
+ ],
+ "questions": [
+  {
+   "id": "q1",
+   "marks": 6,
+   "minutes": 11,
+   "difficulty": "core",
+   "pad": "table",
+   "q": "Hearthstone Foods Ltd. plans a millet snack. Market research fixes the price at ₹120 per pack, and the company wants a 25% margin on price. The current engineered cost is ₹98 per pack and volume is 25 lakh packs a year. Compute the target cost, cost gap and the annual saving needed, and suggest how to close the gap.",
+   "model": [
+    {
+     "t": "table",
+     "head": [
+      "Item",
+      "Working",
+      "Result"
+     ],
+     "rows": [
+      [
+       "Target cost",
+       "₹120 × 75%",
+       "₹90"
+      ],
+      [
+       "Cost gap",
+       "₹98 − target cost",
+       "₹8"
+      ],
+      [
+       "Annual saving needed",
+       "Gap × 25,00,000 packs",
+       "₹2,00,00,000"
+      ]
+     ],
+     "title": "Target costing"
+    },
+    {
+     "t": "p",
+     "text": "Close the gap through value engineering (lighter packaging, fewer SKUs), supplier collaboration on millet sourcing, and process redesign; launch only when the gap is closed or the price strategy changes."
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "Target cost and gap",
+     "m": 3,
+     "skill": "computation",
+     "kw": [
+      "target cost"
+     ],
+     "min": 1,
+     "nums": [
+      90,
+      8
+     ]
+    },
+    {
+     "id": "s2",
+     "pt": "Annual saving",
+     "m": 1,
+     "skill": "computation",
+     "kw": [
+      "saving"
+     ],
+     "min": 1,
+     "nums": [
+      20000000
+     ]
+    },
+    {
+     "id": "s3",
+     "pt": "Ways to close",
+     "m": 2,
+     "skill": "analysis",
+     "kw": [
+      "value engineering"
+     ],
+     "min": 1
+    }
+   ],
+   "remarks": [
+    "Practical suggestions."
+   ],
+   "mistakes": [
+    "Using margin on cost."
+   ],
+   "tips": [
+    "Table and advice."
+   ],
+   "extra_ok": true,
+   "checks": [
+    {
+     "expr": "120*(1-0.25)",
+     "value": 90,
+     "label": "Target cost: target price less 25% margin (₹ per pack)"
+    },
+    {
+     "expr": "98-120*(1-0.25)",
+     "value": 8,
+     "label": "Cost gap: current cost less target cost (₹ per pack)"
+    },
+    {
+     "expr": "(98-120*(1-0.25))*2500000",
+     "value": 20000000,
+     "label": "Annual saving needed on 25 lakh packs (₹)"
+    }
+   ]
+  },
+  {
+   "id": "q2",
+   "marks": 8,
+   "minutes": 14,
+   "difficulty": "core",
+   "pad": "table",
+   "q": "Hearthstone (2 crore shares, earnings ₹60 crore, price ₹400) acquires Rasoi Spices (50 lakh shares, earnings ₹9 crore, price ₹120) through a share swap based on market prices. Compute the swap ratio, shares issued and post-merger EPS assuming no synergy. Compare with Hearthstone's pre-merger EPS.",
+   "model": [
+    {
+     "t": "table",
+     "head": [
+      "Item",
+      "Working",
+      "Result"
+     ],
+     "rows": [
+      [
+       "Swap ratio",
+       "120 ÷ 400",
+       "0.3 Hearthstone share per Rasoi share"
+      ],
+      [
+       "Shares issued",
+       "50,00,000 × 0.3",
+       "15,00,000"
+      ],
+      [
+       "Post-merger EPS",
+       "(₹60 crore + ₹9 crore) ÷ 2.15 crore shares",
+       "₹32.09"
+      ],
+      [
+       "Pre-merger EPS",
+       "₹60 crore ÷ 2 crore",
+       "₹30.00"
+      ]
+     ],
+     "title": "Merger arithmetic"
+    },
+    {
+     "t": "p",
+     "text": "EPS rises from ₹30 to about ₹32.09 even without synergy, because Rasoi is bought at a P/E of 6.67 (₹120 ÷ ₹18 EPS) against Hearthstone's own 13.33. EPS accretion alone does not prove value creation; the board should still test strategic fit, synergies and integration risk."
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "Swap ratio",
+     "m": 2,
+     "skill": "computation",
+     "kw": [
+      "swap"
+     ],
+     "min": 1,
+     "nums": [
+      0.3
+     ]
+    },
+    {
+     "id": "s2",
+     "pt": "Shares issued",
+     "m": 2,
+     "skill": "computation",
+     "kw": [
+      "shares"
+     ],
+     "min": 1,
+     "nums": [
+      1500000
+     ]
+    },
+    {
+     "id": "s3",
+     "pt": "EPS and comment",
+     "m": 4,
+     "skill": "analysis",
+     "kw": [
+      "synergy"
+     ],
+     "min": 1,
+     "nums": [
+      32.09
+     ]
+    }
+   ],
+   "remarks": [
+    "Compare EPS and P/E."
+   ],
+   "mistakes": [
+    "Assuming every share swap dilutes EPS."
+   ],
+   "tips": [
+    "Table and comment."
+   ],
+   "extra_ok": true,
+   "checks": [
+    {
+     "expr": "120/400",
+     "value": 0.3,
+     "label": "Swap ratio on market prices: target price ÷ acquirer price"
+    },
+    {
+     "expr": "5000000*120/400",
+     "value": 1500000,
+     "label": "New Hearthstone shares issued for 50 lakh target shares"
+    },
+    {
+     "expr": "(600000000+90000000)/(20000000+5000000*120/400)",
+     "value": 32.09,
+     "label": "Post-merger EPS: combined earnings ÷ total shares (₹)"
+    }
+   ]
+  }
+ ],
+ "revision": {
+  "summary": [
+   "BCG: stars, cash cows, question marks, dogs.",
+   "Value chain: primary and support activities.",
+   "Target cost = price − margin.",
+   "Swap ratio and EPS dilution; synergies decide.",
+   "Section 188 approvals; Ind AS 115 variable consideration; SA 550."
+  ],
+  "remember": [
+   "Arm's length ordinary-course deals are outside section 188 approvals."
+  ],
+  "traps": [
+   "Treating above-market supplies from a relative as arm's length."
+  ]
+ },
+ "quickref": [
+  {
+   "k": "Portfolio",
+   "v": "BCG"
+  },
+  {
+   "k": "Activities",
+   "v": "Value chain"
+  },
+  {
+   "k": "Cost",
+   "v": "Target costing"
+  },
+  {
+   "k": "M&A",
+   "v": "Swap ratio"
+  },
+  {
+   "k": "Governance",
+   "v": "Section 188"
+  }
+ ],
+ "viva": [
+  {
+   "id": "v1",
+   "q": "How should cash cows be managed?",
+   "model": "Hold position efficiently and use their surplus cash to fund stars and selected question marks.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Surplus cash",
+     "w": 5,
+     "kw": [
+      "surplus cash"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Stars",
+     "w": 5,
+     "kw": [
+      "stars"
+     ]
+    }
+   ],
+   "concept": "c1"
+  },
+  {
+   "id": "v2",
+   "q": "What is value engineering?",
+   "model": "Redesigning a product or process to cut cost while keeping the functions customers value.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Cut cost",
+     "w": 5,
+     "kw": [
+      "cut cost"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Functions",
+     "w": 5,
+     "kw": [
+      "functions"
+     ]
+    }
+   ],
+   "concept": "c2"
+  },
+  {
+   "id": "v3",
+   "q": "What does due diligence cover in an acquisition?",
+   "model": "Financial, tax, legal and operational review of the target to find risks and validate value.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Legal",
+     "w": 5,
+     "kw": [
+      "legal"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Financial",
+     "w": 5,
+     "kw": [
+      "financial"
+     ]
+    }
+   ],
+   "concept": "c3"
+  },
+  {
+   "id": "v4",
+   "q": "Can an interested shareholder vote on a related party resolution?",
+   "model": "A related party member must abstain from voting on that resolution under section 188.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Abstain",
+     "w": 5,
+     "kw": [
+      "abstain"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Related party",
+     "w": 5,
+     "kw": [
+      "related party"
+     ]
+    }
+   ],
+   "concept": "c4"
+  },
+  {
+   "id": "v5",
+   "q": "Which standard governs audit of related parties?",
+   "model": "SA 550 requires the auditor to identify and assess related party risks.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "SA 550",
+     "w": 5,
+     "kw": [
+      "550"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Identify",
+     "w": 5,
+     "kw": [
+      "identify"
+     ]
+    }
+   ],
+   "concept": "c4"
+  }
+ ],
+ "cases": [
+  {
+   "id": "k1",
+   "title": "Hearthstone Foods — integrated case",
+   "difficulty": "moderate",
+   "case": "Hearthstone Foods Ltd. sells biscuits (market leader, category growth 3%), ready meals (growth 18%, share 4%) and frozen desserts (growth 2%, share 3%). It imports oat flakes worth US$5 lakh payable in 3 months; the 3-month forward rate is ₹84.20 and treasury expects spot of ₹84.80. It buys cartons from Pack Prime LLP, where the managing director's brother is a partner, at prices 12% above market.",
+   "mcqs": [
+    {
+     "id": "k1a",
+     "q": "Ready meals in the BCG matrix are a:",
+     "options": [
+      "Question mark",
+      "Star",
+      "Cash cow",
+      "Dog"
+     ],
+     "answer": 0,
+     "explain": "High growth, low share. In practice: invest or exit.",
+     "difficulty": "moderate",
+     "topic": "Portfolio and value chain analysis"
+    },
+    {
+     "id": "k1b",
+     "q": "Expected saving from booking the forward (₹ lakh):",
+     "options": [
+      "3",
+      "6",
+      "1.5",
+      "0"
+     ],
+     "answer": 0,
+     "explain": "(84.80 − 84.20) × 5 lakh. In practice: hedge.",
+     "difficulty": "moderate",
+     "check": 3,
+     "topic": "Acquisitions and risk management"
+    },
+    {
+     "id": "k1c",
+     "q": "The carton purchases from Pack Prime are:",
+     "options": [
+      "Related party transactions needing section 188 approvals",
+      "Exempt as ordinary course at arm's length",
+      "Outside the Act",
+      "Prohibited"
+     ],
+     "answer": 0,
+     "explain": "Above market, so not arm's length. In practice: board approval.",
+     "difficulty": "moderate",
+     "topic": "Governance, reporting and related parties"
+    },
+    {
+     "id": "k1d",
+     "q": "Frozen desserts fall in which quadrant?",
+     "options": [
+      "Dog",
+      "Star",
+      "Question mark",
+      "Cash cow"
+     ],
+     "answer": 0,
+     "explain": "Low growth, low share. In practice: harvest or divest.",
+     "difficulty": "moderate",
+     "topic": "Portfolio and value chain analysis"
+    }
+   ]
+  }
+ ]
+}
