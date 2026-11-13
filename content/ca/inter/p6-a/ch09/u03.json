@@ -1,0 +1,805 @@
+{
+ "schema": "ca-unit/1",
+ "id": "int-p6-a-ch09-u03",
+ "level": "inter",
+ "paper": "p6",
+ "chapter": "int-p6-a-ch09",
+ "n": 3,
+ "title": "Management of Inventory",
+ "outcomes": [
+  "Explain the objectives and costs of inventory.",
+  "Compute EOQ, evaluate discounts and set stock levels.",
+  "Apply ABC, VED, FSN and JIT ideas."
+ ],
+ "meta": {
+  "difficulty": "core",
+  "minutes": {
+   "learn": 20,
+   "practice": 30
+  },
+  "prereq": [
+   "int-p6-a-ch09-u02"
+  ],
+  "exam_tip": "For discount questions, put EOQ and each discount quantity side by side with all three costs."
+ },
+ "concepts": [
+  {
+   "id": "c1",
+   "title": "Objectives of inventory management",
+   "body": [
+    "Inventory (raw materials, WIP, finished goods, stores) is often the largest current asset. Management aims to keep enough to avoid stock-outs and production stoppages while minimising holding and ordering costs and the risk of obsolescence.",
+    "Costs: ordering costs (placing orders, receiving, inspection), carrying costs (storage, insurance, interest on funds, obsolescence), and stock-out costs (lost sales, idle time).",
+    "Inventory policy affects working capital, liquidity and profitability; it is linked to production planning and purchasing."
+   ],
+   "analogy": "The right stock is enough to keep the wheels turning — and no more.",
+   "work": "Overstocking fashion goods risks markdowns; understocking spare parts risks downtime."
+  },
+  {
+   "id": "c2",
+   "title": "EOQ, quantity discounts and stock levels",
+   "body": [
+    "EOQ = √(2AO ÷ C): A stands for yearly demand, O for the cost of placing one order, and C for the yearly cost of holding one unit. At EOQ, ordering cost equals carrying cost and their total is minimum.",
+    "Quantity discounts: compare total cost (purchase + ordering + carrying) at EOQ with that at each discount quantity; accept the lowest.",
+    "Stock levels: re-order level = maximum usage × maximum lead time; minimum = ROL − normal usage × normal lead time; maximum = ROL + ROQ − minimum usage × minimum lead time; danger level = normal usage × lead time for emergency purchase; average stock = (min + max) ÷ 2 or min + ½ ROQ. Safety stock buffers uncertainty in usage and lead time."
+   ],
+   "analogy": "EOQ balances two costs; stock levels translate it into signals for the stores.",
+   "work": "If EOQ is 1,000 and annual demand 25,000, the firm places 25 orders a year."
+  },
+  {
+   "id": "c3",
+   "title": "Selective control and modern techniques",
+   "body": [
+    "ABC analysis classifies items by value: A items (few, high value — tight control), B items (moderate), C items (many, low value — simple control). VED (vital, essential, desirable) and FSN (fast, slow, non-moving) classify by criticality and movement.",
+    "Just-in-time (JIT) aims to receive materials only when needed, cutting holding costs but requiring reliable suppliers. Inventory turnover ratio and days of inventory monitor efficiency.",
+    "Perpetual inventory and periodic physical verification detect discrepancies; obsolete and slow-moving stock is reviewed for disposal."
+   ],
+   "analogy": "Control effort should follow value and criticality, not item count.",
+   "work": "A pharma maker keeps vital active ingredients under VED \"vital\" status even if low value."
+  }
+ ],
+ "illustrations": [
+  {
+   "id": "i1",
+   "title": "EOQ versus a bulk discount",
+   "difficulty": "hard",
+   "minutes": 10,
+   "q": "Annual demand 25,000 units; price ₹100; ordering cost ₹400 per order; carrying cost 20% of price a year. Compute EOQ and total relevant cost. The supplier offers a 2% discount on orders of 2,500 units. Should it be accepted?",
+   "solution": [
+    {
+     "t": "table",
+     "head": [
+      "Item",
+      "At EOQ (1,000 units) ₹",
+      "At 2,500 units ₹"
+     ],
+     "rows": [
+      [
+       "Purchase cost",
+       "25,00,000",
+       "24,50,000"
+      ],
+      [
+       "Ordering cost",
+       "25 × 400 = 10,000",
+       "10 × 400 = 4,000"
+      ],
+      [
+       "Carrying cost",
+       "500 × 20 = 10,000",
+       "1,250 × 19.60 = 24,500"
+      ],
+      [
+       "Total",
+       "25,20,000",
+       "24,78,500"
+      ]
+     ],
+     "title": "Quantity discount decision"
+    },
+    {
+     "t": "p",
+     "text": "EOQ = √(2 × 25,000 × 400 ÷ 20) = 1,000 units. Accept the discount: it saves ₹41,500 a year."
+    }
+   ],
+   "checks": [
+    {
+     "expr": "(2*25000*400/20)**0.5",
+     "value": 1000,
+     "label": "EOQ (units)"
+    },
+    {
+     "expr": "25000/1000*400 + 1000/2*20",
+     "value": 20000,
+     "label": "Ordering + carrying cost at EOQ"
+    },
+    {
+     "expr": "25000*100 + 20000",
+     "value": 2520000,
+     "label": "Total cost at EOQ including purchases"
+    },
+    {
+     "expr": "25000*98 + 25000/2500*400 + 2500/2*98*20/100",
+     "value": 2478500,
+     "label": "Total cost with 2% discount at 2,500 units"
+    },
+    {
+     "expr": "2520000-2478500",
+     "value": 41500,
+     "label": "Saving from taking the discount"
+    }
+   ]
+  },
+  {
+   "id": "i2",
+   "title": "Setting stock levels",
+   "difficulty": "moderate",
+   "minutes": 7,
+   "q": "Daily usage: maximum 120, normal 80, minimum 60 units. Lead time: maximum 12, normal 10, minimum 8 days. Re-order quantity 1,000 units. Compute re-order level, minimum, maximum and average stock levels.",
+   "solution": [
+    {
+     "t": "table",
+     "head": [
+      "Level",
+      "Formula",
+      "Units"
+     ],
+     "rows": [
+      [
+       "Re-order level",
+       "Max usage × max lead time",
+       "1,440"
+      ],
+      [
+       "Minimum level",
+       "ROL − normal usage × normal lead time",
+       "640"
+      ],
+      [
+       "Maximum level",
+       "ROL + ROQ − min usage × min lead time",
+       "1,960"
+      ],
+      [
+       "Average stock",
+       "(Minimum + maximum) ÷ 2",
+       "1,300"
+      ]
+     ],
+     "title": "Stock levels"
+    }
+   ],
+   "checks": [
+    {
+     "expr": "120*12",
+     "value": 1440,
+     "label": "Re-order level"
+    },
+    {
+     "expr": "1440-80*10",
+     "value": 640,
+     "label": "Minimum level"
+    },
+    {
+     "expr": "1440+1000-60*8",
+     "value": 1960,
+     "label": "Maximum level"
+    },
+    {
+     "expr": "(640+1960)/2",
+     "value": 1300,
+     "label": "Average stock level (min + max) ÷ 2"
+    }
+   ]
+  }
+ ],
+ "jobs": [
+  {
+   "id": "j1",
+   "title": "Stock review",
+   "role": "Finance analyst trainee",
+   "situation": "A distributor's inventory days have risen from 45 to 75.",
+   "steps": [
+    "Run an ABC and FSN analysis.",
+    "Identify slow and non-moving items.",
+    "Recompute EOQ and re-order levels for A items.",
+    "Propose disposal of obsolete stock."
+   ],
+   "takeaway": "Rising inventory days usually hide a few slow-moving high-value items."
+  }
+ ],
+ "mcqs": [
+  {
+   "id": "m1",
+   "q": "EOQ with A = 3,600, O = ₹50, C = ₹4:",
+   "options": [
+    "300 units",
+    "150 units",
+    "600 units",
+    "90 units"
+   ],
+   "answer": 0,
+   "explain": "√(2 × 3,600 × 50 ÷ 4) = √90,000 = 300. In practice: 12 orders a year.",
+   "concept": "c2",
+   "topic": "EOQ, quantity discounts and stock levels",
+   "difficulty": "core",
+   "check": 300
+  },
+  {
+   "id": "m2",
+   "q": "At EOQ:",
+   "options": [
+    "Ordering cost equals carrying cost",
+    "Ordering cost is zero",
+    "Carrying cost is double ordering cost",
+    "Purchase cost is minimum"
+   ],
+   "answer": 0,
+   "explain": "The minimum of total ordering and carrying cost is where they are equal. In practice: use to check answers.",
+   "concept": "c2",
+   "topic": "EOQ, quantity discounts and stock levels",
+   "difficulty": "core"
+  },
+  {
+   "id": "m3",
+   "q": "Re-order level is:",
+   "options": [
+    "Maximum usage × maximum lead time",
+    "Minimum usage × minimum lead time",
+    "EOQ ÷ 2",
+    "Average usage × average lead time"
+   ],
+   "answer": 0,
+   "explain": "It ensures stock lasts even in the worst case before a new order arrives. In practice: add safety stock thinking.",
+   "concept": "c2",
+   "topic": "EOQ, quantity discounts and stock levels",
+   "difficulty": "core"
+  },
+  {
+   "id": "m4",
+   "q": "In ABC analysis, \"A\" items are:",
+   "options": [
+    "Few in number but high in value",
+    "Many and low value",
+    "Obsolete",
+    "Fast moving only"
+   ],
+   "answer": 0,
+   "explain": "A items typically form a small share of items but most of the value. In practice: control tightly.",
+   "concept": "c3",
+   "topic": "Selective control and modern techniques",
+   "difficulty": "core"
+  },
+  {
+   "id": "m5",
+   "q": "JIT inventory requires:",
+   "options": [
+    "Reliable suppliers and short lead times",
+    "Large safety stocks",
+    "Infrequent orders",
+    "High carrying costs"
+   ],
+   "answer": 0,
+   "explain": "JIT minimises stock, so supply reliability is critical. In practice: works best with nearby vendors.",
+   "concept": "c3",
+   "topic": "Selective control and modern techniques",
+   "difficulty": "core"
+  },
+  {
+   "id": "m6",
+   "q": "Carrying cost includes:",
+   "options": [
+    "Interest on funds tied in stock",
+    "Cost of placing orders",
+    "Freight on purchases",
+    "Lost sales"
+   ],
+   "answer": 0,
+   "explain": "Holding stock ties up funds, space and insurance. In practice: often expressed as % of value.",
+   "concept": "c1",
+   "topic": "Objectives of inventory management",
+   "difficulty": "core"
+  },
+  {
+   "id": "m7",
+   "q": "FSN analysis classifies stock by:",
+   "options": [
+    "Rate of movement",
+    "Value",
+    "Criticality",
+    "Supplier"
+   ],
+   "answer": 0,
+   "explain": "Fast, slow and non-moving items. In practice: non-moving stock is reviewed for disposal.",
+   "concept": "c3",
+   "topic": "Selective control and modern techniques",
+   "difficulty": "core"
+  },
+  {
+   "id": "m8",
+   "q": "When evaluating a quantity discount, compare:",
+   "options": [
+    "Total purchase, ordering and carrying costs",
+    "Only ordering costs",
+    "Only purchase price",
+    "Only carrying costs"
+   ],
+   "answer": 0,
+   "explain": "All relevant costs change with order size. In practice: carrying cost per unit may fall with the price.",
+   "concept": "c2",
+   "topic": "EOQ, quantity discounts and stock levels",
+   "difficulty": "core"
+  }
+ ],
+ "questions": [
+  {
+   "id": "q1",
+   "marks": 6,
+   "minutes": 11,
+   "difficulty": "core",
+   "pad": "table",
+   "q": "Annual demand 25,000 units; price ₹100; ordering cost ₹400 per order; carrying cost 20% of price a year. Compute EOQ and total relevant cost. The supplier offers a 2% discount on orders of 2,500 units. Should it be accepted?",
+   "model": [
+    {
+     "t": "table",
+     "head": [
+      "Item",
+      "At EOQ (1,000 units) ₹",
+      "At 2,500 units ₹"
+     ],
+     "rows": [
+      [
+       "Purchase cost",
+       "25,00,000",
+       "24,50,000"
+      ],
+      [
+       "Ordering cost",
+       "25 × 400 = 10,000",
+       "10 × 400 = 4,000"
+      ],
+      [
+       "Carrying cost",
+       "500 × 20 = 10,000",
+       "1,250 × 19.60 = 24,500"
+      ],
+      [
+       "Total",
+       "25,20,000",
+       "24,78,500"
+      ]
+     ],
+     "title": "Quantity discount decision"
+    },
+    {
+     "t": "p",
+     "text": "EOQ = √(2 × 25,000 × 400 ÷ 20) = 1,000 units. Accept the discount: it saves ₹41,500 a year."
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "EOQ",
+     "m": 2,
+     "skill": "computation",
+     "kw": [
+      "EOQ"
+     ],
+     "min": 1,
+     "nums": [
+      1000
+     ]
+    },
+    {
+     "id": "s2",
+     "pt": "Costs at EOQ",
+     "m": 1,
+     "skill": "computation",
+     "kw": [
+      "ordering|carrying"
+     ],
+     "min": 1,
+     "nums": [
+      20000
+     ]
+    },
+    {
+     "id": "s3",
+     "pt": "Cost with discount",
+     "m": 2,
+     "skill": "computation",
+     "kw": [
+      "discount"
+     ],
+     "min": 1,
+     "nums": [
+      2478500
+     ]
+    },
+    {
+     "id": "s4",
+     "pt": "Decision",
+     "m": 1,
+     "skill": "computation",
+     "kw": [
+      "saving"
+     ],
+     "min": 1,
+     "nums": [
+      41500
+     ]
+    }
+   ],
+   "remarks": [
+    "Include purchase cost in both."
+   ],
+   "mistakes": [
+    "Ignoring carrying cost increase."
+   ],
+   "tips": [
+    "Table."
+   ],
+   "extra_ok": true,
+   "checks": [
+    {
+     "expr": "(2*25000*400/20)**0.5",
+     "value": 1000,
+     "label": "EOQ (units)"
+    },
+    {
+     "expr": "25000/1000*400 + 1000/2*20",
+     "value": 20000,
+     "label": "Ordering + carrying cost at EOQ"
+    },
+    {
+     "expr": "25000*100 + 20000",
+     "value": 2520000,
+     "label": "Total cost at EOQ including purchases"
+    },
+    {
+     "expr": "25000*98 + 25000/2500*400 + 2500/2*98*20/100",
+     "value": 2478500,
+     "label": "Total cost with 2% discount at 2,500 units"
+    },
+    {
+     "expr": "2520000-2478500",
+     "value": 41500,
+     "label": "Saving from taking the discount"
+    }
+   ]
+  },
+  {
+   "id": "q2",
+   "marks": 4,
+   "minutes": 7,
+   "difficulty": "core",
+   "pad": "table",
+   "q": "Daily usage: maximum 120, normal 80, minimum 60 units. Lead time: maximum 12, normal 10, minimum 8 days. Re-order quantity 1,000 units. Compute re-order level, minimum, maximum and average stock levels.",
+   "model": [
+    {
+     "t": "table",
+     "head": [
+      "Level",
+      "Formula",
+      "Units"
+     ],
+     "rows": [
+      [
+       "Re-order level",
+       "Max usage × max lead time",
+       "1,440"
+      ],
+      [
+       "Minimum level",
+       "ROL − normal usage × normal lead time",
+       "640"
+      ],
+      [
+       "Maximum level",
+       "ROL + ROQ − min usage × min lead time",
+       "1,960"
+      ],
+      [
+       "Average stock",
+       "(Minimum + maximum) ÷ 2",
+       "1,300"
+      ]
+     ],
+     "title": "Stock levels"
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "ROL",
+     "m": 1,
+     "skill": "computation",
+     "kw": [
+      "re-order"
+     ],
+     "min": 1,
+     "nums": [
+      1440
+     ]
+    },
+    {
+     "id": "s2",
+     "pt": "Min and max",
+     "m": 2,
+     "skill": "computation",
+     "kw": [
+      "minimum|maximum"
+     ],
+     "min": 1,
+     "nums": [
+      640,
+      1960
+     ]
+    },
+    {
+     "id": "s3",
+     "pt": "Average",
+     "m": 1,
+     "skill": "computation",
+     "kw": [
+      "average"
+     ],
+     "min": 1,
+     "nums": [
+      1300
+     ]
+    }
+   ],
+   "remarks": [
+    "Use the right usage and lead time in each formula."
+   ],
+   "mistakes": [
+    "Using normal usage for ROL."
+   ],
+   "tips": [
+    "Table."
+   ],
+   "extra_ok": true,
+   "checks": [
+    {
+     "expr": "120*12",
+     "value": 1440,
+     "label": "Re-order level"
+    },
+    {
+     "expr": "1440-80*10",
+     "value": 640,
+     "label": "Minimum level"
+    },
+    {
+     "expr": "1440+1000-60*8",
+     "value": 1960,
+     "label": "Maximum level"
+    },
+    {
+     "expr": "(640+1960)/2",
+     "value": 1300,
+     "label": "Average stock level (min + max) ÷ 2"
+    }
+   ]
+  }
+ ],
+ "revision": {
+  "summary": [
+   "EOQ = √(2AO/C); ordering cost = carrying cost at EOQ.",
+   "Discounts: compare total costs including purchases.",
+   "ROL, minimum, maximum, average and danger levels.",
+   "ABC, VED, FSN; JIT needs reliable supply."
+  ],
+  "remember": [
+   "Carrying cost per unit = price × carrying %."
+  ],
+  "traps": [
+   "ROL uses maximum usage and maximum lead time."
+  ]
+ },
+ "quickref": [
+  {
+   "k": "EOQ",
+   "v": "√(2AO/C)"
+  },
+  {
+   "k": "ROL",
+   "v": "Max usage × max lead time"
+  },
+  {
+   "k": "Max level",
+   "v": "ROL + ROQ − min usage × min lead time"
+  }
+ ],
+ "viva": [
+  {
+   "id": "v1",
+   "q": "State the EOQ formula.",
+   "model": "The square root of two times annual demand times ordering cost per order, divided by carrying cost per unit per year.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Square root",
+     "w": 4,
+     "kw": [
+      "square root"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Variables",
+     "w": 6,
+     "kw": [
+      "demand|ordering|carrying"
+     ]
+    }
+   ],
+   "concept": "c2"
+  },
+  {
+   "id": "v2",
+   "q": "What is safety stock?",
+   "model": "Extra stock held to protect against uncertainty in demand or lead time.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Extra stock",
+     "w": 5,
+     "kw": [
+      "extra|buffer"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Uncertainty",
+     "w": 5,
+     "kw": [
+      "uncertain"
+     ]
+    }
+   ],
+   "concept": "c2"
+  },
+  {
+   "id": "v3",
+   "q": "Explain ABC analysis.",
+   "model": "Classifying inventory into high, medium and low value groups so that control effort is concentrated on high-value A items.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Value groups",
+     "w": 5,
+     "kw": [
+      "value"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Control focus",
+     "w": 5,
+     "kw": [
+      "control"
+     ]
+    }
+   ],
+   "concept": "c3"
+  },
+  {
+   "id": "v4",
+   "q": "Name two inventory carrying costs.",
+   "model": "Interest on funds blocked and storage and insurance costs, along with obsolescence.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Interest",
+     "w": 5,
+     "kw": [
+      "interest"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Storage or insurance",
+     "w": 5,
+     "kw": [
+      "storage|insurance|obsolesc"
+     ]
+    }
+   ],
+   "concept": "c1"
+  },
+  {
+   "id": "v5",
+   "q": "What is the main risk of JIT?",
+   "model": "Production may stop if suppliers fail to deliver on time, since little buffer stock is held.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Supplier failure",
+     "w": 5,
+     "kw": [
+      "supplier|deliver"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "No buffer",
+     "w": 5,
+     "kw": [
+      "buffer|stop"
+     ]
+    }
+   ],
+   "concept": "c3"
+  }
+ ],
+ "cases": [
+  {
+   "id": "k1",
+   "title": "Sunrise Bakery",
+   "difficulty": "core",
+   "case": "Sunrise Bakery uses 7,200 kg of flour a year; each order costs ₹250; flour costs ₹40/kg; carrying cost is 25% of price a year. Lead time is 5 days; daily usage averages 20 kg and peaks at 30 kg.",
+   "mcqs": [
+    {
+     "id": "k1a",
+     "q": "EOQ:",
+     "options": [
+      "600 kg",
+      "424 kg",
+      "720 kg",
+      "1,200 kg"
+     ],
+     "answer": 0,
+     "explain": "Carrying cost ₹10 a kg; √(2 × 7,200 × 250 ÷ 10) = √3,60,000 = 600 kg. In practice: round to bag sizes.",
+     "difficulty": "moderate",
+     "check": 600,
+     "topic": "EOQ, quantity discounts and stock levels"
+    },
+    {
+     "id": "k1b",
+     "q": "Orders per year:",
+     "options": [
+      "12",
+      "6",
+      "24",
+      "10"
+     ],
+     "answer": 0,
+     "explain": "7,200 ÷ 600 = 12 orders. In practice: about one a month.",
+     "difficulty": "core",
+     "check": 12,
+     "topic": "EOQ, quantity discounts and stock levels"
+    },
+    {
+     "id": "k1c",
+     "q": "Re-order level:",
+     "options": [
+      "150 kg",
+      "100 kg",
+      "600 kg",
+      "200 kg"
+     ],
+     "answer": 0,
+     "explain": "Maximum usage 30 × lead time 5 = 150 kg. In practice: order when stock falls to this.",
+     "difficulty": "core",
+     "check": 150,
+     "topic": "EOQ, quantity discounts and stock levels"
+    },
+    {
+     "id": "k1d",
+     "q": "Under VED analysis flour for a bakery is:",
+     "options": [
+      "Vital",
+      "Desirable",
+      "Essential only for festivals",
+      "Non-moving"
+     ],
+     "answer": 0,
+     "explain": "Without flour production stops, so it is vital. In practice: keep a safety buffer.",
+     "difficulty": "core",
+     "topic": "Selective control and modern techniques"
+    }
+   ]
+  }
+ ]
+}
