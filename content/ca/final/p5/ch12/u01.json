@@ -1,0 +1,694 @@
+{
+ "schema": "ca-unit/1",
+ "id": "fin-p5-ch12-u01",
+ "level": "final",
+ "paper": "p5",
+ "chapter": "fin-p5-ch12",
+ "n": 1,
+ "title": "Electronic Commerce Transactions",
+ "outcomes": [
+  "Apply registration rules for ECOs and sellers.",
+  "Apply ECO liability under section 9(5).",
+  "Compute TCS under section 52.",
+  "Apply OIDAR provisions."
+ ],
+ "meta": {
+  "difficulty": "core",
+  "minutes": {
+   "learn": 30,
+   "practice": 20
+  },
+  "prereq": [
+   "fin-p5-ch11-u01"
+  ],
+  "exam_tip": "First decide whether the supply is under section 9(5); if so, no TCS."
+ },
+ "concepts": [
+  {
+   "id": "c1",
+   "title": "E-commerce operators and registration",
+   "body": [
+    "An e-commerce operator (ECO) is whoever runs — by owning, operating or managing — a digital platform used for e-commerce. ECOs liable under section 9(5) or required to collect TCS must register irrespective of turnover.",
+    "Suppliers through ECOs that collect TCS must register irrespective of turnover, except (i) suppliers of services with aggregate turnover up to ₹20 lakh (₹10 lakh in special States) and (ii) notified suppliers of goods meeting conditions (intra-State, PAN-linked enrolment, etc.).",
+    "Composition dealers may supply goods through ECOs under a special procedure; the ECO collects TCS and does not allow inter-State supplies by them."
+   ],
+   "analogy": "Platforms and many sellers on them must register from the first rupee.",
+   "work": "A home-décor seller on a marketplace must register even with ₹5 lakh sales."
+  },
+  {
+   "id": "c2",
+   "title": "Tax payable by ECO under section 9(5)",
+   "body": [
+    "Section 9(5) makes the ECO liable for tax on notified services supplied through it: passenger transport by radio taxi, motor cab, maxi cab, motorcycle, omnibus or other motor vehicle; hotel, inn, guest house, club and campsite accommodation (with exceptions where supplier is registered); housekeeping services such as plumbing and carpentry (unless supplier is registered); and restaurant services (except from specified premises).",
+    "The ECO pays the tax as if it were the supplier and issues the invoice; the underlying suppliers need not register only because of these services.",
+    "Supplies covered by section 9(5) are excluded from TCS computation."
+   ],
+   "analogy": "For notified services the platform is the taxpayer.",
+   "work": "A cab aggregator pays GST on rides by unregistered drivers."
+  },
+  {
+   "id": "c3",
+   "title": "Tax collection at source by ECO",
+   "body": [
+    "Section 52: an ECO (not being an agent) collects TCS at 0.5% (0.25% CGST + 0.25% SGST/UTGST, or 0.5% IGST) on the net taxable value of other suppliers' sales routed through its platform where it collects the consideration — gross value less returns, excluding section 9(5) supplies.",
+    "The ECO pays TCS by the 10th of the next month and files GSTR-8 by then; an annual statement is due by 31 December after the year. The supplier claims the amount in its cash ledger after acceptance.",
+    "Officers can seek details of supplies, stock and warehouses from the ECO; failure attracts penalty. Mismatches between the ECO's statement and the supplier's returns are communicated and, if not rectified, added to the supplier's liability."
+   ],
+   "analogy": "Platforms withhold half a percent on net sales of sellers.",
+   "work": "Net sales of ₹9 lakh through a platform carry TCS of ₹4,500."
+  },
+  {
+   "id": "c4",
+   "title": "OIDAR and online services from abroad",
+   "body": [
+    "Online information and database access or retrieval (OIDAR) services — such as streaming, cloud services, online advertising, e-books, digital data storage and online gaming — supplied with minimal human intervention through the internet are covered by special provisions. Place of supply follows where the recipient is located.",
+    "A foreign OIDAR supplier selling to non-taxable online recipients (unregistered persons, including those registered only for TDS or Government bodies not engaged in business) in India must register under a simplified scheme and pay IGST; where an intermediary arranges the supply, the intermediary is deemed the supplier.",
+    "For supplies to registered persons in India, the recipient pays IGST under reverse charge. Online money gaming suppliers from abroad must register and pay tax regardless of OIDAR status."
+   ],
+   "analogy": "Foreign digital services to Indian consumers are taxed in India.",
+   "work": "A US streaming service selling to Indian households pays 18% IGST."
+  }
+ ],
+ "illustrations": [
+  {
+   "id": "i1",
+   "title": "TCS by an e-commerce operator",
+   "difficulty": "core",
+   "minutes": 6,
+   "q": "ShopKart, an ECO in Karnataka, facilitated intra-State sales by registered sellers of ₹10,00,000 in November 2026; goods worth ₹1,00,000 were returned in the same month. It also facilitated restaurant services of ₹2,00,000 on which it pays tax under section 9(5). Compute TCS.",
+   "solution": [
+    {
+     "t": "table",
+     "head": [
+      "Step",
+      "Working",
+      "₹"
+     ],
+     "rows": [
+      [
+       "Net value",
+       "10,00,000 − 1,00,000 (section 9(5) supplies excluded)",
+       "9,00,000"
+      ],
+      [
+       "TCS @ 0.5%",
+       "Intra-State: 0.25% CGST + 0.25% SGST",
+       "4,500"
+      ],
+      [
+       "Each component",
+       "",
+       "2,250"
+      ],
+      [
+       "Statement",
+       "GSTR-8 by 10th of next month",
+       "—"
+      ]
+     ],
+     "title": "Section 52"
+    }
+   ],
+   "checks": [
+    {
+     "expr": "1000000-100000",
+     "value": 900000,
+     "label": "Net value of taxable supplies (₹)"
+    },
+    {
+     "expr": "(1000000-100000)*0.005",
+     "value": 4500,
+     "label": "TCS at 0.5% (₹)"
+    },
+    {
+     "expr": "(1000000-100000)*0.0025",
+     "value": 2250,
+     "label": "CGST (and equal SGST) component (₹)"
+    }
+   ]
+  },
+  {
+   "id": "i2",
+   "title": "Foreign streaming service",
+   "difficulty": "moderate",
+   "minutes": 6,
+   "q": "StreamWave Inc. (USA) earns ₹50,00,000 in a quarter from subscriptions sold to unregistered individuals in India, and ₹20,00,000 from registered Indian businesses. Determine tax implications.",
+   "solution": [
+    {
+     "t": "table",
+     "head": [
+      "Customer",
+      "Treatment",
+      "₹"
+     ],
+     "rows": [
+      [
+       "Unregistered individuals",
+       "OIDAR to non-taxable online recipients — StreamWave registers (simplified scheme) and pays IGST",
+       "9,00,000"
+      ],
+      [
+       "Registered businesses",
+       "Recipients pay IGST under reverse charge",
+       "—"
+      ]
+     ],
+     "title": "IGST section 14"
+    }
+   ],
+   "checks": [
+    {
+     "expr": "5000000*0.18",
+     "value": 900000,
+     "label": "IGST on OIDAR supplies to unregistered Indians at 18% (₹)"
+    }
+   ]
+  }
+ ],
+ "jobs": [
+  {
+   "id": "j1",
+   "title": "Marketplace seller onboarding",
+   "role": "GST consultant",
+   "situation": "A small artisan wants to sell on a marketplace.",
+   "steps": [
+    "Check if registration exemption applies.",
+    "Explain TCS deduction and claiming.",
+    "Reconcile monthly TCS with sales.",
+    "Handle returns in net value."
+   ],
+   "takeaway": "TCS is not a cost if claimed properly."
+  }
+ ],
+ "mcqs": [
+  {
+   "id": "m1",
+   "q": "Rate of TCS under section 52 on intra-State supplies is:",
+   "options": [
+    "0.25% CGST + 0.25% SGST",
+    "1% CGST + 1% SGST",
+    "0.5% CGST + 0.5% SGST",
+    "2% IGST"
+   ],
+   "answer": 0,
+   "explain": "Total 0.5%. In practice: on net value.",
+   "concept": "c3",
+   "topic": "Tax collection at source by ECO",
+   "difficulty": "core"
+  },
+  {
+   "id": "m2",
+   "q": "Net value for TCS excludes:",
+   "options": [
+    "Supplies under section 9(5)",
+    "Taxable supplies",
+    "Inter-State supplies",
+    "Supplies by registered sellers"
+   ],
+   "answer": 0,
+   "explain": "Explanation to section 52(1). In practice: also returns.",
+   "concept": "c3",
+   "topic": "Tax collection at source by ECO",
+   "difficulty": "core"
+  },
+  {
+   "id": "m3",
+   "q": "GSTR-8 must be filed by:",
+   "options": [
+    "Tenth of the next month",
+    "Twentieth of next month",
+    "Last day of quarter",
+    "Thirty-first December"
+   ],
+   "answer": 0,
+   "explain": "Section 52(4). In practice: with payment.",
+   "concept": "c3",
+   "topic": "Tax collection at source by ECO",
+   "difficulty": "core"
+  },
+  {
+   "id": "m4",
+   "q": "Under section 9(5), the ECO pays tax on:",
+   "options": [
+    "Passenger transport by motor cabs through it",
+    "All goods sold on it",
+    "Its own advertising",
+    "Exports by sellers"
+   ],
+   "answer": 0,
+   "explain": "Notified services. In practice: deemed supplier.",
+   "concept": "c2",
+   "topic": "Tax payable by ECO under section 9(5)",
+   "difficulty": "core"
+  },
+  {
+   "id": "m5",
+   "q": "A service supplier through an ECO with turnover up to ₹20 lakh:",
+   "options": [
+    "Need not register",
+    "Must register",
+    "Must opt composition",
+    "Must pay TCS"
+   ],
+   "answer": 0,
+   "explain": "Exemption notification. In practice: special States ₹10 lakh.",
+   "concept": "c1",
+   "topic": "E-commerce operators and registration",
+   "difficulty": "core"
+  },
+  {
+   "id": "m6",
+   "q": "Place of supply of OIDAR services to Indian recipients is:",
+   "options": [
+    "Location of recipient",
+    "Location of supplier",
+    "Server location",
+    "Port of entry"
+   ],
+   "answer": 0,
+   "explain": "Section 13(12) IGST. In practice: IGST payable.",
+   "concept": "c4",
+   "topic": "OIDAR and online services from abroad",
+   "difficulty": "core"
+  },
+  {
+   "id": "m7",
+   "q": "For OIDAR supplied to a registered Indian business, tax is paid by:",
+   "options": [
+    "The recipient under reverse charge",
+    "The foreign supplier",
+    "The intermediary",
+    "No one"
+   ],
+   "answer": 0,
+   "explain": "RCM. In practice: ITC available.",
+   "concept": "c4",
+   "topic": "OIDAR and online services from abroad",
+   "difficulty": "core"
+  },
+  {
+   "id": "m8",
+   "q": "Composition dealers supplying goods through ECOs:",
+   "options": [
+    "Are allowed under a special procedure",
+    "Are prohibited",
+    "Must switch to regular scheme",
+    "Pay TCS themselves"
+   ],
+   "answer": 0,
+   "explain": "Section 148 procedure. In practice: intra-State only.",
+   "concept": "c1",
+   "topic": "E-commerce operators and registration",
+   "difficulty": "core"
+  }
+ ],
+ "questions": [
+  {
+   "id": "q1",
+   "marks": 4,
+   "minutes": 7,
+   "difficulty": "core",
+   "pad": "table",
+   "q": "ShopKart, an ECO in Karnataka, facilitated intra-State sales by registered sellers of ₹10,00,000 in November 2026; goods worth ₹1,00,000 were returned in the same month. It also facilitated restaurant services of ₹2,00,000 on which it pays tax under section 9(5). Compute TCS.",
+   "model": [
+    {
+     "t": "table",
+     "head": [
+      "Step",
+      "Working",
+      "₹"
+     ],
+     "rows": [
+      [
+       "Net value",
+       "10,00,000 − 1,00,000 (section 9(5) supplies excluded)",
+       "9,00,000"
+      ],
+      [
+       "TCS @ 0.5%",
+       "Intra-State: 0.25% CGST + 0.25% SGST",
+       "4,500"
+      ],
+      [
+       "Each component",
+       "",
+       "2,250"
+      ],
+      [
+       "Statement",
+       "GSTR-8 by 10th of next month",
+       "—"
+      ]
+     ],
+     "title": "Section 52"
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "Net value",
+     "m": 2,
+     "skill": "computation",
+     "kw": [
+      "net value"
+     ],
+     "min": 1,
+     "nums": [
+      900000
+     ]
+    },
+    {
+     "id": "s2",
+     "pt": "TCS",
+     "m": 2,
+     "skill": "computation",
+     "kw": [
+      "0.5%"
+     ],
+     "min": 1,
+     "nums": [
+      4500,
+      2250
+     ]
+    }
+   ],
+   "remarks": [
+    "Exclude 9(5) supplies."
+   ],
+   "mistakes": [
+    "Including restaurant supplies."
+   ],
+   "tips": [
+    "Table."
+   ],
+   "extra_ok": true,
+   "checks": [
+    {
+     "expr": "1000000-100000",
+     "value": 900000,
+     "label": "Net value of taxable supplies (₹)"
+    },
+    {
+     "expr": "(1000000-100000)*0.005",
+     "value": 4500,
+     "label": "TCS at 0.5% (₹)"
+    },
+    {
+     "expr": "(1000000-100000)*0.0025",
+     "value": 2250,
+     "label": "CGST (and equal SGST) component (₹)"
+    }
+   ]
+  },
+  {
+   "id": "q2",
+   "marks": 4,
+   "minutes": 7,
+   "difficulty": "core",
+   "pad": "table",
+   "q": "StreamWave Inc. (USA) earns ₹50,00,000 in a quarter from subscriptions sold to unregistered individuals in India, and ₹20,00,000 from registered Indian businesses. Determine tax implications.",
+   "model": [
+    {
+     "t": "table",
+     "head": [
+      "Customer",
+      "Treatment",
+      "₹"
+     ],
+     "rows": [
+      [
+       "Unregistered individuals",
+       "OIDAR to non-taxable online recipients — StreamWave registers (simplified scheme) and pays IGST",
+       "9,00,000"
+      ],
+      [
+       "Registered businesses",
+       "Recipients pay IGST under reverse charge",
+       "—"
+      ]
+     ],
+     "title": "IGST section 14"
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "B2C OIDAR",
+     "m": 2,
+     "skill": "computation",
+     "kw": [
+      "IGST"
+     ],
+     "min": 1,
+     "nums": [
+      900000
+     ]
+    },
+    {
+     "id": "s2",
+     "pt": "B2B OIDAR",
+     "m": 2,
+     "skill": "analysis",
+     "kw": [
+      "reverse charge"
+     ],
+     "min": 1
+    }
+   ],
+   "remarks": [
+    "Define non-taxable online recipient."
+   ],
+   "mistakes": [
+    "Making Indian individuals pay RCM."
+   ],
+   "tips": [
+    "Table."
+   ],
+   "extra_ok": true,
+   "checks": [
+    {
+     "expr": "5000000*0.18",
+     "value": 900000,
+     "label": "IGST on OIDAR supplies to unregistered Indians at 18% (₹)"
+    }
+   ]
+  }
+ ],
+ "revision": {
+  "summary": [
+   "ECO registration compulsory; seller exemptions.",
+   "Section 9(5): cabs, accommodation, housekeeping, restaurants.",
+   "Section 52: TCS 0.5% on net value; GSTR-8 by 10th.",
+   "OIDAR: POS recipient; foreign supplier registers for B2C; RCM for B2B."
+  ],
+  "remember": [
+   "Returns reduce net value for TCS."
+  ],
+  "traps": [
+   "Collecting TCS on section 9(5) supplies."
+  ]
+ },
+ "quickref": [
+  {
+   "k": "ECO liability",
+   "v": "Section 9(5)"
+  },
+  {
+   "k": "TCS",
+   "v": "Section 52"
+  },
+  {
+   "k": "OIDAR",
+   "v": "IGST section 14"
+  }
+ ],
+ "viva": [
+  {
+   "id": "v1",
+   "q": "Who is a non-taxable online recipient?",
+   "model": "An unregistered person (including those registered only for TDS or Government bodies not in business) receiving OIDAR services in India.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Unregistered",
+     "w": 5,
+     "kw": [
+      "unregistered"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "OIDAR",
+     "w": 5,
+     "kw": [
+      "oidar"
+     ]
+    }
+   ],
+   "concept": "c4"
+  },
+  {
+   "id": "v2",
+   "q": "How does a supplier claim TCS?",
+   "model": "By accepting the amount on the portal, after which it is credited to the electronic cash ledger.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Accept",
+     "w": 5,
+     "kw": [
+      "accept"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Cash ledger",
+     "w": 5,
+     "kw": [
+      "cash ledger"
+     ]
+    }
+   ],
+   "concept": "c3"
+  },
+  {
+   "id": "v3",
+   "q": "When is an ECO not required to collect TCS?",
+   "model": "For supplies on which it itself pays tax under section 9(5), and for exempt supplies.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Section 9(5)",
+     "w": 5,
+     "kw": [
+      "9(5)"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Exempt supplies",
+     "w": 5,
+     "kw": [
+      "exempt"
+     ]
+    }
+   ],
+   "concept": "c3"
+  },
+  {
+   "id": "v4",
+   "q": "Who pays tax if the ECO has no presence in India?",
+   "model": "A representative in India, or an appointed person, pays on its behalf.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Representative",
+     "w": 5,
+     "kw": [
+      "representative"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Appointed",
+     "w": 5,
+     "kw": [
+      "appoint"
+     ]
+    }
+   ],
+   "concept": "c2"
+  },
+  {
+   "id": "v5",
+   "q": "What happens to mismatches between GSTR-8 and the seller's return?",
+   "model": "They are communicated and, if not rectified, added to the seller's output liability.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Communicated",
+     "w": 5,
+     "kw": [
+      "communicat"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Added to liability",
+     "w": 5,
+     "kw": [
+      "added"
+     ]
+    }
+   ],
+   "concept": "c3"
+  }
+ ],
+ "cases": [
+  {
+   "id": "k1",
+   "title": "StayEasy app",
+   "difficulty": "core",
+   "case": "StayEasy, a booking app, lists rooms of unregistered homestay owners in Goa. Bookings of ₹30,00,000 (taxable at 5% without ITC for this example) were made in a month.",
+   "mcqs": [
+    {
+     "id": "k1a",
+     "q": "Who pays GST on the stays?",
+     "options": [
+      "StayEasy under section 9(5)",
+      "The homestay owners",
+      "The guests",
+      "No one"
+     ],
+     "answer": 0,
+     "explain": "Accommodation notified. In practice: owners unregistered.",
+     "difficulty": "core",
+     "topic": "Tax payable by ECO under section 9(5)"
+    },
+    {
+     "id": "k1b",
+     "q": "GST payable (₹):",
+     "options": [
+      "1,50,000",
+      "5,40,000",
+      "15,000",
+      "3,00,000"
+     ],
+     "answer": 0,
+     "explain": "5% × 30 lakh. In practice: invoice by ECO.",
+     "difficulty": "core",
+     "check": 150000,
+     "topic": "Tax payable by ECO under section 9(5)"
+    },
+    {
+     "id": "k1c",
+     "q": "Is TCS collected on these bookings?",
+     "options": [
+      "No, section 9(5) supplies are excluded",
+      "Yes at 0.5%",
+      "Yes at 1%",
+      "Only inter-State"
+     ],
+     "answer": 0,
+     "explain": "Explanation to section 52. In practice: avoid double levy.",
+     "difficulty": "core",
+     "topic": "Tax collection at source by ECO"
+    },
+    {
+     "id": "k1d",
+     "q": "Must StayEasy register?",
+     "options": [
+      "Yes, irrespective of turnover",
+      "Only above ₹20 lakh",
+      "No",
+      "Only in Goa if office exists"
+     ],
+     "answer": 0,
+     "explain": "Section 24. In practice: in each State as required.",
+     "difficulty": "core",
+     "topic": "E-commerce operators and registration"
+    }
+   ]
+  }
+ ]
+}
