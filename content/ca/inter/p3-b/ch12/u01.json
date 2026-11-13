@@ -1,0 +1,725 @@
+{
+ "schema": "ca-unit/1",
+ "id": "int-p3-b-ch12-u01",
+ "level": "inter",
+ "paper": "p3",
+ "chapter": "int-p3-b-ch12",
+ "n": 1,
+ "title": "E-Way Bill",
+ "outcomes": [
+  "Determine when an e-way bill is required.",
+  "Explain Parts A and B, generation and validity.",
+  "Apply exemptions and consequences of non-compliance."
+ ],
+ "meta": {
+  "difficulty": "core",
+  "minutes": {
+   "learn": 30,
+   "practice": 25
+  },
+  "prereq": [
+   "int-p3-b-ch11-u01"
+  ],
+  "exam_tip": "Compute consignment value first (exclude exempt goods), then check special cases and exemptions."
+ },
+ "concepts": [
+  {
+   "id": "c1",
+   "title": "When an e-way bill is required (s. 68, Rule 138)",
+   "body": [
+    "Section 68 and Rule 138: an e-way bill is generated before movement of goods of consignment value exceeding ₹50,000 — in relation to a supply, for reasons other than supply (for example, sales returns), or due to inward supply from an unregistered person.",
+    "Consignment value is the invoice value including tax, excluding the value of exempt goods supplied on the same invoice.",
+    "Even below ₹50,000, it is required for inter-State movement by a principal to a job worker and inter-State movement of handicraft goods by persons exempt from registration."
+   ],
+   "analogy": "The e-way bill is the electronic travel document that tells the tax system what is on the road.",
+   "work": "A ₹60,000 invoice with ₹15,000 of exempt goods has a consignment value of ₹45,000 — no e-way bill."
+  },
+  {
+   "id": "c2",
+   "title": "Who generates it, Parts A and B, and validity",
+   "body": [
+    "Part A (invoice details, GSTINs, HSN, value) is filled by the registered supplier or recipient who causes the movement; Part B (vehicle or transport document number) by whoever transports. Where the goods are handed to a transporter, he may fill Part B; the registered person may authorise the transporter to fill Part A too.",
+    "Validity: 1 day for each 200 km or part for normal cargo; 1 day for each 20 km for over-dimensional cargo. The first day runs till midnight of the following day. Validity can be extended within 8 hours before or after expiry if the goods could not reach in time due to exceptional circumstances.",
+    "An e-way bill may be cancelled within 24 hours if not verified in transit; the recipient may accept or reject it within 72 hours or before delivery, failing which it is deemed accepted. Transhipment needs Part B updated for each new vehicle."
+   ],
+   "analogy": "Part A describes the goods; Part B tells where they are travelling and on what.",
+   "work": "A truck that breaks down en route has its new vehicle number updated in Part B."
+  },
+  {
+   "id": "c3",
+   "title": "Exemptions, verification and consequences",
+   "body": [
+    "Not required: goods in the Annexure (fresh fruits and vegetables, LPG for households, kerosene through PDS, jewellery and similar items); non-motorised conveyance; movement from port, airport, air cargo complex or land customs station to an inland container depot or container freight station for clearance, or under customs bond or seal; transit to or from Nepal or Bhutan; empty cargo containers; goods treated as no supply under Schedule III; movement of up to 20 km for weighment with a delivery challan; goods moved by defence formations.",
+    "Part B is not required where movement within the State is up to 50 km from the consignor's place to the transporter's place (or from the transporter's place to the consignee).",
+    "Rule 138B–138D and section 68(3): officers may intercept and verify; findings are uploaded within 24 hours (Part A) and the final report within 3 days. A transporter detained for over 30 minutes may report it on the portal.",
+    "Section 129: goods moving without valid documents may be detained or seized; they are released on payment of penalty — for the owner who comes forward, 200% of the tax payable (2% of value or ₹25,000, whichever is lower, for exempt goods); for others, the higher of 50% of the value and 200% of the tax (or 5% of value or ₹25,000 for exempt goods)."
+   ],
+   "analogy": "Exemptions cover low-risk goods and movements; missing paperwork on taxable goods is expensive.",
+   "work": "Goods worth ₹2 lakh with tax of ₹36,000 caught without an e-way bill: the owner pays ₹72,000 penalty to release them."
+  }
+ ],
+ "illustrations": [
+  {
+   "id": "i1",
+   "title": "How long is it valid?",
+   "difficulty": "core",
+   "minutes": 5,
+   "q": "Compute e-way bill validity: (a) normal cargo moving 450 km; (b) over-dimensional cargo moving 70 km. The bill for (a) was generated at 10:00 am on 3 June. When does day one end?",
+   "solution": [
+    {
+     "t": "table",
+     "head": [
+      "Case",
+      "Rule",
+      "Days"
+     ],
+     "rows": [
+      [
+       "(a) Normal cargo, 450 km",
+       "1 day per 200 km or part",
+       "3"
+      ],
+      [
+       "(b) ODC, 70 km",
+       "1 day per 20 km or part",
+       "4"
+      ]
+     ],
+     "title": "Rule 138(10)"
+    },
+    {
+     "t": "note",
+     "text": "A \"day\" ends at midnight of the next day after generation: the first day for (a) expires at midnight of 4 June, so validity of 3 days ends at midnight of 6 June."
+    }
+   ],
+   "checks": [
+    {
+     "expr": "-(-450//200)",
+     "value": 3,
+     "label": "Validity in days for 450 km (normal cargo)"
+    },
+    {
+     "expr": "-(-70//20)",
+     "value": 4,
+     "label": "Validity in days for 70 km (over-dimensional cargo)"
+    }
+   ]
+  },
+  {
+   "id": "i2",
+   "title": "Required or not?",
+   "difficulty": "moderate",
+   "minutes": 7,
+   "q": "Is an e-way bill needed? (a) A Delhi trader sends goods worth ₹45,000 to Noida; (b) a Pune company sends moulds worth ₹20,000 to a job worker in Gujarat; (c) a farmer moves fresh vegetables worth ₹2 lakh to a mandi; (d) goods worth ₹1,20,000 move on a hand cart within the city; (e) goods worth ₹80,000 move 40 km within Maharashtra from the supplier to a transporter's godown for onward inter-State dispatch.",
+   "solution": [
+    {
+     "t": "table",
+     "head": [
+      "Case",
+      "Needed?",
+      "Reason"
+     ],
+     "rows": [
+      [
+       "(a)",
+       "No",
+       "Consignment value does not exceed ₹50,000"
+      ],
+      [
+       "(b)",
+       "Yes",
+       "Inter-State movement to a job worker needs an e-way bill whatever the value"
+      ],
+      [
+       "(c)",
+       "No",
+       "Fresh vegetables are listed in the Annexure to Rule 138(14)"
+      ],
+      [
+       "(d)",
+       "No",
+       "Non-motorised conveyance"
+      ],
+      [
+       "(e)",
+       "Part A only; Part B not needed for the first leg",
+       "Movement up to 50 km within the State from consignor to transporter — Part B can be filled before the onward journey"
+      ]
+     ],
+     "title": "Rule 138"
+    }
+   ],
+   "checks": []
+  }
+ ],
+ "jobs": [
+  {
+   "id": "j1",
+   "title": "Dispatch desk checklist",
+   "role": "Article assistant",
+   "situation": "A factory's dispatch team asks when to generate e-way bills.",
+   "steps": [
+    "Check consignment value excluding exempt goods.",
+    "Check special cases like job work and handicrafts.",
+    "Fill Part A; fill or delegate Part B.",
+    "Track validity and extend in time if delayed."
+   ],
+   "takeaway": "Generate before movement; a late e-way bill does not cure detention."
+  }
+ ],
+ "mcqs": [
+  {
+   "id": "m1",
+   "q": "E-way bill is required where consignment value exceeds:",
+   "options": [
+    "₹50,000",
+    "₹1,00,000",
+    "₹25,000",
+    "₹2,00,000"
+   ],
+   "answer": 0,
+   "explain": "Rule 138(1) sets ₹50,000, measured on invoice value including tax but excluding exempt goods. In practice: special cases need it below this.",
+   "concept": "c1",
+   "topic": "When an e-way bill is required (s. 68, Rule 138)",
+   "difficulty": "core",
+   "check": 50000
+  },
+  {
+   "id": "m2",
+   "q": "Inter-State movement of goods worth ₹15,000 to a job worker:",
+   "options": [
+    "Needs an e-way bill",
+    "Does not need one",
+    "Needs one only within the State",
+    "Needs a tax invoice instead"
+   ],
+   "answer": 0,
+   "explain": "The principal or registered job worker must generate one for inter-State job-work movement regardless of value. In practice: use a delivery challan as the document.",
+   "concept": "c1",
+   "topic": "When an e-way bill is required (s. 68, Rule 138)",
+   "difficulty": "core"
+  },
+  {
+   "id": "m3",
+   "q": "Validity for normal cargo travelling 250 km:",
+   "options": [
+    "2 days",
+    "1 day",
+    "3 days",
+    "5 days"
+   ],
+   "answer": 0,
+   "explain": "One day for every 200 km or part: 250 km needs 2 days. In practice: plan extensions for longer delays.",
+   "concept": "c2",
+   "topic": "Who generates it, Parts A and B, and validity",
+   "difficulty": "core",
+   "check": 2
+  },
+  {
+   "id": "m4",
+   "q": "Part B of the e-way bill contains:",
+   "options": [
+    "Vehicle or transport document details",
+    "HSN and value",
+    "GSTIN of recipient",
+    "Invoice number"
+   ],
+   "answer": 0,
+   "explain": "Part A has supply details; Part B has vehicle or transport document details. In practice: update Part B on transhipment.",
+   "concept": "c2",
+   "topic": "Who generates it, Parts A and B, and validity",
+   "difficulty": "core"
+  },
+  {
+   "id": "m5",
+   "q": "An e-way bill can be cancelled within:",
+   "options": [
+    "24 hours of generation",
+    "72 hours",
+    "8 hours",
+    "7 days"
+   ],
+   "answer": 0,
+   "explain": "Cancellation is allowed within 24 hours if it has not been verified in transit. In practice: recipients have 72 hours to reject.",
+   "concept": "c2",
+   "topic": "Who generates it, Parts A and B, and validity",
+   "difficulty": "core",
+   "check": 24
+  },
+  {
+   "id": "m6",
+   "q": "Which movement does NOT need an e-way bill?",
+   "options": [
+    "Goods carried by bullock cart",
+    "Machinery in a truck worth ₹3 lakh",
+    "Inter-State handicrafts by an unregistered artisan",
+    "Sales return by truck worth ₹70,000"
+   ],
+   "answer": 0,
+   "explain": "Non-motorised conveyance is exempt. The others need one. In practice: hand carts and bicycles are also non-motorised.",
+   "concept": "c3",
+   "topic": "Exemptions, verification and consequences",
+   "difficulty": "core"
+  },
+  {
+   "id": "m7",
+   "q": "Penalty to release taxable goods detained without documents, where the owner comes forward:",
+   "options": [
+    "200% of tax payable",
+    "100% of tax payable",
+    "50% of value",
+    "10% of tax"
+   ],
+   "answer": 0,
+   "explain": "Section 129(1)(a) fixes 200% of the tax for an owner who comes forward; others pay the higher of 50% of value and 200% of tax. In practice: tax is paid separately.",
+   "concept": "c3",
+   "topic": "Exemptions, verification and consequences",
+   "difficulty": "core"
+  },
+  {
+   "id": "m8",
+   "q": "Part B need not be filled where movement within the State from consignor to transporter is up to:",
+   "options": [
+    "50 km",
+    "10 km",
+    "100 km",
+    "20 km"
+   ],
+   "answer": 0,
+   "explain": "Rule 138(3) proviso exempts Part B for intra-State movement up to 50 km between consignor or consignee and transporter. In practice: Part A is still needed.",
+   "concept": "c3",
+   "topic": "Exemptions, verification and consequences",
+   "difficulty": "core",
+   "check": 50
+  }
+ ],
+ "questions": [
+  {
+   "id": "q1",
+   "marks": 3,
+   "minutes": 5,
+   "difficulty": "core",
+   "pad": "table",
+   "q": "Compute e-way bill validity: (a) normal cargo moving 450 km; (b) over-dimensional cargo moving 70 km. The bill for (a) was generated at 10:00 am on 3 June. When does day one end?",
+   "model": [
+    {
+     "t": "table",
+     "head": [
+      "Case",
+      "Rule",
+      "Days"
+     ],
+     "rows": [
+      [
+       "(a) Normal cargo, 450 km",
+       "1 day per 200 km or part",
+       "3"
+      ],
+      [
+       "(b) ODC, 70 km",
+       "1 day per 20 km or part",
+       "4"
+      ]
+     ],
+     "title": "Rule 138(10)"
+    },
+    {
+     "t": "note",
+     "text": "A \"day\" ends at midnight of the next day after generation: the first day for (a) expires at midnight of 4 June, so validity of 3 days ends at midnight of 6 June."
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "Normal cargo",
+     "m": 1,
+     "skill": "computation",
+     "kw": [
+      "200"
+     ],
+     "min": 1,
+     "nums": [
+      3
+     ]
+    },
+    {
+     "id": "s2",
+     "pt": "ODC",
+     "m": 1,
+     "skill": "computation",
+     "kw": [
+      "20 km"
+     ],
+     "min": 1,
+     "nums": [
+      4
+     ]
+    },
+    {
+     "id": "s3",
+     "pt": "Day definition",
+     "m": 1,
+     "skill": "concept",
+     "kw": [
+      "midnight"
+     ],
+     "min": 1
+    }
+   ],
+   "remarks": [
+    "Round up part distances."
+   ],
+   "mistakes": [
+    "Counting the first day as 24 hours."
+   ],
+   "tips": [
+    "Table."
+   ],
+   "extra_ok": true,
+   "checks": [
+    {
+     "expr": "-(-450//200)",
+     "value": 3,
+     "label": "Validity in days for 450 km (normal cargo)"
+    },
+    {
+     "expr": "-(-70//20)",
+     "value": 4,
+     "label": "Validity in days for 70 km (over-dimensional cargo)"
+    }
+   ]
+  },
+  {
+   "id": "q2",
+   "marks": 5,
+   "minutes": 9,
+   "difficulty": "core",
+   "pad": "table",
+   "q": "Is an e-way bill needed? (a) A Delhi trader sends goods worth ₹45,000 to Noida; (b) a Pune company sends moulds worth ₹20,000 to a job worker in Gujarat; (c) a farmer moves fresh vegetables worth ₹2 lakh to a mandi; (d) goods worth ₹1,20,000 move on a hand cart within the city; (e) goods worth ₹80,000 move 40 km within Maharashtra from the supplier to a transporter's godown for onward inter-State dispatch.",
+   "model": [
+    {
+     "t": "table",
+     "head": [
+      "Case",
+      "Needed?",
+      "Reason"
+     ],
+     "rows": [
+      [
+       "(a)",
+       "No",
+       "Consignment value does not exceed ₹50,000"
+      ],
+      [
+       "(b)",
+       "Yes",
+       "Inter-State movement to a job worker needs an e-way bill whatever the value"
+      ],
+      [
+       "(c)",
+       "No",
+       "Fresh vegetables are listed in the Annexure to Rule 138(14)"
+      ],
+      [
+       "(d)",
+       "No",
+       "Non-motorised conveyance"
+      ],
+      [
+       "(e)",
+       "Part A only; Part B not needed for the first leg",
+       "Movement up to 50 km within the State from consignor to transporter — Part B can be filled before the onward journey"
+      ]
+     ],
+     "title": "Rule 138"
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "Value test",
+     "m": 1,
+     "skill": "concept",
+     "kw": [
+      "50,000"
+     ],
+     "min": 1
+    },
+    {
+     "id": "s2",
+     "pt": "Job work",
+     "m": 1,
+     "skill": "concept",
+     "kw": [
+      "job work"
+     ],
+     "min": 1
+    },
+    {
+     "id": "s3",
+     "pt": "Annexure",
+     "m": 1,
+     "skill": "concept",
+     "kw": [
+      "annexure|vegetable"
+     ],
+     "min": 1
+    },
+    {
+     "id": "s4",
+     "pt": "Non-motorised",
+     "m": 1,
+     "skill": "concept",
+     "kw": [
+      "non-motorised"
+     ],
+     "min": 1
+    },
+    {
+     "id": "s5",
+     "pt": "50 km rule",
+     "m": 1,
+     "skill": "concept",
+     "kw": [
+      "50 km"
+     ],
+     "min": 1
+    }
+   ],
+   "remarks": [
+    "Give the reason each time."
+   ],
+   "mistakes": [
+    "Ignoring the job-work rule."
+   ],
+   "tips": [
+    "Table."
+   ],
+   "extra_ok": true
+  }
+ ],
+ "revision": {
+  "summary": [
+   "Required above ₹50,000 consignment value (incl. tax, excl. exempt goods).",
+   "Below ₹50,000 still needed for inter-State job work and handicrafts by exempt persons.",
+   "Validity: 200 km/day; ODC 20 km/day; extension within 8 hours.",
+   "Cancel within 24 hours; recipient rejects within 72 hours.",
+   "Exemptions: Annexure goods, non-motorised, customs movements; Part B not needed up to 50 km."
+  ],
+  "remember": [
+   "Update Part B on transhipment.",
+   "s. 129: 200% of tax for owner."
+  ],
+  "traps": [
+   "First day ends at midnight of the next day.",
+   "Exempt goods excluded from consignment value."
+  ]
+ },
+ "quickref": [
+  {
+   "k": "Threshold",
+   "v": "₹50,000"
+  },
+  {
+   "k": "Validity",
+   "v": "1 day / 200 km"
+  },
+  {
+   "k": "Cancellation",
+   "v": "24 hours"
+  },
+  {
+   "k": "Part B relief",
+   "v": "50 km"
+  }
+ ],
+ "viva": [
+  {
+   "id": "v1",
+   "q": "What is consignment value?",
+   "model": "Invoice value including GST, excluding the value of exempt goods on the same invoice.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Including tax",
+     "w": 5,
+     "kw": [
+      "including|tax"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Excluding exempt",
+     "w": 5,
+     "kw": [
+      "exempt"
+     ]
+    }
+   ],
+   "concept": "c1"
+  },
+  {
+   "id": "v2",
+   "q": "Who fills Part B?",
+   "model": "The person who transports the goods — the registered supplier or recipient if using own conveyance, or the transporter.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Transporter",
+     "w": 5,
+     "kw": [
+      "transport"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Vehicle details",
+     "w": 5,
+     "kw": [
+      "convey|vehicle|own"
+     ]
+    }
+   ],
+   "concept": "c2"
+  },
+  {
+   "id": "v3",
+   "q": "How is validity extended?",
+   "model": "By the generator within 8 hours before or after expiry, if goods cannot reach in time due to exceptional circumstances.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "8 hours",
+     "w": 6,
+     "kw": [
+      "8 hours"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Exceptional",
+     "w": 4,
+     "kw": [
+      "exceptional"
+     ]
+    }
+   ],
+   "concept": "c2"
+  },
+  {
+   "id": "v4",
+   "q": "Name two exempt movements.",
+   "model": "Goods moved by non-motorised conveyance and goods listed in the Annexure such as fresh vegetables, among others like customs-sealed movements.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Non-motorised",
+     "w": 5,
+     "kw": [
+      "non-motorised"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Annexure or customs",
+     "w": 5,
+     "kw": [
+      "annexure|vegetable|customs"
+     ]
+    }
+   ],
+   "concept": "c3"
+  },
+  {
+   "id": "v5",
+   "q": "What happens if goods move without an e-way bill?",
+   "model": "They may be detained or seized under section 129 and released on payment of penalty, 200% of tax for an owner who comes forward.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Detention",
+     "w": 5,
+     "kw": [
+      "detain|seiz"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Penalty",
+     "w": 5,
+     "kw": [
+      "200%|penalty"
+     ]
+    }
+   ],
+   "concept": "c3"
+  }
+ ],
+ "cases": [
+  {
+   "id": "k1",
+   "title": "Swift Movers",
+   "difficulty": "moderate",
+   "case": "Swift Movers, a transporter, carries for a Bhopal manufacturer goods invoiced at ₹55,000 (including GST) plus exempt items of ₹10,000 on the same invoice, over 410 km to Jaipur. Midway the truck breaks down and the goods are shifted to another truck.",
+   "mcqs": [
+    {
+     "id": "k1a",
+     "q": "Is an e-way bill required?",
+     "options": [
+      "Yes, consignment value is ₹55,000",
+      "No, value after exempt goods is below ₹50,000",
+      "No, transporters are exempt",
+      "Only for the exempt part"
+     ],
+     "answer": 0,
+     "explain": "Consignment value excludes exempt goods: ₹55,000 of taxable goods including tax exceeds ₹50,000. In practice: show exempt goods separately.",
+     "difficulty": "moderate",
+     "topic": "When an e-way bill is required (s. 68, Rule 138)"
+    },
+    {
+     "id": "k1b",
+     "q": "Validity for 410 km:",
+     "options": [
+      "3 days",
+      "2 days",
+      "4 days",
+      "1 day"
+     ],
+     "answer": 0,
+     "explain": "410 km needs three 200-km blocks (200 + 200 + 10). In practice: count part blocks as full days.",
+     "difficulty": "core",
+     "check": 3,
+     "topic": "Who generates it, Parts A and B, and validity"
+    },
+    {
+     "id": "k1c",
+     "q": "After shifting trucks, Swift must:",
+     "options": [
+      "Update Part B with the new vehicle number",
+      "Generate a fresh invoice",
+      "Cancel the e-way bill",
+      "Do nothing"
+     ],
+     "answer": 0,
+     "explain": "Part B is updated whenever the conveyance changes. In practice: a new e-way bill is not needed.",
+     "difficulty": "core",
+     "topic": "Who generates it, Parts A and B, and validity"
+    },
+    {
+     "id": "k1d",
+     "q": "If caught without a valid e-way bill and the owner comes forward, penalty is:",
+     "options": [
+      "200% of tax on the goods",
+      "50% of value",
+      "₹10,000 flat",
+      "25% of tax"
+     ],
+     "answer": 0,
+     "explain": "Section 129(1)(a): 200% of tax payable on the goods. In practice: pay to secure release.",
+     "difficulty": "core",
+     "topic": "Exemptions, verification and consequences"
+    }
+   ]
+  }
+ ]
+}
