@@ -72,7 +72,7 @@ def build():
             'Status: ICAI is not a legislature — it can enforce its standards only on its members, and a standard cannot override a law. Whether compliance is compulsory for an entity depends on the statute governing that entity. Companies that do not follow Ind AS apply the AS notified under the 2021 Rules.',
             'In the study material the AS are grouped by theme rather than number: presentation and disclosure (AS 1, 3, 17, 18, 20, 24, 25), assets (AS 2, 10, 13, 16, 19, 26, 28), liabilities (AS 15, 29), items affecting the statements (AS 4, 5, 11, 22), revenue (AS 7, 9), others (AS 12, 14) and consolidation (AS 21, 23, 27).'],
           'Think of 29 numbered seats in a hall with two seats (6 and 8) removed: 27 people are still seated, but the seat numbers were never renumbered.',
-          'In audit reports a CA states compliance with "the Accounting Standards specified under section 133 of the Act" — that is the notified set of 27.'),
+          'In audit reports a CA states that the statements comply with the Accounting Standards notified under section 133 — the set of 27.'),
         C('c5', T5, [
             'Raising money abroad: each country has its own reporting rules, so a company raising capital in another market must translate and restate its statements — costly and confusing. Common standards remove much of this.',
             'Comparability for global investors and analysts, who want to compare statements prepared on similar standards; harmonised reporting raises their confidence.',

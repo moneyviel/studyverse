@@ -126,7 +126,7 @@ def build():
 
     mcqs = [
         Q('m1', 'Which Standard on Auditing deals with planning an audit of financial statements?', ['SA 300', 'SA 200', 'SA 230', 'SA 500'], 0,
-          'SA 300 deals with the auditor\'s responsibility to plan the audit so it is performed effectively. SA 200 sets overall objectives, SA 230 covers documentation and SA 500 covers audit evidence. In practice: planning memos in audit files refer to SA 300 requirements.', 'c1', T1),
+          'SA 300 is the standard on planning an audit of financial statements so that the work is done effectively. SA 200 sets overall objectives, SA 230 covers documentation and SA 500 covers audit evidence. In practice: planning memos in audit files refer to SA 300 requirements.', 'c1', T1),
         Q('m2', 'Audit planning is best described as:', ['A continuous and iterative process through the audit', 'A one-time step completed before fieldwork', 'An activity done only at year-end', 'A task delegated to the client'], 0,
           'Planning often begins soon after the previous audit and continues until the current audit is completed; it is revised as new information arrives. It is not a discrete step or a client task. In practice: audit plans are updated after interim visits.', 'c2', T2),
         Q('m3', 'Checking the integrity of a new client\'s promoters is part of:', ['Preliminary engagement activities', 'The audit plan', 'Substantive procedures', 'The audit report'], 0,
@@ -195,7 +195,7 @@ def build():
           'It describes what risk assessment procedures will be done, when and to what extent, the same for further audit procedures at the assertion level, and any other procedures the SAs require.',
           [P('p1', 'Risk assessment procedures', 4, 'risk assessment'), P('p2', 'Further audit procedures at assertion level', 4, 'further', 'assertion'), P('p3', 'Other procedures required by SAs', 2, 'other')], 'c5'),
         V('v4', 'What must be documented about planning?',
-          'The overall audit strategy, the audit plan, and any significant changes made to them during the audit along with the reasons.',
+          'The strategy and the detailed plan, plus every significant change made to either during the engagement, with the reasons for it.',
           [P('p1', 'Strategy', 3, 'strategy'), P('p2', 'Plan', 3, 'plan'), P('p3', 'Significant changes and reasons', 4, 'change', 'reason')], 'c6'),
         V('v5', 'How can the disadvantages of an audit programme be removed?',
           'By periodic review of the programme, imaginative supervision of assistants, and encouraging them to report significant matters even if not in the programme.',
