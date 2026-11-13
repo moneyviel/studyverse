@@ -1,0 +1,770 @@
+{
+ "schema": "ca-unit/1",
+ "id": "int-p6-a-ch09-u02",
+ "level": "inter",
+ "paper": "p6",
+ "chapter": "int-p6-a-ch09",
+ "n": 2,
+ "title": "Treasury and Cash Management",
+ "outcomes": [
+  "Explain treasury functions and motives for holding cash.",
+  "Prepare a cash budget.",
+  "Apply Baumol and Miller–Orr models.",
+  "Explain techniques for managing collections, payments and float."
+ ],
+ "meta": {
+  "difficulty": "core",
+  "minutes": {
+   "learn": 30,
+   "practice": 40
+  },
+  "prereq": [
+   "int-p6-a-ch09-u01"
+  ],
+  "exam_tip": "In cash budgets, build a receipts table by month first; payments follow the same logic."
+ },
+ "concepts": [
+  {
+   "id": "c1",
+   "title": "Treasury management and motives for holding cash",
+   "body": [
+    "Treasury management handles cash, liquidity, funding, investment of surplus funds, foreign exchange and interest-rate risks, and banking relationships.",
+    "Motives for holding cash (Keynes): transaction (day-to-day payments), precautionary (unexpected needs) and speculative (taking advantage of opportunities). Banks may also require compensating balances.",
+    "Objectives: meet payment obligations on time while minimising idle balances; invest surpluses in safe, liquid instruments such as treasury bills, commercial paper, certificates of deposit and liquid funds."
+   ],
+   "analogy": "Cash is needed to pay bills, but idle cash earns nothing — treasury balances the two.",
+   "work": "A company parks month-end surpluses in an overnight liquid fund instead of a current account."
+  },
+  {
+   "id": "c2",
+   "title": "Cash budgets",
+   "body": [
+    "A cash budget forecasts receipts and payments for each sub-period to show surpluses and shortages in advance. Methods: receipts and payments method (most common), adjusted profit and loss method, and balance sheet method.",
+    "Receipts: cash sales, collections from debtors (by lag pattern), other income; payments: purchases (by credit terms), wages, overheads (cash part), capital expenditure, taxes, dividends. Depreciation and other non-cash items are excluded.",
+    "Shortages are covered by arranging finance; surpluses are invested."
+   ],
+   "analogy": "A cash budget is the calendar of money in and out.",
+   "work": "Sales in March collected in April appear as April receipts."
+  },
+  {
+   "id": "c3",
+   "title": "Optimum cash balance: Baumol and Miller–Orr",
+   "body": [
+    "Baumol model treats cash like inventory: optimum conversion size C = √(2U × P ÷ S), where U is annual cash requirement, P the cost per conversion and S the interest rate on securities. Total cost = (U ÷ C) × P + (C ÷ 2) × S.",
+    "Miller–Orr model allows random daily cash flows: Spread = 3 × (¾ × transaction cost × variance ÷ interest rate per day)^(1/3); upper limit = lower limit + spread; return point = lower limit + spread ÷ 3.",
+    "Other approaches: cash planning and cash budgets, and the Stone model (using forecasts to decide whether to act at limits)."
+   ],
+   "analogy": "Baumol suits steady cash use; Miller–Orr suits unpredictable swings.",
+   "work": "Higher interest rates lower the optimum cash balance in both models."
+  },
+  {
+   "id": "c4",
+   "title": "Techniques of cash management",
+   "body": [
+    "Speeding collections: concentration banking, lock-box systems, electronic transfers (NEFT, RTGS, UPI), prompt billing, and cash discounts.",
+    "Slowing payments ethically: pay on the due date, centralised payments, and using float (the gap between when a cheque is issued and when it is cleared).",
+    "Managing float: disbursement float (helpful to payer) and collection float (harmful); net float = disbursement float − collection float. Electronic payments have reduced float in India. Virtual accounts and cash pooling help corporate groups."
+   ],
+   "analogy": "Get money in faster and let it go out on time — not earlier.",
+   "work": "A dealer network paying through UPI cuts collection float to near zero."
+  }
+ ],
+ "illustrations": [
+  {
+   "id": "i1",
+   "title": "How much cash to draw each time?",
+   "difficulty": "moderate",
+   "minutes": 7,
+   "q": "A firm needs ₹24 lakh of cash evenly over the year. Each conversion of securities into cash costs ₹300; securities earn 10%. Using Baumol's model find the optimum conversion size, number of conversions and total cost.",
+   "solution": [
+    {
+     "t": "table",
+     "head": [
+      "Item",
+      "Working",
+      "Answer"
+     ],
+     "rows": [
+      [
+       "Optimum cash (C)",
+       "√(2 × 24,00,000 × 300 ÷ 0.10)",
+       "₹1,20,000"
+      ],
+      [
+       "Conversions a year",
+       "24,00,000 ÷ 1,20,000",
+       "20"
+      ],
+      [
+       "Transaction cost",
+       "20 × 300",
+       "₹6,000"
+      ],
+      [
+       "Holding cost",
+       "1,20,000 ÷ 2 × 10%",
+       "₹6,000"
+      ],
+      [
+       "Total cost",
+       "",
+       "₹12,000"
+      ]
+     ],
+     "title": "Baumol model"
+    },
+    {
+     "t": "note",
+     "text": "At the optimum, transaction cost equals holding (opportunity) cost."
+    }
+   ],
+   "checks": [
+    {
+     "expr": "(2*2400000*300/0.10)**0.5",
+     "value": 120000,
+     "label": "Optimum cash conversion size (Baumol)"
+    },
+    {
+     "expr": "2400000/120000",
+     "value": 20,
+     "label": "Number of conversions a year"
+    },
+    {
+     "expr": "20*300 + 120000/2*0.10",
+     "value": 12000,
+     "label": "Total cost = transaction + holding"
+    }
+   ]
+  },
+  {
+   "id": "i2",
+   "title": "Cash that swings daily",
+   "difficulty": "hard",
+   "minutes": 8,
+   "q": "Minimum cash balance ₹10,000; cost per transaction ₹50; variance of daily cash flows ₹40,00,000; daily interest rate 0.025%. Using Miller–Orr, find the spread, upper limit and return point.",
+   "solution": [
+    {
+     "t": "table",
+     "head": [
+      "Item",
+      "Working",
+      "₹"
+     ],
+     "rows": [
+      [
+       "Spread",
+       "3 × (¾ × 50 × 40,00,000 ÷ 0.00025)^(1/3)",
+       "25,303"
+      ],
+      [
+       "Upper limit",
+       "Lower limit + spread",
+       "35,303"
+      ],
+      [
+       "Return point",
+       "Lower limit + spread ÷ 3",
+       "18,434"
+      ]
+     ],
+     "title": "Miller–Orr model"
+    },
+    {
+     "t": "p",
+     "text": "When cash hits the upper limit, buy securities to bring it down to the return point; when it hits the lower limit, sell securities to restore it to the return point."
+    }
+   ],
+   "checks": [
+    {
+     "expr": "3*(0.75*50*4000000/0.00025)**(1/3)",
+     "value": 25302.98,
+     "label": "Spread (Miller–Orr)"
+    },
+    {
+     "expr": "10000+25303",
+     "value": 35303,
+     "label": "Upper limit (approx.)"
+    },
+    {
+     "expr": "10000+25303/3",
+     "value": 18434.33,
+     "label": "Return point (approx.)"
+    }
+   ]
+  }
+ ],
+ "jobs": [
+  {
+   "id": "j1",
+   "title": "Weekly cash forecast",
+   "role": "Treasury trainee",
+   "situation": "The CFO wants to know if a ₹2 crore tax payment next week needs a borrowing.",
+   "steps": [
+    "List expected receipts by day.",
+    "List committed payments.",
+    "Find the lowest balance point.",
+    "Arrange a short-term line or liquidate investments if needed."
+   ],
+   "takeaway": "Short-horizon forecasts prevent costly last-minute borrowing."
+  }
+ ],
+ "mcqs": [
+  {
+   "id": "m1",
+   "q": "Cash held to meet unexpected needs is for the:",
+   "options": [
+    "Precautionary motive",
+    "Transaction motive",
+    "Speculative motive",
+    "Compensating motive"
+   ],
+   "answer": 0,
+   "explain": "Precautionary balances act as a cushion. In practice: often held in liquid investments.",
+   "concept": "c1",
+   "topic": "Treasury management and motives for holding cash",
+   "difficulty": "core"
+  },
+  {
+   "id": "m2",
+   "q": "Which item is excluded from a cash budget?",
+   "options": [
+    "Depreciation",
+    "Wages paid",
+    "Collections from debtors",
+    "Purchase of a machine"
+   ],
+   "answer": 0,
+   "explain": "Depreciation is non-cash. In practice: capital payments are included when paid.",
+   "concept": "c2",
+   "topic": "Cash budgets",
+   "difficulty": "core"
+  },
+  {
+   "id": "m3",
+   "q": "Under Baumol, if interest rates rise, the optimum cash conversion size:",
+   "options": [
+    "Falls",
+    "Rises",
+    "Is unchanged",
+    "Doubles"
+   ],
+   "answer": 0,
+   "explain": "Interest is in the denominator. In practice: higher returns on securities favour smaller balances.",
+   "concept": "c3",
+   "topic": "Optimum cash balance: Baumol and Miller–Orr",
+   "difficulty": "core"
+  },
+  {
+   "id": "m4",
+   "q": "U = ₹12 lakh, P = ₹100, S = 6%. Baumol optimum (approx.):",
+   "options": [
+    "₹63,246",
+    "₹40,000",
+    "₹1,00,000",
+    "₹20,000"
+   ],
+   "answer": 0,
+   "explain": "√(2 × 12,00,000 × 100 ÷ 0.06) = √4,00,00,00,000 ≈ ₹63,246. In practice: round to a practical figure.",
+   "concept": "c3",
+   "topic": "Optimum cash balance: Baumol and Miller–Orr",
+   "difficulty": "moderate",
+   "check": 63246
+  },
+  {
+   "id": "m5",
+   "q": "In Miller–Orr, the return point equals:",
+   "options": [
+    "Lower limit + spread ÷ 3",
+    "Upper limit − spread ÷ 3",
+    "Lower limit + spread",
+    "Spread ÷ 2"
+   ],
+   "answer": 0,
+   "explain": "The return point is one-third of the spread above the lower limit. In practice: actions occur only at limits.",
+   "concept": "c3",
+   "topic": "Optimum cash balance: Baumol and Miller–Orr",
+   "difficulty": "core"
+  },
+  {
+   "id": "m6",
+   "q": "A lock-box system is used to:",
+   "options": [
+    "Speed up collection of receivables",
+    "Delay payments",
+    "Store cash safely",
+    "Invest surplus funds"
+   ],
+   "answer": 0,
+   "explain": "Customers pay into post boxes cleared by banks, reducing mail and processing float. In practice: replaced largely by electronic collections.",
+   "concept": "c4",
+   "topic": "Techniques of cash management",
+   "difficulty": "core"
+  },
+  {
+   "id": "m7",
+   "q": "Disbursement float is:",
+   "options": [
+    "Time between issuing a cheque and its clearing",
+    "Time between sale and billing",
+    "Cash held for emergencies",
+    "Excess of receipts over payments"
+   ],
+   "answer": 0,
+   "explain": "It lets the payer use funds a little longer. In practice: electronic payments shrink it.",
+   "concept": "c4",
+   "topic": "Techniques of cash management",
+   "difficulty": "core"
+  },
+  {
+   "id": "m8",
+   "q": "At Baumol's optimum:",
+   "options": [
+    "Transaction cost equals holding cost",
+    "Holding cost is zero",
+    "Transaction cost is zero",
+    "Total cost is highest"
+   ],
+   "answer": 0,
+   "explain": "The square-root formula balances the two costs. In practice: use as a check.",
+   "concept": "c3",
+   "topic": "Optimum cash balance: Baumol and Miller–Orr",
+   "difficulty": "core"
+  }
+ ],
+ "questions": [
+  {
+   "id": "q1",
+   "marks": 5,
+   "minutes": 9,
+   "difficulty": "core",
+   "pad": "table",
+   "q": "A firm needs ₹24 lakh of cash evenly over the year. Each conversion of securities into cash costs ₹300; securities earn 10%. Using Baumol's model find the optimum conversion size, number of conversions and total cost.",
+   "model": [
+    {
+     "t": "table",
+     "head": [
+      "Item",
+      "Working",
+      "Answer"
+     ],
+     "rows": [
+      [
+       "Optimum cash (C)",
+       "√(2 × 24,00,000 × 300 ÷ 0.10)",
+       "₹1,20,000"
+      ],
+      [
+       "Conversions a year",
+       "24,00,000 ÷ 1,20,000",
+       "20"
+      ],
+      [
+       "Transaction cost",
+       "20 × 300",
+       "₹6,000"
+      ],
+      [
+       "Holding cost",
+       "1,20,000 ÷ 2 × 10%",
+       "₹6,000"
+      ],
+      [
+       "Total cost",
+       "",
+       "₹12,000"
+      ]
+     ],
+     "title": "Baumol model"
+    },
+    {
+     "t": "note",
+     "text": "At the optimum, transaction cost equals holding (opportunity) cost."
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "Optimum C",
+     "m": 2,
+     "skill": "computation",
+     "kw": [
+      "optimum"
+     ],
+     "min": 1,
+     "nums": [
+      120000
+     ]
+    },
+    {
+     "id": "s2",
+     "pt": "Conversions",
+     "m": 1,
+     "skill": "computation",
+     "kw": [
+      "conversions"
+     ],
+     "min": 1,
+     "nums": [
+      20
+     ]
+    },
+    {
+     "id": "s3",
+     "pt": "Total cost",
+     "m": 2,
+     "skill": "computation",
+     "kw": [
+      "total"
+     ],
+     "min": 1,
+     "nums": [
+      12000
+     ]
+    }
+   ],
+   "remarks": [
+    "Show both costs."
+   ],
+   "mistakes": [
+    "Using monthly interest."
+   ],
+   "tips": [
+    "Table."
+   ],
+   "extra_ok": true,
+   "checks": [
+    {
+     "expr": "(2*2400000*300/0.10)**0.5",
+     "value": 120000,
+     "label": "Optimum cash conversion size (Baumol)"
+    },
+    {
+     "expr": "2400000/120000",
+     "value": 20,
+     "label": "Number of conversions a year"
+    },
+    {
+     "expr": "20*300 + 120000/2*0.10",
+     "value": 12000,
+     "label": "Total cost = transaction + holding"
+    }
+   ]
+  },
+  {
+   "id": "q2",
+   "marks": 5,
+   "minutes": 9,
+   "difficulty": "core",
+   "pad": "table",
+   "q": "Minimum cash balance ₹10,000; cost per transaction ₹50; variance of daily cash flows ₹40,00,000; daily interest rate 0.025%. Using Miller–Orr, find the spread, upper limit and return point.",
+   "model": [
+    {
+     "t": "table",
+     "head": [
+      "Item",
+      "Working",
+      "₹"
+     ],
+     "rows": [
+      [
+       "Spread",
+       "3 × (¾ × 50 × 40,00,000 ÷ 0.00025)^(1/3)",
+       "25,303"
+      ],
+      [
+       "Upper limit",
+       "Lower limit + spread",
+       "35,303"
+      ],
+      [
+       "Return point",
+       "Lower limit + spread ÷ 3",
+       "18,434"
+      ]
+     ],
+     "title": "Miller–Orr model"
+    },
+    {
+     "t": "p",
+     "text": "When cash hits the upper limit, buy securities to bring it down to the return point; when it hits the lower limit, sell securities to restore it to the return point."
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "Spread",
+     "m": 3,
+     "skill": "computation",
+     "kw": [
+      "spread"
+     ],
+     "min": 1,
+     "nums": [
+      25303
+     ]
+    },
+    {
+     "id": "s2",
+     "pt": "Limits",
+     "m": 2,
+     "skill": "computation",
+     "kw": [
+      "upper|return"
+     ],
+     "min": 1,
+     "nums": [
+      35303,
+      18434
+     ]
+    }
+   ],
+   "remarks": [
+    "Use daily rate and variance."
+   ],
+   "mistakes": [
+    "Using standard deviation instead of variance."
+   ],
+   "tips": [
+    "Table."
+   ],
+   "extra_ok": true,
+   "checks": [
+    {
+     "expr": "3*(0.75*50*4000000/0.00025)**(1/3)",
+     "value": 25302.98,
+     "label": "Spread (Miller–Orr)"
+    },
+    {
+     "expr": "10000+25303",
+     "value": 35303,
+     "label": "Upper limit (approx.)"
+    },
+    {
+     "expr": "10000+25303/3",
+     "value": 18434.33,
+     "label": "Return point (approx.)"
+    }
+   ]
+  }
+ ],
+ "revision": {
+  "summary": [
+   "Motives: transaction, precautionary, speculative.",
+   "Cash budget: receipts and payments; no non-cash items.",
+   "Baumol: C = √(2UP/S).",
+   "Miller–Orr: spread = 3(¾ × b × σ² ÷ i)^(1/3); RP = L + spread/3.",
+   "Speed collections; manage float."
+  ],
+  "remember": [
+   "Use daily interest and variance in Miller–Orr."
+  ],
+  "traps": [
+   "Depreciation never appears in a cash budget."
+  ]
+ },
+ "quickref": [
+  {
+   "k": "Baumol",
+   "v": "√(2UP/S)"
+  },
+  {
+   "k": "MO return point",
+   "v": "L + Z/3"
+  },
+  {
+   "k": "MO upper limit",
+   "v": "L + Z"
+  }
+ ],
+ "viva": [
+  {
+   "id": "v1",
+   "q": "Name the three motives for holding cash.",
+   "model": "Transaction, precautionary and speculative motives.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Transaction",
+     "w": 4,
+     "kw": [
+      "transaction"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Precaution and speculation",
+     "w": 6,
+     "kw": [
+      "precaution|speculat"
+     ]
+    }
+   ],
+   "concept": "c1"
+  },
+  {
+   "id": "v2",
+   "q": "Why is a cash budget prepared?",
+   "model": "To forecast surpluses and shortages period by period so that financing or investment can be arranged in advance.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Surplus and shortage",
+     "w": 5,
+     "kw": [
+      "surplus|shortage"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Arrange in advance",
+     "w": 5,
+     "kw": [
+      "advance|arrange"
+     ]
+    }
+   ],
+   "concept": "c2"
+  },
+  {
+   "id": "v3",
+   "q": "State Baumol's formula.",
+   "model": "Optimum cash equals the square root of two times annual cash need times cost per conversion, divided by the interest rate.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Square root",
+     "w": 4,
+     "kw": [
+      "square root"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Variables",
+     "w": 6,
+     "kw": [
+      "conversion|interest"
+     ]
+    }
+   ],
+   "concept": "c3"
+  },
+  {
+   "id": "v4",
+   "q": "When does Miller–Orr suggest action?",
+   "model": "Only when cash reaches the upper or lower limit, bringing it back to the return point by buying or selling securities.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "At limits",
+     "w": 5,
+     "kw": [
+      "limit"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Return point",
+     "w": 5,
+     "kw": [
+      "return point"
+     ]
+    }
+   ],
+   "concept": "c3"
+  },
+  {
+   "id": "v5",
+   "q": "What is concentration banking?",
+   "model": "Collecting payments at local branches and transferring surpluses quickly to a central account to reduce collection time.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Local collection",
+     "w": 5,
+     "kw": [
+      "local|branch"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Central account",
+     "w": 5,
+     "kw": [
+      "central"
+     ]
+    }
+   ],
+   "concept": "c4"
+  }
+ ],
+ "cases": [
+  {
+   "id": "k1",
+   "title": "Pinnacle Retail",
+   "difficulty": "moderate",
+   "case": "Pinnacle Retail's sales: April ₹40 lakh, May ₹50 lakh, June ₹60 lakh; 25% cash, 75% collected the following month (March sales ₹36 lakh). Purchases are 60% of next month's sales, paid in the month of purchase. Opening cash on 1 April ₹5 lakh.",
+   "mcqs": [
+    {
+     "id": "k1a",
+     "q": "April collections (₹ lakh):",
+     "options": [
+      "37",
+      "40",
+      "30",
+      "27"
+     ],
+     "answer": 0,
+     "explain": "Cash 25% × 40 = 10 + 75% × 36 = 27 → 37. In practice: track by month.",
+     "difficulty": "moderate",
+     "check": 37,
+     "topic": "Cash budgets"
+    },
+    {
+     "id": "k1b",
+     "q": "April purchase payments (₹ lakh):",
+     "options": [
+      "30",
+      "24",
+      "36",
+      "40"
+     ],
+     "answer": 0,
+     "explain": "60% of May sales 50 = 30. In practice: purchases lead sales.",
+     "difficulty": "moderate",
+     "check": 30,
+     "topic": "Cash budgets"
+    },
+    {
+     "id": "k1c",
+     "q": "Closing cash on 30 April (₹ lakh), ignoring other items:",
+     "options": [
+      "12",
+      "7",
+      "5",
+      "17"
+     ],
+     "answer": 0,
+     "explain": "5 + 37 − 30 = 12. In practice: add wages and other costs in reality.",
+     "difficulty": "moderate",
+     "check": 12,
+     "topic": "Cash budgets"
+    },
+    {
+     "id": "k1d",
+     "q": "Surplus cash is best kept in:",
+     "options": [
+      "Short-term liquid investments",
+      "Idle current account",
+      "Long-term equity",
+      "Land"
+     ],
+     "answer": 0,
+     "explain": "Treasury invests surpluses safely and liquidly. In practice: liquid funds or T-bills.",
+     "difficulty": "core",
+     "topic": "Treasury management and motives for holding cash"
+    }
+   ]
+  }
+ ]
+}
