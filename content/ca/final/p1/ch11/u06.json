@@ -1,0 +1,708 @@
+{
+ "schema": "ca-unit/1",
+ "id": "fin-p1-ch11-u06",
+ "level": "final",
+ "paper": "p1",
+ "chapter": "fin-p1-ch11",
+ "n": 6,
+ "title": "Hedge Accounting",
+ "outcomes": [
+  "Identify eligible hedged items and hedging instruments.",
+  "Apply qualifying criteria and effectiveness requirements.",
+  "Account for fair value hedges.",
+  "Account for cash flow and net investment hedges and discontinuation."
+ ],
+ "meta": {
+  "difficulty": "hard",
+  "minutes": {
+   "learn": 40,
+   "practice": 30
+  },
+  "prereq": [
+   "fin-p1-ch11-u05"
+  ],
+  "exam_tip": "Name the hedge type first; it decides whether gains go to profit or to OCI."
+ },
+ "concepts": [
+  {
+   "id": "c1",
+   "title": "Hedged items and hedging instruments",
+   "body": [
+    "Hedge accounting is optional. It aligns the timing of gains and losses on a hedging instrument and a hedged item, reflecting risk management activities in the accounts.",
+    "Hedged items can be recognised assets or liabilities, unrecognised firm commitments, highly probable forecast transactions or net investments in foreign operations — individually, as groups (with conditions) or as components (risk components that are separately identifiable and reliably measurable). Aggregated exposures including derivatives can be hedged items.",
+    "Hedging instruments: derivatives measured at FVTPL (except most written options), and non-derivative financial assets or liabilities at FVTPL; for foreign currency risk, non-derivatives can also be used. Only contracts with external parties qualify in consolidated statements. The instrument is designated in its entirety, though the time value of options or forward points may be excluded."
+   ],
+   "analogy": "Pair a risk with an instrument that moves the opposite way.",
+   "work": "A forecast USD sale can be hedged with a USD forward."
+  },
+  {
+   "id": "c2",
+   "title": "Qualifying criteria and effectiveness",
+   "body": [
+    "Qualifying criteria: the relationship consists only of eligible items and instruments; there is formal designation and documentation at inception of the risk management objective, strategy, items, risk hedged and how effectiveness is assessed.",
+    "Effectiveness requirements: an economic relationship exists between item and instrument (values move in opposite directions due to the same risk); credit risk does not dominate value changes; and the hedge ratio matches the quantities actually used for risk management.",
+    "No bright-line 80–125% test applies. If the hedge ratio drifts but the objective stays the same, the entity rebalances. Ineffectiveness is measured and recognised in profit or loss."
+   ],
+   "analogy": "Document first, then show an economic link and a sensible hedge ratio.",
+   "work": "Hedging diesel with crude oil futures needs proof of correlation."
+  },
+  {
+   "id": "c3",
+   "title": "Fair value hedges",
+   "body": [
+    "A fair value hedge guards against movements in the fair value of an asset or liability already on the books, or of an unrecognised firm commitment, attributable to a particular risk that could affect profit or loss.",
+    "The gain or loss on the hedging instrument goes to profit or loss (OCI if hedging an equity investment at FVOCI). The hedged item's carrying amount is adjusted for the hedged risk with the gain or loss in profit or loss — even if it is normally measured at cost or amortised cost.",
+    "For amortised cost items, the hedging adjustment is amortised to profit or loss. For firm commitments, the cumulative change is recognised as an asset or liability and later adjusts the acquired asset's carrying amount."
+   ],
+   "analogy": "Both sides hit profit or loss, so they largely cancel.",
+   "work": "A fixed-rate loan swapped to floating uses a fair value hedge."
+  },
+  {
+   "id": "c4",
+   "title": "Cash flow and net investment hedges; discontinuation",
+   "body": [
+    "A cash flow hedge protects against variability in cash flows of a recognised item or highly probable forecast transaction. The effective portion of the instrument's gain or loss goes to OCI (cash flow hedge reserve) — the lower of the cumulative gain or loss on the instrument and the cumulative change in present value of the hedged cash flows; the rest goes to profit or loss.",
+    "If the forecast transaction results in a non-financial asset or liability, the reserve is removed and included in its initial cost (basis adjustment, not OCI reclassification). Otherwise it is reclassified to profit or loss when the hedged cash flows affect profit.",
+    "Net investment hedges follow cash flow hedge mechanics, with the reserve recycled on disposal. Hedge accounting is discontinued prospectively only when the relationship no longer meets criteria (after rebalancing) — voluntary de-designation is not allowed. If a forecast transaction is no longer expected, the reserve goes immediately to profit or loss."
+   ],
+   "analogy": "Cash flow hedges park gains in OCI until the hedged flow arrives.",
+   "work": "A hedged machine purchase gets the reserve added to its cost."
+  }
+ ],
+ "illustrations": [
+  {
+   "id": "i1",
+   "title": "Hedging a forecast import",
+   "difficulty": "moderate",
+   "minutes": 8,
+   "q": "Pulse Ltd. designates a forward to buy EUR as a cash flow hedge of a highly probable machine import. By year end, the forward has gained ₹12 lakh, while the change in present value of the hedged cash flows (expected cost increase) is ₹10 lakh. Allocate the gain. What happens when the machine is bought?",
+   "solution": [
+    {
+     "t": "table",
+     "head": [
+      "Item",
+      "Working",
+      "₹ lakh"
+     ],
+     "rows": [
+      [
+       "Effective portion to OCI (lower of cumulative changes)",
+       "Lower of 12 and 10",
+       "10"
+      ],
+      [
+       "Ineffective portion to profit or loss",
+       "12 − 10",
+       "2"
+      ],
+      [
+       "On purchase of the machine",
+       "Reserve removed and included in the machine's initial cost (basis adjustment)",
+       "10"
+      ]
+     ],
+     "title": "Cash flow hedge"
+    }
+   ],
+   "checks": [
+    {
+     "expr": "min(12,10)",
+     "value": 10,
+     "label": "Amount in cash flow hedge reserve (₹ lakh)"
+    },
+    {
+     "expr": "12-min(12,10)",
+     "value": 2,
+     "label": "Ineffectiveness in profit or loss (₹ lakh)"
+    }
+   ]
+  },
+  {
+   "id": "i2",
+   "title": "Swapping a fixed-rate bond",
+   "difficulty": "moderate",
+   "minutes": 7,
+   "q": "Pulse Ltd. holds a fixed-rate bond at amortised cost and enters a pay-fixed, receive-floating interest rate swap, designated as a fair value hedge of interest rate risk. Interest rates fall: the bond's fair value attributable to interest rate risk rises by ₹4.8 lakh and the swap loses ₹5 lakh. Show the accounting.",
+   "solution": [
+    {
+     "t": "table",
+     "head": [
+      "Item",
+      "Treatment",
+      "₹ lakh"
+     ],
+     "rows": [
+      [
+       "Swap loss",
+       "Profit or loss; swap liability",
+       "-5"
+      ],
+      [
+       "Bond — hedging adjustment",
+       "Carrying amount increased; gain in profit or loss",
+       "4.8"
+      ],
+      [
+       "Net (ineffectiveness)",
+       "Profit or loss",
+       "-0.2"
+      ]
+     ],
+     "title": "Fair value hedge"
+    }
+   ],
+   "checks": [
+    {
+     "expr": "4.8-5",
+     "value": -0.2,
+     "label": "Net effect in profit or loss (₹ lakh)"
+    }
+   ]
+  }
+ ],
+ "jobs": [
+  {
+   "id": "j1",
+   "title": "Setting up a hedge program",
+   "role": "Treasury manager",
+   "situation": "An exporter wants to hedge forecast USD receipts for 12 months.",
+   "steps": [
+    "Write the risk management objective.",
+    "Document designation at inception.",
+    "Assess economic relationship and hedge ratio.",
+    "Track effective portion in OCI and reclassify on sale."
+   ],
+   "takeaway": "Without contemporaneous documentation, no hedge accounting."
+  }
+ ],
+ "mcqs": [
+  {
+   "id": "m1",
+   "q": "In a cash flow hedge, the effective portion of the instrument's gain goes to:",
+   "options": [
+    "OCI",
+    "Profit or loss",
+    "Retained earnings",
+    "Revenue"
+   ],
+   "answer": 0,
+   "explain": "Parked until the hedged item affects profit. In practice: cash flow hedge reserve.",
+   "concept": "c4",
+   "topic": "Cash flow and net investment hedges; discontinuation",
+   "difficulty": "core"
+  },
+  {
+   "id": "m2",
+   "q": "In a fair value hedge, the hedged item's carrying amount:",
+   "options": [
+    "Is adjusted for the hedged risk with the change in profit or loss",
+    "Is unchanged",
+    "Changes through OCI",
+    "Is written off"
+   ],
+   "answer": 0,
+   "explain": "Both sides hit P&L. In practice: amortise the adjustment.",
+   "concept": "c3",
+   "topic": "Fair value hedges",
+   "difficulty": "core"
+  },
+  {
+   "id": "m3",
+   "q": "Which is not an effectiveness requirement under Ind AS 109?",
+   "options": [
+    "Results within 80–125%",
+    "Economic relationship",
+    "Credit risk not dominating",
+    "Appropriate hedge ratio"
+   ],
+   "answer": 0,
+   "explain": "The bright line was removed. In practice: qualitative assessment may suffice.",
+   "concept": "c2",
+   "topic": "Qualifying criteria and effectiveness",
+   "difficulty": "core"
+  },
+  {
+   "id": "m4",
+   "q": "Voluntary de-designation of a qualifying hedge is:",
+   "options": [
+    "Not allowed",
+    "Allowed anytime",
+    "Allowed annually",
+    "Required at year end"
+   ],
+   "answer": 0,
+   "explain": "Discontinue only when criteria fail. In practice: rebalance where possible.",
+   "concept": "c4",
+   "topic": "Cash flow and net investment hedges; discontinuation",
+   "difficulty": "core"
+  },
+  {
+   "id": "m5",
+   "q": "When a hedged forecast purchase of inventory occurs, the reserve is:",
+   "options": [
+    "Included in the inventory's cost",
+    "Recycled to profit immediately",
+    "Left in OCI",
+    "Transferred to retained earnings"
+   ],
+   "answer": 0,
+   "explain": "Basis adjustment for non-financial items. In practice: flows to P&L via cost of sales.",
+   "concept": "c4",
+   "topic": "Cash flow and net investment hedges; discontinuation",
+   "difficulty": "core"
+  },
+  {
+   "id": "m6",
+   "q": "Formal documentation of a hedge must be made:",
+   "options": [
+    "At inception of the relationship",
+    "At year end",
+    "When gains arise",
+    "At settlement"
+   ],
+   "answer": 0,
+   "explain": "Hindsight designation is not allowed. In practice: keep a hedge file.",
+   "concept": "c2",
+   "topic": "Qualifying criteria and effectiveness",
+   "difficulty": "core"
+  },
+  {
+   "id": "m7",
+   "q": "A net investment hedge accumulates effective gains in OCI, recycled:",
+   "options": [
+    "On disposal of the foreign operation",
+    "Each year",
+    "Never",
+    "On hedge expiry"
+   ],
+   "answer": 0,
+   "explain": "Like translation differences. In practice: foreign borrowings often used.",
+   "concept": "c4",
+   "topic": "Cash flow and net investment hedges; discontinuation",
+   "difficulty": "core"
+  },
+  {
+   "id": "m8",
+   "q": "Written options generally:",
+   "options": [
+    "Do not qualify as hedging instruments",
+    "Always qualify",
+    "Qualify only for FX",
+    "Qualify for net investments"
+   ],
+   "answer": 0,
+   "explain": "Unless offsetting a purchased option. In practice: they expand risk.",
+   "concept": "c1",
+   "topic": "Hedged items and hedging instruments",
+   "difficulty": "core"
+  }
+ ],
+ "questions": [
+  {
+   "id": "q1",
+   "marks": 5,
+   "minutes": 9,
+   "difficulty": "core",
+   "pad": "table",
+   "q": "Pulse Ltd. designates a forward to buy EUR as a cash flow hedge of a highly probable machine import. By year end, the forward has gained ₹12 lakh, while the change in present value of the hedged cash flows (expected cost increase) is ₹10 lakh. Allocate the gain. What happens when the machine is bought?",
+   "model": [
+    {
+     "t": "table",
+     "head": [
+      "Item",
+      "Working",
+      "₹ lakh"
+     ],
+     "rows": [
+      [
+       "Effective portion to OCI (lower of cumulative changes)",
+       "Lower of 12 and 10",
+       "10"
+      ],
+      [
+       "Ineffective portion to profit or loss",
+       "12 − 10",
+       "2"
+      ],
+      [
+       "On purchase of the machine",
+       "Reserve removed and included in the machine's initial cost (basis adjustment)",
+       "10"
+      ]
+     ],
+     "title": "Cash flow hedge"
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "OCI portion",
+     "m": 2,
+     "skill": "computation",
+     "kw": [
+      "oci|effective"
+     ],
+     "min": 1,
+     "nums": [
+      10
+     ]
+    },
+    {
+     "id": "s2",
+     "pt": "Ineffective",
+     "m": 1.5,
+     "skill": "computation",
+     "kw": [
+      "ineffective"
+     ],
+     "min": 1,
+     "nums": [
+      2
+     ]
+    },
+    {
+     "id": "s3",
+     "pt": "Basis adjustment",
+     "m": 1.5,
+     "skill": "concept",
+     "kw": [
+      "basis|cost"
+     ],
+     "min": 1
+    }
+   ],
+   "remarks": [
+    "Use the lower of test."
+   ],
+   "mistakes": [
+    "Putting all 12 in OCI."
+   ],
+   "tips": [
+    "Table."
+   ],
+   "extra_ok": true,
+   "checks": [
+    {
+     "expr": "min(12,10)",
+     "value": 10,
+     "label": "Amount in cash flow hedge reserve (₹ lakh)"
+    },
+    {
+     "expr": "12-min(12,10)",
+     "value": 2,
+     "label": "Ineffectiveness in profit or loss (₹ lakh)"
+    }
+   ]
+  },
+  {
+   "id": "q2",
+   "marks": 4,
+   "minutes": 7,
+   "difficulty": "core",
+   "pad": "table",
+   "q": "Pulse Ltd. holds a fixed-rate bond at amortised cost and enters a pay-fixed, receive-floating interest rate swap, designated as a fair value hedge of interest rate risk. Interest rates fall: the bond's fair value attributable to interest rate risk rises by ₹4.8 lakh and the swap loses ₹5 lakh. Show the accounting.",
+   "model": [
+    {
+     "t": "table",
+     "head": [
+      "Item",
+      "Treatment",
+      "₹ lakh"
+     ],
+     "rows": [
+      [
+       "Swap loss",
+       "Profit or loss; swap liability",
+       "-5"
+      ],
+      [
+       "Bond — hedging adjustment",
+       "Carrying amount increased; gain in profit or loss",
+       "4.8"
+      ],
+      [
+       "Net (ineffectiveness)",
+       "Profit or loss",
+       "-0.2"
+      ]
+     ],
+     "title": "Fair value hedge"
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "Swap",
+     "m": 1.5,
+     "skill": "concept",
+     "kw": [
+      "swap"
+     ],
+     "min": 1
+    },
+    {
+     "id": "s2",
+     "pt": "Bond adjustment",
+     "m": 1.5,
+     "skill": "concept",
+     "kw": [
+      "hedging adjustment|carrying"
+     ],
+     "min": 1
+    },
+    {
+     "id": "s3",
+     "pt": "Net",
+     "m": 1,
+     "skill": "computation",
+     "kw": [
+      "net"
+     ],
+     "min": 1,
+     "nums": [
+      -0.2
+     ]
+    }
+   ],
+   "remarks": [
+    "Both to P&L."
+   ],
+   "mistakes": [
+    "Ignoring bond adjustment."
+   ],
+   "tips": [
+    "Table."
+   ],
+   "extra_ok": true,
+   "checks": [
+    {
+     "expr": "4.8-5",
+     "value": -0.2,
+     "label": "Net effect in profit or loss (₹ lakh)"
+    }
+   ]
+  }
+ ],
+ "revision": {
+  "summary": [
+   "Hedge accounting is optional and needs documentation.",
+   "Effectiveness: economic link, credit risk, hedge ratio.",
+   "Fair value hedge: both sides to P&L.",
+   "Cash flow hedge: effective part in OCI; lower-of test.",
+   "Basis adjustment for non-financial items."
+  ],
+  "remember": [
+   "No voluntary de-designation."
+  ],
+  "traps": [
+   "Applying the old 80–125% test."
+  ]
+ },
+ "quickref": [
+  {
+   "k": "FV hedge",
+   "v": "Both in P&L"
+  },
+  {
+   "k": "CF hedge",
+   "v": "Effective in OCI"
+  },
+  {
+   "k": "NI hedge",
+   "v": "OCI, recycle on disposal"
+  },
+  {
+   "k": "Documentation",
+   "v": "At inception"
+  }
+ ],
+ "viva": [
+  {
+   "id": "v1",
+   "q": "Name the three types of hedge relationship.",
+   "model": "Fair value hedge, cash flow hedge and hedge of a net investment in a foreign operation.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Fair value and cash flow",
+     "w": 6,
+     "kw": [
+      "fair value|cash flow"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Net investment",
+     "w": 4,
+     "kw": [
+      "net investment"
+     ]
+    }
+   ],
+   "concept": "c1"
+  },
+  {
+   "id": "v2",
+   "q": "What are the effectiveness requirements?",
+   "model": "An economic relationship between item and instrument, credit risk that does not dominate, and a hedge ratio matching actual risk management.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Economic relationship",
+     "w": 5,
+     "kw": [
+      "economic"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Hedge ratio",
+     "w": 5,
+     "kw": [
+      "ratio"
+     ]
+    }
+   ],
+   "concept": "c2"
+  },
+  {
+   "id": "v3",
+   "q": "How is the effective portion of a cash flow hedge measured?",
+   "model": "As the lower of the cumulative gain or loss on the instrument and the cumulative change in present value of the hedged cash flows.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Lower of",
+     "w": 5,
+     "kw": [
+      "lower"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Cumulative",
+     "w": 5,
+     "kw": [
+      "cumulative"
+     ]
+    }
+   ],
+   "concept": "c4"
+  },
+  {
+   "id": "v4",
+   "q": "What is rebalancing?",
+   "model": "Adjusting the quantities of the hedged item or instrument to restore the hedge ratio while keeping the same risk management objective.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Adjust quantities",
+     "w": 5,
+     "kw": [
+      "quantit"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Same objective",
+     "w": 5,
+     "kw": [
+      "objective"
+     ]
+    }
+   ],
+   "concept": "c2"
+  },
+  {
+   "id": "v5",
+   "q": "What happens to the reserve if a forecast transaction is no longer expected?",
+   "model": "It is reclassified immediately to profit or loss.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Reclassified",
+     "w": 6,
+     "kw": [
+      "reclassif"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Immediately",
+     "w": 4,
+     "kw": [
+      "immediate"
+     ]
+    }
+   ],
+   "concept": "c4"
+  }
+ ],
+ "cases": [
+  {
+   "id": "k1",
+   "title": "Atlas Exports Ltd.",
+   "difficulty": "moderate",
+   "case": "Atlas Exports Ltd. hedges highly probable USD sales due in 6 months with forwards. Cumulative forward loss at year end ₹8 lakh; cumulative change in PV of hedged cash flows ₹9 lakh (gain). It also hedges a fixed-rate borrowing with a receive-fixed, pay-floating swap.",
+   "mcqs": [
+    {
+     "id": "k1a",
+     "q": "Amount debited to the cash flow hedge reserve (₹ lakh):",
+     "options": [
+      "8",
+      "9",
+      "1",
+      "17"
+     ],
+     "answer": 0,
+     "explain": "Lower of 8 and 9 in absolute terms; no ineffectiveness since the instrument moved less. In practice: under-hedge.",
+     "difficulty": "moderate",
+     "check": 8,
+     "topic": "Cash flow and net investment hedges; discontinuation"
+    },
+    {
+     "id": "k1b",
+     "q": "When the USD sales occur, the reserve is:",
+     "options": [
+      "Reclassified to profit or loss",
+      "Added to inventory cost",
+      "Left in OCI",
+      "Moved to retained earnings"
+     ],
+     "answer": 0,
+     "explain": "Sales affect profit; no non-financial asset arises. In practice: adjusts revenue.",
+     "difficulty": "core",
+     "topic": "Cash flow and net investment hedges; discontinuation"
+    },
+    {
+     "id": "k1c",
+     "q": "The swap on the fixed-rate borrowing is a:",
+     "options": [
+      "Fair value hedge",
+      "Cash flow hedge",
+      "Net investment hedge",
+      "Not a hedge"
+     ],
+     "answer": 0,
+     "explain": "Protects fair value of the fixed debt. In practice: adjust borrowing carrying amount.",
+     "difficulty": "core",
+     "topic": "Fair value hedges"
+    },
+    {
+     "id": "k1d",
+     "q": "Documentation prepared after the year end allows hedge accounting:",
+     "options": [
+      "Not for the past period",
+      "Retrospectively",
+      "From signing",
+      "If auditors agree"
+     ],
+     "answer": 0,
+     "explain": "Designation must be at inception. In practice: prospective only.",
+     "difficulty": "core",
+     "topic": "Qualifying criteria and effectiveness"
+    }
+   ]
+  }
+ ]
+}
