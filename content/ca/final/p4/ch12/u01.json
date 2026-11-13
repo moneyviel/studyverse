@@ -1,0 +1,734 @@
+{
+ "schema": "ca-unit/1",
+ "id": "fin-p4-ch12-u01",
+ "level": "final",
+ "paper": "p4",
+ "chapter": "fin-p4-ch12",
+ "n": 1,
+ "title": "Taxation of Digital Transactions",
+ "outcomes": [
+  "Describe e-commerce models and features of the digital economy.",
+  "Identify tax challenges of digitalisation and India's response.",
+  "Compute tax on transfer of virtual digital assets.",
+  "Apply TDS and gift provisions to virtual digital assets."
+ ],
+ "meta": {
+  "difficulty": "core",
+  "minutes": {
+   "learn": 30,
+   "practice": 20
+  },
+  "prereq": [
+   "fin-p4-ch11-u01"
+  ],
+  "exam_tip": "Compute VDA gains token by token and state that losses are ignored."
+ },
+ "concepts": [
+  {
+   "id": "c1",
+   "title": "Digital economy and e-commerce models",
+   "body": [
+    "Section 402(12) defines electronic commerce as supply of goods, services or both, including digital products, over a digital or electronic network. Models include B2B, B2C, C2C and platform-based marketplaces, subscription services, digital wallets and the sharing economy.",
+    "Features of digital business: mobility of intangibles and users, reliance on data and network effects, multi-sided platforms, and the ability to serve a market with little or no physical presence.",
+    "Digital wallets and mobile money enable trusted online payments, widening access for people without traditional banking."
+   ],
+   "analogy": "Value is created where users and data are, not only where offices are.",
+   "work": "A ride-hailing app matches drivers and riders without owning cars."
+  },
+  {
+   "id": "c2",
+   "title": "Tax challenges of digitalisation",
+   "body": [
+    "Key issues: nexus (PE rules based on physical presence weaken), data and user-created value, characterisation of payments (business income, royalty or fees for technical services), and allocation of profits between jurisdictions.",
+    "BEPS Action 1 considered a significant economic presence test, withholding tax on digital transactions and an equalisation levy; the OECD/G20 Two-Pillar solution followed.",
+    "India introduced a 6% equalisation levy on specified online advertising services (2016) and extended it to e-commerce supplies (2020); the e-commerce levy was withdrawn from 1 August 2024 and the levy on specified digital services was abolished by the Finance Act, 2025."
+   ],
+   "analogy": "Tax rules built for factories struggle with platforms.",
+   "work": "An overseas ad platform with Indian users but no office tests PE rules."
+  },
+  {
+   "id": "c3",
+   "title": "Taxation of virtual digital assets",
+   "body": [
+    "Virtual digital asset (section 2(111)) covers information, code, number or token generated cryptographically or otherwise that provides a digital representation of value, including crypto-assets on distributed ledgers and non-fungible tokens as notified; Indian and foreign currency and gift cards or vouchers are excluded.",
+    "Income from transfer of a VDA is taxed at 30% (section 194(1) Table Sl. No. 4) regardless of the head; only cost of acquisition is deductible; no other expenditure, allowance or set-off of loss is permitted.",
+    "Loss from transfer of a VDA cannot be set off against any income, including other VDA gains, and cannot be carried forward. \"Transfer\" applies to VDAs whether or not they are capital assets."
+   ],
+   "analogy": "Thirty percent on gains, zero relief for losses.",
+   "work": "A ₹1 lakh gain on one token and a ₹50,000 loss on another still leaves ₹1 lakh taxable."
+  },
+  {
+   "id": "c4",
+   "title": "TDS and gifts of virtual digital assets",
+   "body": [
+    "Section 393(1) Table Sl. No. 8(vi): the payer for transfer of a VDA deducts tax at 1% of the consideration. Where consideration is in kind or exchanged for another VDA, the payer must ensure the tax is paid before releasing it.",
+    "No TDS is needed if consideration in the year does not exceed ₹50,000 where the payer is a specified person (individuals/HUFs with business turnover up to ₹1 crore or professional receipts up to ₹50 lakh, or with no business income) and ₹10,000 for others; specified persons need not obtain TAN. Where both the purchase-of-goods TDS and VDA TDS could apply, VDA TDS prevails.",
+    "Gifts of VDAs are \"property\" under section 92(2)(m): FMV taxable if aggregate exceeds ₹50,000 from non-relatives, with the usual exclusions (relatives, marriage, will)."
+   ],
+   "analogy": "Track 1% TDS on each trade and gift thresholds.",
+   "work": "A ₹3 lakh token sale bears TDS of ₹3,000."
+  }
+ ],
+ "illustrations": [
+  {
+   "id": "i1",
+   "title": "Gains and losses on crypto-assets",
+   "difficulty": "core",
+   "minutes": 6,
+   "q": "Rhea, a resident salaried individual, sells token A (cost ₹2,00,000) for ₹3,00,000 and token B (cost ₹1,50,000) for ₹1,00,000 in T.Y. 2026-27. She paid exchange fees of ₹3,000 on these trades. Compute tax on VDA income (no surcharge).",
+   "solution": [
+    {
+     "t": "table",
+     "head": [
+      "Item",
+      "Treatment",
+      "₹"
+     ],
+     "rows": [
+      [
+       "Gain on token A",
+       "Sale price − cost only",
+       "1,00,000"
+      ],
+      [
+       "Loss on token B",
+       "Cannot be set off; not carried forward",
+       "50,000"
+      ],
+      [
+       "Exchange fees",
+       "No deduction except cost of acquisition",
+       "—"
+      ],
+      [
+       "Tax @ 30%",
+       "",
+       "30,000"
+      ],
+      [
+       "Add cess 4%",
+       "",
+       "31,200"
+      ]
+     ],
+     "title": "Section 194(1) Table Sl. No. 4"
+    }
+   ],
+   "checks": [
+    {
+     "expr": "300000-200000",
+     "value": 100000,
+     "label": "Gain on token A (₹)"
+    },
+    {
+     "expr": "(300000-200000)*0.30",
+     "value": 30000,
+     "label": "Tax at 30% on gain (₹)"
+    },
+    {
+     "expr": "(300000-200000)*0.30*1.04",
+     "value": 31200,
+     "label": "Tax with 4% cess (₹)"
+    }
+   ]
+  },
+  {
+   "id": "i2",
+   "title": "TDS and gifts",
+   "difficulty": "core",
+   "minutes": 5,
+   "q": "In the above case, the buyer of token A pays ₹3,00,000 to Rhea. Separately, Rhea receives tokens worth ₹80,000 as a gift from a friend and tokens worth ₹40,000 from her sister. Compute the TDS on token A and the taxable gift.",
+   "solution": [
+    {
+     "t": "table",
+     "head": [
+      "Item",
+      "Treatment",
+      "₹"
+     ],
+     "rows": [
+      [
+       "TDS on token A",
+       "1% × 3,00,000 (section 393(1) Table Sl. No. 8(vi))",
+       "3,000"
+      ],
+      [
+       "Gift from friend",
+       "Aggregate FMV exceeds ₹50,000 — taxable",
+       "80,000"
+      ],
+      [
+       "Gift from sister",
+       "Relative — excluded",
+       "—"
+      ]
+     ],
+     "title": "VDA compliance"
+    }
+   ],
+   "checks": [
+    {
+     "expr": "300000*0.01",
+     "value": 3000,
+     "label": "TDS at 1% on consideration (₹)"
+    },
+    {
+     "expr": "80000",
+     "value": 80000,
+     "label": "Taxable gift of VDA from friend (₹)"
+    }
+   ]
+  }
+ ],
+ "jobs": [
+  {
+   "id": "j1",
+   "title": "Crypto investor return",
+   "role": "Tax associate",
+   "situation": "A client traded several tokens and received some as gifts.",
+   "steps": [
+    "Compute gain or loss token-wise with cost only.",
+    "Exclude losses from set-off.",
+    "Reconcile TDS credits.",
+    "Assess gifts under section 92(2)(m)."
+   ],
+   "takeaway": "Each profitable trade is taxed alone; losses are wasted."
+  }
+ ],
+ "mcqs": [
+  {
+   "id": "m1",
+   "q": "Income from transfer of a VDA is taxed at:",
+   "options": [
+    "Thirty percent",
+    "Twenty percent",
+    "Slab rates",
+    "Twelve and a half percent"
+   ],
+   "answer": 0,
+   "explain": "Flat rate. In practice: plus surcharge and cess.",
+   "concept": "c3",
+   "topic": "Taxation of virtual digital assets",
+   "difficulty": "core"
+  },
+  {
+   "id": "m2",
+   "q": "Which deduction is allowed against VDA income?",
+   "options": [
+    "Cost of acquisition",
+    "Exchange fees",
+    "Interest on borrowings",
+    "Internet charges"
+   ],
+   "answer": 0,
+   "explain": "Only cost. In practice: keep purchase records.",
+   "concept": "c3",
+   "topic": "Taxation of virtual digital assets",
+   "difficulty": "core"
+  },
+  {
+   "id": "m3",
+   "q": "Loss on transfer of a VDA can be:",
+   "options": [
+    "Neither set off nor carried forward",
+    "Set off against other VDA gains",
+    "Carried forward for eight years",
+    "Set off against salary"
+   ],
+   "answer": 0,
+   "explain": "Strict rule. In practice: no relief.",
+   "concept": "c3",
+   "topic": "Taxation of virtual digital assets",
+   "difficulty": "core"
+  },
+  {
+   "id": "m4",
+   "q": "TDS on consideration for transfer of a VDA is:",
+   "options": [
+    "One percent",
+    "Ten percent",
+    "Five percent",
+    "Thirty percent"
+   ],
+   "answer": 0,
+   "explain": "Section 393(1). In practice: payer's duty.",
+   "concept": "c4",
+   "topic": "TDS and gifts of virtual digital assets",
+   "difficulty": "core"
+  },
+  {
+   "id": "m5",
+   "q": "For a specified person, no VDA TDS is required if consideration in the year does not exceed:",
+   "options": [
+    "Fifty thousand rupees",
+    "Ten thousand rupees",
+    "One lakh rupees",
+    "Five thousand rupees"
+   ],
+   "answer": 0,
+   "explain": "Threshold. In practice: others ₹10,000.",
+   "concept": "c4",
+   "topic": "TDS and gifts of virtual digital assets",
+   "difficulty": "core"
+  },
+  {
+   "id": "m6",
+   "q": "Equalisation levy on e-commerce supply or services was withdrawn from:",
+   "options": [
+    "1 August 2024",
+    "1 April 2026",
+    "1 April 2020",
+    "1 June 2016"
+   ],
+   "answer": 0,
+   "explain": "Withdrawn first; online ads levy abolished by Finance Act 2025.",
+   "concept": "c2",
+   "topic": "Tax challenges of digitalisation",
+   "difficulty": "core"
+  },
+  {
+   "id": "m7",
+   "q": "Which is excluded from the definition of VDA?",
+   "options": [
+    "Gift cards and vouchers",
+    "Non-fungible tokens",
+    "Crypto-assets",
+    "Cryptographic tokens"
+   ],
+   "answer": 0,
+   "explain": "Section 2(111) exclusion. In practice: check notifications.",
+   "concept": "c3",
+   "topic": "Taxation of virtual digital assets",
+   "difficulty": "core"
+  },
+  {
+   "id": "m8",
+   "q": "A gift of tokens worth ₹80,000 from a friend is:",
+   "options": [
+    "Taxable in the recipient's hands",
+    "Exempt",
+    "Taxed in the donor's hands",
+    "Taxed at one percent"
+   ],
+   "answer": 0,
+   "explain": "Section 92(2)(m). In practice: FMV basis.",
+   "concept": "c4",
+   "topic": "TDS and gifts of virtual digital assets",
+   "difficulty": "core"
+  }
+ ],
+ "questions": [
+  {
+   "id": "q1",
+   "marks": 5,
+   "minutes": 9,
+   "difficulty": "core",
+   "pad": "table",
+   "q": "Rhea, a resident salaried individual, sells token A (cost ₹2,00,000) for ₹3,00,000 and token B (cost ₹1,50,000) for ₹1,00,000 in T.Y. 2026-27. She paid exchange fees of ₹3,000 on these trades. Compute tax on VDA income (no surcharge).",
+   "model": [
+    {
+     "t": "table",
+     "head": [
+      "Item",
+      "Treatment",
+      "₹"
+     ],
+     "rows": [
+      [
+       "Gain on token A",
+       "Sale price − cost only",
+       "1,00,000"
+      ],
+      [
+       "Loss on token B",
+       "Cannot be set off; not carried forward",
+       "50,000"
+      ],
+      [
+       "Exchange fees",
+       "No deduction except cost of acquisition",
+       "—"
+      ],
+      [
+       "Tax @ 30%",
+       "",
+       "30,000"
+      ],
+      [
+       "Add cess 4%",
+       "",
+       "31,200"
+      ]
+     ],
+     "title": "Section 194(1) Table Sl. No. 4"
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "Gain and loss treatment",
+     "m": 3,
+     "skill": "analysis",
+     "kw": [
+      "set off"
+     ],
+     "min": 1,
+     "nums": [
+      100000
+     ]
+    },
+    {
+     "id": "s2",
+     "pt": "Tax",
+     "m": 2,
+     "skill": "computation",
+     "kw": [
+      "30%"
+     ],
+     "min": 1,
+     "nums": [
+      30000,
+      31200
+     ]
+    }
+   ],
+   "remarks": [
+    "State no set-off."
+   ],
+   "mistakes": [
+    "Netting the token B loss."
+   ],
+   "tips": [
+    "Table."
+   ],
+   "extra_ok": true,
+   "checks": [
+    {
+     "expr": "300000-200000",
+     "value": 100000,
+     "label": "Gain on token A (₹)"
+    },
+    {
+     "expr": "(300000-200000)*0.30",
+     "value": 30000,
+     "label": "Tax at 30% on gain (₹)"
+    },
+    {
+     "expr": "(300000-200000)*0.30*1.04",
+     "value": 31200,
+     "label": "Tax with 4% cess (₹)"
+    }
+   ]
+  },
+  {
+   "id": "q2",
+   "marks": 4,
+   "minutes": 7,
+   "difficulty": "core",
+   "pad": "table",
+   "q": "In the above case, the buyer of token A pays ₹3,00,000 to Rhea. Separately, Rhea receives tokens worth ₹80,000 as a gift from a friend and tokens worth ₹40,000 from her sister. Compute the TDS on token A and the taxable gift.",
+   "model": [
+    {
+     "t": "table",
+     "head": [
+      "Item",
+      "Treatment",
+      "₹"
+     ],
+     "rows": [
+      [
+       "TDS on token A",
+       "1% × 3,00,000 (section 393(1) Table Sl. No. 8(vi))",
+       "3,000"
+      ],
+      [
+       "Gift from friend",
+       "Aggregate FMV exceeds ₹50,000 — taxable",
+       "80,000"
+      ],
+      [
+       "Gift from sister",
+       "Relative — excluded",
+       "—"
+      ]
+     ],
+     "title": "VDA compliance"
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "TDS",
+     "m": 2,
+     "skill": "computation",
+     "kw": [
+      "1%"
+     ],
+     "min": 1,
+     "nums": [
+      3000
+     ]
+    },
+    {
+     "id": "s2",
+     "pt": "Gifts",
+     "m": 2,
+     "skill": "analysis",
+     "kw": [
+      "relative"
+     ],
+     "min": 1,
+     "nums": [
+      80000
+     ]
+    }
+   ],
+   "remarks": [
+    "Mention threshold."
+   ],
+   "mistakes": [
+    "Taxing gift from sister."
+   ],
+   "tips": [
+    "Table."
+   ],
+   "extra_ok": true,
+   "checks": [
+    {
+     "expr": "300000*0.01",
+     "value": 3000,
+     "label": "TDS at 1% on consideration (₹)"
+    },
+    {
+     "expr": "80000",
+     "value": 80000,
+     "label": "Taxable gift of VDA from friend (₹)"
+    }
+   ]
+  }
+ ],
+ "revision": {
+  "summary": [
+   "E-commerce under section 402(12).",
+   "Nexus and characterisation challenges; BEPS Action 1.",
+   "Equalisation levy withdrawn (2024) and abolished (Finance Act 2025).",
+   "VDA section 2(111); 30% tax; cost only; no loss set-off.",
+   "TDS 1%; thresholds ₹50,000/₹10,000; gifts taxed."
+  ],
+  "remember": [
+   "VDA losses vanish."
+  ],
+  "traps": [
+   "Deducting exchange fees from VDA gains."
+  ]
+ },
+ "quickref": [
+  {
+   "k": "VDA definition",
+   "v": "Section 2(111)"
+  },
+  {
+   "k": "Rate",
+   "v": "Section 194(1)"
+  },
+  {
+   "k": "TDS",
+   "v": "Section 393(1)"
+  },
+  {
+   "k": "Gifts",
+   "v": "Section 92(2)(m)"
+  }
+ ],
+ "viva": [
+  {
+   "id": "v1",
+   "q": "Why are digital businesses hard to tax under PE rules?",
+   "model": "PE rules look for a fixed place of business or a dependent agent, while such firms earn from a market remotely.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Fixed place",
+     "w": 5,
+     "kw": [
+      "fixed place"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Market",
+     "w": 5,
+     "kw": [
+      "market"
+     ]
+    }
+   ],
+   "concept": "c2"
+  },
+  {
+   "id": "v2",
+   "q": "Which BEPS Action dealt with the digital economy?",
+   "model": "Action 1, which considered significant economic presence, withholding and an equalisation levy.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Action 1",
+     "w": 5,
+     "kw": [
+      "action 1"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Significant economic presence",
+     "w": 5,
+     "kw": [
+      "significant economic presence"
+     ]
+    }
+   ],
+   "concept": "c2"
+  },
+  {
+   "id": "v3",
+   "q": "What can be deducted from VDA transfer income?",
+   "model": "Only the cost of acquisition.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Cost of acquisition",
+     "w": 5,
+     "kw": [
+      "cost of acquisition"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Only",
+     "w": 5,
+     "kw": [
+      "only"
+     ]
+    }
+   ],
+   "concept": "c3"
+  },
+  {
+   "id": "v4",
+   "q": "Who must deduct tax on a VDA transfer?",
+   "model": "The person paying consideration to a resident for the transfer, at 1%.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Payer",
+     "w": 5,
+     "kw": [
+      "paying|payer"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "One percent",
+     "w": 5,
+     "kw": [
+      "1%"
+     ]
+    }
+   ],
+   "concept": "c4"
+  },
+  {
+   "id": "v5",
+   "q": "Does the gift provision apply to VDAs?",
+   "model": "Yes, VDAs are property for section 92(2)(m), with the usual exclusions.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Property",
+     "w": 5,
+     "kw": [
+      "property"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Exclusions",
+     "w": 5,
+     "kw": [
+      "exclusion"
+     ]
+    }
+   ],
+   "concept": "c4"
+  }
+ ],
+ "cases": [
+  {
+   "id": "k1",
+   "title": "Kabir's NFT sale",
+   "difficulty": "core",
+   "case": "Kabir, a salaried individual with no business income, buys a notified NFT from Meghna, a resident, for ₹45,000 in May 2026 and another from her for ₹30,000 in October 2026. Meghna had bought each for ₹20,000.",
+   "mcqs": [
+    {
+     "id": "k1a",
+     "q": "Aggregate consideration paid by Kabir to Meghna (₹):",
+     "options": [
+      "75,000",
+      "45,000",
+      "30,000",
+      "40,000"
+     ],
+     "answer": 0,
+     "explain": "45,000 + 30,000. In practice: yearly aggregate.",
+     "difficulty": "core",
+     "check": 75000,
+     "topic": "TDS and gifts of virtual digital assets"
+    },
+    {
+     "id": "k1b",
+     "q": "Is Kabir required to deduct TDS?",
+     "options": [
+      "Yes, aggregate exceeds ₹50,000",
+      "No, he is salaried",
+      "No, NFTs are excluded",
+      "Only on the first purchase"
+     ],
+     "answer": 0,
+     "explain": "Specified person threshold crossed. In practice: no TAN needed.",
+     "difficulty": "core",
+     "topic": "TDS and gifts of virtual digital assets"
+    },
+    {
+     "id": "k1c",
+     "q": "Meghna's taxable VDA income (₹):",
+     "options": [
+      "35,000",
+      "75,000",
+      "40,000",
+      "25,000"
+     ],
+     "answer": 0,
+     "explain": "(45,000 − 20,000) + (30,000 − 20,000). In practice: cost only.",
+     "difficulty": "core",
+     "check": 35000,
+     "topic": "Taxation of virtual digital assets"
+    },
+    {
+     "id": "k1d",
+     "q": "Meghna's tax before cess (₹):",
+     "options": [
+      "10,500",
+      "7,000",
+      "22,500",
+      "3,500"
+     ],
+     "answer": 0,
+     "explain": "30% × 35,000. In practice: no slab benefit.",
+     "difficulty": "core",
+     "check": 10500,
+     "topic": "Taxation of virtual digital assets"
+    }
+   ]
+  }
+ ]
+}
