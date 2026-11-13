@@ -317,6 +317,12 @@ async def _(pg):
 async def _(pg):
     for v in (45, 90, 150, 330, 690): await setr(pg, 'input[data-k=th]', v)
 
+@lab('phy-u13', 'helix')
+async def _(pg):
+    await setr(pg, 'input[data-k=al]', 0); await setr(pg, 'input[data-k=al]', 90); await tap(pg, '#hxP button', 3)
+    await tap(pg, '#hxP button', 2); await setr(pg, 'input[data-k=B]', 1); await setr(pg, 'input[data-k=v]', 3)
+    await setr(pg, 'input[data-k=v]', 5); await setr(pg, 'input[data-k=al]', 45)
+
 async def main(only=None):
     async with async_playwright() as pw:
         b = await pw.chromium.launch(executable_path='/usr/bin/google-chrome', args=['--no-sandbox'])
