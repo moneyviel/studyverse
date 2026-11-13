@@ -92,7 +92,8 @@ Text for the "Instructions" box:
   permission (Bubblewrap does not add it; if any library adds it, remove it with `tools:node="remove"`), and in
   Play Console → App content → **Advertising ID** answer **No**.
 * **📳 Notification icon:** in the Bubblewrap/TWA config set `"monochromeIconUrl": "https://knowtopia.in/icons/badge-512.png"`
-  (white book-hill-star outline) so reminders show the Knowtopia mark instead of a blank square; Android tints it.
+  (white book-hill-star outline) so reminders show the Knowtopia mark instead of a blank square. Notification
+  accent colour: the logo navy **#010D33** (circle behind the icon); use gold **#F0C45A** for the icon if the tool allows.
 * **📳 Phone reminders (added 13 Nov 2026):** in the Bubblewrap/TWA config set `"enableNotifications": true`
   (notification delegation) so the app asks for Android 13+'s notification permission and shows web-push reminders.
   Data safety: the push address is **App info and performance → Other**/**Device or other IDs**, collected,
