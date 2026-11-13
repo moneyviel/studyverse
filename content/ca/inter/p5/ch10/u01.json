@@ -1,0 +1,820 @@
+{
+ "schema": "ca-unit/1",
+ "id": "int-p5-ch10-u01",
+ "level": "inter",
+ "paper": "p5",
+ "chapter": "int-p5-ch10",
+ "n": 1,
+ "title": "Audit of Banks",
+ "outcomes": [
+  "Explain the appointment, powers and reporting of bank auditors.",
+  "Apply NPA classification and provisioning norms.",
+  "Compute drawing power and review advances.",
+  "Audit income and expenses of a bank."
+ ],
+ "meta": {
+  "difficulty": "hard",
+  "minutes": {
+   "learn": 45,
+   "practice": 35
+  },
+  "prereq": [
+   "int-p5-ch09-u01"
+  ],
+  "exam_tip": "In NPA questions, count days carefully and separate secured and unsecured portions."
+ },
+ "concepts": [
+  {
+   "id": "c1",
+   "title": "Bank audit framework: appointment, powers, reports and approach",
+   "body": [
+    "Auditors of banking companies are appointed at the AGM, and of nationalised banks by the Board — in both cases with RBI's prior approval; RRB auditors are appointed with the Central Government's approval. Eligibility follows company auditor rules; remuneration of a banking company's auditor follows section 142 of the Companies Act, while for nationalised banks and SBI it is fixed by RBI in consultation with the Government. Powers of access are the same as a company auditor's.",
+    "Reports: the main audit report under the Banking Regulation Act and other laws; the Long Form Audit Report (LFAR) on matters RBI requires (central auditors submit by 30 June); and certificates and reports to RBI on specific matters.",
+    "Approach: understand the bank's systems (largely core banking software), assess risks (credit, market, operational), evaluate internal controls, rely where possible on internal and concurrent audit and RBI inspection, and focus on high-risk areas — advances, investments, income recognition."
+   ],
+   "analogy": "A bank audit is about trust in lending and the systems that record it.",
+   "work": "An auditor visiting a branch reviews the CBS exception reports before testing loans."
+  },
+  {
+   "id": "c2",
+   "title": "Advances: classification and NPA norms",
+   "body": [
+    "Advances comprise loans, cash credits, overdrafts and bills purchased and discounted, disclosed by nature (secured, covered by guarantees, unsecured) and by sector.",
+    "A non-performing asset (NPA) is a loan where interest or instalment remains overdue for more than 90 days for a term loan; a cash credit or overdraft account that stays \"out of order\" for 90 days; bills overdue for more than 90 days; and agricultural loans by crop season tests. Classification is based on record of recovery, not on security.",
+    "Categories: standard; substandard (NPA up to 12 months) — 15%; doubtful (substandard for 12 months) — secured portion 25% (D1, up to 1 year), 40% (D2, 1–3 years), 100% (D3, over 3 years), plus 100% on the unsecured portion; loss assets — 100%.",
+    "Income on NPAs is not recognised until actually received; interest booked but not received when an account becomes an NPA is reversed."
+   ],
+   "analogy": "NPA rules turn on how long money has been overdue; provisioning rises with age and falls with security.",
+   "work": "A term loan with an instalment due on 31 December unpaid till 31 March (90 days) becomes an NPA on the 91st day."
+  },
+  {
+   "id": "c3",
+   "title": "Drawing power and review of advances",
+   "body": [
+    "Drawing power is the amount a borrower may draw in a working capital account, based on the value of eligible security (paid stock and eligible debtors) less stipulated margins, limited to the sanctioned limit.",
+    "Paid stock means stock less creditors for goods; obsolete or damaged stock and debtors beyond the permitted age are excluded.",
+    "An account is out of order if the outstanding balance stays continuously above the sanctioned limit or drawing power, or if there are no credits for 90 days, or credits do not cover interest. Auditors check stock statements, inspection reports, renewal of limits, security documentation and periodic review."
+   ],
+   "analogy": "Drawing power ensures the loan is always backed by current security, not just by the limit on paper.",
+   "work": "A borrower whose stock falls sharply loses drawing power even if the sanctioned limit is unchanged."
+  },
+  {
+   "id": "c4",
+   "title": "Audit of income and expenses",
+   "body": [
+    "Income: interest on advances (verify rates, application, non-recognition on NPAs), discount on bills, commission and exchange, fees, and income from investments. Analytical procedures (yield on average advances) help detect errors.",
+    "Expenses: interest on deposits (recompute for samples and check rate changes), staff costs, rent, provisions and contingencies; ensure prior period items are disclosed.",
+    "Auditors also verify balances with RBI and other banks, inter-branch reconciliation, and suspense and sundry accounts that may hide irregularities."
+   ],
+   "analogy": "Interest income should match the loan book; interest expense should match deposits.",
+   "work": "If average advances are ₹100 crore at 10% yield but interest income is ₹8 crore, the gap needs investigation."
+  }
+ ],
+ "illustrations": [
+  {
+   "id": "i1",
+   "title": "Computing drawing power",
+   "difficulty": "moderate",
+   "minutes": 8,
+   "q": "A borrower has a cash credit limit of ₹80 lakh against paid stock (margin 25%) and debtors up to 90 days (margin 30%). Stock ₹100 lakh includes obsolete items ₹6 lakh; creditors for goods ₹30 lakh; debtors ₹50 lakh include ₹10 lakh over 90 days. Compute drawing power. The outstanding balance is ₹79 lakh — comment.",
+   "solution": [
+    {
+     "t": "table",
+     "head": [
+      "Step",
+      "Working",
+      "₹ lakh"
+     ],
+     "rows": [
+      [
+       "Paid stock",
+       "100 − 6 obsolete − 30 creditors",
+       "64"
+      ],
+      [
+       "Less 25% margin",
+       "64 × 75%",
+       "48"
+      ],
+      [
+       "Eligible debtors",
+       "50 − 10 over 90 days",
+       "40"
+      ],
+      [
+       "Less 30% margin",
+       "40 × 70%",
+       "28"
+      ],
+      [
+       "Drawing power",
+       "Lower of this and limit ₹80 lakh",
+       "76"
+      ]
+     ],
+     "title": "Drawing power"
+    },
+    {
+     "t": "p",
+     "text": "Outstanding of ₹79 lakh exceeds the drawing power of ₹76 lakh; if it stays above drawing power continuously for 90 days the account is \"out of order\" and may become an NPA."
+    }
+   ],
+   "checks": [
+    {
+     "expr": "100-6-30",
+     "value": 64,
+     "label": "Paid stock (₹ lakh): stock − obsolete − creditors for goods"
+    },
+    {
+     "expr": "64*75/100",
+     "value": 48,
+     "label": "Drawing power on stock after 25% margin"
+    },
+    {
+     "expr": "(50-10)*70/100",
+     "value": 28,
+     "label": "Drawing power on debtors up to 90 days after 30% margin"
+    },
+    {
+     "expr": "48+28",
+     "value": 76,
+     "label": "Drawing power (₹ lakh)"
+    }
+   ]
+  },
+  {
+   "id": "i2",
+   "title": "Provisioning for NPAs",
+   "difficulty": "moderate",
+   "minutes": 7,
+   "q": "A branch's NPAs: substandard ₹10 lakh (fully secured); doubtful for 8 months (D1) ₹8 lakh, of which ₹6 lakh is covered by realisable security; loss asset ₹1 lakh. Compute the minimum provision.",
+   "solution": [
+    {
+     "t": "table",
+     "head": [
+      "Category",
+      "Working",
+      "₹ lakh"
+     ],
+     "rows": [
+      [
+       "Substandard",
+       "15% of 10",
+       "1.5"
+      ],
+      [
+       "Doubtful (D1)",
+       "25% of secured 6 + 100% of unsecured 2",
+       "3.5"
+      ],
+      [
+       "Loss",
+       "100% of 1",
+       "1"
+      ],
+      [
+       "Total",
+       "",
+       "6"
+      ]
+     ],
+     "title": "Prudential provisioning"
+    }
+   ],
+   "checks": [
+    {
+     "expr": "10*15/100",
+     "value": 1.5,
+     "label": "Substandard (₹ lakh) at 15%"
+    },
+    {
+     "expr": "6*25/100 + 2*100/100",
+     "value": 3.5,
+     "label": "Doubtful D1: secured 25% + unsecured 100%"
+    },
+    {
+     "expr": "1*100/100",
+     "value": 1,
+     "label": "Loss asset at 100%"
+    },
+    {
+     "expr": "1.5+3.5+1",
+     "value": 6,
+     "label": "Total provision (₹ lakh)"
+    }
+   ]
+  }
+ ],
+ "jobs": [
+  {
+   "id": "j1",
+   "title": "Branch audit of advances",
+   "role": "Audit assistant",
+   "situation": "You are asked to test 25 large borrower accounts at a branch.",
+   "steps": [
+    "Check sanction, documentation and security creation.",
+    "Recompute drawing power from stock statements.",
+    "Test overdue status for NPA classification.",
+    "Recompute provisions and income reversal."
+   ],
+   "takeaway": "Classification first, provision second, income recognition third."
+  }
+ ],
+ "mcqs": [
+  {
+   "id": "m1",
+   "q": "A term loan becomes an NPA when interest or instalment remains overdue for more than:",
+   "options": [
+    "90 days",
+    "60 days",
+    "180 days",
+    "30 days"
+   ],
+   "answer": 0,
+   "explain": "The 90-day overdue norm applies to term loans. In practice: cash credits use the out-of-order test.",
+   "concept": "c2",
+   "topic": "Advances: classification and NPA norms",
+   "difficulty": "core",
+   "check": 90
+  },
+  {
+   "id": "m2",
+   "q": "Provision on a substandard asset is:",
+   "options": [
+    "15%",
+    "25%",
+    "40%",
+    "100%"
+   ],
+   "answer": 0,
+   "explain": "Substandard assets need 15% (with higher rates for certain unsecured exposures). In practice: computed on outstanding.",
+   "concept": "c2",
+   "topic": "Advances: classification and NPA norms",
+   "difficulty": "core",
+   "check": 15
+  },
+  {
+   "id": "m3",
+   "q": "NPA classification is based on:",
+   "options": [
+    "Record of recovery",
+    "Value of security",
+    "Net worth of guarantor",
+    "Borrower's turnover"
+   ],
+   "answer": 0,
+   "explain": "Security affects provisioning, not classification. In practice: a well-secured loan can still be an NPA.",
+   "concept": "c2",
+   "topic": "Advances: classification and NPA norms",
+   "difficulty": "core"
+  },
+  {
+   "id": "m4",
+   "q": "The unsecured portion of a doubtful asset is provided at:",
+   "options": [
+    "100%",
+    "25%",
+    "40%",
+    "15%"
+   ],
+   "answer": 0,
+   "explain": "Unsecured portions of doubtful assets are fully provided regardless of age. In practice: secured portion varies by age.",
+   "concept": "c2",
+   "topic": "Advances: classification and NPA norms",
+   "difficulty": "core",
+   "check": 100
+  },
+  {
+   "id": "m5",
+   "q": "An auditor of a nationalised bank is appointed by:",
+   "options": [
+    "The bank's Board with RBI approval",
+    "Shareholders at AGM",
+    "C&AG",
+    "Central Government alone"
+   ],
+   "answer": 0,
+   "explain": "Nationalised banks appoint through their Board, with RBI's prior approval. In practice: banking companies appoint at the AGM.",
+   "concept": "c1",
+   "topic": "Bank audit framework: appointment, powers, reports and approach",
+   "difficulty": "core"
+  },
+  {
+   "id": "m6",
+   "q": "Paid stock for drawing power is:",
+   "options": [
+    "Stock less creditors for goods",
+    "Stock plus debtors",
+    "Stock less margin",
+    "Stock at selling price"
+   ],
+   "answer": 0,
+   "explain": "Only stock financed by the borrower's own funds counts. In practice: exclude obsolete stock.",
+   "concept": "c3",
+   "topic": "Drawing power and review of advances",
+   "difficulty": "core"
+  },
+  {
+   "id": "m7",
+   "q": "A cash credit account is \"out of order\" if:",
+   "options": [
+    "The balance stays above drawing power continuously for 90 days",
+    "There is one debit a month",
+    "Interest is charged monthly",
+    "The limit is renewed"
+   ],
+   "answer": 0,
+   "explain": "Continuous excess over limit or drawing power, or no credits for 90 days, or credits insufficient to cover interest. In practice: check daily balances.",
+   "concept": "c3",
+   "topic": "Drawing power and review of advances",
+   "difficulty": "core"
+  },
+  {
+   "id": "m8",
+   "q": "Interest on an NPA account is recognised:",
+   "options": [
+    "Only when actually received",
+    "On accrual",
+    "At the rate of 15%",
+    "Never"
+   ],
+   "answer": 0,
+   "explain": "Income recognition on NPAs is on a cash basis. In practice: reverse unrealised interest when an account slips.",
+   "concept": "c4",
+   "topic": "Audit of income and expenses",
+   "difficulty": "core"
+  }
+ ],
+ "questions": [
+  {
+   "id": "q1",
+   "marks": 5,
+   "minutes": 9,
+   "difficulty": "core",
+   "pad": "table",
+   "q": "A borrower has a cash credit limit of ₹80 lakh against paid stock (margin 25%) and debtors up to 90 days (margin 30%). Stock ₹100 lakh includes obsolete items ₹6 lakh; creditors for goods ₹30 lakh; debtors ₹50 lakh include ₹10 lakh over 90 days. Compute drawing power. The outstanding balance is ₹79 lakh — comment.",
+   "model": [
+    {
+     "t": "table",
+     "head": [
+      "Step",
+      "Working",
+      "₹ lakh"
+     ],
+     "rows": [
+      [
+       "Paid stock",
+       "100 − 6 obsolete − 30 creditors",
+       "64"
+      ],
+      [
+       "Less 25% margin",
+       "64 × 75%",
+       "48"
+      ],
+      [
+       "Eligible debtors",
+       "50 − 10 over 90 days",
+       "40"
+      ],
+      [
+       "Less 30% margin",
+       "40 × 70%",
+       "28"
+      ],
+      [
+       "Drawing power",
+       "Lower of this and limit ₹80 lakh",
+       "76"
+      ]
+     ],
+     "title": "Drawing power"
+    },
+    {
+     "t": "p",
+     "text": "Outstanding of ₹79 lakh exceeds the drawing power of ₹76 lakh; if it stays above drawing power continuously for 90 days the account is \"out of order\" and may become an NPA."
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "Paid stock",
+     "m": 1,
+     "skill": "computation",
+     "kw": [
+      "paid stock"
+     ],
+     "min": 1,
+     "nums": [
+      64
+     ]
+    },
+    {
+     "id": "s2",
+     "pt": "Margins",
+     "m": 2,
+     "skill": "computation",
+     "kw": [
+      "margin"
+     ],
+     "min": 1,
+     "nums": [
+      48,
+      28
+     ]
+    },
+    {
+     "id": "s3",
+     "pt": "Drawing power",
+     "m": 1,
+     "skill": "computation",
+     "kw": [
+      "drawing power"
+     ],
+     "min": 1,
+     "nums": [
+      76
+     ]
+    },
+    {
+     "id": "s4",
+     "pt": "Comment",
+     "m": 1,
+     "skill": "concept",
+     "kw": [
+      "out of order"
+     ],
+     "min": 1
+    }
+   ],
+   "remarks": [
+    "Exclude ineligible items first."
+   ],
+   "mistakes": [
+    "Applying margin before deducting creditors."
+   ],
+   "tips": [
+    "Table."
+   ],
+   "extra_ok": true,
+   "checks": [
+    {
+     "expr": "100-6-30",
+     "value": 64,
+     "label": "Paid stock (₹ lakh): stock − obsolete − creditors for goods"
+    },
+    {
+     "expr": "64*75/100",
+     "value": 48,
+     "label": "Drawing power on stock after 25% margin"
+    },
+    {
+     "expr": "(50-10)*70/100",
+     "value": 28,
+     "label": "Drawing power on debtors up to 90 days after 30% margin"
+    },
+    {
+     "expr": "48+28",
+     "value": 76,
+     "label": "Drawing power (₹ lakh)"
+    }
+   ]
+  },
+  {
+   "id": "q2",
+   "marks": 4,
+   "minutes": 7,
+   "difficulty": "core",
+   "pad": "table",
+   "q": "A branch's NPAs: substandard ₹10 lakh (fully secured); doubtful for 8 months (D1) ₹8 lakh, of which ₹6 lakh is covered by realisable security; loss asset ₹1 lakh. Compute the minimum provision.",
+   "model": [
+    {
+     "t": "table",
+     "head": [
+      "Category",
+      "Working",
+      "₹ lakh"
+     ],
+     "rows": [
+      [
+       "Substandard",
+       "15% of 10",
+       "1.5"
+      ],
+      [
+       "Doubtful (D1)",
+       "25% of secured 6 + 100% of unsecured 2",
+       "3.5"
+      ],
+      [
+       "Loss",
+       "100% of 1",
+       "1"
+      ],
+      [
+       "Total",
+       "",
+       "6"
+      ]
+     ],
+     "title": "Prudential provisioning"
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "Substandard",
+     "m": 1,
+     "skill": "computation",
+     "kw": [
+      "15%"
+     ],
+     "min": 1,
+     "nums": [
+      1.5
+     ]
+    },
+    {
+     "id": "s2",
+     "pt": "D1 split",
+     "m": 2,
+     "skill": "computation",
+     "kw": [
+      "25%|100%"
+     ],
+     "min": 1,
+     "nums": [
+      3.5
+     ]
+    },
+    {
+     "id": "s3",
+     "pt": "Total",
+     "m": 1,
+     "skill": "computation",
+     "kw": [
+      "total"
+     ],
+     "min": 1,
+     "nums": [
+      6
+     ]
+    }
+   ],
+   "remarks": [
+    "Split secured and unsecured."
+   ],
+   "mistakes": [
+    "Applying 25% to the unsecured part."
+   ],
+   "tips": [
+    "Table."
+   ],
+   "extra_ok": true,
+   "checks": [
+    {
+     "expr": "10*15/100",
+     "value": 1.5,
+     "label": "Substandard (₹ lakh) at 15%"
+    },
+    {
+     "expr": "6*25/100 + 2*100/100",
+     "value": 3.5,
+     "label": "Doubtful D1: secured 25% + unsecured 100%"
+    },
+    {
+     "expr": "1*100/100",
+     "value": 1,
+     "label": "Loss asset at 100%"
+    },
+    {
+     "expr": "1.5+3.5+1",
+     "value": 6,
+     "label": "Total provision (₹ lakh)"
+    }
+   ]
+  }
+ ],
+ "revision": {
+  "summary": [
+   "Appointment with RBI approval; LFAR by 30 June for central auditors.",
+   "NPA: > 90 days overdue; out-of-order for CC/OD.",
+   "Provisions: SS 15%; D1/D2/D3 secured 25/40/100% + unsecured 100%; loss 100%.",
+   "Drawing power: (paid stock − margin) + (eligible debtors − margin), within limit.",
+   "NPA income on cash basis."
+  ],
+  "remember": [
+   "Security affects provision, not classification."
+  ],
+  "traps": [
+   "Paid stock = stock − creditors for goods."
+  ]
+ },
+ "quickref": [
+  {
+   "k": "NPA",
+   "v": "> 90 days"
+  },
+  {
+   "k": "Substandard",
+   "v": "15%"
+  },
+  {
+   "k": "D1/D2/D3 secured",
+   "v": "25/40/100%"
+  },
+  {
+   "k": "Unsecured doubtful",
+   "v": "100%"
+  }
+ ],
+ "viva": [
+  {
+   "id": "v1",
+   "q": "What is an LFAR?",
+   "model": "A Long Form Audit Report in which bank auditors report to the bank on specific matters required by RBI, in addition to the main audit report.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Long form",
+     "w": 5,
+     "kw": [
+      "long form"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "RBI matters",
+     "w": 5,
+     "kw": [
+      "rbi"
+     ]
+    }
+   ],
+   "concept": "c1"
+  },
+  {
+   "id": "v2",
+   "q": "How is a doubtful asset provided for?",
+   "model": "Unsecured portion at 100%; secured portion at 25%, 40% or 100% depending on whether it has been doubtful up to one year, one to three years or more than three years.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Unsecured 100%",
+     "w": 5,
+     "kw": [
+      "100%"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Secured by age",
+     "w": 5,
+     "kw": [
+      "25%|40%"
+     ]
+    }
+   ],
+   "concept": "c2"
+  },
+  {
+   "id": "v3",
+   "q": "When is an account out of order?",
+   "model": "When the balance stays continuously above the sanctioned limit or drawing power, or there are no credits for 90 days, or credits do not cover interest.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Above limit or DP",
+     "w": 5,
+     "kw": [
+      "limit|drawing power"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "90 days credits",
+     "w": 5,
+     "kw": [
+      "90 days|credits"
+     ]
+    }
+   ],
+   "concept": "c3"
+  },
+  {
+   "id": "v4",
+   "q": "Why is security ignored for NPA classification?",
+   "model": "Because classification depends on the borrower's repayment record; security only affects the amount of provision.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Repayment record",
+     "w": 6,
+     "kw": [
+      "record|repayment"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Provision",
+     "w": 4,
+     "kw": [
+      "provision"
+     ]
+    }
+   ],
+   "concept": "c2"
+  },
+  {
+   "id": "v5",
+   "q": "Name an analytical check on interest income.",
+   "model": "Comparing interest income with average advances multiplied by the average yield, and investigating large differences.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Average advances",
+     "w": 5,
+     "kw": [
+      "average"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Yield",
+     "w": 5,
+     "kw": [
+      "yield|rate"
+     ]
+    }
+   ],
+   "concept": "c4"
+  }
+ ],
+ "cases": [
+  {
+   "id": "k1",
+   "title": "Coastal Co-op Bank branch",
+   "difficulty": "moderate",
+   "case": "At 31 March, a branch shows: a term loan of ₹20 lakh with instalments unpaid since 15 November; a cash credit of ₹15 lakh (within its limit) with no credits since 15 December; a doubtful loan in D2 of ₹10 lakh, secured to ₹4 lakh; and interest of ₹1.2 lakh accrued on the term loan this year but not received.",
+   "mcqs": [
+    {
+     "id": "k1a",
+     "q": "Is the term loan an NPA at 31 March?",
+     "options": [
+      "Yes, overdue for more than 90 days",
+      "No",
+      "Only if unsecured",
+      "Only after 12 months"
+     ],
+     "answer": 0,
+     "explain": "Unpaid since 15 November — over 90 days by 31 March. In practice: classify as substandard.",
+     "difficulty": "core",
+     "topic": "Advances: classification and NPA norms"
+    },
+    {
+     "id": "k1b",
+     "q": "The cash credit with no credits since 15 December is:",
+     "options": [
+      "Out of order, as there have been no credits for over 90 days",
+      "Regular, as it is within its limit",
+      "A loss asset",
+      "Automatically doubtful"
+     ],
+     "answer": 0,
+     "explain": "An account within limit is still out of order if no credits come in for 90 days continuously; at 90 days out of order it becomes an NPA. In practice: classify as substandard.",
+     "difficulty": "moderate",
+     "topic": "Drawing power and review of advances"
+    },
+    {
+     "id": "k1c",
+     "q": "Provision on the D2 loan (₹ lakh):",
+     "options": [
+      "7.6",
+      "6.0",
+      "10.0",
+      "4.0"
+     ],
+     "answer": 0,
+     "explain": "Secured 4 × 40% = 1.6 + unsecured 6 × 100% = 6.0 → 7.6. In practice: check security valuation.",
+     "difficulty": "moderate",
+     "check": 7.6,
+     "topic": "Advances: classification and NPA norms"
+    },
+    {
+     "id": "k1d",
+     "q": "Interest of ₹1.2 lakh on the NPA term loan should be:",
+     "options": [
+      "Reversed — recognised only on receipt",
+      "Kept as income",
+      "Provided at 15%",
+      "Capitalised"
+     ],
+     "answer": 0,
+     "explain": "Income on NPAs is recognised on realisation. In practice: reverse unrealised interest.",
+     "difficulty": "core",
+     "topic": "Audit of income and expenses"
+    }
+   ]
+  }
+ ]
+}
