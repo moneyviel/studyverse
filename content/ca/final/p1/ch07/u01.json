@@ -1,0 +1,777 @@
+{
+ "schema": "ca-unit/1",
+ "id": "fin-p1-ch07-u01",
+ "level": "final",
+ "paper": "p1",
+ "chapter": "fin-p1-ch07",
+ "n": 1,
+ "title": "Ind AS 12 \"Income Taxes\"",
+ "outcomes": [
+  "Compute current tax and determine tax bases.",
+  "Identify temporary differences and measure deferred tax.",
+  "Apply the recognition exceptions and recoverability tests.",
+  "Present, offset and disclose income taxes."
+ ],
+ "meta": {
+  "difficulty": "hard",
+  "minutes": {
+   "learn": 45,
+   "practice": 35
+  },
+  "prereq": [
+   "fin-p1-ch06-u02"
+  ],
+  "exam_tip": "Use a three-column table — carrying amount, tax base, difference — then apply the rate."
+ },
+ "concepts": [
+  {
+   "id": "c1",
+   "title": "Current tax and tax base",
+   "body": [
+    "Ind AS 12 uses a balance sheet approach. Current tax is the tax payable (recoverable) on taxable profit (loss) of the period; unpaid amounts are liabilities and excess payments are assets. Benefits of tax losses carried back are assets.",
+    "Current and deferred tax are measured using rates and laws enacted or substantively enacted by the reporting date.",
+    "The tax base of an asset is the amount deductible for tax against future taxable benefits from it (if the benefits are not taxable, the tax base equals carrying amount). For a liability, the tax base equals the book figure minus whatever will be deductible later; for revenue received in advance, it is the carrying amount less revenue not taxable in future."
+   ],
+   "analogy": "Tax base is how the tax authority sees the item.",
+   "work": "A machine with tax WDV of 600 has a tax base of 600."
+  },
+  {
+   "id": "c2",
+   "title": "Temporary differences and deferred tax",
+   "body": [
+    "Temporary differences are differences between carrying amount and tax base. Taxable temporary differences (asset carrying amount above tax base, e.g. accelerated tax depreciation) create deferred tax liabilities; deductible temporary differences (e.g. provisions deductible when paid) create deferred tax assets.",
+    "Permanent items such as non-deductible fines create no temporary differences. Unused tax losses and credits create deferred tax assets to the extent future taxable profit is probable.",
+    "Deferred tax is measured at rates expected to apply when the asset is realised or liability settled, reflecting the manner of recovery, and is not discounted. Changes in deferred tax are recognised in the same place as the underlying item — profit or loss, OCI or equity."
+   ],
+   "analogy": "Deferred tax is tomorrow's tax on today's differences.",
+   "work": "A 200 gap at 25% means 50 of future tax."
+  },
+  {
+   "id": "c3",
+   "title": "Recognition limits and exceptions",
+   "body": [
+    "Initial recognition exception: no deferred tax arises on goodwill's initial recognition, or when an asset or liability is first booked in a deal that is not a business combination, affects neither accounting nor taxable profit, and creates no matching pair of taxable and deductible differences of equal size (so leases and decommissioning now give rise to deferred tax).",
+    "Deferred tax assets are recognised only to the extent that taxable profit will probably be available — supported by taxable temporary differences reversing in time, forecasts or tax planning. A history of losses calls for convincing evidence. Carrying amounts are reviewed each reporting date.",
+    "For investments in subsidiaries, branches, associates and joint arrangements, a DTL is not recognised when the parent controls the timing of reversal and reversal is not probable in the foreseeable future. Under the Pillar Two amendment, entities do not recognise or disclose deferred tax relating to Pillar Two income taxes."
+   ],
+   "analogy": "Exceptions stop mechanical deferred tax where it would mislead.",
+   "work": "Undistributed profits of a subsidiary the parent won't distribute need no DTL."
+  },
+  {
+   "id": "c4",
+   "title": "Presentation, offsetting and special topics",
+   "body": [
+    "Current tax assets and liabilities are offset only with a legally enforceable right and intention to settle net. Deferred tax assets and liabilities are offset when one tax authority levies both and they concern one taxpayer (or taxpayers planning net settlement), with an enforceable right to set off current tax.",
+    "Deferred tax is always non-current in the balance sheet. Tax expense is shown in profit or loss; a numerical reconciliation between tax expense and accounting profit times the applicable rate is disclosed.",
+    "Uncertain tax treatments (Appendix C) are measured at the most likely amount or expected value, depending on which better predicts resolution, assuming the authority examines with full knowledge. In business combinations, deferred tax on fair value adjustments affects goodwill."
+   ],
+   "analogy": "Net only when the law lets you; always explain the effective rate.",
+   "work": "MAT credit is a deferred tax asset when future normal tax is probable."
+  }
+ ],
+ "illustrations": [
+  {
+   "id": "i1",
+   "title": "Building a deferred tax schedule",
+   "difficulty": "moderate",
+   "minutes": 10,
+   "q": "Cirrus Ltd. (tax rate 25%) has: plant with carrying amount ₹800 lakh and tax written-down value ₹600 lakh; a warranty provision ₹40 lakh deductible only when paid; unused tax losses ₹120 lakh which it is probable will be used against future taxable profits; and fines ₹10 lakh accrued that are never deductible. All items relate to the same tax authority. Compute deferred tax balances.",
+   "solution": [
+    {
+     "t": "table",
+     "head": [
+      "Item",
+      "Carrying / tax base",
+      "Temporary difference",
+      "Deferred tax ₹ lakh"
+     ],
+     "rows": [
+      [
+       "Plant",
+       "800 / 600",
+       "Taxable 200",
+       "DTL 50"
+      ],
+      [
+       "Warranty provision",
+       "40 / 0",
+       "Deductible 40",
+       "DTA 10"
+      ],
+      [
+       "Unused tax losses",
+       "—",
+       "Carry-forward 120",
+       "DTA 30"
+      ],
+      [
+       "Fines",
+       "10 / 10",
+       "None — permanent difference",
+       "Nil"
+      ],
+      [
+       "Net (offset — same authority, legal right)",
+       "",
+       "",
+       "DTL 10"
+      ]
+     ],
+     "title": "Ind AS 12 balance sheet approach"
+    }
+   ],
+   "checks": [
+    {
+     "expr": "800-600",
+     "value": 200,
+     "label": "Taxable temporary difference on plant (₹ lakh)"
+    },
+    {
+     "expr": "(800-600)*0.25",
+     "value": 50,
+     "label": "Deferred tax liability (₹ lakh)"
+    },
+    {
+     "expr": "40*0.25",
+     "value": 10,
+     "label": "Deferred tax asset on warranty provision (₹ lakh)"
+    },
+    {
+     "expr": "120*0.25",
+     "value": 30,
+     "label": "Deferred tax asset on tax losses (₹ lakh)"
+    },
+    {
+     "expr": "(800-600)*0.25-40*0.25-120*0.25",
+     "value": 10,
+     "label": "Net deferred tax liability (₹ lakh)"
+    }
+   ]
+  },
+  {
+   "id": "i2",
+   "title": "Where does the tax go?",
+   "difficulty": "core",
+   "minutes": 5,
+   "q": "Cirrus Ltd. revalues land upwards by ₹100 lakh through OCI; the tax base is unchanged. It also gets a deduction for share options measured differently. Where is the deferred tax on the revaluation recognised and how much?",
+   "solution": [
+    {
+     "t": "table",
+     "head": [
+      "Item",
+      "Working",
+      "Treatment"
+     ],
+     "rows": [
+      [
+       "Revaluation temporary difference",
+       "100 taxable",
+       "DTL"
+      ],
+      [
+       "Deferred tax",
+       "100 × 25% = 25",
+       "Charged to OCI, following the item"
+      ],
+      [
+       "Principle",
+       "Tax follows the underlying transaction",
+       "P&L, OCI or equity"
+      ]
+     ],
+     "title": "Tax follows the item"
+    }
+   ],
+   "checks": [
+    {
+     "expr": "100*0.25",
+     "value": 25,
+     "label": "Deferred tax on revaluation, charged to OCI (₹ lakh)"
+    }
+   ]
+  }
+ ],
+ "jobs": [
+  {
+   "id": "j1",
+   "title": "Year-end tax computation",
+   "role": "Tax accountant",
+   "situation": "The accounts close at 31 March; the tax computation is drafted.",
+   "steps": [
+    "Compute current tax.",
+    "List carrying amounts and tax bases of all items.",
+    "Apply exceptions and recoverability tests.",
+    "Allocate deferred tax between P&L, OCI and equity; prepare rate reconciliation."
+   ],
+   "takeaway": "A full balance sheet comparison avoids missed differences."
+  }
+ ],
+ "mcqs": [
+  {
+   "id": "m1",
+   "q": "Ind AS 12 computes deferred tax using:",
+   "options": [
+    "The balance sheet approach",
+    "The income statement approach",
+    "Cash basis",
+    "Timing differences only"
+   ],
+   "answer": 0,
+   "explain": "It compares carrying amounts and tax bases. In practice: wider than the old AS 22.",
+   "concept": "c2",
+   "topic": "Temporary differences and deferred tax",
+   "difficulty": "core"
+  },
+  {
+   "id": "m2",
+   "q": "A provision deductible only when paid creates:",
+   "options": [
+    "A deductible temporary difference",
+    "A taxable temporary difference",
+    "A permanent difference",
+    "No difference"
+   ],
+   "answer": 0,
+   "explain": "Carrying amount exceeds its tax base of nil. In practice: a DTA results.",
+   "concept": "c2",
+   "topic": "Temporary differences and deferred tax",
+   "difficulty": "core"
+  },
+  {
+   "id": "m3",
+   "q": "Deferred tax balances are:",
+   "options": [
+    "Not discounted",
+    "Discounted at market rate",
+    "Discounted at tax rate",
+    "Discounted if long-term"
+   ],
+   "answer": 0,
+   "explain": "Discounting is prohibited. In practice: simplifies measurement.",
+   "concept": "c2",
+   "topic": "Temporary differences and deferred tax",
+   "difficulty": "core"
+  },
+  {
+   "id": "m4",
+   "q": "Deferred tax on the initial recognition of goodwill is:",
+   "options": [
+    "Not recognised",
+    "Recognised as DTL",
+    "Recognised as DTA",
+    "Recognised in OCI"
+   ],
+   "answer": 0,
+   "explain": "It would only increase goodwill circularly. In practice: tax-deductible goodwill differs later.",
+   "concept": "c3",
+   "topic": "Recognition limits and exceptions",
+   "difficulty": "core"
+  },
+  {
+   "id": "m5",
+   "q": "A deferred tax asset on tax losses requires:",
+   "options": [
+    "Probable future taxable profit",
+    "Certain profit",
+    "Board approval",
+    "Cash reserves"
+   ],
+   "answer": 0,
+   "explain": "Convincing evidence is needed after losses. In practice: review forecasts.",
+   "concept": "c3",
+   "topic": "Recognition limits and exceptions",
+   "difficulty": "core"
+  },
+  {
+   "id": "m6",
+   "q": "Deferred tax on a revaluation surplus is recognised in:",
+   "options": [
+    "OCI",
+    "Profit or loss",
+    "Revenue",
+    "Goodwill"
+   ],
+   "answer": 0,
+   "explain": "Tax follows the item. In practice: also applies to OCI hedges.",
+   "concept": "c2",
+   "topic": "Temporary differences and deferred tax",
+   "difficulty": "core"
+  },
+  {
+   "id": "m7",
+   "q": "In the balance sheet, deferred tax is classified as:",
+   "options": [
+    "Non-current",
+    "Current",
+    "Split by reversal date",
+    "Equity"
+   ],
+   "answer": 0,
+   "explain": "Always non-current. In practice: current tax is separate.",
+   "concept": "c4",
+   "topic": "Presentation, offsetting and special topics",
+   "difficulty": "core"
+  },
+  {
+   "id": "m8",
+   "q": "Tax rates used to measure deferred tax are those:",
+   "options": [
+    "Enacted or substantively enacted by the reporting date",
+    "Proposed in the budget",
+    "Expected by management",
+    "Of the prior year"
+   ],
+   "answer": 0,
+   "explain": "Announcements with law-like effect count. In practice: check enactment status.",
+   "concept": "c1",
+   "topic": "Current tax and tax base",
+   "difficulty": "core"
+  }
+ ],
+ "questions": [
+  {
+   "id": "q1",
+   "marks": 8,
+   "minutes": 14,
+   "difficulty": "core",
+   "pad": "table",
+   "q": "Cirrus Ltd. (tax rate 25%) has: plant with carrying amount ₹800 lakh and tax written-down value ₹600 lakh; a warranty provision ₹40 lakh deductible only when paid; unused tax losses ₹120 lakh which it is probable will be used against future taxable profits; and fines ₹10 lakh accrued that are never deductible. All items relate to the same tax authority. Compute deferred tax balances.",
+   "model": [
+    {
+     "t": "table",
+     "head": [
+      "Item",
+      "Carrying / tax base",
+      "Temporary difference",
+      "Deferred tax ₹ lakh"
+     ],
+     "rows": [
+      [
+       "Plant",
+       "800 / 600",
+       "Taxable 200",
+       "DTL 50"
+      ],
+      [
+       "Warranty provision",
+       "40 / 0",
+       "Deductible 40",
+       "DTA 10"
+      ],
+      [
+       "Unused tax losses",
+       "—",
+       "Carry-forward 120",
+       "DTA 30"
+      ],
+      [
+       "Fines",
+       "10 / 10",
+       "None — permanent difference",
+       "Nil"
+      ],
+      [
+       "Net (offset — same authority, legal right)",
+       "",
+       "",
+       "DTL 10"
+      ]
+     ],
+     "title": "Ind AS 12 balance sheet approach"
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "Plant DTL",
+     "m": 2,
+     "skill": "computation",
+     "kw": [
+      "dtl|taxable"
+     ],
+     "min": 1,
+     "nums": [
+      50
+     ]
+    },
+    {
+     "id": "s2",
+     "pt": "Warranty DTA",
+     "m": 2,
+     "skill": "computation",
+     "kw": [
+      "dta|deductible"
+     ],
+     "min": 1,
+     "nums": [
+      10
+     ]
+    },
+    {
+     "id": "s3",
+     "pt": "Losses",
+     "m": 2,
+     "skill": "computation",
+     "kw": [
+      "loss"
+     ],
+     "min": 1,
+     "nums": [
+      30
+     ]
+    },
+    {
+     "id": "s4",
+     "pt": "Net",
+     "m": 2,
+     "skill": "computation",
+     "kw": [
+      "net"
+     ],
+     "min": 1,
+     "nums": [
+      10
+     ]
+    }
+   ],
+   "remarks": [
+    "Show tax bases."
+   ],
+   "mistakes": [
+    "Creating deferred tax on fines."
+   ],
+   "tips": [
+    "Table."
+   ],
+   "extra_ok": true,
+   "checks": [
+    {
+     "expr": "800-600",
+     "value": 200,
+     "label": "Taxable temporary difference on plant (₹ lakh)"
+    },
+    {
+     "expr": "(800-600)*0.25",
+     "value": 50,
+     "label": "Deferred tax liability (₹ lakh)"
+    },
+    {
+     "expr": "40*0.25",
+     "value": 10,
+     "label": "Deferred tax asset on warranty provision (₹ lakh)"
+    },
+    {
+     "expr": "120*0.25",
+     "value": 30,
+     "label": "Deferred tax asset on tax losses (₹ lakh)"
+    },
+    {
+     "expr": "(800-600)*0.25-40*0.25-120*0.25",
+     "value": 10,
+     "label": "Net deferred tax liability (₹ lakh)"
+    }
+   ]
+  },
+  {
+   "id": "q2",
+   "marks": 3,
+   "minutes": 5,
+   "difficulty": "core",
+   "pad": "table",
+   "q": "Cirrus Ltd. revalues land upwards by ₹100 lakh through OCI; the tax base is unchanged. It also gets a deduction for share options measured differently. Where is the deferred tax on the revaluation recognised and how much?",
+   "model": [
+    {
+     "t": "table",
+     "head": [
+      "Item",
+      "Working",
+      "Treatment"
+     ],
+     "rows": [
+      [
+       "Revaluation temporary difference",
+       "100 taxable",
+       "DTL"
+      ],
+      [
+       "Deferred tax",
+       "100 × 25% = 25",
+       "Charged to OCI, following the item"
+      ],
+      [
+       "Principle",
+       "Tax follows the underlying transaction",
+       "P&L, OCI or equity"
+      ]
+     ],
+     "title": "Tax follows the item"
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "Amount",
+     "m": 1.5,
+     "skill": "computation",
+     "kw": [
+      "deferred"
+     ],
+     "min": 1,
+     "nums": [
+      25
+     ]
+    },
+    {
+     "id": "s2",
+     "pt": "OCI",
+     "m": 1.5,
+     "skill": "concept",
+     "kw": [
+      "oci"
+     ],
+     "min": 1
+    }
+   ],
+   "remarks": [
+    "State the principle."
+   ],
+   "mistakes": [
+    "Charging to P&L."
+   ],
+   "tips": [
+    "Table."
+   ],
+   "extra_ok": true,
+   "checks": [
+    {
+     "expr": "100*0.25",
+     "value": 25,
+     "label": "Deferred tax on revaluation, charged to OCI (₹ lakh)"
+    }
+   ]
+  }
+ ],
+ "revision": {
+  "summary": [
+   "Balance sheet approach: carrying amount vs tax base.",
+   "Taxable differences → DTL; deductible → DTA.",
+   "DTA only if future taxable profit probable.",
+   "Enacted rates; no discounting.",
+   "Tax follows the item: P&L, OCI or equity."
+  ],
+  "remember": [
+   "Pillar Two: no deferred tax recognised or disclosed."
+  ],
+  "traps": [
+   "Deferred tax on permanent differences."
+  ]
+ },
+ "quickref": [
+  {
+   "k": "Taxable difference",
+   "v": "DTL"
+  },
+  {
+   "k": "Deductible difference",
+   "v": "DTA"
+  },
+  {
+   "k": "Discounting",
+   "v": "Not allowed"
+  },
+  {
+   "k": "Offset",
+   "v": "Same authority + right"
+  }
+ ],
+ "viva": [
+  {
+   "id": "v1",
+   "q": "What is a temporary difference?",
+   "model": "The gap between the carrying amount of an asset or liability and its tax base.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Carrying amount",
+     "w": 5,
+     "kw": [
+      "carrying"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Tax base",
+     "w": 5,
+     "kw": [
+      "tax base"
+     ]
+    }
+   ],
+   "concept": "c2"
+  },
+  {
+   "id": "v2",
+   "q": "When is a deferred tax asset recognised?",
+   "model": "Only up to the amount of future taxable profit that is probable and can absorb the deductible difference or loss.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Probable",
+     "w": 5,
+     "kw": [
+      "probable"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Taxable profit",
+     "w": 5,
+     "kw": [
+      "taxable profit"
+     ]
+    }
+   ],
+   "concept": "c3"
+  },
+  {
+   "id": "v3",
+   "q": "Where is deferred tax recognised?",
+   "model": "In the same place as the underlying transaction: profit or loss, OCI or equity.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Follows the item",
+     "w": 5,
+     "kw": [
+      "same|underlying"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "OCI or equity",
+     "w": 5,
+     "kw": [
+      "oci|equity"
+     ]
+    }
+   ],
+   "concept": "c2"
+  },
+  {
+   "id": "v4",
+   "q": "When can deferred tax assets and liabilities be offset?",
+   "model": "When one tax authority and one taxpayer are involved, with a legally enforceable right to set off current tax.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Same authority",
+     "w": 5,
+     "kw": [
+      "authority"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Enforceable right",
+     "w": 5,
+     "kw": [
+      "enforceable"
+     ]
+    }
+   ],
+   "concept": "c4"
+  },
+  {
+   "id": "v5",
+   "q": "What is the Pillar Two exception?",
+   "model": "Entities are temporarily exempted, by mandate, from recognising and disclosing deferred tax tied to the global minimum top-up tax.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Temporary exemption",
+     "w": 5,
+     "kw": [
+      "exempt"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Minimum top-up tax",
+     "w": 5,
+     "kw": [
+      "minimum|top-up"
+     ]
+    }
+   ],
+   "concept": "c3"
+  }
+ ],
+ "cases": [
+  {
+   "id": "k1",
+   "title": "Nimbus Textiles Ltd.",
+   "difficulty": "moderate",
+   "case": "Nimbus Textiles Ltd. (tax rate 25%) has gratuity provision ₹80 lakh (deductible on payment), interest receivable ₹20 lakh taxed on receipt, and a subsidiary with undistributed profits of ₹300 lakh that the parent will not distribute in the foreseeable future. It has incurred losses for three years with no firm plans to return to profit.",
+   "mcqs": [
+    {
+     "id": "k1a",
+     "q": "Deferred tax asset arising on the gratuity provision, before the recoverability test (₹ lakh):",
+     "options": [
+      "20",
+      "80",
+      "5",
+      "Nil"
+     ],
+     "answer": 0,
+     "explain": "80 × 25% deductible difference. In practice: recoverability is doubtful here.",
+     "difficulty": "moderate",
+     "check": 20,
+     "topic": "Temporary differences and deferred tax"
+    },
+    {
+     "id": "k1b",
+     "q": "Deferred tax liability on the interest receivable (₹ lakh):",
+     "options": [
+      "5",
+      "20",
+      "15",
+      "Nil"
+     ],
+     "answer": 0,
+     "explain": "Carrying amount 20, tax base nil → taxable difference. In practice: reverses on receipt.",
+     "difficulty": "core",
+     "check": 5,
+     "topic": "Temporary differences and deferred tax"
+    },
+    {
+     "id": "k1c",
+     "q": "Deferred tax on the subsidiary's undistributed profits:",
+     "options": [
+      "Not recognised, as the parent controls timing and reversal is not probable",
+      "Recognised in full",
+      "Recognised as DTA",
+      "Recognised in OCI"
+     ],
+     "answer": 0,
+     "explain": "The investment exception applies. In practice: document the dividend policy.",
+     "difficulty": "core",
+     "topic": "Recognition limits and exceptions"
+    },
+    {
+     "id": "k1d",
+     "q": "Given the loss history, net DTAs are recognised:",
+     "options": [
+      "Only to the extent of DTLs reversing or convincing evidence",
+      "In full",
+      "Never",
+      "At half value"
+     ],
+     "answer": 0,
+     "explain": "Recent losses demand convincing evidence. In practice: disclose unrecognised amounts.",
+     "difficulty": "moderate",
+     "topic": "Recognition limits and exceptions"
+    }
+   ]
+  }
+ ]
+}
