@@ -280,6 +280,14 @@ async def _(pg):
     await setr(pg, '[data-k="n"]', 60)
     await pg.click('[data-f="sin"]')                         # 0→π = 2
     await setr(pg, '[data-k="b"]', 6.283185307179586)        # 0→2π = 0
+@lab('math-u09', 'slope')
+async def _(pg):
+    P = lambda x, y: (160 + x / 3 * 150, 160 - y / 3 * 150)
+    await tapxy(pg, '#sfS', *P(0, 1))                        # eˣ
+    for x, y in [(0.5, -1), (-1, 1), (1, 1.5), (-2, -0.5)]: await tapxy(pg, '#sfS', *P(x, y))   # 5 curves
+    await pg.click('[data-e="circ"]'); await tapxy(pg, '#sfS', *P(1, 1))
+    await pg.click('[data-e="log"]'); await tapxy(pg, '#sfS', *P(-2, 0.3))
+    await pg.click('[data-e="gauss"]'); await tapxy(pg, '#sfS', *P(0, 2))
 async def main(only=None):
     async with async_playwright() as pw:
         b = await pw.chromium.launch(executable_path='/usr/bin/google-chrome', args=['--no-sandbox'])
