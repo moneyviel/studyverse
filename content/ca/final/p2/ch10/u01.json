@@ -1,0 +1,802 @@
+{
+ "schema": "ca-unit/1",
+ "id": "fin-p2-ch10-u01",
+ "level": "final",
+ "paper": "p2",
+ "chapter": "fin-p2-ch10",
+ "n": 1,
+ "title": "Foreign Exchange Exposure and Risk Management",
+ "outcomes": [
+  "Read forex quotations, spreads, cross rates and forward points.",
+  "Apply IRP, PPP and IFE.",
+  "Identify transaction, translation and economic exposure.",
+  "Hedge with forwards and money market hedges and handle forward contract fates.",
+  "Use futures, options, swaps and structured products within an exposure strategy."
+ ],
+ "meta": {
+  "difficulty": "hard",
+  "minutes": {
+   "learn": 50,
+   "practice": 50
+  },
+  "prereq": [
+   "fin-p2-ch09-u01"
+  ],
+  "exam_tip": "Convert annual rates to the period before applying IRP or money market hedges."
+ },
+ "concepts": [
+  {
+   "id": "c1",
+   "title": "Forex market, quotations and cross rates",
+   "body": [
+    "The forex market is a global over-the-counter market linking banks, corporates, central banks and dealers via systems like SWIFT for secure messaging. Banks hold nostro (our account with you), vostro (your account with us) and loro (their account with you) accounts, and manage both exchange (currency) positions and cash (fund) positions.",
+    "Quotes: direct (home currency per unit of foreign, e.g. ₹84/USD) or indirect (foreign per unit of home); American and European terms. Bid is the dealer's buying rate, ask its selling rate; spread = ask − bid. Cross rates are derived through a common currency: buy at the bank's bid, sell at its ask.",
+    "Forward rates are quoted as points added (premium) or subtracted (discount) from spot; broken-period rates are interpolated. Merchant rates for customers (TT, bill buying/selling) build in margins."
+   ],
+   "analogy": "Read every quote from the bank's side: it buys low and sells high.",
+   "work": "If USD/INR is 84.00/84.10, a customer buying USD pays ₹84.10."
+  },
+  {
+   "id": "c2",
+   "title": "Exchange rate theories: IRP, PPP and IFE",
+   "body": [
+    "Interest rate parity (IRP): forward ÷ spot = (1 + home interest) ÷ (1 + foreign interest) for the period. The higher-interest currency trades at a forward discount. Deviations allow covered interest arbitrage.",
+    "Purchasing power parity (PPP): absolute — the same goods cost the same everywhere; relative — expected change in spot rate reflects the inflation differential: S₁ = S₀ × (1 + home inflation) ÷ (1 + foreign inflation).",
+    "International Fisher effect (IFE): expected change in spot rate reflects nominal interest differentials. IRP holds well (arbitrage); PPP and IFE hold more loosely and over longer periods. Forecasting uses these parities plus technical and fundamental analysis."
+   ],
+   "analogy": "Interest and inflation gaps explain where currencies should move.",
+   "work": "With Indian rates 7% and US 4%, the dollar trades at a forward premium of about 3% a year."
+  },
+  {
+   "id": "c3",
+   "title": "Types of foreign exchange exposure",
+   "body": [
+    "Transaction exposure: risk that rate changes alter the home value of contracted foreign currency receipts or payments (imports, exports, loans) before settlement.",
+    "Translation (accounting) exposure: effect of rate changes on consolidated statements when foreign subsidiaries' accounts are translated; it affects reported figures, not necessarily cash.",
+    "Economic (operating) exposure: effect of rate changes on future cash flows and competitive position — e.g. a rising rupee hurting exporters' long-term margins even without current contracts. It is harder to hedge and needs operational responses (sourcing, pricing, location)."
+   ],
+   "analogy": "Transaction hits cash now, translation hits reports, economic hits the future business.",
+   "work": "An exporter facing cheaper foreign rivals has economic exposure."
+  },
+  {
+   "id": "c4",
+   "title": "Hedging tools and the fate of forward contracts",
+   "body": [
+    "Internal techniques: invoicing in home currency, leading and lagging, netting, matching receipts and payments, and asset-liability management. External techniques: forwards, money market hedges, futures, options and swaps.",
+    "Money market hedge: for a payable, deposit the PV of the foreign amount now (borrowing home currency to buy it); for a receivable, borrow the PV in foreign currency and convert now. Compare with forward cost.",
+    "Fate of forward contracts: delivery (on due date, early or late), cancellation (on due date, early or late) or extension. Under FEDAI rules, cancellation is at the opposite TT rate (TT selling for a purchase contract cancelled, etc.), with the exchange difference and any swap cost or interest settled with the customer; overdue contracts not cancelled are automatically cancelled after a set period, losses recovered and gains not passed on. Non-deliverable forwards settle only the difference; rollovers extend deliverable contracts."
+   ],
+   "analogy": "Hedge with internal tools first, then markets — and know how forward contracts end.",
+   "work": "An importer cancelling a forward early settles the difference at the opposite rate."
+  },
+  {
+   "id": "c5",
+   "title": "Derivative products and exposure strategies",
+   "body": [
+    "Currency futures and options trade on exchanges; options give one-way protection (call for importers, put for exporters) for a premium. Currency swaps exchange principal and interest in different currencies; interest rate swaps convert fixed to floating flows.",
+    "Structured bank products include forward importer/exporter contracts with knock-out levels, FX call and put options, and floating-to-fixed IRS on foreign loans; their pay-offs must be understood at different spot outcomes.",
+    "Exposure management strategies range from low risk–low reward (hedge everything), low risk–reasonable reward (selective hedging), high risk–low reward (selectively not hedging) to high risk–high reward (actively trading exposures). Policy should fit the board's risk appetite."
+   ],
+   "analogy": "Pick tools that match the exposure and the board's appetite.",
+   "work": "An exporter buys a USD put to protect against a falling dollar while keeping upside."
+  }
+ ],
+ "illustrations": [
+  {
+   "id": "i1",
+   "title": "Forward rate and cross rates",
+   "difficulty": "moderate",
+   "minutes": 9,
+   "q": "(a) Spot USD/INR is ₹84.00. Six-month interest rates are 7% p.a. in India and 4% p.a. in the US. Compute the 6-month forward rate by interest rate parity and the annualised forward premium on USD. (b) USD/INR is 84.00/84.10 and EUR/USD is 1.0800/1.0810. Compute the EUR/INR two-way quote.",
+   "solution": [
+    {
+     "t": "table",
+     "head": [
+      "Item",
+      "Working",
+      "Result"
+     ],
+     "rows": [
+      [
+       "Forward rate",
+       "84 × 1.035 ÷ 1.02",
+       "₹85.24"
+      ],
+      [
+       "Annualised premium",
+       "(F − S) ÷ S × 12/6",
+       "2.94%"
+      ],
+      [
+       "EUR/INR bid",
+       "84.00 × 1.0800",
+       "₹90.72"
+      ],
+      [
+       "EUR/INR ask",
+       "84.10 × 1.0810",
+       "₹90.91"
+      ]
+     ],
+     "title": "IRP and cross rates"
+    }
+   ],
+   "checks": [
+    {
+     "expr": "round(84*(1+0.07/2)/(1+0.04/2),4)",
+     "value": 85.24,
+     "label": "6-month forward rate by IRP (₹/USD)"
+    },
+    {
+     "expr": "round((84*(1+0.07/2)/(1+0.04/2)-84)/84*12/6*100,2)",
+     "value": 2.94,
+     "label": "Annualised forward premium (%)"
+    },
+    {
+     "expr": "round(84.00*1.0800,4)",
+     "value": 90.72,
+     "label": "EUR/INR bid (₹)"
+    },
+    {
+     "expr": "round(84.10*1.0810,4)",
+     "value": 90.91,
+     "label": "EUR/INR ask (₹)"
+    }
+   ]
+  },
+  {
+   "id": "i2",
+   "title": "Forward cover vs money market hedge",
+   "difficulty": "hard",
+   "minutes": 10,
+   "q": "An importer must pay USD 1,00,000 in 3 months. Spot ₹84.00/USD; 3-month forward ₹84.80. USD deposit rate 4% p.a.; INR borrowing rate 8% p.a. Compare the rupee cost of a forward with a money market hedge.",
+   "solution": [
+    {
+     "t": "table",
+     "head": [
+      "Step",
+      "Working",
+      "₹"
+     ],
+     "rows": [
+      [
+       "Forward cost",
+       "1,00,000 × 84.80",
+       "84,80,000"
+      ],
+      [
+       "USD to deposit now",
+       "1,00,000 ÷ 1.01 = 99,009.90",
+       "—"
+      ],
+      [
+       "Borrow INR now and buy USD",
+       "99,009.90 × 84",
+       "83,16,831.68"
+      ],
+      [
+       "Repay INR loan in 3 months",
+       "× 1.02",
+       "84,83,168.32"
+      ],
+      [
+       "Forward cheaper by",
+       "Difference",
+       "3,168.32"
+      ]
+     ],
+     "title": "Money market hedge"
+    }
+   ],
+   "checks": [
+    {
+     "expr": "100000*84.80",
+     "value": 8480000,
+     "label": "Cost under forward cover (₹)"
+    },
+    {
+     "expr": "round(100000/1.01*84*1.02,2)",
+     "value": 8483168.32,
+     "label": "Cost under money market hedge (₹)"
+    },
+    {
+     "expr": "round(100000/1.01*84*1.02-100000*84.80,2)",
+     "value": 3168.32,
+     "label": "Saving by forward cover (₹)"
+    }
+   ]
+  }
+ ],
+ "jobs": [
+  {
+   "id": "j1",
+   "title": "Treasury policy for an exporter",
+   "role": "Forex treasury manager",
+   "situation": "Monthly USD receipts of ₹50 crore equivalent; imports of USD inputs.",
+   "steps": [
+    "Net receipts and payments.",
+    "Forecast using parities and market views.",
+    "Hedge with forwards and options as per policy ratio.",
+    "Track cancellations, rollovers and P&L."
+   ],
+   "takeaway": "Net first, then hedge the remainder with a written policy."
+  }
+ ],
+ "mcqs": [
+  {
+   "id": "m1",
+   "q": "A direct quote in India is expressed as:",
+   "options": [
+    "Rupees per unit of foreign currency",
+    "Foreign currency per rupee",
+    "Euro per dollar",
+    "Gold per rupee"
+   ],
+   "answer": 0,
+   "explain": "Home currency price of foreign. In practice: ₹84/USD.",
+   "concept": "c1",
+   "topic": "Forex market, quotations and cross rates",
+   "difficulty": "core"
+  },
+  {
+   "id": "m2",
+   "q": "Under IRP, the higher-interest currency trades at a:",
+   "options": [
+    "Forward discount",
+    "Forward premium",
+    "Fixed rate",
+    "Par"
+   ],
+   "answer": 0,
+   "explain": "Interest gain offset by currency loss. In practice: covered arbitrage.",
+   "concept": "c2",
+   "topic": "Exchange rate theories: IRP, PPP and IFE",
+   "difficulty": "core"
+  },
+  {
+   "id": "m3",
+   "q": "Relative PPP links exchange rate changes to:",
+   "options": [
+    "Inflation differentials",
+    "Interest differentials only",
+    "GDP growth",
+    "Tax rates"
+   ],
+   "answer": 0,
+   "explain": "Price levels drive currency values. In practice: long run.",
+   "concept": "c2",
+   "topic": "Exchange rate theories: IRP, PPP and IFE",
+   "difficulty": "core"
+  },
+  {
+   "id": "m4",
+   "q": "Exposure from translating a foreign subsidiary's accounts is:",
+   "options": [
+    "Translation exposure",
+    "Transaction exposure",
+    "Economic exposure",
+    "Credit exposure"
+   ],
+   "answer": 0,
+   "explain": "Affects reported figures. In practice: Ind AS 21.",
+   "concept": "c3",
+   "topic": "Types of foreign exchange exposure",
+   "difficulty": "core"
+  },
+  {
+   "id": "m5",
+   "q": "An importer can hedge with a money market hedge by:",
+   "options": [
+    "Borrowing home currency, buying foreign currency now and depositing it",
+    "Borrowing foreign currency",
+    "Selling forward",
+    "Buying a put"
+   ],
+   "answer": 0,
+   "explain": "Lock rate today. In practice: compare with forward.",
+   "concept": "c4",
+   "topic": "Hedging tools and the fate of forward contracts",
+   "difficulty": "core"
+  },
+  {
+   "id": "m6",
+   "q": "Leading and lagging is a:",
+   "options": [
+    "Internal hedging technique",
+    "Futures contract",
+    "Swap",
+    "Option"
+   ],
+   "answer": 0,
+   "explain": "Timing of payments. In practice: within groups.",
+   "concept": "c4",
+   "topic": "Hedging tools and the fate of forward contracts",
+   "difficulty": "core"
+  },
+  {
+   "id": "m7",
+   "q": "An exporter seeking downside protection with upside retained should buy a:",
+   "options": [
+    "Put option on the foreign currency",
+    "Call option",
+    "Forward purchase",
+    "Swap"
+   ],
+   "answer": 0,
+   "explain": "Right to sell at strike. In practice: premium cost.",
+   "concept": "c5",
+   "topic": "Derivative products and exposure strategies",
+   "difficulty": "core"
+  },
+  {
+   "id": "m8",
+   "q": "A nostro account is:",
+   "options": [
+    "Our account maintained with a bank abroad",
+    "Their account with us",
+    "A government account",
+    "A futures margin account"
+   ],
+   "answer": 0,
+   "explain": "Held in foreign currency. In practice: vostro is the reverse.",
+   "concept": "c1",
+   "topic": "Forex market, quotations and cross rates",
+   "difficulty": "core"
+  }
+ ],
+ "questions": [
+  {
+   "id": "q1",
+   "marks": 7,
+   "minutes": 13,
+   "difficulty": "core",
+   "pad": "table",
+   "q": "(a) Spot USD/INR is ₹84.00. Six-month interest rates are 7% p.a. in India and 4% p.a. in the US. Compute the 6-month forward rate by interest rate parity and the annualised forward premium on USD. (b) USD/INR is 84.00/84.10 and EUR/USD is 1.0800/1.0810. Compute the EUR/INR two-way quote.",
+   "model": [
+    {
+     "t": "table",
+     "head": [
+      "Item",
+      "Working",
+      "Result"
+     ],
+     "rows": [
+      [
+       "Forward rate",
+       "84 × 1.035 ÷ 1.02",
+       "₹85.24"
+      ],
+      [
+       "Annualised premium",
+       "(F − S) ÷ S × 12/6",
+       "2.94%"
+      ],
+      [
+       "EUR/INR bid",
+       "84.00 × 1.0800",
+       "₹90.72"
+      ],
+      [
+       "EUR/INR ask",
+       "84.10 × 1.0810",
+       "₹90.91"
+      ]
+     ],
+     "title": "IRP and cross rates"
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "Forward",
+     "m": 2,
+     "skill": "computation",
+     "kw": [
+      "forward"
+     ],
+     "min": 1,
+     "nums": [
+      85.24
+     ]
+    },
+    {
+     "id": "s2",
+     "pt": "Premium",
+     "m": 2,
+     "skill": "computation",
+     "kw": [
+      "premium"
+     ],
+     "min": 1,
+     "nums": [
+      2.94
+     ]
+    },
+    {
+     "id": "s3",
+     "pt": "Cross rates",
+     "m": 3,
+     "skill": "computation",
+     "kw": [
+      "bid|ask"
+     ],
+     "min": 1,
+     "nums": [
+      90.72,
+      90.91
+     ]
+    }
+   ],
+   "remarks": [
+    "Use period rates."
+   ],
+   "mistakes": [
+    "Mixing bid and ask in cross rates."
+   ],
+   "tips": [
+    "Table."
+   ],
+   "extra_ok": true,
+   "checks": [
+    {
+     "expr": "round(84*(1+0.07/2)/(1+0.04/2),4)",
+     "value": 85.24,
+     "label": "6-month forward rate by IRP (₹/USD)"
+    },
+    {
+     "expr": "round((84*(1+0.07/2)/(1+0.04/2)-84)/84*12/6*100,2)",
+     "value": 2.94,
+     "label": "Annualised forward premium (%)"
+    },
+    {
+     "expr": "round(84.00*1.0800,4)",
+     "value": 90.72,
+     "label": "EUR/INR bid (₹)"
+    },
+    {
+     "expr": "round(84.10*1.0810,4)",
+     "value": 90.91,
+     "label": "EUR/INR ask (₹)"
+    }
+   ]
+  },
+  {
+   "id": "q2",
+   "marks": 7,
+   "minutes": 13,
+   "difficulty": "core",
+   "pad": "table",
+   "q": "An importer must pay USD 1,00,000 in 3 months. Spot ₹84.00/USD; 3-month forward ₹84.80. USD deposit rate 4% p.a.; INR borrowing rate 8% p.a. Compare the rupee cost of a forward with a money market hedge.",
+   "model": [
+    {
+     "t": "table",
+     "head": [
+      "Step",
+      "Working",
+      "₹"
+     ],
+     "rows": [
+      [
+       "Forward cost",
+       "1,00,000 × 84.80",
+       "84,80,000"
+      ],
+      [
+       "USD to deposit now",
+       "1,00,000 ÷ 1.01 = 99,009.90",
+       "—"
+      ],
+      [
+       "Borrow INR now and buy USD",
+       "99,009.90 × 84",
+       "83,16,831.68"
+      ],
+      [
+       "Repay INR loan in 3 months",
+       "× 1.02",
+       "84,83,168.32"
+      ],
+      [
+       "Forward cheaper by",
+       "Difference",
+       "3,168.32"
+      ]
+     ],
+     "title": "Money market hedge"
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "Forward",
+     "m": 2,
+     "skill": "computation",
+     "kw": [
+      "forward"
+     ],
+     "min": 1,
+     "nums": [
+      8480000
+     ]
+    },
+    {
+     "id": "s2",
+     "pt": "Money market",
+     "m": 3,
+     "skill": "computation",
+     "kw": [
+      "money market|repay"
+     ],
+     "min": 1,
+     "nums": [
+      8483168.32
+     ]
+    },
+    {
+     "id": "s3",
+     "pt": "Decision",
+     "m": 2,
+     "skill": "computation",
+     "kw": [
+      "cheaper"
+     ],
+     "min": 1,
+     "nums": [
+      3168.32
+     ]
+    }
+   ],
+   "remarks": [
+    "Use quarterly rates."
+   ],
+   "mistakes": [
+    "Using annual rates for 3 months."
+   ],
+   "tips": [
+    "Table."
+   ],
+   "extra_ok": true,
+   "checks": [
+    {
+     "expr": "100000*84.80",
+     "value": 8480000,
+     "label": "Cost under forward cover (₹)"
+    },
+    {
+     "expr": "round(100000/1.01*84*1.02,2)",
+     "value": 8483168.32,
+     "label": "Cost under money market hedge (₹)"
+    },
+    {
+     "expr": "round(100000/1.01*84*1.02-100000*84.80,2)",
+     "value": 3168.32,
+     "label": "Saving by forward cover (₹)"
+    }
+   ]
+  }
+ ],
+ "revision": {
+  "summary": [
+   "Direct vs indirect; bid-ask; cross rates.",
+   "IRP: F/S = (1+ih)/(1+if).",
+   "PPP and IFE for forecasting.",
+   "Transaction, translation, economic exposure.",
+   "Forward, MMH, futures, options, swaps; FEDAI cancellation rules."
+  ],
+  "remember": [
+   "Importers fear rupee depreciation; exporters fear appreciation."
+  ],
+  "traps": [
+   "Using annual rates for a 3-month money market hedge."
+  ]
+ },
+ "quickref": [
+  {
+   "k": "IRP",
+   "v": "F/S = (1+ih)/(1+if)"
+  },
+  {
+   "k": "PPP",
+   "v": "S₁ = S₀(1+πh)/(1+πf)"
+  },
+  {
+   "k": "Importer option",
+   "v": "Call"
+  },
+  {
+   "k": "Exporter option",
+   "v": "Put"
+  }
+ ],
+ "viva": [
+  {
+   "id": "v1",
+   "q": "State interest rate parity.",
+   "model": "The forward rate divided by the spot rate equals one plus the home interest rate divided by one plus the foreign interest rate for the same period.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Forward and spot",
+     "w": 5,
+     "kw": [
+      "forward"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Interest rates",
+     "w": 5,
+     "kw": [
+      "interest"
+     ]
+    }
+   ],
+   "concept": "c2"
+  },
+  {
+   "id": "v2",
+   "q": "Distinguish transaction and economic exposure.",
+   "model": "Transaction exposure affects contracted cash flows already agreed; economic exposure affects future cash flows and competitiveness.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Contracted flows",
+     "w": 5,
+     "kw": [
+      "contract"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Future competitiveness",
+     "w": 5,
+     "kw": [
+      "competitive"
+     ]
+    }
+   ],
+   "concept": "c3"
+  },
+  {
+   "id": "v3",
+   "q": "Name three internal hedging techniques.",
+   "model": "Invoicing in home currency, leading and lagging, and netting or matching.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Invoicing and leading",
+     "w": 5,
+     "kw": [
+      "invoic|leading"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Netting or matching",
+     "w": 5,
+     "kw": [
+      "netting|matching"
+     ]
+    }
+   ],
+   "concept": "c4"
+  },
+  {
+   "id": "v4",
+   "q": "What are the possible fates of a forward contract?",
+   "model": "Delivery, cancellation or extension — each on the due date, early or late.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Delivery and cancellation",
+     "w": 5,
+     "kw": [
+      "delivery|cancellation"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Extension",
+     "w": 5,
+     "kw": [
+      "extension"
+     ]
+    }
+   ],
+   "concept": "c4"
+  },
+  {
+   "id": "v5",
+   "q": "What is a currency swap?",
+   "model": "An exchange of principal and interest payments in one currency for those in another currency.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Principal and interest",
+     "w": 5,
+     "kw": [
+      "principal"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Two currencies",
+     "w": 5,
+     "kw": [
+      "another currency"
+     ]
+    }
+   ],
+   "concept": "c5"
+  }
+ ],
+ "cases": [
+  {
+   "id": "k1",
+   "title": "Saffron Textiles",
+   "difficulty": "moderate",
+   "case": "Saffron Textiles will receive USD 2,00,000 in 6 months. Spot USD/INR is ₹84.00; 6-month forward ₹85.00. A 6-month USD put at strike ₹84.50 costs ₹0.60 per USD. Indian inflation is expected at 5% and US inflation at 2.5% for the year.",
+   "mcqs": [
+    {
+     "id": "k1a",
+     "q": "Rupee receipt under forward cover (₹ lakh):",
+     "options": [
+      "170",
+      "168",
+      "169",
+      "171"
+     ],
+     "answer": 0,
+     "explain": "2,00,000 × 85. In practice: locks the rate.",
+     "difficulty": "core",
+     "check": 170,
+     "topic": "Hedging tools and the fate of forward contracts"
+    },
+    {
+     "id": "k1b",
+     "q": "Minimum net receipt with the put (₹ lakh):",
+     "options": [
+      "167.8",
+      "169",
+      "170",
+      "168"
+     ],
+     "answer": 0,
+     "explain": "2,00,000 × (84.50 − 0.60). In practice: upside kept.",
+     "difficulty": "moderate",
+     "check": 167.8,
+     "topic": "Derivative products and exposure strategies"
+    },
+    {
+     "id": "k1c",
+     "q": "Spot in one year expected by relative PPP (₹, two decimals):",
+     "options": [
+      "86.05",
+      "84",
+      "88.2",
+      "81.95"
+     ],
+     "answer": 0,
+     "explain": "84 × 1.05 ÷ 1.025. In practice: long-run guide.",
+     "difficulty": "moderate",
+     "check": 86.05,
+     "topic": "Exchange rate theories: IRP, PPP and IFE"
+    },
+    {
+     "id": "k1d",
+     "q": "If the spot at maturity is ₹86, the better choice in hindsight was:",
+     "options": [
+      "The put (receive 86 − 0.60 = 85.40)",
+      "The forward",
+      "Equal",
+      "Neither"
+     ],
+     "answer": 0,
+     "explain": "Put lapses; sell at spot. In practice: options keep upside.",
+     "difficulty": "moderate",
+     "topic": "Derivative products and exposure strategies"
+    }
+   ]
+  }
+ ]
+}
