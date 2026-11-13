@@ -1,0 +1,813 @@
+{
+ "schema": "ca-unit/1",
+ "id": "int-p4-ch09-u01",
+ "level": "inter",
+ "paper": "p4",
+ "chapter": "int-p4-ch09",
+ "n": 1,
+ "title": "Job Costing",
+ "outcomes": [
+  "Explain the features and process of job costing.",
+  "Prepare a job cost card and price a job.",
+  "Treat spoilage and defectives in jobs."
+ ],
+ "meta": {
+  "difficulty": "core",
+  "minutes": {
+   "learn": 25,
+   "practice": 35
+  },
+  "prereq": [
+   "int-p4-ch08-u01"
+  ],
+  "exam_tip": "Read the profit basis carefully: \"on cost\" multiplies, \"on selling price\" divides."
+ },
+ "concepts": [
+  {
+   "id": "c1",
+   "title": "Meaning, suitability and process of job costing",
+   "body": [
+    "Job costing collects costs for each customer order (job) separately, because each job differs in specification, materials and time. It suits printing, furniture, repair workshops, interior decoration, machine tools and ship-building.",
+    "Process: a production order (job number) is issued; materials are drawn by requisitions quoting the job number; labour is booked by job time cards; overheads are absorbed at predetermined rates; on completion, the job cost card is totalled and compared with the price.",
+    "Work-in-progress at any date is the total of costs on all incomplete job cards."
+   ],
+   "analogy": "Every job carries its own cost card, like a patient file in a hospital.",
+   "work": "A printer quoting for 500 wedding cards opens job no. 2207 and charges paper, printing hours and binding to it."
+  },
+  {
+   "id": "c2",
+   "title": "Job cost card and pricing a job",
+   "body": [
+    "The job cost card records direct materials (net of returns and transfers to other jobs), direct labour (hours × rate), direct expenses and overheads absorbed, often with an estimate column for comparison.",
+    "Overtime premium is charged to the job only if overtime was at the customer's request; otherwise it is an overhead. Idle time and normal losses are overheads.",
+    "Price is set by adding the desired profit: profit on cost (cost × (1 + markup)) or profit on selling price (cost ÷ (1 − margin))."
+   ],
+   "analogy": "Get the cost right first; the price follows from the profit rule chosen.",
+   "work": "Cost ₹80,000 with 20% profit on cost gives ₹96,000; with 20% on sale price, ₹1,00,000."
+  },
+  {
+   "id": "c3",
+   "title": "Work-in-progress, spoilage and defectives in jobs",
+   "body": [
+    "Normal spoilage in a job is absorbed by good units, raising their cost; if the job is for a customer who specified tolerances, its cost stays in the job.",
+    "Abnormal spoilage is charged, after crediting scrap, to the Costing Profit and Loss Account.",
+    "Defectives that can be rectified: normal rectification cost goes to the job (if specific) or to production overheads; abnormal rectification cost goes to Costing P&L."
+   ],
+   "analogy": "Expected losses belong to the product; unexpected ones belong to the period.",
+   "work": "If a machine fault ruins 50 units in a job, their cost is written off, not loaded on the customer."
+  }
+ ],
+ "illustrations": [
+  {
+   "id": "i1",
+   "title": "Costing and pricing a custom order",
+   "difficulty": "moderate",
+   "minutes": 10,
+   "q": "Job J-41 (a special conveyor for a client) required: materials issued ₹62,000, of which ₹4,000 was returned to stores; 120 normal labour hours and 40 overtime hours at ₹150 per hour, overtime at 150% being worked at the client's request for urgent delivery; direct expenses (hire of a crane) ₹3,000. Factory overheads are absorbed at ₹90 per labour hour; administration overheads at 10% of works cost. Prepare the job cost sheet and quote a price giving 20% profit on selling price.",
+   "solution": [
+    {
+     "t": "table",
+     "head": [
+      "Item",
+      "Working",
+      "₹"
+     ],
+     "rows": [
+      [
+       "Direct materials",
+       "62,000 − 4,000 returned",
+       "58,000"
+      ],
+      [
+       "Direct labour",
+       "120 × 150 + 40 × 225 (premium charged to job as requested by client)",
+       "27,000"
+      ],
+      [
+       "Direct expenses",
+       "Crane hire",
+       "3,000"
+      ],
+      [
+       "Factory overheads",
+       "160 hours × ₹90",
+       "14,400"
+      ],
+      [
+       "Works cost",
+       "",
+       "1,02,400"
+      ],
+      [
+       "Administration overheads",
+       "10% of works cost",
+       "10,240"
+      ],
+      [
+       "Total cost",
+       "",
+       "1,12,640"
+      ],
+      [
+       "Price",
+       "Cost ÷ 80%",
+       "1,40,800"
+      ]
+     ],
+     "title": "Job cost sheet — J-41"
+    },
+    {
+     "t": "note",
+     "text": "Overtime premium is charged to the job only when overtime is worked at the customer's request; otherwise it is a production overhead."
+    }
+   ],
+   "checks": [
+    {
+     "expr": "62000-4000",
+     "value": 58000,
+     "label": "Materials net of returns"
+    },
+    {
+     "expr": "120*150 + 40*150*1.5",
+     "value": 27000,
+     "label": "Direct labour including overtime premium at the job's request"
+    },
+    {
+     "expr": "160*90",
+     "value": 14400,
+     "label": "Factory overheads at ₹90 per labour hour"
+    },
+    {
+     "expr": "58000+27000+14400+3000",
+     "value": 102400,
+     "label": "Works cost"
+    },
+    {
+     "expr": "102400*10/100",
+     "value": 10240,
+     "label": "Administration overheads at 10% of works cost"
+    },
+    {
+     "expr": "102400+10240",
+     "value": 112640,
+     "label": "Total cost"
+    },
+    {
+     "expr": "112640/0.8",
+     "value": 140800,
+     "label": "Price for 20% profit on selling price"
+    }
+   ]
+  },
+  {
+   "id": "i2",
+   "title": "Spoiled units in a job",
+   "difficulty": "moderate",
+   "minutes": 6,
+   "q": "A job of 10,000 identical components costing ₹30 each to the point of inspection had 700 spoiled units. Normal spoilage is 5% of input. Abnormal spoiled units realise ₹1,200 as scrap. How are normal and abnormal spoilage treated?",
+   "solution": [
+    {
+     "t": "table",
+     "head": [
+      "Item",
+      "Treatment",
+      "₹"
+     ],
+     "rows": [
+      [
+       "Normal spoilage (500 units)",
+       "Cost borne by good units in the job",
+       "15,000"
+      ],
+      [
+       "Abnormal spoilage (200 units)",
+       "Cost less scrap transferred to Costing P&L",
+       "4,800"
+      ]
+     ],
+     "title": "Spoilage in job costing"
+    }
+   ],
+   "checks": [
+    {
+     "expr": "500*30",
+     "value": 15000,
+     "label": "Normal spoilage cost absorbed by good units (stays in job)"
+    },
+    {
+     "expr": "200*30-1200",
+     "value": 4800,
+     "label": "Abnormal spoilage loss to Costing P&L (net of scrap)"
+    }
+   ]
+  }
+ ],
+ "jobs": [
+  {
+   "id": "j1",
+   "title": "Tender pricing",
+   "role": "Cost accountant trainee",
+   "situation": "Sales wants a quote for a non-standard machine in two days.",
+   "steps": [
+    "Estimate materials from the drawing.",
+    "Estimate labour hours by department.",
+    "Apply overhead rates.",
+    "Add profit on the required basis and check competitiveness."
+   ],
+   "takeaway": "A good quotation starts with a realistic estimated job cost card."
+  }
+ ],
+ "mcqs": [
+  {
+   "id": "m1",
+   "q": "Job costing is suitable where:",
+   "options": [
+    "Each order is different and done to customer specification",
+    "Output is homogeneous and continuous",
+    "Products pass through processes",
+    "Services are standardised"
+   ],
+   "answer": 0,
+   "explain": "Job costing traces costs to individual orders that differ. In practice: printing and repair shops use it.",
+   "concept": "c1",
+   "topic": "Meaning, suitability and process of job costing",
+   "difficulty": "core"
+  },
+  {
+   "id": "m2",
+   "q": "Overtime premium paid because of a customer's urgent request is:",
+   "options": [
+    "Charged to that job",
+    "Treated as factory overhead",
+    "Written off to Costing P&L",
+    "Ignored"
+   ],
+   "answer": 0,
+   "explain": "When the customer causes the overtime, the job bears it. General overtime is an overhead. In practice: document the request.",
+   "concept": "c2",
+   "topic": "Job cost card and pricing a job",
+   "difficulty": "core"
+  },
+  {
+   "id": "m3",
+   "q": "Cost ₹60,000; profit 25% on selling price. Price:",
+   "options": [
+    "₹80,000",
+    "₹75,000",
+    "₹85,000",
+    "₹72,000"
+   ],
+   "answer": 0,
+   "explain": "60,000 ÷ 0.75 = 80,000. In practice: 25% on cost would give ₹75,000.",
+   "concept": "c2",
+   "topic": "Job cost card and pricing a job",
+   "difficulty": "moderate",
+   "check": 80000
+  },
+  {
+   "id": "m4",
+   "q": "Abnormal spoilage in a job is charged to:",
+   "options": [
+    "Costing Profit and Loss Account",
+    "The job",
+    "Factory overheads",
+    "Customer"
+   ],
+   "answer": 0,
+   "explain": "Abnormal losses are not part of product cost; net of scrap they go to Costing P&L. In practice: investigate their cause.",
+   "concept": "c3",
+   "topic": "Work-in-progress, spoilage and defectives in jobs",
+   "difficulty": "core"
+  },
+  {
+   "id": "m5",
+   "q": "Work-in-progress in job costing equals:",
+   "options": [
+    "Total cost on incomplete job cards",
+    "Materials in stores",
+    "Cost of completed jobs",
+    "Overheads under-absorbed"
+   ],
+   "answer": 0,
+   "explain": "All costs booked to jobs not yet finished make up WIP. In practice: reconcile with WIP control.",
+   "concept": "c1",
+   "topic": "Meaning, suitability and process of job costing",
+   "difficulty": "core"
+  },
+  {
+   "id": "m6",
+   "q": "Materials returned from a job to stores are:",
+   "options": [
+    "Deducted from the job's material cost",
+    "Added to overheads",
+    "Ignored",
+    "Charged to another job automatically"
+   ],
+   "answer": 0,
+   "explain": "Returns reduce the job's material cost via a material return note. In practice: transfers to other jobs use a transfer note.",
+   "concept": "c2",
+   "topic": "Job cost card and pricing a job",
+   "difficulty": "core"
+  },
+  {
+   "id": "m7",
+   "q": "Normal rectification cost of defectives in a general production job is treated as:",
+   "options": [
+    "Production overhead",
+    "Abnormal loss",
+    "Selling cost",
+    "Capital expenditure"
+   ],
+   "answer": 0,
+   "explain": "Where defects are normal and not job-specific, rectification is spread through overheads. In practice: job-specific rectification goes to that job.",
+   "concept": "c3",
+   "topic": "Work-in-progress, spoilage and defectives in jobs",
+   "difficulty": "core"
+  },
+  {
+   "id": "m8",
+   "q": "Labour cost is booked to jobs using:",
+   "options": [
+    "Job time cards",
+    "Material requisitions",
+    "Bin cards",
+    "Goods received notes"
+   ],
+   "answer": 0,
+   "explain": "Job time cards record hours worked on each job. In practice: idle time is booked separately.",
+   "concept": "c1",
+   "topic": "Meaning, suitability and process of job costing",
+   "difficulty": "core"
+  }
+ ],
+ "questions": [
+  {
+   "id": "q1",
+   "marks": 6,
+   "minutes": 11,
+   "difficulty": "core",
+   "pad": "table",
+   "q": "Job J-41 (a special conveyor for a client) required: materials issued ₹62,000, of which ₹4,000 was returned to stores; 120 normal labour hours and 40 overtime hours at ₹150 per hour, overtime at 150% being worked at the client's request for urgent delivery; direct expenses (hire of a crane) ₹3,000. Factory overheads are absorbed at ₹90 per labour hour; administration overheads at 10% of works cost. Prepare the job cost sheet and quote a price giving 20% profit on selling price.",
+   "model": [
+    {
+     "t": "table",
+     "head": [
+      "Item",
+      "Working",
+      "₹"
+     ],
+     "rows": [
+      [
+       "Direct materials",
+       "62,000 − 4,000 returned",
+       "58,000"
+      ],
+      [
+       "Direct labour",
+       "120 × 150 + 40 × 225 (premium charged to job as requested by client)",
+       "27,000"
+      ],
+      [
+       "Direct expenses",
+       "Crane hire",
+       "3,000"
+      ],
+      [
+       "Factory overheads",
+       "160 hours × ₹90",
+       "14,400"
+      ],
+      [
+       "Works cost",
+       "",
+       "1,02,400"
+      ],
+      [
+       "Administration overheads",
+       "10% of works cost",
+       "10,240"
+      ],
+      [
+       "Total cost",
+       "",
+       "1,12,640"
+      ],
+      [
+       "Price",
+       "Cost ÷ 80%",
+       "1,40,800"
+      ]
+     ],
+     "title": "Job cost sheet — J-41"
+    },
+    {
+     "t": "note",
+     "text": "Overtime premium is charged to the job only when overtime is worked at the customer's request; otherwise it is a production overhead."
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "Materials",
+     "m": 1,
+     "skill": "computation",
+     "kw": [
+      "material"
+     ],
+     "min": 1,
+     "nums": [
+      58000
+     ]
+    },
+    {
+     "id": "s2",
+     "pt": "Labour with premium",
+     "m": 2,
+     "skill": "computation",
+     "kw": [
+      "overtime"
+     ],
+     "min": 1,
+     "nums": [
+      27000
+     ]
+    },
+    {
+     "id": "s3",
+     "pt": "Overheads and works cost",
+     "m": 1,
+     "skill": "computation",
+     "kw": [
+      "works"
+     ],
+     "min": 1,
+     "nums": [
+      102400
+     ]
+    },
+    {
+     "id": "s4",
+     "pt": "Total cost and price",
+     "m": 2,
+     "skill": "computation",
+     "kw": [
+      "price"
+     ],
+     "min": 1,
+     "nums": [
+      112640,
+      140800
+     ]
+    }
+   ],
+   "remarks": [
+    "Show hours separately."
+   ],
+   "mistakes": [
+    "Pricing 20% on cost instead of sale price."
+   ],
+   "tips": [
+    "Cost sheet."
+   ],
+   "extra_ok": true,
+   "checks": [
+    {
+     "expr": "62000-4000",
+     "value": 58000,
+     "label": "Materials net of returns"
+    },
+    {
+     "expr": "120*150 + 40*150*1.5",
+     "value": 27000,
+     "label": "Direct labour including overtime premium at the job's request"
+    },
+    {
+     "expr": "160*90",
+     "value": 14400,
+     "label": "Factory overheads at ₹90 per labour hour"
+    },
+    {
+     "expr": "58000+27000+14400+3000",
+     "value": 102400,
+     "label": "Works cost"
+    },
+    {
+     "expr": "102400*10/100",
+     "value": 10240,
+     "label": "Administration overheads at 10% of works cost"
+    },
+    {
+     "expr": "102400+10240",
+     "value": 112640,
+     "label": "Total cost"
+    },
+    {
+     "expr": "112640/0.8",
+     "value": 140800,
+     "label": "Price for 20% profit on selling price"
+    }
+   ]
+  },
+  {
+   "id": "q2",
+   "marks": 3,
+   "minutes": 5,
+   "difficulty": "core",
+   "pad": "table",
+   "q": "A job of 10,000 identical components costing ₹30 each to the point of inspection had 700 spoiled units. Normal spoilage is 5% of input. Abnormal spoiled units realise ₹1,200 as scrap. How are normal and abnormal spoilage treated?",
+   "model": [
+    {
+     "t": "table",
+     "head": [
+      "Item",
+      "Treatment",
+      "₹"
+     ],
+     "rows": [
+      [
+       "Normal spoilage (500 units)",
+       "Cost borne by good units in the job",
+       "15,000"
+      ],
+      [
+       "Abnormal spoilage (200 units)",
+       "Cost less scrap transferred to Costing P&L",
+       "4,800"
+      ]
+     ],
+     "title": "Spoilage in job costing"
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "Normal spoilage",
+     "m": 1,
+     "skill": "computation",
+     "kw": [
+      "normal"
+     ],
+     "min": 1,
+     "nums": [
+      15000
+     ]
+    },
+    {
+     "id": "s2",
+     "pt": "Abnormal spoilage",
+     "m": 2,
+     "skill": "computation",
+     "kw": [
+      "abnormal"
+     ],
+     "min": 1,
+     "nums": [
+      4800
+     ]
+    }
+   ],
+   "remarks": [
+    "Apply the normal rate to input."
+   ],
+   "mistakes": [
+    "Charging all spoilage to P&L."
+   ],
+   "tips": [
+    "Table."
+   ],
+   "extra_ok": true,
+   "checks": [
+    {
+     "expr": "500*30",
+     "value": 15000,
+     "label": "Normal spoilage cost absorbed by good units (stays in job)"
+    },
+    {
+     "expr": "200*30-1200",
+     "value": 4800,
+     "label": "Abnormal spoilage loss to Costing P&L (net of scrap)"
+    }
+   ]
+  }
+ ],
+ "revision": {
+  "summary": [
+   "Job costing: costs per order; job cost card.",
+   "Overtime premium to job only if customer requested.",
+   "Normal spoilage in job cost; abnormal to Costing P&L.",
+   "Price: cost × (1 + markup) or cost ÷ (1 − margin)."
+  ],
+  "remember": [
+   "WIP = cost on incomplete job cards."
+  ],
+  "traps": [
+   "Material returns reduce job cost."
+  ]
+ },
+ "quickref": [
+  {
+   "k": "Profit on cost",
+   "v": "Cost × (1 + m)"
+  },
+  {
+   "k": "Profit on sale",
+   "v": "Cost ÷ (1 − m)"
+  },
+  {
+   "k": "Abnormal loss",
+   "v": "Costing P&L"
+  }
+ ],
+ "viva": [
+  {
+   "id": "v1",
+   "q": "What is job costing?",
+   "model": "A specific order costing method in which costs are collected for each job or work order separately, as each differs from the others.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Each job separately",
+     "w": 6,
+     "kw": [
+      "each job|separate"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Specific order",
+     "w": 4,
+     "kw": [
+      "order|customer"
+     ]
+    }
+   ],
+   "concept": "c1"
+  },
+  {
+   "id": "v2",
+   "q": "What documents feed a job cost card?",
+   "model": "Material requisitions and return notes, job time cards and overhead absorption rates.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Materials",
+     "w": 5,
+     "kw": [
+      "requisition"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Labour",
+     "w": 5,
+     "kw": [
+      "time card"
+     ]
+    }
+   ],
+   "concept": "c1"
+  },
+  {
+   "id": "v3",
+   "q": "How is overtime premium treated?",
+   "model": "Charged to the job if worked at the customer's request; otherwise treated as production overhead.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Customer request",
+     "w": 5,
+     "kw": [
+      "customer"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Overhead otherwise",
+     "w": 5,
+     "kw": [
+      "overhead"
+     ]
+    }
+   ],
+   "concept": "c2"
+  },
+  {
+   "id": "v4",
+   "q": "How is abnormal spoilage treated?",
+   "model": "Its cost, less scrap value, is transferred to the Costing Profit and Loss Account.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Costing P&L",
+     "w": 6,
+     "kw": [
+      "profit and loss"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Scrap credited",
+     "w": 4,
+     "kw": [
+      "scrap"
+     ]
+    }
+   ],
+   "concept": "c3"
+  },
+  {
+   "id": "v5",
+   "q": "Give examples of job costing industries.",
+   "model": "Printing, furniture making, repair workshops, interior decoration and heavy engineering.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Printing or furniture",
+     "w": 5,
+     "kw": [
+      "printing|furniture"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Repairs or engineering",
+     "w": 5,
+     "kw": [
+      "repair|engineering|interior"
+     ]
+    }
+   ],
+   "concept": "c1"
+  }
+ ],
+ "cases": [
+  {
+   "id": "k1",
+   "title": "Fine Prints",
+   "difficulty": "moderate",
+   "case": "Fine Prints accepts job P-88: 1,000 brochures. Paper ₹18,000; ink ₹2,000; 30 labour hours at ₹200; machine overheads at ₹300 per machine hour for 12 hours; office overheads 20% of works cost. It wants 25% profit on cost.",
+   "mcqs": [
+    {
+     "id": "k1a",
+     "q": "Prime cost:",
+     "options": [
+      "₹26,000",
+      "₹20,000",
+      "₹29,600",
+      "₹32,000"
+     ],
+     "answer": 0,
+     "explain": "Paper 18,000 + ink 2,000 + labour 6,000 = 26,000. In practice: ink is a direct material here.",
+     "difficulty": "core",
+     "check": 26000,
+     "topic": "Job cost card and pricing a job"
+    },
+    {
+     "id": "k1b",
+     "q": "Works cost:",
+     "options": [
+      "₹29,600",
+      "₹26,000",
+      "₹35,520",
+      "₹32,000"
+     ],
+     "answer": 0,
+     "explain": "26,000 + 12 × 300 = 29,600. In practice: machine-hour rate suits printing.",
+     "difficulty": "core",
+     "check": 29600,
+     "topic": "Job cost card and pricing a job"
+    },
+    {
+     "id": "k1c",
+     "q": "Total cost:",
+     "options": [
+      "₹35,520",
+      "₹29,600",
+      "₹37,000",
+      "₹44,400"
+     ],
+     "answer": 0,
+     "explain": "29,600 × 1.20 = 35,520. In practice: office overhead on works cost.",
+     "difficulty": "moderate",
+     "check": 35520,
+     "topic": "Job cost card and pricing a job"
+    },
+    {
+     "id": "k1d",
+     "q": "Quoted price:",
+     "options": [
+      "₹44,400",
+      "₹47,360",
+      "₹42,624",
+      "₹35,520"
+     ],
+     "answer": 0,
+     "explain": "35,520 × 1.25 = 44,400 (25% on cost). In practice: per brochure ₹44.40.",
+     "difficulty": "moderate",
+     "check": 44400,
+     "topic": "Job cost card and pricing a job"
+    }
+   ]
+  }
+ ]
+}
