@@ -1,0 +1,726 @@
+{
+ "schema": "ca-unit/1",
+ "id": "fin-p2-ch02-u01",
+ "level": "final",
+ "paper": "p2",
+ "chapter": "fin-p2-ch02",
+ "n": 1,
+ "title": "Risk Management",
+ "outcomes": [
+  "Identify the types of risk faced by a business.",
+  "Evaluate financial risk from different stakeholders' viewpoints.",
+  "Compute and interpret Value at Risk.",
+  "Identify and manage counterparty, political, interest rate and currency risks."
+ ],
+ "meta": {
+  "difficulty": "core",
+  "minutes": {
+   "learn": 20,
+   "practice": 20
+  },
+  "prereq": [
+   "fin-p2-ch01-u01"
+  ],
+  "exam_tip": "In VaR sums, state the z-score used and scale by the square root of days."
+ },
+ "concepts": [
+  {
+   "id": "c1",
+   "title": "Types of business risk",
+   "body": [
+    "Strategic risk arises from wrong business decisions or failure to adapt to change — competition, technology shifts, changing customer needs.",
+    "Compliance risk is the risk of breaching laws and regulations; operational risk comes from failed internal processes, people, systems or external events (fraud, system breakdowns, disasters).",
+    "Financial risk arises from the way a business is financed and from its exposure to financial markets — including counterparty, political, interest rate and currency risks."
+   ],
+   "analogy": "Businesses face strategic, compliance, operational and financial risks — finance focuses on the last but cannot ignore the others.",
+   "work": "A bank failing to upgrade digital services faces strategic risk."
+  },
+  {
+   "id": "c2",
+   "title": "Viewing financial risk from different angles",
+   "body": [
+    "Shareholders see high gearing as risky because debt holders rank ahead of them in winding up; lenders also worry about high existing debt raising default risk.",
+    "From the company's view, borrowing too much, or lending to parties who default, can push it into insolvency.",
+    "From the government's view, failures of large banks or institutions, wilful defaults and sovereign debt crises can spread distrust and threaten the whole financial system."
+   ],
+   "analogy": "The same debt looks different to owners, managers and regulators.",
+   "work": "A major bank collapse can trigger a wider credit freeze."
+  },
+  {
+   "id": "c3",
+   "title": "Value at Risk",
+   "body": [
+    "Value at Risk (VaR) estimates the maximum loss on a position over a stated time horizon at a given confidence level, under normal market conditions. It answers: how bad can it get, and how much could we lose?",
+    "Inputs: time period, confidence level (commonly 95% or 99%), and volatility (standard deviation). VaR = z-score × standard deviation of value; for longer horizons, multiply one-day VaR by the square root of the number of days (assuming independent returns).",
+    "Uses: measuring maximum likely loss on portfolios, setting dealer limits, benchmarking trading performance, guiding trading strategy and asset-liability management. Limitations: assumes normal distribution and does not tell the size of losses beyond the VaR level."
+   ],
+   "analogy": "VaR puts one number on downside risk at a chosen confidence level.",
+   "work": "A 1-day 99% VaR of ₹17 lakh means losses should exceed that only one day in a hundred."
+  },
+  {
+   "id": "c4",
+   "title": "Identifying and managing specific financial risks",
+   "body": [
+    "Counterparty risk — a party fails to perform. Warning signs: failure to obtain resources, regulatory restrictions, insolvency. Management: due diligence, exposure limits, avoid concentration, regular review, guarantees and insurance.",
+    "Political risk — host government actions such as currency conversion restrictions, expropriation, price controls or insistence on local ownership. Management: assess country risk rankings and macro conditions, local partners, political risk insurance, structuring investments to reduce exposure.",
+    "Interest rate risk — changes in rates affect costs, income and values; managed with matching, swaps, caps, floors and FRAs. Currency risk — exchange rate changes affect cash flows and values; managed with forwards, futures, options, swaps and natural hedging."
+   ],
+   "analogy": "Name the risk first; the toolkit follows.",
+   "work": "A forward contract locks the rupee value of export receipts."
+  }
+ ],
+ "illustrations": [
+  {
+   "id": "i1",
+   "title": "VaR on an equity position",
+   "difficulty": "moderate",
+   "minutes": 7,
+   "q": "A treasury desk holds shares worth ₹500 lakh with a daily return standard deviation of 1.5%. Assuming normal returns, compute 1-day VaR at 99% (z = 2.33) and at 95% (z = 1.65), and 5-day VaR at 99%.",
+   "solution": [
+    {
+     "t": "table",
+     "head": [
+      "Measure",
+      "Working",
+      "₹ lakh"
+     ],
+     "rows": [
+      [
+       "Daily volatility in rupees",
+       "500 × 1.5%",
+       "7.5"
+      ],
+      [
+       "1-day VaR, 99%",
+       "7.5 × 2.33",
+       "17.48"
+      ],
+      [
+       "1-day VaR, 95%",
+       "7.5 × 1.65",
+       "12.38"
+      ],
+      [
+       "5-day VaR, 99%",
+       "17.475 × √5",
+       "39.08"
+      ]
+     ],
+     "title": "VaR = z × σ × value × √t"
+    }
+   ],
+   "checks": [
+    {
+     "expr": "500*0.015",
+     "value": 7.5,
+     "label": "One standard deviation of daily value (₹ lakh)"
+    },
+    {
+     "expr": "500*0.015*2.33",
+     "value": 17.48,
+     "label": "1-day VaR at 99% (₹ lakh)"
+    },
+    {
+     "expr": "round(500*0.015*2.33*5**0.5,2)",
+     "value": 39.08,
+     "label": "5-day VaR at 99% (₹ lakh)"
+    },
+    {
+     "expr": "500*0.015*1.65",
+     "value": 12.38,
+     "label": "1-day VaR at 95% (₹ lakh)"
+    }
+   ]
+  },
+  {
+   "id": "i2",
+   "title": "Matching risks to remedies",
+   "difficulty": "core",
+   "minutes": 6,
+   "q": "Hira Exports faces: (a) a large customer in a country that has frozen currency remittances; (b) a key distributor showing signs of insolvency; (c) floating-rate borrowings when rates are rising; (d) USD receivables when the rupee may strengthen. Name each risk and one way to manage it.",
+   "solution": [
+    {
+     "t": "table",
+     "head": [
+      "Item",
+      "Risk",
+      "Management"
+     ],
+     "rows": [
+      [
+       "(a)",
+       "Political (country) risk",
+       "Political risk insurance, local partners, limit exposure"
+      ],
+      [
+       "(b)",
+       "Counterparty risk",
+       "Credit limits, guarantees, diversify distributors"
+      ],
+      [
+       "(c)",
+       "Interest rate risk",
+       "Swap to fixed, caps, mix of fixed and floating debt"
+      ],
+      [
+       "(d)",
+       "Currency risk",
+       "Forwards, options, natural hedging via USD costs"
+      ]
+     ],
+     "title": "Risk identification"
+    }
+   ],
+   "checks": []
+  }
+ ],
+ "jobs": [
+  {
+   "id": "j1",
+   "title": "Treasury risk dashboard",
+   "role": "Risk analyst",
+   "situation": "The treasury holds equities, forex exposures and floating loans.",
+   "steps": [
+    "Classify exposures by risk type.",
+    "Compute daily VaR for market positions.",
+    "Set limits per dealer and portfolio.",
+    "Recommend hedges for breaches."
+   ],
+   "takeaway": "Measure, limit and hedge — in that order."
+  }
+ ],
+ "mcqs": [
+  {
+   "id": "m1",
+   "q": "VaR estimates:",
+   "options": [
+    "Maximum likely loss over a period at a confidence level",
+    "Average profit",
+    "Minimum gain",
+    "Total portfolio value"
+   ],
+   "answer": 0,
+   "explain": "Under normal conditions. In practice: one-day or ten-day horizons.",
+   "concept": "c3",
+   "topic": "Value at Risk",
+   "difficulty": "core"
+  },
+  {
+   "id": "m2",
+   "q": "To convert 1-day VaR to 10-day VaR, multiply by:",
+   "options": [
+    "The square root of 10",
+    "10",
+    "1/10",
+    "2.33"
+   ],
+   "answer": 0,
+   "explain": "Assumes independent daily returns. In practice: regulatory 10-day measures.",
+   "concept": "c3",
+   "topic": "Value at Risk",
+   "difficulty": "core"
+  },
+  {
+   "id": "m3",
+   "q": "Expropriation of assets by a host government is:",
+   "options": [
+    "Political risk",
+    "Counterparty risk",
+    "Interest rate risk",
+    "Operational risk"
+   ],
+   "answer": 0,
+   "explain": "Country-specific action. In practice: political risk insurance.",
+   "concept": "c4",
+   "topic": "Identifying and managing specific financial risks",
+   "difficulty": "core"
+  },
+  {
+   "id": "m4",
+   "q": "Failed internal systems causing losses represent:",
+   "options": [
+    "Operational risk",
+    "Strategic risk",
+    "Currency risk",
+    "Political risk"
+   ],
+   "answer": 0,
+   "explain": "Process, people, system failures. In practice: controls.",
+   "concept": "c1",
+   "topic": "Types of business risk",
+   "difficulty": "core"
+  },
+  {
+   "id": "m5",
+   "q": "Shareholders view high gearing as risky because:",
+   "options": [
+    "Debt holders rank ahead of them in winding up",
+    "Debt is cheaper",
+    "Interest is tax-free",
+    "Dividends rise"
+   ],
+   "answer": 0,
+   "explain": "Residual claimants. In practice: equity beta rises with gearing.",
+   "concept": "c2",
+   "topic": "Viewing financial risk from different angles",
+   "difficulty": "core"
+  },
+  {
+   "id": "m6",
+   "q": "A tool to manage counterparty risk is:",
+   "options": [
+    "Setting exposure limits and taking guarantees",
+    "Buying more from one supplier",
+    "Ignoring credit ratings",
+    "Removing contracts"
+   ],
+   "answer": 0,
+   "explain": "Limits and security. In practice: diversify.",
+   "concept": "c4",
+   "topic": "Identifying and managing specific financial risks",
+   "difficulty": "core"
+  },
+  {
+   "id": "m7",
+   "q": "A limitation of VaR is that it:",
+   "options": [
+    "Does not show the size of losses beyond the VaR level",
+    "Is never used",
+    "Ignores time",
+    "Has no confidence level"
+   ],
+   "answer": 0,
+   "explain": "Tail losses can be much larger. In practice: use stress tests.",
+   "concept": "c3",
+   "topic": "Value at Risk",
+   "difficulty": "core"
+  },
+  {
+   "id": "m8",
+   "q": "An interest rate swap from floating to fixed manages:",
+   "options": [
+    "Interest rate risk",
+    "Political risk",
+    "Strategic risk",
+    "Compliance risk"
+   ],
+   "answer": 0,
+   "explain": "Locks the cost of debt. In practice: when rates are expected to rise.",
+   "concept": "c4",
+   "topic": "Identifying and managing specific financial risks",
+   "difficulty": "core"
+  }
+ ],
+ "questions": [
+  {
+   "id": "q1",
+   "marks": 5,
+   "minutes": 9,
+   "difficulty": "core",
+   "pad": "table",
+   "q": "A treasury desk holds shares worth ₹500 lakh with a daily return standard deviation of 1.5%. Assuming normal returns, compute 1-day VaR at 99% (z = 2.33) and at 95% (z = 1.65), and 5-day VaR at 99%.",
+   "model": [
+    {
+     "t": "table",
+     "head": [
+      "Measure",
+      "Working",
+      "₹ lakh"
+     ],
+     "rows": [
+      [
+       "Daily volatility in rupees",
+       "500 × 1.5%",
+       "7.5"
+      ],
+      [
+       "1-day VaR, 99%",
+       "7.5 × 2.33",
+       "17.48"
+      ],
+      [
+       "1-day VaR, 95%",
+       "7.5 × 1.65",
+       "12.38"
+      ],
+      [
+       "5-day VaR, 99%",
+       "17.475 × √5",
+       "39.08"
+      ]
+     ],
+     "title": "VaR = z × σ × value × √t"
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "Volatility",
+     "m": 1,
+     "skill": "computation",
+     "kw": [
+      "volatility"
+     ],
+     "min": 1,
+     "nums": [
+      7.5
+     ]
+    },
+    {
+     "id": "s2",
+     "pt": "1-day VaR",
+     "m": 2,
+     "skill": "computation",
+     "kw": [
+      "1-day"
+     ],
+     "min": 1,
+     "nums": [
+      17.48,
+      12.38
+     ]
+    },
+    {
+     "id": "s3",
+     "pt": "5-day VaR",
+     "m": 2,
+     "skill": "computation",
+     "kw": [
+      "5-day"
+     ],
+     "min": 1,
+     "nums": [
+      39.08
+     ]
+    }
+   ],
+   "remarks": [
+    "Show z-scores."
+   ],
+   "mistakes": [
+    "Multiplying by 5 instead of √5."
+   ],
+   "tips": [
+    "Table."
+   ],
+   "extra_ok": true,
+   "checks": [
+    {
+     "expr": "500*0.015",
+     "value": 7.5,
+     "label": "One standard deviation of daily value (₹ lakh)"
+    },
+    {
+     "expr": "500*0.015*2.33",
+     "value": 17.48,
+     "label": "1-day VaR at 99% (₹ lakh)"
+    },
+    {
+     "expr": "round(500*0.015*2.33*5**0.5,2)",
+     "value": 39.08,
+     "label": "5-day VaR at 99% (₹ lakh)"
+    },
+    {
+     "expr": "500*0.015*1.65",
+     "value": 12.38,
+     "label": "1-day VaR at 95% (₹ lakh)"
+    }
+   ]
+  },
+  {
+   "id": "q2",
+   "marks": 4,
+   "minutes": 7,
+   "difficulty": "core",
+   "pad": "table",
+   "q": "Hira Exports faces: (a) a large customer in a country that has frozen currency remittances; (b) a key distributor showing signs of insolvency; (c) floating-rate borrowings when rates are rising; (d) USD receivables when the rupee may strengthen. Name each risk and one way to manage it.",
+   "model": [
+    {
+     "t": "table",
+     "head": [
+      "Item",
+      "Risk",
+      "Management"
+     ],
+     "rows": [
+      [
+       "(a)",
+       "Political (country) risk",
+       "Political risk insurance, local partners, limit exposure"
+      ],
+      [
+       "(b)",
+       "Counterparty risk",
+       "Credit limits, guarantees, diversify distributors"
+      ],
+      [
+       "(c)",
+       "Interest rate risk",
+       "Swap to fixed, caps, mix of fixed and floating debt"
+      ],
+      [
+       "(d)",
+       "Currency risk",
+       "Forwards, options, natural hedging via USD costs"
+      ]
+     ],
+     "title": "Risk identification"
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "Risk names",
+     "m": 2,
+     "skill": "concept",
+     "kw": [
+      "political|counterparty|interest|currency"
+     ],
+     "min": 1
+    },
+    {
+     "id": "s2",
+     "pt": "Remedies",
+     "m": 2,
+     "skill": "concept",
+     "kw": [
+      "insurance|swap|forward|limit"
+     ],
+     "min": 1
+    }
+   ],
+   "remarks": [
+    "One remedy each."
+   ],
+   "mistakes": [
+    "Confusing political and counterparty risk."
+   ],
+   "tips": [
+    "Table."
+   ],
+   "extra_ok": true
+  }
+ ],
+ "revision": {
+  "summary": [
+   "Risks: strategic, compliance, operational, financial.",
+   "Financial risk viewed by stakeholders, company, government.",
+   "VaR = z × σ × value; × √t for horizon.",
+   "z: 1.65 (95%), 2.33 (99%).",
+   "Counterparty, political, interest, currency: identify and hedge."
+  ],
+  "remember": [
+   "VaR ignores tail size."
+  ],
+  "traps": [
+   "Scaling VaR linearly with days."
+  ]
+ },
+ "quickref": [
+  {
+   "k": "VaR 99%",
+   "v": "z = 2.33"
+  },
+  {
+   "k": "VaR 95%",
+   "v": "z = 1.65"
+  },
+  {
+   "k": "Horizon",
+   "v": "× √t"
+  },
+  {
+   "k": "Political risk",
+   "v": "Host government action"
+  }
+ ],
+ "viva": [
+  {
+   "id": "v1",
+   "q": "What two questions does VaR answer?",
+   "model": "What is the worst likely case under normal conditions, and how much could be lost over the period at the chosen confidence level.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Worst case",
+     "w": 5,
+     "kw": [
+      "worst"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Amount of loss",
+     "w": 5,
+     "kw": [
+      "lost|loss"
+     ]
+    }
+   ],
+   "concept": "c3"
+  },
+  {
+   "id": "v2",
+   "q": "List the components of a VaR calculation.",
+   "model": "A time period, a confidence level, and the volatility or loss expressed in amount or percentage.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Time period",
+     "w": 5,
+     "kw": [
+      "time"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Confidence level",
+     "w": 5,
+     "kw": [
+      "confidence"
+     ]
+    }
+   ],
+   "concept": "c3"
+  },
+  {
+   "id": "v3",
+   "q": "Name four types of business risk.",
+   "model": "Strategic, compliance, operational and financial risk.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Strategic and compliance",
+     "w": 5,
+     "kw": [
+      "strategic|compliance"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Operational and financial",
+     "w": 5,
+     "kw": [
+      "operational|financial"
+     ]
+    }
+   ],
+   "concept": "c1"
+  },
+  {
+   "id": "v4",
+   "q": "How can political risk be assessed?",
+   "model": "By looking at published country risk rankings and evaluating the host country's macro-economic conditions.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Country rankings",
+     "w": 5,
+     "kw": [
+      "ranking"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Macro conditions",
+     "w": 5,
+     "kw": [
+      "macro"
+     ]
+    }
+   ],
+   "concept": "c4"
+  },
+  {
+   "id": "v5",
+   "q": "How does the government view financial risk?",
+   "model": "As the danger that failures of banks or institutions, wilful defaults or sovereign debt crises spread distrust across the system.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Institutional failure",
+     "w": 5,
+     "kw": [
+      "failure|bank"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Systemic distrust",
+     "w": 5,
+     "kw": [
+      "distrust|system"
+     ]
+    }
+   ],
+   "concept": "c2"
+  }
+ ],
+ "cases": [
+  {
+   "id": "k1",
+   "title": "Unity Bank treasury",
+   "difficulty": "moderate",
+   "case": "Unity Bank holds a bond portfolio of ₹1,000 crore with a daily standard deviation of 0.4%. Its limit for 1-day 99% VaR is ₹10 crore. It also has large loans to one business group and branches in a country that recently imposed capital controls.",
+   "mcqs": [
+    {
+     "id": "k1a",
+     "q": "1-day 99% VaR (₹ crore, z = 2.33):",
+     "options": [
+      "9.32",
+      "4",
+      "23.3",
+      "0.93"
+     ],
+     "answer": 0,
+     "explain": "1,000 × 0.4% × 2.33. In practice: compare to limit.",
+     "difficulty": "core",
+     "check": 9.32,
+     "topic": "Value at Risk"
+    },
+    {
+     "id": "k1b",
+     "q": "Is the VaR limit breached?",
+     "options": [
+      "No, 9.32 is within 10",
+      "Yes",
+      "Cannot tell",
+      "Only on weekends"
+     ],
+     "answer": 0,
+     "explain": "Within limit. In practice: monitor daily.",
+     "difficulty": "core",
+     "topic": "Value at Risk"
+    },
+    {
+     "id": "k1c",
+     "q": "Large loans to one business group create:",
+     "options": [
+      "Concentrated counterparty risk",
+      "Political risk",
+      "Currency risk only",
+      "No risk"
+     ],
+     "answer": 0,
+     "explain": "Single-group exposure. In practice: large exposure limits.",
+     "difficulty": "core",
+     "topic": "Identifying and managing specific financial risks"
+    },
+    {
+     "id": "k1d",
+     "q": "Capital controls in the host country are an example of:",
+     "options": [
+      "Political risk",
+      "Operational risk",
+      "Interest rate risk",
+      "Strategic risk"
+     ],
+     "answer": 0,
+     "explain": "Restriction on currency conversion. In practice: country limits.",
+     "difficulty": "core",
+     "topic": "Identifying and managing specific financial risks"
+    }
+   ]
+  }
+ ]
+}
