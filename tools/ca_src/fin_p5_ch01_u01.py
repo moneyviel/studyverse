@@ -35,7 +35,7 @@ def build():
 
     concepts = [
         C('c1', T1, [
-            'Section 7(1) defines supply to include every form of supplying goods or services (such as sale, barter, exchange, rental, lease, licence, transfer or disposal), actual or agreed, made for consideration while carrying on or furthering a business; import of services for consideration, whether or not in the course of business; and Schedule I activities without consideration.',
+            'Section 7(1) defines supply to include every form of supplying goods or services (such as sale, barter, exchange, rental, lease, licence, transfer or disposal), actual or agreed, made for consideration while carrying on or furthering a business; import of services for consideration even outside business; and Schedule I activities without consideration.',
             'Section 7(1)(aa) brings in dealings of a non-individual person, such as a club or association, with its own members or constituents, where consideration is paid, — so clubs and associations supplying to members are covered.',
             'Key elements: goods (movable property other than money and securities, including actionable claims), services (anything other than goods, money and securities, including activities relating to money for a fee), consideration (including payments by third parties), and business (including activities incidental or ancillary, even without profit motive).'],
           'Supply = a business transaction for consideration, plus listed exceptions.',
