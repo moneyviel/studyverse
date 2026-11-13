@@ -265,6 +265,14 @@ async def _(pg):
     await pg.click('[data-n="12"][data-r="6"]')                 # 924
     await pg.click('[data-n="12"][data-r="2"]'); await pg.click('[data-n="12"][data-r="10"]')   # 66 = 66
     await setr(pg, '#pxN', 16); await pg.click('#pxPar')
+@lab('math-u07', 'zoom')
+async def _(pg):
+    await setr(pg, '#zR', 25)
+    await pg.click('[data-f="cos"]'); await setr(pg, '#zR', 30)
+    await pg.click('[data-f="sgn"]'); await setr(pg, '#zR', 31)
+    await pg.click('[data-f="flr"]')
+    await pg.click('[data-f="euler"]'); await setr(pg, '#zR', 32)
+    await pg.click('[data-f="sinc"]')
 async def main(only=None):
     async with async_playwright() as pw:
         b = await pw.chromium.launch(executable_path='/usr/bin/google-chrome', args=['--no-sandbox'])

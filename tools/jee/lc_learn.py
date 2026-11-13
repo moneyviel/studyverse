@@ -1,0 +1,45 @@
+"""Concept cards for Mathematics Unit 7 — Limits, Continuity and Differentiability (written for StudyVerse)."""
+TOPICS = {'lim': 'Limits', 'cont': 'Continuity & differentiability', 'deriv': 'Derivatives', 'app': 'Maxima, minima & monotonicity'}
+CARDS = [
+ dict(id='c1', t='What a limit means', e='🔍', lvl='f', topic='lim',
+  body=['\\lim_{x→a} f(x) = L means f(x) gets as close to L as you like when x is close enough to a — the value at a itself does not matter.',
+        'Left and right limits must agree. |x|/x has −1 on the left and +1 on the right, so no limit at 0.',
+        '<div class="jx-f">\\f{sin x}{x} → 1 · \\f{1 − cos x}{x^{2}} → \\f{1}{2} · \\f{e^{x} − 1}{x} → 1 · \\f{log(1 + x)}{x} → 1</div>'],
+  check=dict(q='\\lim_{x→0} \\f{sin 5x}{x} =', o=['5', '1', '0', '\\f{1}{5}'], a=0, why='sin 5x ≈ 5x.')),
+ dict(id='c2', t='Tools for 0/0', e='🧰', lvl='m', topic='lim',
+  body=['Factor and cancel; rationalise roots; use the standard limits; or expand in powers of x (Taylor): sin x = x − \\f{x^{3}}{6} + …, cos x = 1 − \\f{x^{2}}{2} + \\f{x^{4}}{24} − …',
+        'L\'Hôpital: for 0/0 or ∞/∞, \\lim \\f{f}{g} = \\lim \\f{f\'}{g\'}.',
+        '1^{∞} form: \\lim f^{g} = e^{\\lim g(f − 1)}.',
+        '"Limit is finite" questions: make the lower powers in the top cancel one by one.'],
+  check=dict(q='\\lim_{x→∞}(1 + \\f{2}{x})^{x} =', o=['e^{2}', 'e', '1', '2'], a=0, why='1^{∞}: e^{x · 2/x}.')),
+ dict(id='c3', t='Continuity', e='🔗', lvl='m', topic='cont',
+  body=['f is continuous at a when left limit = right limit = f(a).',
+        'Greatest-integer functions [g(x)] jump where g(x) crosses an integer — but two jumps can cancel.',
+        'For a piecewise f, match the pieces at the joins to find unknown constants.'],
+  check=dict(q='[x] is discontinuous at', o=['every integer', 'no point', 'x = 0 only', 'every real'], a=0, why='It jumps at each integer.')),
+ dict(id='c4', t='Differentiability', e='📐', lvl='m', topic='cont',
+  body=['f is differentiable at a when the left and right slopes agree. Differentiable ⇒ continuous, not the other way.',
+        '|x − c| has a corner at c; |g(x)| has corners where g changes sign (simple roots).',
+        'max/min of smooth pieces have corners where the winning piece changes with different slopes.'],
+  check=dict(q='|x| at x = 0 is', o=['continuous, not differentiable', 'differentiable', 'discontinuous', 'undefined'], a=0, why='Slopes −1 and +1.')),
+ dict(id='c5', t='Derivative rules', e='⚙️', lvl='m', topic='deriv',
+  body=['<div class="jx-f">(uv)\' = u\'v + uv\' · (\\f{u}{v})\' = \\f{u\'v − uv\'}{v^{2}} · (f(g(x)))\' = f\'(g(x))g\'(x)</div>',
+        '\\f{d}{dx}x^{n} = nx^{n−1}, (e^{x})\' = e^{x}, (log x)\' = \\f{1}{x}, (sin x)\' = cos x, (cos x)\' = −sin x.',
+        'Functional equations: put special values (x = y, y = 0 …) to guess the form, then check.'],
+  check=dict(q='\\f{d}{dx}(x^{2} sin x) =', o=['2x sin x + x^{2} cos x', '2x cos x', 'x^{2} cos x', '2x sin x'], a=0, why='Product rule.')),
+ dict(id='c6', t='Maxima, minima, monotonic', e='⛰️', lvl='h', topic='app',
+  body=['f\' > 0 → increasing, f\' < 0 → decreasing. Critical points: f\' = 0 or f\' undefined.',
+        'Local max where f\' changes + to −; local min where − to +. Or f" < 0 → max, f" > 0 → min.',
+        'Absolute max/min on [a, b]: compare f at the critical points and the end points.',
+        'a sin x + b cos x lies in [−√{a^{2} + b^{2}}, √{a^{2} + b^{2}}].'],
+  check=dict(q='x^{3} − 3x has a local maximum at', o=['−1', '1', '0', '3'], a=0, why='f\' = 3(x − 1)(x + 1): + then − at −1.')),
+]
+FORMULAS = [('sin', '\\lim \\f{sin x}{x} = 1'), ('cos', '\\lim \\f{1 − cos x}{x^{2}} = \\f{1}{2}'), ('exp', '\\lim \\f{e^{x} − 1}{x} = 1'), ('log', '\\lim \\f{log(1 + x)}{x} = 1'),
+            ('1^{∞}', '\\lim f^{g} = e^{\\lim g(f − 1)}'), ('Power', '\\lim_{x→a} \\f{x^{n} − a^{n}}{x − a} = na^{n−1}'), ('Product', '(uv)\' = u\'v + uv\''), ('Chain', '(f∘g)\' = f\'(g)·g\'')]
+TRAPS = ['A limit can exist even when f(a) is undefined.', 'Check BOTH sides at a corner or jump.', 'Differentiable ⇒ continuous, never the reverse.',
+         'f\'(c) = 0 is not enough for an extremum: check that the sign changes.', 'Absolute extrema also live at the end points.', 'In 1^{∞} forms do not just plug in 1.']
+STEPS = [dict(k='s1', t='Limits', e='🔍', cards=['c1', 'c2'], need=['lim'], note='Standard limits, 0/0, 1^{∞}'),
+         dict(k='s2', t='Smoothness', e='🔗', cards=['c3', 'c4'], need=['cont'], note='Continuity and differentiability'),
+         dict(k='s3', t='Derivatives at work', e='⛰️', cards=['c5', 'c6'], need=['deriv', 'app'], note='Rules, maxima, minima, monotonicity')]
+META = dict(unit='math-u07', subject='math', n=7, title='Limit, Continuity and Differentiability', cls='11–12', labs=['zoom'],
+            syllabus='Real-valued functions, algebra of functions, polynomial, rational, trigonometric, logarithmic and exponential functions, inverse functions. Graphs of simple functions. Limits, continuity and differentiability. Differentiation of the sum, difference, product and quotient of two functions. Differentiation of trigonometric, inverse trigonometric, logarithmic, exponential, composite and implicit functions; derivatives of order up to two. Applications of derivatives: rate of change of quantities, monotonic increasing and decreasing functions, maxima and minima of functions of one variable.')
