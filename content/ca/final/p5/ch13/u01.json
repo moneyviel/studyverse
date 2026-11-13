@@ -1,0 +1,682 @@
+{
+ "schema": "ca-unit/1",
+ "id": "fin-p5-ch13-u01",
+ "level": "final",
+ "paper": "p5",
+ "chapter": "fin-p5-ch13",
+ "n": 1,
+ "title": "Returns",
+ "outcomes": [
+  "Apply GSTR-1, IFF and GSTR-1A provisions.",
+  "Apply GSTR-3B and QRMP provisions.",
+  "Apply annual, final and special returns.",
+  "Compute late fees and apply time-bar."
+ ],
+ "meta": {
+  "difficulty": "core",
+  "minutes": {
+   "learn": 35,
+   "practice": 20
+  },
+  "prereq": [
+   "fin-p5-ch12-u01"
+  ],
+  "exam_tip": "Write due dates as day plus month-after-period to avoid confusion."
+ },
+ "concepts": [
+  {
+   "id": "c1",
+   "title": "Outward supply statements — GSTR-1 and IFF",
+   "body": [
+    "Section 37: details of outward supplies are furnished in GSTR-1 by the 11th of the next month (monthly filers) or 13th of the month after the quarter (QRMP). Optional Invoice Furnishing Facility (IFF) lets QRMP taxpayers upload B2B invoices for the first two months by the 13th of the following month.",
+    "GSTR-1A allows amendments or missed details for the same tax period before filing GSTR-3B. GSTR-1 cannot be filed if GSTR-3B for the previous period is pending, and filing of GSTR-1 is a precondition for GSTR-3B of the same period.",
+    "HSN details in GSTR-1 depend on turnover (4 digits up to ₹5 crore for B2B; 6 digits above). Errors can be corrected up to 30 November after the year or the annual return date, whichever earlier."
+   ],
+   "analogy": "GSTR-1 tells buyers what you sold; it feeds their ITC.",
+   "work": "A monthly filer submits June GSTR-1 by 11 July."
+  },
+  {
+   "id": "c2",
+   "title": "GSTR-3B and the QRMP scheme",
+   "body": [
+    "Section 39: GSTR-3B is the summary return with self-assessed tax and payment, due by the 20th of the next month for monthly filers; QRMP filers (turnover up to ₹5 crore) file quarterly by the 22nd or 24th depending on State, paying tax monthly via PMT-06 by the 25th using fixed-sum or self-assessment methods.",
+    "A return is valid only if self-assessed tax is paid in full. Returns must be signed with DSC (mandatory for companies and LLPs), e-sign or EVC.",
+    "The Invoice Management System lets recipients accept, reject or keep pending invoices before GSTR-2B is generated, affecting ITC."
+   ],
+   "analogy": "GSTR-3B is where tax is actually paid.",
+   "work": "A Maharashtra QRMP filer files quarterly GSTR-3B by the 22nd."
+  },
+  {
+   "id": "c3",
+   "title": "Annual return, final return and other returns",
+   "body": [
+    "Section 44: annual return GSTR-9 by 31 December after the year; optional for taxpayers with turnover up to ₹2 crore; self-certified reconciliation statement GSTR-9C for turnover above ₹5 crore. Composition taxpayers file GSTR-4 annually by 30 April and pay quarterly via CMP-08 by the 18th.",
+    "Section 45: a final return GSTR-10 within three months of cancellation or the date of cancellation order, whichever later.",
+    "Other returns: GSTR-5 (non-resident taxable persons), GSTR-5A (OIDAR suppliers), GSTR-6 (ISD), GSTR-7 (TDS), GSTR-8 (TCS). Section 46 notices are issued to non-filers, and best judgement assessment can follow."
+   ],
+   "analogy": "Annual, final and special returns complete the cycle.",
+   "work": "A firm with ₹12 crore turnover files both GSTR-9 and GSTR-9C."
+  },
+  {
+   "id": "c4",
+   "title": "Late fee and time-bar",
+   "body": [
+    "Section 47: late fee for GSTR-1 and GSTR-3B is reduced by notification to ₹50 per day (₹20 per day for nil returns) with caps of ₹2,000 (turnover up to ₹1.5 crore), ₹5,000 (₹1.5–5 crore) and ₹10,000 (above ₹5 crore) — amounts total CGST and SGST.",
+    "GSTR-9 late fee: ₹50 per day up to ₹5 crore turnover and ₹100 per day for ₹5–20 crore, capped at 0.04% of State turnover; higher for larger taxpayers. GSTR-4: ₹50 per day capped at ₹2,000 (₹20 per day and ₹500 cap if nil). GSTR-7: ₹50 per day capped at ₹1,000.",
+    "Returns (GSTR-1, 3B, 4, 5, 5A, 6, 7, 8, 9) cannot be filed after three years from their due dates. Late fee may be waived in part or full by notification (section 128)."
+   ],
+   "analogy": "Late fees are per day with caps; returns time-bar after three years.",
+   "work": "A ₹3 crore trader filing GSTR-3B 120 days late pays a capped ₹5,000."
+  }
+ ],
+ "illustrations": [
+  {
+   "id": "i1",
+   "title": "Late fee on GSTR-3B",
+   "difficulty": "core",
+   "minutes": 6,
+   "q": "Neelam Traders (aggregate turnover ₹3 crore, tax payable not nil) files GSTR-3B for two months late by (a) 40 days and (b) 120 days. Compute total late fee (CGST + SGST).",
+   "solution": [
+    {
+     "t": "table",
+     "head": [
+      "Case",
+      "Working",
+      "₹"
+     ],
+     "rows": [
+      [
+       "(a)",
+       "₹50 per day × 40, cap ₹5,000",
+       "2,000"
+      ],
+      [
+       "(b)",
+       "₹50 per day × 120 = 6,000, capped",
+       "5,000"
+      ]
+     ],
+     "title": "Section 47 read with notifications"
+    }
+   ],
+   "checks": [
+    {
+     "expr": "min(50*40,5000)",
+     "value": 2000,
+     "label": "Late fee for 40 days, turnover ₹3 crore (₹)"
+    },
+    {
+     "expr": "min(50*120,5000)",
+     "value": 5000,
+     "label": "Late fee for 120 days, capped (₹)"
+    }
+   ]
+  },
+  {
+   "id": "i2",
+   "title": "Annual return obligations",
+   "difficulty": "moderate",
+   "minutes": 6,
+   "q": "For 2026-27: (a) Arya Ltd has turnover of ₹1.8 crore; (b) Bhaskar & Co has turnover of ₹4 crore and files GSTR-9 30 days late; (c) Chirag Ltd has turnover of ₹12 crore. State annual return obligations and compute Bhaskar's late fee.",
+   "solution": [
+    {
+     "t": "table",
+     "head": [
+      "Entity",
+      "Rule",
+      "Result"
+     ],
+     "rows": [
+      [
+       "Arya Ltd",
+       "GSTR-9 optional up to ₹2 crore",
+       "Optional"
+      ],
+      [
+       "Bhaskar & Co",
+       "₹50/day, cap 0.04% of turnover",
+       "₹1,500"
+      ],
+      [
+       "Chirag Ltd",
+       "GSTR-9 plus self-certified reconciliation GSTR-9C above ₹5 crore",
+       "Both required by 31 December 2027"
+      ]
+     ],
+     "title": "Section 44"
+    }
+   ],
+   "checks": [
+    {
+     "expr": "min(50*30,40000000*0.0004)",
+     "value": 1500,
+     "label": "Late fee for GSTR-9 delayed 30 days (₹)"
+    }
+   ]
+  }
+ ],
+ "jobs": [
+  {
+   "id": "j1",
+   "title": "Return calendar",
+   "role": "Compliance associate",
+   "situation": "A client with several registrations keeps missing due dates.",
+   "steps": [
+    "Map monthly and quarterly due dates.",
+    "Use IMS to manage supplier invoices.",
+    "Pay via PMT-06 for QRMP months.",
+    "Plan GSTR-9 and 9C by December."
+   ],
+   "takeaway": "A calendar avoids fees and blocked ITC for customers."
+  }
+ ],
+ "mcqs": [
+  {
+   "id": "m1",
+   "q": "GSTR-1 for monthly filers is due by:",
+   "options": [
+    "Eleventh of next month",
+    "Twentieth",
+    "Thirteenth",
+    "Tenth"
+   ],
+   "answer": 0,
+   "explain": "Section 37. In practice: QRMP 13th.",
+   "concept": "c1",
+   "topic": "Outward supply statements — GSTR-1 and IFF",
+   "difficulty": "core"
+  },
+  {
+   "id": "m2",
+   "q": "IFF is available to:",
+   "options": [
+    "QRMP taxpayers for the first two months",
+    "All taxpayers monthly",
+    "Composition dealers",
+    "Non-residents"
+   ],
+   "answer": 0,
+   "explain": "Optional B2B upload. In practice: 13th of next month.",
+   "concept": "c1",
+   "topic": "Outward supply statements — GSTR-1 and IFF",
+   "difficulty": "core"
+  },
+  {
+   "id": "m3",
+   "q": "QRMP scheme is available up to aggregate turnover of:",
+   "options": [
+    "Five crore rupees",
+    "Two crore rupees",
+    "One crore fifty lakh rupees",
+    "Ten crore rupees"
+   ],
+   "answer": 0,
+   "explain": "Rule 61A. In practice: monthly payment.",
+   "concept": "c2",
+   "topic": "GSTR-3B and the QRMP scheme",
+   "difficulty": "core"
+  },
+  {
+   "id": "m4",
+   "q": "GSTR-9 is optional for turnover up to:",
+   "options": [
+    "Two crore rupees",
+    "Five crore rupees",
+    "One crore rupees",
+    "Fifty lakh rupees"
+   ],
+   "answer": 0,
+   "explain": "Notification. In practice: 9C above ₹5 crore.",
+   "concept": "c3",
+   "topic": "Annual return, final return and other returns",
+   "difficulty": "core"
+  },
+  {
+   "id": "m5",
+   "q": "Final return GSTR-10 is due within:",
+   "options": [
+    "Three months of cancellation or order, whichever later",
+    "Thirty days",
+    "One year",
+    "Six months"
+   ],
+   "answer": 0,
+   "explain": "Section 45. In practice: tax on stock.",
+   "concept": "c3",
+   "topic": "Annual return, final return and other returns",
+   "difficulty": "core"
+  },
+  {
+   "id": "m6",
+   "q": "Composition taxpayers file their annual return GSTR-4 by:",
+   "options": [
+    "Thirtieth April",
+    "Thirty-first December",
+    "Eighteenth of each quarter",
+    "Thirtieth November"
+   ],
+   "answer": 0,
+   "explain": "Section 39(2). In practice: CMP-08 quarterly.",
+   "concept": "c3",
+   "topic": "Annual return, final return and other returns",
+   "difficulty": "core"
+  },
+  {
+   "id": "m7",
+   "q": "Late fee for a nil GSTR-3B is per day:",
+   "options": [
+    "Twenty rupees",
+    "Fifty rupees",
+    "One hundred rupees",
+    "Ten rupees"
+   ],
+   "answer": 0,
+   "explain": "Notification. In practice: capped ₹500.",
+   "concept": "c4",
+   "topic": "Late fee and time-bar",
+   "difficulty": "core"
+  },
+  {
+   "id": "m8",
+   "q": "Returns cannot be filed after how many years from the due date?",
+   "options": [
+    "Three",
+    "Two",
+    "Five",
+    "Six"
+   ],
+   "answer": 0,
+   "explain": "Time-bar. In practice: plan pending filings.",
+   "concept": "c4",
+   "topic": "Late fee and time-bar",
+   "difficulty": "core"
+  }
+ ],
+ "questions": [
+  {
+   "id": "q1",
+   "marks": 4,
+   "minutes": 7,
+   "difficulty": "core",
+   "pad": "table",
+   "q": "Neelam Traders (aggregate turnover ₹3 crore, tax payable not nil) files GSTR-3B for two months late by (a) 40 days and (b) 120 days. Compute total late fee (CGST + SGST).",
+   "model": [
+    {
+     "t": "table",
+     "head": [
+      "Case",
+      "Working",
+      "₹"
+     ],
+     "rows": [
+      [
+       "(a)",
+       "₹50 per day × 40, cap ₹5,000",
+       "2,000"
+      ],
+      [
+       "(b)",
+       "₹50 per day × 120 = 6,000, capped",
+       "5,000"
+      ]
+     ],
+     "title": "Section 47 read with notifications"
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "40-day case",
+     "m": 2,
+     "skill": "computation",
+     "kw": [
+      "per day"
+     ],
+     "min": 1,
+     "nums": [
+      2000
+     ]
+    },
+    {
+     "id": "s2",
+     "pt": "120-day case",
+     "m": 2,
+     "skill": "computation",
+     "kw": [
+      "cap"
+     ],
+     "min": 1,
+     "nums": [
+      5000
+     ]
+    }
+   ],
+   "remarks": [
+    "State cap slab."
+   ],
+   "mistakes": [
+    "Charging ₹200 per day."
+   ],
+   "tips": [
+    "Table."
+   ],
+   "extra_ok": true,
+   "checks": [
+    {
+     "expr": "min(50*40,5000)",
+     "value": 2000,
+     "label": "Late fee for 40 days, turnover ₹3 crore (₹)"
+    },
+    {
+     "expr": "min(50*120,5000)",
+     "value": 5000,
+     "label": "Late fee for 120 days, capped (₹)"
+    }
+   ]
+  },
+  {
+   "id": "q2",
+   "marks": 5,
+   "minutes": 9,
+   "difficulty": "core",
+   "pad": "table",
+   "q": "For 2026-27: (a) Arya Ltd has turnover of ₹1.8 crore; (b) Bhaskar & Co has turnover of ₹4 crore and files GSTR-9 30 days late; (c) Chirag Ltd has turnover of ₹12 crore. State annual return obligations and compute Bhaskar's late fee.",
+   "model": [
+    {
+     "t": "table",
+     "head": [
+      "Entity",
+      "Rule",
+      "Result"
+     ],
+     "rows": [
+      [
+       "Arya Ltd",
+       "GSTR-9 optional up to ₹2 crore",
+       "Optional"
+      ],
+      [
+       "Bhaskar & Co",
+       "₹50/day, cap 0.04% of turnover",
+       "₹1,500"
+      ],
+      [
+       "Chirag Ltd",
+       "GSTR-9 plus self-certified reconciliation GSTR-9C above ₹5 crore",
+       "Both required by 31 December 2027"
+      ]
+     ],
+     "title": "Section 44"
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "Obligations",
+     "m": 3,
+     "skill": "analysis",
+     "kw": [
+      "2 crore"
+     ],
+     "min": 1
+    },
+    {
+     "id": "s2",
+     "pt": "Late fee",
+     "m": 2,
+     "skill": "computation",
+     "kw": [
+      "0.04"
+     ],
+     "min": 1,
+     "nums": [
+      1500
+     ]
+    }
+   ],
+   "remarks": [
+    "Cite thresholds."
+   ],
+   "mistakes": [
+    "Treating GSTR-9C as audited."
+   ],
+   "tips": [
+    "Table."
+   ],
+   "extra_ok": true,
+   "checks": [
+    {
+     "expr": "min(50*30,40000000*0.0004)",
+     "value": 1500,
+     "label": "Late fee for GSTR-9 delayed 30 days (₹)"
+    }
+   ]
+  }
+ ],
+ "revision": {
+  "summary": [
+   "GSTR-1 11th/13th; IFF; GSTR-1A.",
+   "GSTR-3B 20th; QRMP 22nd/24th; PMT-06 25th.",
+   "GSTR-9 by 31 December; optional ≤ ₹2 crore; 9C > ₹5 crore.",
+   "GSTR-4 30 April; GSTR-10 within three months.",
+   "Late fee ₹50/₹20 per day with caps; three-year time-bar."
+  ],
+  "remember": [
+   "IMS shapes GSTR-2B."
+  ],
+  "traps": [
+   "Treating GSTR-9 as mandatory for small taxpayers."
+  ]
+ },
+ "quickref": [
+  {
+   "k": "GSTR-1",
+   "v": "Section 37"
+  },
+  {
+   "k": "GSTR-3B",
+   "v": "Section 39"
+  },
+  {
+   "k": "Annual return",
+   "v": "Section 44"
+  },
+  {
+   "k": "Final return",
+   "v": "Section 45"
+  },
+  {
+   "k": "Late fee",
+   "v": "Section 47"
+  }
+ ],
+ "viva": [
+  {
+   "id": "v1",
+   "q": "What is GSTR-1A?",
+   "model": "An optional form to amend or add outward supply details of a tax period before filing GSTR-3B for it.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Amend",
+     "w": 5,
+     "kw": [
+      "amend"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Before GSTR-3B",
+     "w": 5,
+     "kw": [
+      "before"
+     ]
+    }
+   ],
+   "concept": "c1"
+  },
+  {
+   "id": "v2",
+   "q": "When is a GSTR-3B a valid return?",
+   "model": "When the self-assessed tax shown in it has been paid in full.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Paid in full",
+     "w": 5,
+     "kw": [
+      "paid in full"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Self-assessed",
+     "w": 5,
+     "kw": [
+      "self-assessed"
+     ]
+    }
+   ],
+   "concept": "c2"
+  },
+  {
+   "id": "v3",
+   "q": "What does the Invoice Management System do?",
+   "model": "It lets recipients accept, reject or keep pending supplier invoices before GSTR-2B is generated.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Accept or reject",
+     "w": 5,
+     "kw": [
+      "accept"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "GSTR-2B",
+     "w": 5,
+     "kw": [
+      "2b"
+     ]
+    }
+   ],
+   "concept": "c2"
+  },
+  {
+   "id": "v4",
+   "q": "Who files GSTR-5A?",
+   "model": "Suppliers of OIDAR services from outside India to non-taxable online recipients.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "OIDAR",
+     "w": 5,
+     "kw": [
+      "oidar"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Non-taxable online recipients",
+     "w": 5,
+     "kw": [
+      "non-taxable"
+     ]
+    }
+   ],
+   "concept": "c3"
+  },
+  {
+   "id": "v5",
+   "q": "How long after the due date does a return become time-barred?",
+   "model": "Three years from its due date.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Three years",
+     "w": 5,
+     "kw": [
+      "three years"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Due date",
+     "w": 5,
+     "kw": [
+      "due date"
+     ]
+    }
+   ],
+   "concept": "c4"
+  }
+ ],
+ "cases": [
+  {
+   "id": "k1",
+   "title": "QRMP at Meera Garments",
+   "difficulty": "core",
+   "case": "Meera Garments (Karnataka, turnover ₹3.5 crore) opts for QRMP for the July–September 2026 quarter. Its July tax liability is ₹60,000.",
+   "mcqs": [
+    {
+     "id": "k1a",
+     "q": "Due date to pay July tax via PMT-06:",
+     "options": [
+      "25 August 2026",
+      "20 August 2026",
+      "22 October 2026",
+      "13 August 2026"
+     ],
+     "answer": 0,
+     "explain": "Monthly payment. In practice: fixed sum or self-assessment.",
+     "difficulty": "core",
+     "topic": "GSTR-3B and the QRMP scheme"
+    },
+    {
+     "id": "k1b",
+     "q": "Quarterly GSTR-1 due date:",
+     "options": [
+      "13 October 2026",
+      "11 October 2026",
+      "22 October 2026",
+      "20 October 2026"
+     ],
+     "answer": 0,
+     "explain": "QRMP. In practice: IFF for July and August.",
+     "difficulty": "core",
+     "topic": "Outward supply statements — GSTR-1 and IFF"
+    },
+    {
+     "id": "k1c",
+     "q": "Quarterly GSTR-3B due date for a Karnataka taxpayer:",
+     "options": [
+      "22 October 2026",
+      "24 October 2026",
+      "20 October 2026",
+      "25 October 2026"
+     ],
+     "answer": 0,
+     "explain": "Category of States. In practice: check notification.",
+     "difficulty": "core",
+     "topic": "GSTR-3B and the QRMP scheme"
+    },
+    {
+     "id": "k1d",
+     "q": "Amount payable for July (₹):",
+     "options": [
+      "60,000",
+      "20,000",
+      "1,80,000",
+      "Nil"
+     ],
+     "answer": 0,
+     "explain": "Self-assessed liability. In practice: interest if late.",
+     "difficulty": "core",
+     "check": 60000,
+     "topic": "GSTR-3B and the QRMP scheme"
+    }
+   ]
+  }
+ ]
+}
