@@ -19,9 +19,9 @@ var SV_LEGAL = {
   goPhone: '[OWNER TO FILL: phone number]',
   hours: 'Monday to Saturday, 10 am to 6 pm IST (not on public holidays)',
   gstin: '[OWNER TO FILL: GSTIN, or write "Not registered for GST"]',
-  version: '2.1',                               // policy set version: change it with legal/changes.html
-  effective: '12 November 2026',
-  effectiveISO: '2026-11-12'
+  version: '2.2',                               // policy set version: change it with legal/changes.html
+  effective: '13 November 2026',
+  effectiveISO: '2026-11-13'
 };
 
 (function () {

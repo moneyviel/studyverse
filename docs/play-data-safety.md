@@ -91,6 +91,12 @@ Text for the "Instructions" box:
 * **Android manifest (TWA build):** make sure the generated app has **no** `com.google.android.gms.permission.AD_ID`
   permission (Bubblewrap does not add it; if any library adds it, remove it with `tools:node="remove"`), and in
   Play Console → App content → **Advertising ID** answer **No**.
+* **📳 Phone reminders (added 13 Nov 2026):** in the Bubblewrap/TWA config set `"enableNotifications": true`
+  (notification delegation) so the app asks for Android 13+'s notification permission and shows web-push reminders.
+  Data safety: the push address is **App info and performance → Other**/**Device or other IDs**, collected,
+  not shared (the push service only delivers it, encrypted), purpose **App functionality**, **optional** (off until the
+  student switches it on), deletable (switch off = deleted at once). Families policy: reminders are study-only,
+  max one a day, never at night or school hours, parent can switch off (Parent Hub → Controls), no ads or offers.
 
 ---
 

@@ -11,7 +11,7 @@
     ['#rwMe', 11], ['.me-badges', 12], ['.in-badge', 13], ['.gk-mecard', 14], ['.in-hw', 15],
     ['#meGrade', 21], ['#meStreamC', 22],
     ['#svCloud', 31], ['#svCode', 32], ['.pv-me', 33], ['.in-me', 34],
-    ['#cxSet', 41], ['#meSound', 42], ['#caPhUse', 43],
+    ['#cxSet', 41], ['#meSound', 42], ['#svPush', 43], ['#caPhUse', 44],
     ['#lgCard', 51],
     ['.in-own', 61], ['#svCodes', 62], ['.od-me', 63], ['#caOwner', 64],
     ['#meResetC', 56], ['#meOut', 57]];

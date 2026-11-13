@@ -5,7 +5,7 @@
       school Me and CA Profile) and in Parent Hub → Your account (added here). Calls /functions/v1/delete-account, then
       clears this phone and reloads.
    2. 🛡️ Parent controls (Families) — Parent Hub child page gets a "Controls" card (PlayReady.hubCard, called by
-      js/parent.js next to Squad.hubCard): 👫 Friends & cheers · 🎮 Live game rooms · 🔔 Friend news. Saved with
+      js/parent.js next to Squad.hubCard): 👫 Friends & cheers · 🎮 Live game rooms · 🔔 Friend news · 📳 Phone reminders (js/notify.js). Saved with
       rpc set_child_social; the SERVER enforces them (squad / room RPCs refuse). The child's app reads rpc my_social
       (cached in sv_social) and shows a kind "Your parent has turned this off" card instead of Game Rooms; js/squad.js
       uses the flags that squad_home returns.
@@ -21,7 +21,7 @@
 (function () {
   'use strict';
   const D = document, LS = localStorage;
-  const LEGAL_V = '2.0';                    // last version that needs acceptance — KEEP IN SYNC with studyverse.legal_settings (legal 2.1 of 12 Nov 2026 was a minor update: no re-acceptance)
+  const LEGAL_V = '2.0';                    // last version that needs acceptance — KEEP IN SYNC with studyverse.legal_settings (legal 2.1 of 12 Nov and 2.2 of 13 Nov 2026 were minor updates: no re-acceptance)
   const C = () => window.Cloud || null;
   const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   const say = m => { try { toast(m); } catch (e) {} };
@@ -143,7 +143,8 @@
   /* ================= 2. parent controls ================= */
   const SW = [['friends', '👫', 'Friends & cheers', 'Add friends with a code, the friends league and cheers.'],
               ['rooms', '🎮', 'Live game rooms', 'Play live quiz races and puzzles with friends.'],
-              ['news', '🔔', 'Friend news', 'Small updates like “Riya beat your puzzle time”.']];
+              ['news', '🔔', 'Friend news', 'Small updates like “Riya beat your puzzle time”.'],
+              ['push', '📳', 'Phone reminders', 'At most one study reminder a day, around 5:30 pm — never at night or in school hours.']];
   async function hubCard(body, k, A) {
     if (!body || !k || !k.child_id || !signedIn()) return;
     style();
@@ -175,12 +176,12 @@
 
   /* child side: what the parent allows (cached; the server enforces it anyway) */
   const SK = 'sv_social';
-  function social() { const c = jget(SK, null); return c && c.uid === myId() ? c : { friends: true, rooms: true, news: true }; }
+  function social() { const c = jget(SK, null); return c && c.uid === myId() ? c : { friends: true, rooms: true, news: true, push: true }; }
   let pulling = null;
   function pullSocial() {
     if (!signedIn() || isParent()) return Promise.resolve(null);
     if (pulling) return pulling;
-    pulling = (async () => { try { const r = await rpc('my_social'); if (r && r.ok) jset(SK, { uid: myId(), friends: r.friends !== false, rooms: r.rooms !== false, news: r.news !== false, at: Date.now() }); return r; }
+    pulling = (async () => { try { const r = await rpc('my_social'); if (r && r.ok) jset(SK, { uid: myId(), friends: r.friends !== false, rooms: r.rooms !== false, news: r.news !== false, push: r.push !== false, at: Date.now() }); return r; }
       catch (e) { return null; } finally { pulling = null; } })();
     return pulling;
   }

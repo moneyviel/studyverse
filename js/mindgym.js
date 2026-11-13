@@ -364,6 +364,7 @@
     const shutBefore = TESTS.some(t => { const n = (COUNTS[t.id] || {})[qBand(t.id, band())] || 0; return START + PER * Math.floor(before / STEP) < n; });
     if (opened && shutBefore) nudge(`🔓 <b>New Mind Gym challenges unlocked!</b> Fresh puzzles and questions are waiting.`, 'Play now', () => open());
     else if (u && u.need === 1) nudge(`🎯 Just <b>1 more ${isCA() ? 'unit' : 'topic'}</b> to unlock ${u.gets} new Mind Gym challenges!`, null, null);
+    try { if (window.Notify) Notify.afterTopic(u ? u.need : null); } catch (e) {}   // 📳 phone reminders: offer them / refresh the hint (js/notify.js)
     const t = D.getElementById('mgTile'); if (t) { const sm = t.querySelector('small'); if (sm) sm.innerHTML = tileSub(); }
   }
   function nudge(html, btn, go) {
@@ -452,5 +453,5 @@
     m.total[test] = (m.total[test] || 0) + 1;
     const K = m.kinds[test] = m.kinds[test] || {}; K[kind] = K[kind] || [0, 0]; K[kind][1]++; if (ok) K[kind][0]++; persist();
   }
-  window.MindGym = { open, card, mindMap, iqMenu, eqMenu, suiteMenu, round, record, state: M, get TESTS() { return TESTS; }, parent: on => { setParent(on); }, isParent: () => PARENT, _pool: pool, _open: openCount, _skillOf: skillOf, _wk: wk, _steps: steps, _band: band, _owner: isOwner, _isCA: isCA, _screen: screen, _show: () => { style(); show('mind', 'practice'); } };
+  window.MindGym = { open, card, mindMap, iqMenu, eqMenu, suiteMenu, round, record, state: M, get TESTS() { return TESTS; }, parent: on => { setParent(on); }, isParent: () => PARENT, _pool: pool, _open: openCount, _skillOf: skillOf, _wk: wk, _steps: steps, need: () => { const u = unlockInfo(); return u ? u.need : null; }, _band: band, _owner: isOwner, _isCA: isCA, _screen: screen, _show: () => { style(); show('mind', 'practice'); } };
 })();
