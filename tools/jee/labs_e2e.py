@@ -396,6 +396,11 @@ async def _(pg):
     await tap(pg, '#snS button', 3); await tap(pg, '#snN button', 0)    # 3°, weak Nu, protic → SN1
     await tap(pg, '#snN button', 2)                                     # 3° + base → E
 
+@lab('chem-u17', 'carbtest')
+async def _(pg):
+    for c in (2, 3, 6, 10, 9):                                   # benzaldehyde, acetone, ethanol, formic acid, phenol
+        await tap(pg, '#ctC button', c); await tap(pg, '#ctT button', 6)   # run all
+
 async def main(only=None):
     async with async_playwright() as pw:
         b = await pw.chromium.launch(executable_path='/usr/bin/google-chrome', args=['--no-sandbox'])
