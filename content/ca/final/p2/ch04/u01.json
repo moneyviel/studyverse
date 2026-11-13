@@ -1,0 +1,735 @@
+{
+ "schema": "ca-unit/1",
+ "id": "fin-p2-ch04-u01",
+ "level": "final",
+ "paper": "p2",
+ "chapter": "fin-p2-ch04",
+ "n": 1,
+ "title": "Security Analysis",
+ "outcomes": [
+  "Apply fundamental analysis from economy to company.",
+  "Explain technical analysis theories and chart patterns.",
+  "Compute and interpret moving averages and market indicators.",
+  "Explain and test the efficient market hypothesis."
+ ],
+ "meta": {
+  "difficulty": "core",
+  "minutes": {
+   "learn": 35,
+   "practice": 25
+  },
+  "prereq": [
+   "fin-p2-ch03-u01"
+  ],
+  "exam_tip": "Theory questions favour EMH forms and Dow/Elliott theories; sums favour intrinsic value and moving averages."
+ },
+ "concepts": [
+  {
+   "id": "c1",
+   "title": "Fundamental analysis: economy, industry, company",
+   "body": [
+    "Fundamental analysis estimates a share's intrinsic value from economic, industry and company factors, and compares it with market price: buy if undervalued, sell if overvalued. The dividend growth model links value to the P/E: P₀ = payout × E₁ ÷ (k − g).",
+    "Economic analysis studies GDP growth, inflation, interest rates, fiscal and monetary policy, exchange rates, savings and investment, and uses tools such as anchoring, econometric models and leading indicators. Industry analysis looks at the life cycle (pioneer, expansion, stagnation, decline), demand-supply, competition (Porter's forces), regulation and cost structure.",
+    "Company analysis examines financial statements and ratios, earnings quality, management, competitive position, capital structure and growth prospects, and forecasts earnings and dividends."
+   ],
+   "analogy": "Top-down: economy → industry → company → value.",
+   "work": "A strong company in a declining industry may still disappoint."
+  },
+  {
+   "id": "c2",
+   "title": "Technical analysis: theories and charts",
+   "body": [
+    "Technical analysis studies past prices and volumes to predict future movements. It assumes market value is set by supply and demand, prices move in trends that persist, trend changes are caused by shifts in supply and demand, and patterns tend to repeat.",
+    "Theories: Dow Theory — primary (long), secondary (intermediate) and daily movements, with trends confirmed by averages; Elliott Wave Theory — markets move in five-wave advances and three-wave corrections; Random Walk Theory — price changes are independent, challenging technical analysis.",
+    "Charts: line, bar, candlestick and point-and-figure charts; patterns like head and shoulders, double tops and bottoms, triangles; support (where buying stops falls) and resistance (where selling stops rises)."
+   ],
+   "analogy": "Technicians read the crowd's behaviour in price and volume.",
+   "work": "A break above a resistance level on high volume is read as bullish."
+  },
+  {
+   "id": "c3",
+   "title": "Moving averages and market indicators",
+   "body": [
+    "Moving averages smooth price data to show trends. Arithmetic moving average gives equal weight to the last n prices; exponential moving average gives more weight to recent prices: EMA today = α × price + (1 − α) × previous EMA.",
+    "Signals: a price rising through a flattening or rising average is a buy signal; falling through a flattening or falling average is a sell signal. Long (200-day), intermediate (60-day) and short (10-day) averages identify different trends.",
+    "Market indicators: breadth (advances vs declines), volume, short interest, and confidence indices help judge market strength. Technical analysis can be self-fulfilling but is subjective and often late."
+   ],
+   "analogy": "Averages smooth noise so trends show.",
+   "work": "A short average crossing above a long average is a common buy signal."
+  },
+  {
+   "id": "c4",
+   "title": "Efficient market hypothesis",
+   "body": [
+    "The efficient market hypothesis (EMH) says prices fully reflect available information, so investors cannot consistently earn abnormal returns. It does not mean prices are always right, that no one ever beats the market, or that analysis is useless — competition among analysts is what makes markets efficient.",
+    "Weak form: prices reflect all past price and volume data (technical analysis cannot beat the market) — tested by serial correlation, runs and filter tests. Semi-strong form: prices reflect all public information (fundamental analysis of public data cannot beat it) — tested by event studies. Strong form: prices reflect all information including private — tested by insider and fund manager performance.",
+    "Challenges: market anomalies (calendar effects, size effects, momentum), behavioural biases, bubbles and information asymmetry. Equity research uses tools like DCF, relative valuation, ratio screens and data analytics."
+   ],
+   "analogy": "The more efficient the market, the harder it is to beat.",
+   "work": "Prices jumping instantly on an earnings announcement support semi-strong efficiency."
+  }
+ ],
+ "illustrations": [
+  {
+   "id": "i1",
+   "title": "Intrinsic value and P/E",
+   "difficulty": "core",
+   "minutes": 7,
+   "q": "Expected EPS of Cobalt Ltd. next year is ₹10; it pays out 40% as dividends; required return 14%; long-term growth 9%. The share trades at ₹95. Compute intrinsic value and justified P/E, and give the analyst's call.",
+   "solution": [
+    {
+     "t": "table",
+     "head": [
+      "Step",
+      "Working",
+      "Result"
+     ],
+     "rows": [
+      [
+       "Next dividend",
+       "10 × 40%",
+       "₹4"
+      ],
+      [
+       "Intrinsic value",
+       "4 ÷ (0.14 − 0.09)",
+       "₹80"
+      ],
+      [
+       "Justified P/E",
+       "80 ÷ 10",
+       "8"
+      ],
+      [
+       "Market price",
+       "₹95 > ₹80",
+       "Overvalued — sell or avoid"
+      ]
+     ],
+     "title": "P₀ = payout × E₁ ÷ (k − g)"
+    }
+   ],
+   "checks": [
+    {
+     "expr": "10*0.4/(0.14-0.09)",
+     "value": 80,
+     "label": "Intrinsic value per share (₹)"
+    },
+    {
+     "expr": "10*0.4/(0.14-0.09)/10",
+     "value": 8,
+     "label": "Justified P/E on next year earnings"
+    }
+   ]
+  },
+  {
+   "id": "i2",
+   "title": "Moving averages",
+   "difficulty": "core",
+   "minutes": 6,
+   "q": "Closing prices of a share over five days: ₹52, 54, 53, 55, 56. Compute the 5-day arithmetic moving average. If the EMA up to day 4 was ₹53 and the smoothing factor is 0.2, compute the day-5 EMA. Interpret if the price is above both averages.",
+   "solution": [
+    {
+     "t": "table",
+     "head": [
+      "Measure",
+      "Working",
+      "₹"
+     ],
+     "rows": [
+      [
+       "5-day AMA",
+       "(52 + 54 + 53 + 55 + 56) ÷ 5",
+       "54"
+      ],
+      [
+       "Day-5 EMA",
+       "0.2 × 56 + 0.8 × 53",
+       "53.6"
+      ],
+      [
+       "Interpretation",
+       "Price above rising averages",
+       "Bullish short-term signal"
+      ]
+     ],
+     "title": "Moving averages"
+    }
+   ],
+   "checks": [
+    {
+     "expr": "(52+54+53+55+56)/5",
+     "value": 54,
+     "label": "5-day arithmetic moving average (₹)"
+    },
+    {
+     "expr": "0.2*56+0.8*53",
+     "value": 53.6,
+     "label": "Exponential moving average for day 5 (₹)"
+    }
+   ]
+  }
+ ],
+ "jobs": [
+  {
+   "id": "j1",
+   "title": "Initiating coverage on a stock",
+   "role": "Equity research analyst",
+   "situation": "You must issue a buy/hold/sell call on a mid-cap cement company.",
+   "steps": [
+    "Assess economic outlook and infrastructure spending.",
+    "Analyse the cement industry cycle and capacity.",
+    "Forecast company earnings and value the share.",
+    "Cross-check timing with technical indicators."
+   ],
+   "takeaway": "Fundamentals give the value; technicals help with timing."
+  }
+ ],
+ "mcqs": [
+  {
+   "id": "m1",
+   "q": "Fundamental analysis follows the order:",
+   "options": [
+    "Economy, industry, company",
+    "Company, industry, economy",
+    "Charts, volume, price",
+    "Industry only"
+   ],
+   "answer": 0,
+   "explain": "Top-down approach. In practice: concentric circles.",
+   "concept": "c1",
+   "topic": "Fundamental analysis: economy, industry, company",
+   "difficulty": "core"
+  },
+  {
+   "id": "m2",
+   "q": "Elliott Wave Theory suggests markets advance in:",
+   "options": [
+    "Five waves and correct in three",
+    "Two waves",
+    "Random steps",
+    "Ten waves"
+   ],
+   "answer": 0,
+   "explain": "Wave counting. In practice: subjective labelling.",
+   "concept": "c2",
+   "topic": "Technical analysis: theories and charts",
+   "difficulty": "core"
+  },
+  {
+   "id": "m3",
+   "q": "The weak form of EMH implies:",
+   "options": [
+    "Technical analysis cannot earn abnormal returns",
+    "Insiders cannot profit",
+    "Fundamental analysis cannot work",
+    "Prices are random always"
+   ],
+   "answer": 0,
+   "explain": "Past prices are reflected. In practice: tested by runs tests.",
+   "concept": "c4",
+   "topic": "Efficient market hypothesis",
+   "difficulty": "core"
+  },
+  {
+   "id": "m4",
+   "q": "An exponential moving average gives:",
+   "options": [
+    "More weight to recent prices",
+    "Equal weights",
+    "More weight to old prices",
+    "No weights"
+   ],
+   "answer": 0,
+   "explain": "Reacts faster to change. In practice: smoothing factor.",
+   "concept": "c3",
+   "topic": "Moving averages and market indicators",
+   "difficulty": "core"
+  },
+  {
+   "id": "m5",
+   "q": "Event studies test:",
+   "options": [
+    "Semi-strong form efficiency",
+    "Weak form",
+    "Strong form",
+    "Dow theory"
+   ],
+   "answer": 0,
+   "explain": "Reaction to public announcements. In practice: abnormal returns around events.",
+   "concept": "c4",
+   "topic": "Efficient market hypothesis",
+   "difficulty": "core"
+  },
+  {
+   "id": "m6",
+   "q": "Support level is where:",
+   "options": [
+    "Falling prices tend to stop due to buying",
+    "Rising prices stop",
+    "Volume is zero",
+    "Earnings peak"
+   ],
+   "answer": 0,
+   "explain": "Demand absorbs supply. In practice: resistance is the opposite.",
+   "concept": "c2",
+   "topic": "Technical analysis: theories and charts",
+   "difficulty": "core"
+  },
+  {
+   "id": "m7",
+   "q": "If the market price exceeds intrinsic value, a fundamental analyst recommends:",
+   "options": [
+    "Selling",
+    "Buying",
+    "Holding forever",
+    "Short-term trading only"
+   ],
+   "answer": 0,
+   "explain": "Overvalued. In practice: target price below market.",
+   "concept": "c1",
+   "topic": "Fundamental analysis: economy, industry, company",
+   "difficulty": "core"
+  },
+  {
+   "id": "m8",
+   "q": "Insider trading profits are evidence against:",
+   "options": [
+    "Strong form efficiency",
+    "Weak form",
+    "Dow theory",
+    "Random walk"
+   ],
+   "answer": 0,
+   "explain": "Private information has value. In practice: regulators ban it.",
+   "concept": "c4",
+   "topic": "Efficient market hypothesis",
+   "difficulty": "core"
+  }
+ ],
+ "questions": [
+  {
+   "id": "q1",
+   "marks": 5,
+   "minutes": 9,
+   "difficulty": "core",
+   "pad": "table",
+   "q": "Expected EPS of Cobalt Ltd. next year is ₹10; it pays out 40% as dividends; required return 14%; long-term growth 9%. The share trades at ₹95. Compute intrinsic value and justified P/E, and give the analyst's call.",
+   "model": [
+    {
+     "t": "table",
+     "head": [
+      "Step",
+      "Working",
+      "Result"
+     ],
+     "rows": [
+      [
+       "Next dividend",
+       "10 × 40%",
+       "₹4"
+      ],
+      [
+       "Intrinsic value",
+       "4 ÷ (0.14 − 0.09)",
+       "₹80"
+      ],
+      [
+       "Justified P/E",
+       "80 ÷ 10",
+       "8"
+      ],
+      [
+       "Market price",
+       "₹95 > ₹80",
+       "Overvalued — sell or avoid"
+      ]
+     ],
+     "title": "P₀ = payout × E₁ ÷ (k − g)"
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "Dividend",
+     "m": 1,
+     "skill": "computation",
+     "kw": [
+      "dividend"
+     ],
+     "min": 1,
+     "nums": [
+      4
+     ]
+    },
+    {
+     "id": "s2",
+     "pt": "Value",
+     "m": 2,
+     "skill": "computation",
+     "kw": [
+      "intrinsic"
+     ],
+     "min": 1,
+     "nums": [
+      80
+     ]
+    },
+    {
+     "id": "s3",
+     "pt": "P/E and call",
+     "m": 2,
+     "skill": "computation",
+     "kw": [
+      "p/e|overvalued"
+     ],
+     "min": 1,
+     "nums": [
+      8
+     ]
+    }
+   ],
+   "remarks": [
+    "Give the call."
+   ],
+   "mistakes": [
+    "Using EPS instead of dividend."
+   ],
+   "tips": [
+    "Table."
+   ],
+   "extra_ok": true,
+   "checks": [
+    {
+     "expr": "10*0.4/(0.14-0.09)",
+     "value": 80,
+     "label": "Intrinsic value per share (₹)"
+    },
+    {
+     "expr": "10*0.4/(0.14-0.09)/10",
+     "value": 8,
+     "label": "Justified P/E on next year earnings"
+    }
+   ]
+  },
+  {
+   "id": "q2",
+   "marks": 4,
+   "minutes": 7,
+   "difficulty": "core",
+   "pad": "table",
+   "q": "Closing prices of a share over five days: ₹52, 54, 53, 55, 56. Compute the 5-day arithmetic moving average. If the EMA up to day 4 was ₹53 and the smoothing factor is 0.2, compute the day-5 EMA. Interpret if the price is above both averages.",
+   "model": [
+    {
+     "t": "table",
+     "head": [
+      "Measure",
+      "Working",
+      "₹"
+     ],
+     "rows": [
+      [
+       "5-day AMA",
+       "(52 + 54 + 53 + 55 + 56) ÷ 5",
+       "54"
+      ],
+      [
+       "Day-5 EMA",
+       "0.2 × 56 + 0.8 × 53",
+       "53.6"
+      ],
+      [
+       "Interpretation",
+       "Price above rising averages",
+       "Bullish short-term signal"
+      ]
+     ],
+     "title": "Moving averages"
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "AMA",
+     "m": 1.5,
+     "skill": "computation",
+     "kw": [
+      "ama"
+     ],
+     "min": 1,
+     "nums": [
+      54
+     ]
+    },
+    {
+     "id": "s2",
+     "pt": "EMA",
+     "m": 1.5,
+     "skill": "computation",
+     "kw": [
+      "ema"
+     ],
+     "min": 1,
+     "nums": [
+      53.6
+     ]
+    },
+    {
+     "id": "s3",
+     "pt": "Signal",
+     "m": 1,
+     "skill": "concept",
+     "kw": [
+      "bullish|buy"
+     ],
+     "min": 1
+    }
+   ],
+   "remarks": [
+    "Interpret."
+   ],
+   "mistakes": [
+    "Weighting EMA wrongly."
+   ],
+   "tips": [
+    "Table."
+   ],
+   "extra_ok": true,
+   "checks": [
+    {
+     "expr": "(52+54+53+55+56)/5",
+     "value": 54,
+     "label": "5-day arithmetic moving average (₹)"
+    },
+    {
+     "expr": "0.2*56+0.8*53",
+     "value": 53.6,
+     "label": "Exponential moving average for day 5 (₹)"
+    }
+   ]
+  }
+ ],
+ "revision": {
+  "summary": [
+   "Fundamental: economy → industry → company → value.",
+   "P₀ = payout × E₁ ÷ (k − g).",
+   "Technical: trends, patterns, support and resistance.",
+   "AMA equal weights; EMA recent weights.",
+   "EMH: weak, semi-strong, strong."
+  ],
+  "remember": [
+   "Efficiency comes from competing analysts."
+  ],
+  "traps": [
+   "Using EPS instead of dividend in the growth model."
+  ]
+ },
+ "quickref": [
+  {
+   "k": "Weak form",
+   "v": "Past prices"
+  },
+  {
+   "k": "Semi-strong",
+   "v": "Public info"
+  },
+  {
+   "k": "Strong",
+   "v": "All info"
+  },
+  {
+   "k": "EMA",
+   "v": "αP + (1−α)EMA₋₁"
+  }
+ ],
+ "viva": [
+  {
+   "id": "v1",
+   "q": "What is fundamental analysis?",
+   "model": "Estimating a security's intrinsic value from economic, industry and company factors and comparing it with its market price.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Intrinsic value",
+     "w": 5,
+     "kw": [
+      "intrinsic"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Economy, industry, company",
+     "w": 5,
+     "kw": [
+      "economic|industry|company"
+     ]
+    }
+   ],
+   "concept": "c1"
+  },
+  {
+   "id": "v2",
+   "q": "State the assumptions of technical analysis.",
+   "model": "Prices are set by supply and demand, move in persistent trends, change with shifts in supply and demand, and patterns repeat.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Supply and demand",
+     "w": 5,
+     "kw": [
+      "supply"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Trends and patterns",
+     "w": 5,
+     "kw": [
+      "trend|pattern"
+     ]
+    }
+   ],
+   "concept": "c2"
+  },
+  {
+   "id": "v3",
+   "q": "Explain the three forms of market efficiency.",
+   "model": "Weak form reflects past prices, semi-strong reflects all public information, and strong form reflects all information including private.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Weak and semi-strong",
+     "w": 5,
+     "kw": [
+      "weak|semi-strong"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Strong form",
+     "w": 5,
+     "kw": [
+      "strong"
+     ]
+    }
+   ],
+   "concept": "c4"
+  },
+  {
+   "id": "v4",
+   "q": "What is the Dow Theory?",
+   "model": "Markets have primary, secondary and daily movements; the primary trend is confirmed when industrial and transport averages move together.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Primary and secondary",
+     "w": 5,
+     "kw": [
+      "primary|secondary"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Confirmation",
+     "w": 5,
+     "kw": [
+      "confirm"
+     ]
+    }
+   ],
+   "concept": "c2"
+  },
+  {
+   "id": "v5",
+   "q": "How does an EMA differ from an AMA?",
+   "model": "An EMA weights recent prices more heavily, while an AMA weights all prices equally.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Recent weight",
+     "w": 5,
+     "kw": [
+      "recent"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Equal weights",
+     "w": 5,
+     "kw": [
+      "equal"
+     ]
+    }
+   ],
+   "concept": "c3"
+  }
+ ],
+ "cases": [
+  {
+   "id": "k1",
+   "title": "Delta Cement Ltd.",
+   "difficulty": "moderate",
+   "case": "Delta Cement Ltd. has expected EPS of ₹20, payout 50%, required return 12% and growth 7%. Its share trades at ₹180 and has just broken above a resistance level of ₹175 on high volume. A study finds Delta's price adjusts within minutes of public earnings announcements.",
+   "mcqs": [
+    {
+     "id": "k1a",
+     "q": "Intrinsic value (₹):",
+     "options": [
+      "200",
+      "180",
+      "400",
+      "143"
+     ],
+     "answer": 0,
+     "explain": "10 ÷ (0.12 − 0.07). In practice: compare with ₹180.",
+     "difficulty": "core",
+     "check": 200,
+     "topic": "Fundamental analysis: economy, industry, company"
+    },
+    {
+     "id": "k1b",
+     "q": "Justified P/E:",
+     "options": [
+      "10",
+      "9",
+      "20",
+      "5"
+     ],
+     "answer": 0,
+     "explain": "200 ÷ 20. In practice: market P/E is 9.",
+     "difficulty": "core",
+     "check": 10,
+     "topic": "Fundamental analysis: economy, industry, company"
+    },
+    {
+     "id": "k1c",
+     "q": "The resistance breakout on high volume is read as:",
+     "options": [
+      "Bullish",
+      "Bearish",
+      "Neutral",
+      "A reversal down"
+     ],
+     "answer": 0,
+     "explain": "Buyers overcame sellers. In practice: old resistance may become support.",
+     "difficulty": "core",
+     "topic": "Technical analysis: theories and charts"
+    },
+    {
+     "id": "k1d",
+     "q": "Rapid price adjustment to earnings news supports:",
+     "options": [
+      "Semi-strong form efficiency",
+      "Strong form only",
+      "Weak form failure",
+      "Elliott waves"
+     ],
+     "answer": 0,
+     "explain": "Public information is quickly reflected. In practice: event study evidence.",
+     "difficulty": "core",
+     "topic": "Efficient market hypothesis"
+    }
+   ]
+  }
+ ]
+}
