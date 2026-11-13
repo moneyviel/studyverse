@@ -1,0 +1,710 @@
+{
+ "schema": "ca-unit/1",
+ "id": "fin-p2-ch07-u01",
+ "level": "final",
+ "paper": "p2",
+ "chapter": "fin-p2-ch07",
+ "n": 1,
+ "title": "Securitization",
+ "outcomes": [
+  "Explain securitization, its benefits and participants.",
+  "Describe the mechanism and credit enhancement.",
+  "Distinguish instruments, price them and identify risks.",
+  "Discuss problems, tokenization and the Indian framework."
+ ],
+ "meta": {
+  "difficulty": "core",
+  "minutes": {
+   "learn": 25,
+   "practice": 15
+  },
+  "prereq": [
+   "fin-p2-ch06-u01"
+  ],
+  "exam_tip": "Use the participants and mechanism lists to structure theory answers."
+ },
+ "concepts": [
+  {
+   "id": "c1",
+   "title": "Concept, benefits and participants",
+   "body": [
+    "Securitization converts illiquid assets with predictable cash flows (loans, receivables, rentals) into marketable securities. The originator sells the pool to a special purpose vehicle (SPV), which issues securities to investors backed by the pool's cash flows.",
+    "Benefits to originators: off-balance sheet funding, better liquidity, lower funding cost via credit enhancement, risk transfer, improved capital ratios and specialised focus on origination. Benefits to investors: diversified, rated, often higher-yield instruments, matched maturities.",
+    "Primary participants: originator, SPV, investors. Secondary participants: obligors (borrowers), rating agencies, servicers (collect payments), receiving and paying agents, credit enhancers, structurers and trustees."
+   ],
+   "analogy": "Turn a pile of loans into tradable paper.",
+   "work": "A housing finance company securitises home loans to raise fresh funds."
+  },
+  {
+   "id": "c2",
+   "title": "Mechanism of securitization",
+   "body": [
+    "Steps: create a homogeneous pool of assets with similar features; transfer them to the SPV through a true sale (so they are bankruptcy-remote from the originator); the SPV issues and sells securities; a servicer (often the originator) administers the assets and collects cash; recourse to the originator is limited to agreed credit enhancement; investors are repaid from collections.",
+    "Credit rating of the instruments depends on pool quality and credit enhancement (subordination, over-collateralisation, cash collateral, excess spread, guarantees).",
+    "Tranching creates senior and subordinated classes so losses hit junior holders first."
+   ],
+   "analogy": "Pool, sell, issue, service, repay — with credit support in between.",
+   "work": "A 15% subordinated tranche protects seniors from the first 15% of losses."
+  },
+  {
+   "id": "c3",
+   "title": "Instruments, pricing and risks",
+   "body": [
+    "Pass-through certificates (PTCs): investors receive pool cash flows as collected, including prepayments — reinvestment and prepayment risk sits with investors. Pay-through securities: the SPV restructures cash flows into bonds with different maturities, allowing tranches. Stripped securities separate interest-only (IO) and principal-only (PO) flows.",
+    "Pricing: originators consider the cost versus other funding; investors value the expected cash flows (after prepayment and default assumptions) at a required yield, often referenced to benchmark yields plus a spread.",
+    "Risks: credit or counterparty risk (borrower defaults, servicer failure), legal risk (true sale challenged), market risk — interest rate, prepayment, reinvestment and liquidity risks."
+   ],
+   "analogy": "Who bears prepayment and default risk depends on the structure.",
+   "work": "Falling rates trigger prepayments, hurting PTC holders who must reinvest lower."
+  },
+  {
+   "id": "c4",
+   "title": "Problems, tokenization and the Indian framework",
+   "body": [
+    "Problems in India have included stamp duty on transfer of receivables, tax uncertainty on SPV income, accounting treatment (derecognition under Ind AS 109), lack of standardisation, a shallow debt market and slow foreclosure laws.",
+    "Tokenization represents real-world assets (property, bonds, receivables) as digital tokens on a blockchain, enabling fractional ownership, faster settlement and wider access; it overlaps with securitization but adds technology and new risks (regulation, cyber security, smart contract errors).",
+    "India's framework includes the SARFAESI Act, RBI directions on securitisation of standard assets (minimum holding and retention requirements), and SEBI regulations on listing of securitised debt instruments."
+   ],
+   "analogy": "Regulation and technology are reshaping securitization.",
+   "work": "RBI rules require originators to retain part of the risk."
+  }
+ ],
+ "illustrations": [
+  {
+   "id": "i1",
+   "title": "Excess spread and tranching",
+   "difficulty": "moderate",
+   "minutes": 8,
+   "q": "Swift Finance pools ₹100 crore of vehicle loans yielding 12% and sells them to an SPV. The SPV issues senior PTCs of ₹85 crore and a subordinated tranche of ₹15 crore (retained by Swift). Investors receive 9%; servicing costs 1%. Compute the annual excess spread. If pool losses are ₹10 crore, who bears them?",
+   "solution": [
+    {
+     "t": "table",
+     "head": [
+      "Item",
+      "Working",
+      "₹ crore"
+     ],
+     "rows": [
+      [
+       "Excess spread",
+       "100 × (12% − 9% − 1%)",
+       "2"
+      ],
+      [
+       "Loss absorbed by subordinated tranche",
+       "First-loss up to 15",
+       "10"
+      ],
+      [
+       "Loss to senior PTC holders",
+       "Loss 10 within cushion of 15",
+       "0"
+      ]
+     ],
+     "title": "Credit enhancement"
+    }
+   ],
+   "checks": [
+    {
+     "expr": "100*(12-9-1)/100",
+     "value": 2,
+     "label": "Annual excess spread retained (₹ crore)"
+    },
+    {
+     "expr": "max(0,10-15)",
+     "value": 0,
+     "label": "Loss borne by senior PTC holders (₹ crore)"
+    },
+    {
+     "expr": "min(10,15)",
+     "value": 10,
+     "label": "Loss absorbed by the subordinated tranche (₹ crore)"
+    }
+   ]
+  },
+  {
+   "id": "i2",
+   "title": "Pricing a PTC",
+   "difficulty": "moderate",
+   "minutes": 6,
+   "q": "A pass-through certificate is expected to pay ₹30 lakh at the end of years 1 and 2 and ₹50 lakh at the end of year 3 (principal and interest from the pool). The investor requires 10%. What would they pay?",
+   "solution": [
+    {
+     "t": "table",
+     "head": [
+      "Year",
+      "Working",
+      "₹ lakh"
+     ],
+     "rows": [
+      [
+       "1",
+       "30 ÷ 1.1",
+       "27.27"
+      ],
+      [
+       "2",
+       "30 ÷ 1.21",
+       "24.79"
+      ],
+      [
+       "3",
+       "50 ÷ 1.331",
+       "37.57"
+      ],
+      [
+       "Price",
+       "Sum",
+       "89.63"
+      ]
+     ],
+     "title": "PV of expected pass-through flows"
+    }
+   ],
+   "checks": [
+    {
+     "expr": "round(30/1.1+30/1.1**2+50/1.1**3,2)",
+     "value": 89.63,
+     "label": "Price of PTC at 10% (₹ lakh)"
+    }
+   ]
+  }
+ ],
+ "jobs": [
+  {
+   "id": "j1",
+   "title": "Structuring a deal",
+   "role": "Structured finance analyst",
+   "situation": "An NBFC wants ₹500 crore by securitising gold loans.",
+   "steps": [
+    "Select a homogeneous pool and test its history.",
+    "Design tranches and credit enhancement.",
+    "Obtain rating and set pricing.",
+    "Check RBI retention and true sale requirements."
+   ],
+   "takeaway": "Pool quality and enhancement drive the rating and the price."
+  }
+ ],
+ "mcqs": [
+  {
+   "id": "m1",
+   "q": "In securitization, the originator transfers assets to:",
+   "options": [
+    "A special purpose vehicle",
+    "The rating agency",
+    "Investors directly always",
+    "The RBI"
+   ],
+   "answer": 0,
+   "explain": "SPV isolates the assets. In practice: true sale.",
+   "concept": "c2",
+   "topic": "Mechanism of securitization",
+   "difficulty": "core"
+  },
+  {
+   "id": "m2",
+   "q": "In a pass-through certificate, prepayment risk is borne by:",
+   "options": [
+    "Investors",
+    "The originator only",
+    "The rating agency",
+    "The government"
+   ],
+   "answer": 0,
+   "explain": "Cash flows pass straight through. In practice: reinvestment risk.",
+   "concept": "c3",
+   "topic": "Instruments, pricing and risks",
+   "difficulty": "core"
+  },
+  {
+   "id": "m3",
+   "q": "A subordinated tranche provides:",
+   "options": [
+    "Credit enhancement to senior investors",
+    "Higher priority",
+    "No risk",
+    "Tax benefit"
+   ],
+   "answer": 0,
+   "explain": "Absorbs first losses. In practice: often retained by originator.",
+   "concept": "c2",
+   "topic": "Mechanism of securitization",
+   "difficulty": "core"
+  },
+  {
+   "id": "m4",
+   "q": "Stripped securities separate:",
+   "options": [
+    "Interest and principal flows",
+    "Equity and debt",
+    "Tax and fees",
+    "Assets and liabilities"
+   ],
+   "answer": 0,
+   "explain": "IO and PO strips. In practice: different rate sensitivity.",
+   "concept": "c3",
+   "topic": "Instruments, pricing and risks",
+   "difficulty": "core"
+  },
+  {
+   "id": "m5",
+   "q": "A key benefit of securitization to the originator is:",
+   "options": [
+    "Improved liquidity and funding",
+    "Higher taxes",
+    "More borrowers",
+    "Lower credit rating"
+   ],
+   "answer": 0,
+   "explain": "Converts loans into cash. In practice: reuse capital.",
+   "concept": "c1",
+   "topic": "Concept, benefits and participants",
+   "difficulty": "core"
+  },
+  {
+   "id": "m6",
+   "q": "Tokenization uses:",
+   "options": [
+    "Blockchain-based digital tokens to represent assets",
+    "Paper certificates",
+    "Cash only",
+    "Physical gold"
+   ],
+   "answer": 0,
+   "explain": "Fractional ownership. In practice: regulatory uncertainty.",
+   "concept": "c4",
+   "topic": "Problems, tokenization and the Indian framework",
+   "difficulty": "core"
+  },
+  {
+   "id": "m7",
+   "q": "The servicer's role is to:",
+   "options": [
+    "Collect payments from obligors and pass them on",
+    "Rate the securities",
+    "Buy all securities",
+    "Set interest rates"
+   ],
+   "answer": 0,
+   "explain": "Administers the pool. In practice: often the originator.",
+   "concept": "c1",
+   "topic": "Concept, benefits and participants",
+   "difficulty": "core"
+  },
+  {
+   "id": "m8",
+   "q": "A pay-through security allows:",
+   "options": [
+    "Restructuring cash flows into tranches of different maturities",
+    "Only single maturity",
+    "Equity conversion",
+    "No credit rating"
+   ],
+   "answer": 0,
+   "explain": "SPV reshapes flows. In practice: investor choice.",
+   "concept": "c3",
+   "topic": "Instruments, pricing and risks",
+   "difficulty": "core"
+  }
+ ],
+ "questions": [
+  {
+   "id": "q1",
+   "marks": 5,
+   "minutes": 9,
+   "difficulty": "core",
+   "pad": "table",
+   "q": "Swift Finance pools ₹100 crore of vehicle loans yielding 12% and sells them to an SPV. The SPV issues senior PTCs of ₹85 crore and a subordinated tranche of ₹15 crore (retained by Swift). Investors receive 9%; servicing costs 1%. Compute the annual excess spread. If pool losses are ₹10 crore, who bears them?",
+   "model": [
+    {
+     "t": "table",
+     "head": [
+      "Item",
+      "Working",
+      "₹ crore"
+     ],
+     "rows": [
+      [
+       "Excess spread",
+       "100 × (12% − 9% − 1%)",
+       "2"
+      ],
+      [
+       "Loss absorbed by subordinated tranche",
+       "First-loss up to 15",
+       "10"
+      ],
+      [
+       "Loss to senior PTC holders",
+       "Loss 10 within cushion of 15",
+       "0"
+      ]
+     ],
+     "title": "Credit enhancement"
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "Spread",
+     "m": 2,
+     "skill": "computation",
+     "kw": [
+      "excess spread"
+     ],
+     "min": 1,
+     "nums": [
+      2
+     ]
+    },
+    {
+     "id": "s2",
+     "pt": "Loss allocation",
+     "m": 3,
+     "skill": "computation",
+     "kw": [
+      "subordinated|senior"
+     ],
+     "min": 1,
+     "nums": [
+      10
+     ]
+    }
+   ],
+   "remarks": [
+    "Show waterfall."
+   ],
+   "mistakes": [
+    "Giving losses to seniors first."
+   ],
+   "tips": [
+    "Table."
+   ],
+   "extra_ok": true,
+   "checks": [
+    {
+     "expr": "100*(12-9-1)/100",
+     "value": 2,
+     "label": "Annual excess spread retained (₹ crore)"
+    },
+    {
+     "expr": "max(0,10-15)",
+     "value": 0,
+     "label": "Loss borne by senior PTC holders (₹ crore)"
+    },
+    {
+     "expr": "min(10,15)",
+     "value": 10,
+     "label": "Loss absorbed by the subordinated tranche (₹ crore)"
+    }
+   ]
+  },
+  {
+   "id": "q2",
+   "marks": 4,
+   "minutes": 7,
+   "difficulty": "core",
+   "pad": "table",
+   "q": "A pass-through certificate is expected to pay ₹30 lakh at the end of years 1 and 2 and ₹50 lakh at the end of year 3 (principal and interest from the pool). The investor requires 10%. What would they pay?",
+   "model": [
+    {
+     "t": "table",
+     "head": [
+      "Year",
+      "Working",
+      "₹ lakh"
+     ],
+     "rows": [
+      [
+       "1",
+       "30 ÷ 1.1",
+       "27.27"
+      ],
+      [
+       "2",
+       "30 ÷ 1.21",
+       "24.79"
+      ],
+      [
+       "3",
+       "50 ÷ 1.331",
+       "37.57"
+      ],
+      [
+       "Price",
+       "Sum",
+       "89.63"
+      ]
+     ],
+     "title": "PV of expected pass-through flows"
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "Discounting",
+     "m": 2,
+     "skill": "concept",
+     "kw": [
+      "discount|present value"
+     ],
+     "min": 1
+    },
+    {
+     "id": "s2",
+     "pt": "Price",
+     "m": 2,
+     "skill": "computation",
+     "kw": [
+      "price"
+     ],
+     "min": 1,
+     "nums": [
+      89.63
+     ]
+    }
+   ],
+   "remarks": [
+    "Discount each flow."
+   ],
+   "mistakes": [
+    "Ignoring timing."
+   ],
+   "tips": [
+    "Table."
+   ],
+   "extra_ok": true,
+   "checks": [
+    {
+     "expr": "round(30/1.1+30/1.1**2+50/1.1**3,2)",
+     "value": 89.63,
+     "label": "Price of PTC at 10% (₹ lakh)"
+    }
+   ]
+  }
+ ],
+ "revision": {
+  "summary": [
+   "Pool → SPV → securities → investors.",
+   "True sale and bankruptcy remoteness.",
+   "PTC, pay-through, stripped securities.",
+   "Credit enhancement: subordination, excess spread, collateral.",
+   "Risks: credit, legal, market."
+  ],
+  "remember": [
+   "PTC holders bear prepayment risk."
+  ],
+  "traps": [
+   "Assuming seniors absorb first losses."
+  ]
+ },
+ "quickref": [
+  {
+   "k": "PTC",
+   "v": "Direct pass-through"
+  },
+  {
+   "k": "Pay-through",
+   "v": "Restructured tranches"
+  },
+  {
+   "k": "IO/PO",
+   "v": "Stripped"
+  },
+  {
+   "k": "Enhancement",
+   "v": "Subordination"
+  }
+ ],
+ "viva": [
+  {
+   "id": "v1",
+   "q": "What is securitization?",
+   "model": "Converting a pool of illiquid assets with predictable cash flows into marketable securities issued through an SPV.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Pool of assets",
+     "w": 5,
+     "kw": [
+      "pool"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Marketable securities via SPV",
+     "w": 5,
+     "kw": [
+      "spv|securities"
+     ]
+    }
+   ],
+   "concept": "c1"
+  },
+  {
+   "id": "v2",
+   "q": "Why must the transfer be a true sale?",
+   "model": "So that the assets are bankruptcy-remote and investors are protected if the originator fails.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Bankruptcy-remote",
+     "w": 6,
+     "kw": [
+      "bankruptcy"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Investors protected",
+     "w": 4,
+     "kw": [
+      "investor"
+     ]
+    }
+   ],
+   "concept": "c2"
+  },
+  {
+   "id": "v3",
+   "q": "Distinguish PTCs and pay-through securities.",
+   "model": "PTCs pass collections directly to investors; pay-through securities restructure cash flows into tranches with different maturities.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Direct pass",
+     "w": 5,
+     "kw": [
+      "pass"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Restructure tranches",
+     "w": 5,
+     "kw": [
+      "restructure|tranche"
+     ]
+    }
+   ],
+   "concept": "c3"
+  },
+  {
+   "id": "v4",
+   "q": "Name three risks in securitization.",
+   "model": "Credit risk, legal risk and market risks such as prepayment, interest rate and reinvestment risk.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Credit and legal",
+     "w": 5,
+     "kw": [
+      "credit|legal"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Market risks",
+     "w": 5,
+     "kw": [
+      "prepayment|interest|reinvestment"
+     ]
+    }
+   ],
+   "concept": "c3"
+  },
+  {
+   "id": "v5",
+   "q": "List two problems facing securitization in India.",
+   "model": "Stamp duty on transfer of receivables and slow foreclosure laws, along with tax and accounting uncertainty.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Stamp duty",
+     "w": 5,
+     "kw": [
+      "stamp"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Foreclosure or tax",
+     "w": 5,
+     "kw": [
+      "foreclosure|tax"
+     ]
+    }
+   ],
+   "concept": "c4"
+  }
+ ],
+ "cases": [
+  {
+   "id": "k1",
+   "title": "Pinnacle Housing Finance",
+   "difficulty": "moderate",
+   "case": "Pinnacle Housing Finance securitises ₹400 crore of home loans yielding 10.5%. Senior PTCs of ₹340 crore pay 8%; the remainder is a subordinated tranche it retains. Servicing costs are 0.5% of the pool. Interest rates then fall sharply.",
+   "mcqs": [
+    {
+     "id": "k1a",
+     "q": "Size of the subordinated tranche (₹ crore):",
+     "options": [
+      "60",
+      "340",
+      "400",
+      "40"
+     ],
+     "answer": 0,
+     "explain": "400 − 340. In practice: first-loss piece.",
+     "difficulty": "core",
+     "check": 60,
+     "topic": "Mechanism of securitization"
+    },
+    {
+     "id": "k1b",
+     "q": "Credit enhancement as a share of the pool (%):",
+     "options": [
+      "15",
+      "85",
+      "10",
+      "8"
+     ],
+     "answer": 0,
+     "explain": "60 ÷ 400. In practice: higher enhancement, higher rating.",
+     "difficulty": "core",
+     "check": 15,
+     "topic": "Mechanism of securitization"
+    },
+    {
+     "id": "k1c",
+     "q": "Falling interest rates mainly raise:",
+     "options": [
+      "Prepayment risk for PTC holders",
+      "Default risk",
+      "Stamp duty",
+      "Legal risk"
+     ],
+     "answer": 0,
+     "explain": "Borrowers refinance. In practice: reinvestment at lower yields.",
+     "difficulty": "core",
+     "topic": "Instruments, pricing and risks"
+    },
+    {
+     "id": "k1d",
+     "q": "The ₹340 crore senior PTCs suffer loss only if pool losses exceed (₹ crore):",
+     "options": [
+      "60",
+      "340",
+      "0",
+      "400"
+     ],
+     "answer": 0,
+     "explain": "Subordination absorbs first. In practice: tranche cushion.",
+     "difficulty": "moderate",
+     "check": 60,
+     "topic": "Mechanism of securitization"
+    }
+   ]
+  }
+ ]
+}
