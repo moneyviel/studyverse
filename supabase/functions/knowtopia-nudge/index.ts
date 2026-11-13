@@ -47,7 +47,7 @@ async function encrypt(p256dh: string, authSecret: string, payload: string) {
 }
 async function push(sub: any, msg: unknown, cfg: any) {
   const r = await fetch(sub.endpoint, { method: 'POST', body: await encrypt(sub.p256dh, sub.auth, JSON.stringify(msg)),
-    headers: { Authorization: await vapid(sub.endpoint, cfg.public, cfg.private), 'Content-Encoding': 'aes128gcm', 'Content-Type': 'application/octet-stream', TTL: '14400', Urgency: 'normal' } });
+    headers: { Authorization: await vapid(sub.endpoint, cfg.public, cfg.private), 'Content-Encoding': 'aes128gcm', 'Content-Type': 'application/octet-stream', TTL: '14400', Urgency: 'high' } });
   return r.status;
 }
 
@@ -79,7 +79,7 @@ Deno.serve(async (req) => {
     for (let i = 0; i < list.length; i += 20) {
       await Promise.all(list.slice(i, i + 20).map(async (r) => {
         const m = r.test ? { title: '🔔 Knowtopia reminders are on', body: 'This is a test. You will get at most one reminder a day, never at night or in school hours.' } : message(r);
-        let st = 0; try { st = await push(r, { ...m, link: APP, tag: 'knowtopia-daily' }, cfg); } catch (e) { console.log('push error', String(e)); }
+        let st = 0; try { st = await push(r, { ...m, link: APP, tag: r.test ? `knowtopia-test-${Date.now()}` : 'knowtopia-daily' }, cfg); } catch (e) { console.log('push error', String(e)); }
         const ok = st >= 200 && st < 300, isGone = st === 404 || st === 410;
         if (ok) sent++; else if (isGone) gone++; else failed++;
         if (!r.test || isGone) await rpc('push_result', { p_endpoint: r.endpoint, p_user: r.user_id, p_ok: ok, p_gone: isGone }).catch(e => console.log(String(e)));
