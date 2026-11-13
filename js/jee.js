@@ -2867,7 +2867,7 @@
     if (!uid) {
       const C = J().crash || {};
       el.innerHTML = `<div class="jx"><button class="jx-back" id="jxBack">← Practice</button><div class="jx-hero sm"><h1>⚡ Crash course</h1><p>Each unit in about 15 minutes: big ideas → formula flash cards → trap check → the real JEE questions that matter most. Made for the last weeks before the exam.</p></div>
-        ${Object.entries(SUBJ).map(([k, s0]) => { const r = s0.u.map((u, i) => uidOf(k, i)).filter(u => READY[u]); return r.length ? `<details class="jx-sec" open><summary><h2 class="jx-h">${s0.e} ${s0.n}</h2><small>${r.filter(u => C[u] >= 4).length}/${r.length} sprinted</small></summary>
+        ${Object.entries(SUBJ).map(([k, s0]) => { const r = s0.u.map((u, i) => uidOf(k, i)).filter(u => READY[u]); return r.length ? `<details class="jx-sec"><summary><h2 class="jx-h">${s0.e} ${s0.n}</h2><small>${r.filter(u => C[u] >= 4).length}/${r.length} sprinted</small></summary>
           ${r.map(u => `<button class="jx-cu" data-u="${u}"><span class="jx-cring" style="--p:${(C[u] || 0) * 25}">${C[u] >= 4 ? '✓' : (C[u] || 0) + '/4'}</span><span><b>${esc(unitName(u))}</b><small>${READY[u].pyq} real questions · ${(CACHE[u] && CACHE[u].formulas || []).length || ''} ${CACHE[u] ? 'formulas' : ''}</small></span><em>${C[u] >= 4 ? 'Again' : C[u] ? 'Continue' : 'Start'} ▶</em></button>`).join('')}</details>` : ''; }).join('')}</div>`;
       $('#jxBack').onclick = () => { tap(); practiceHub(); };
       el.querySelectorAll('[data-u]').forEach(b => b.onclick = () => { tap('open'); const c = (J().crash || {})[b.dataset.u] || 0; crash(b.dataset.u, c >= 4 ? 0 : c); });

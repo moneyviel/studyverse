@@ -1258,7 +1258,7 @@
     if (!uid) {
       const inL = (await builtList()).filter(b => b.level === c.level), papers = [...new Map(inL.map(b => [b.p.id, b.p])).values()];
       el.innerHTML = `<div class="jx"><button class="jx-back" id="ccBack">← Practice</button><div class="jx-hero sm"><h1>⚡ Crash course</h1><p>Each unit in about 10 minutes: big ideas → quick-ref flash cards → trap check → must-do MCQs. Made for the last weeks before the exam.</p></div>
-        ${papers.map(pp => { const us = inL.filter(b => b.p.id === pp.id); return `<details class="jx-sec" ${papers.length > 1 && pp.id !== papers[0].id ? '' : 'open'}><summary><h2 class="jx-h">${esc(X.paperNo ? X.paperNo(pp) : '')} · ${esc(pp.name)}</h2><small>${us.filter(b => CR[b.u.id] >= 4).length}/${us.length} sprinted</small></summary>
+        ${papers.map(pp => { const us = inL.filter(b => b.p.id === pp.id); return `<details class="jx-sec"><summary><h2 class="jx-h">${esc(X.paperNo ? X.paperNo(pp) : '')} · ${esc(pp.name)}</h2><small>${us.filter(b => CR[b.u.id] >= 4).length}/${us.length} sprinted</small></summary>
           ${us.map(b => { const n = CR[b.u.id] || 0; return `<button class="jx-cu" data-u="${esc(b.u.id)}"><span class="jx-cring" style="--p:${n * 25}">${n >= 4 ? '✓' : n + '/4'}</span><span><b>${esc(b.u.title)}</b><small>Ch ${b.c.n} · ${esc(b.c.title)}</small></span><em>${n >= 4 ? 'Again' : n ? 'Continue' : 'Start'} ▶</em></button>`; }).join('')}</details>`; }).join('')}</div>`;
       D.getElementById('ccBack').onclick = () => { tap(); practiceHub(); };
       el.querySelectorAll('[data-u]').forEach(b => b.onclick = () => { tap('open'); const n = CR[b.dataset.u] || 0; crash(b.dataset.u, n >= 4 ? 0 : n); });
