@@ -1,0 +1,772 @@
+{
+ "schema": "ca-unit/1",
+ "id": "fin-p2-ch13-u01",
+ "level": "final",
+ "paper": "p2",
+ "chapter": "fin-p2-ch13",
+ "n": 1,
+ "title": "Business Valuation",
+ "outcomes": [
+  "Apply asset, income and cash-flow valuation approaches.",
+  "Estimate cost of equity and beta for unlisted firms.",
+  "Use relative valuation and the chop-shop method.",
+  "Compute EVA, MVA and SVA.",
+  "Value distressed firms, start-ups and digital platforms and consider ESG."
+ ],
+ "meta": {
+  "difficulty": "hard",
+  "minutes": {
+   "learn": 50,
+   "practice": 45
+  },
+  "prereq": [
+   "fin-p2-ch12-u01"
+  ],
+  "exam_tip": "State the approach, justify it for the business, and show unlever-relever steps clearly."
+ },
+ "concepts": [
+  {
+   "id": "c1",
+   "title": "Valuation approaches: asset, income and cash flow",
+   "body": [
+    "Business valuation estimates the economic worth of a business for transactions, fund-raising, regulation, litigation or reporting. Key tools: present value, IRR, return on investment, and terminal value (often via the Gordon growth formula TV = CF × (1 + g) ÷ (k − g), or an exit multiple).",
+    "Asset-based approach: net asset value (book or adjusted), net realisable value (liquidation) and replacement value — suits holding companies, asset-heavy or loss-making firms.",
+    "Income approach: P/E or earnings yield multipliers and capitalisation of maintainable earnings. Cash-flow approach: discount FCFF at WACC (deduct debt for equity value) or FCFE at Ke, with explicit forecasts and a terminal value."
+   ],
+   "analogy": "Assets show what it owns, earnings what it makes, cash flows what it is worth.",
+   "work": "A property-holding company is often valued on adjusted net assets."
+  },
+  {
+   "id": "c2",
+   "title": "Cost of equity and beta for unlisted companies",
+   "body": [
+    "Cost of equity: CAPM (Rf + β × MRP), or arbitrage pricing with several factors.",
+    "Unlisted companies lack market betas: take comparables' equity betas, unlever them to asset beta βa = βe ÷ [1 + (1 − t)D/E] (debt beta zero), average, and relever at the target's capital structure βe = βa × [1 + (1 − t)D/E]. Adjust for size, liquidity and company-specific risk premiums.",
+    "Discount rates must match cash flows and currency."
+   ],
+   "analogy": "Borrow the risk from listed peers, then adjust for your own debt.",
+   "work": "Lower target leverage gives a lower relevered beta."
+  },
+  {
+   "id": "c3",
+   "title": "Relative valuation and chop-shop",
+   "body": [
+    "Relative valuation values a business by comparison: P/E, price-to-book, EV/EBITDA, EV/sales, and sector-specific multiples (per subscriber, per tonne). Steps: choose comparables, compute multiples, adjust for differences in growth, risk and size, and apply to the target.",
+    "Contemporary approaches include sum-of-the-parts valuation.",
+    "The chop-shop method values a diversified company as if broken up: value each segment using industry multiples of pure-play firms, sum them, and compare with market value to detect a conglomerate discount."
+   ],
+   "analogy": "Value it like its peers — piece by piece if necessary.",
+   "work": "A conglomerate trading below the sum of its parts may be a break-up target."
+  },
+  {
+   "id": "c4",
+   "title": "Value-based measures: EVA, MVA and SVA",
+   "body": [
+    "Economic value added (EVA) = NOPAT − (capital employed × WACC): profit after charging for all capital. Positive EVA means value creation; it can drive incentives.",
+    "Market value added (MVA) = market value of the firm (or equity) − capital invested by providers; it reflects the market's view of present value of future EVAs.",
+    "Shareholder value analysis (SVA) uses value drivers — sales growth, operating margin, tax rate, investment in fixed and working capital, planning period and cost of capital — to compute shareholder value from free cash flows."
+   ],
+   "analogy": "Profit is not value until it beats the cost of capital.",
+   "work": "NOPAT of 150 on capital of 1,000 at 12% WACC gives EVA of 30."
+  },
+  {
+   "id": "c5",
+   "title": "Special situations: distress, start-ups, digital platforms and ESG",
+   "body": [
+    "Fair value is a market-participant, arm's-length price; going-concern value assumes continued operations, while non-going concern (liquidation) value assumes break-up. Distressed companies may be valued with modified DCF (probability-weighted scenarios), DCF plus distress value, APV, or relative valuation with distress-adjusted multiples.",
+    "Start-ups lack history and profits; value drivers include team, market size, traction and IP. Methods: Berkus, cost-to-duplicate, comparable transactions, scorecard, First Chicago (weighted scenarios) and venture capital method (post-money value = exit value ÷ (1 + target return)^n; pre-money = post-money − investment).",
+    "Digital platforms are valued on users, engagement, network effects and unit economics using income, market and cost approaches. ESG factors affect valuation through cash flows (costs, revenues, regulation) and discount rates (risk perception)."
+   ],
+   "analogy": "Unusual businesses need adapted methods and judgement.",
+   "work": "A VC targeting 40% return values a start-up by discounting its expected exit value."
+  }
+ ],
+ "illustrations": [
+  {
+   "id": "i1",
+   "title": "Beta for an unlisted firm",
+   "difficulty": "moderate",
+   "minutes": 8,
+   "q": "A listed comparable has equity beta 1.5 and debt-to-equity 0.5. The unlisted target will have debt-to-equity 0.3. Tax rate 25%; risk-free rate 7%; market risk premium 6%. Assuming debt beta is zero, compute the target's cost of equity.",
+   "solution": [
+    {
+     "t": "table",
+     "head": [
+      "Step",
+      "Working",
+      "Result"
+     ],
+     "rows": [
+      [
+       "Unlever comparable",
+       "1.5 ÷ [1 + 0.75 × 0.5]",
+       "1.09"
+      ],
+      [
+       "Relever for target",
+       "1.0909 × [1 + 0.75 × 0.3]",
+       "1.34"
+      ],
+      [
+       "Cost of equity",
+       "7% + 1.3364 × 6%",
+       "15.02%"
+      ]
+     ],
+     "title": "βa = βe ÷ [1 + (1 − t)D/E]"
+    }
+   ],
+   "checks": [
+    {
+     "expr": "round(1.5/(1+(1-0.25)*0.5),4)",
+     "value": 1.09,
+     "label": "Asset (unlevered) beta"
+    },
+    {
+     "expr": "round(1.5/(1+(1-0.25)*0.5)*(1+(1-0.25)*0.3),4)",
+     "value": 1.34,
+     "label": "Relevered equity beta"
+    },
+    {
+     "expr": "round(7+1.5/(1+(1-0.25)*0.5)*(1+(1-0.25)*0.3)*6,2)",
+     "value": 15.02,
+     "label": "Cost of equity (%)"
+    }
+   ]
+  },
+  {
+   "id": "i2",
+   "title": "EVA and terminal value",
+   "difficulty": "moderate",
+   "minutes": 8,
+   "q": "(a) Jade Ltd. has EBIT of ₹200 crore, tax rate 25%, capital employed ₹1,000 crore and WACC 12%. Compute EVA. (b) Its free cash flow to firm in year 5 is ₹80 crore, growing at 5% thereafter. Compute the terminal value at the end of year 5.",
+   "solution": [
+    {
+     "t": "table",
+     "head": [
+      "Item",
+      "Working",
+      "₹ crore"
+     ],
+     "rows": [
+      [
+       "NOPAT",
+       "200 × (1 − 0.25)",
+       "150"
+      ],
+      [
+       "Capital charge",
+       "1,000 × 12%",
+       "120"
+      ],
+      [
+       "EVA",
+       "150 − 120",
+       "30"
+      ],
+      [
+       "Terminal value",
+       "80 × 1.05 ÷ (0.12 − 0.05)",
+       "1,200"
+      ]
+     ],
+     "title": "EVA and Gordon terminal value"
+    }
+   ],
+   "checks": [
+    {
+     "expr": "200*(1-0.25)",
+     "value": 150,
+     "label": "NOPAT (₹ crore)"
+    },
+    {
+     "expr": "200*(1-0.25)-1000*0.12",
+     "value": 30,
+     "label": "EVA (₹ crore)"
+    },
+    {
+     "expr": "round(80*(1+0.05)/(0.12-0.05),2)",
+     "value": 1200,
+     "label": "Terminal value at end of year 5 (₹ crore)"
+    }
+   ]
+  }
+ ],
+ "jobs": [
+  {
+   "id": "j1",
+   "title": "Valuing a private company stake",
+   "role": "Registered valuer associate",
+   "situation": "A family-owned manufacturer is selling a 26% stake.",
+   "steps": [
+    "Select approaches suitable to the business.",
+    "Build beta from listed peers.",
+    "Run DCF and relative valuation.",
+    "Reconcile values and apply discounts for lack of control/marketability."
+   ],
+   "takeaway": "Triangulate between methods and explain adjustments."
+  }
+ ],
+ "mcqs": [
+  {
+   "id": "m1",
+   "q": "Unlevered (asset) beta equals:",
+   "options": [
+    "βe ÷ [1 + (1 − t)D/E]",
+    "βe × D/E",
+    "βe + D/E",
+    "βe × (1 − t)"
+   ],
+   "answer": 0,
+   "explain": "Removes financial risk. In practice: relever for target.",
+   "concept": "c2",
+   "topic": "Cost of equity and beta for unlisted companies",
+   "difficulty": "core"
+  },
+  {
+   "id": "m2",
+   "q": "EVA equals:",
+   "options": [
+    "NOPAT − capital employed × WACC",
+    "Net profit − dividend",
+    "EBIT − interest",
+    "Sales − costs"
+   ],
+   "answer": 0,
+   "explain": "Residual income. In practice: value creation measure.",
+   "concept": "c4",
+   "topic": "Value-based measures: EVA, MVA and SVA",
+   "difficulty": "core"
+  },
+  {
+   "id": "m3",
+   "q": "MVA equals:",
+   "options": [
+    "Market value − capital invested",
+    "Book value − debt",
+    "EVA × WACC",
+    "Sales × margin"
+   ],
+   "answer": 0,
+   "explain": "Market view of future EVAs. In practice: listed firms.",
+   "concept": "c4",
+   "topic": "Value-based measures: EVA, MVA and SVA",
+   "difficulty": "core"
+  },
+  {
+   "id": "m4",
+   "q": "The chop-shop method values a firm:",
+   "options": [
+    "As the sum of its segments valued at pure-play multiples",
+    "On book value",
+    "On dividends",
+    "On cost"
+   ],
+   "answer": 0,
+   "explain": "Break-up value. In practice: conglomerate discount.",
+   "concept": "c3",
+   "topic": "Relative valuation and chop-shop",
+   "difficulty": "core"
+  },
+  {
+   "id": "m5",
+   "q": "Net realisable value suits:",
+   "options": [
+    "Liquidation scenarios",
+    "High-growth start-ups",
+    "Banks only",
+    "Digital platforms"
+   ],
+   "answer": 0,
+   "explain": "Break-up values. In practice: non-going concern.",
+   "concept": "c1",
+   "topic": "Valuation approaches: asset, income and cash flow",
+   "difficulty": "core"
+  },
+  {
+   "id": "m6",
+   "q": "In the venture capital method, post-money value equals:",
+   "options": [
+    "Exit value ÷ (1 + target return)^n",
+    "Investment × 2",
+    "Book value",
+    "Sales × 1"
+   ],
+   "answer": 0,
+   "explain": "Discount exit value. In practice: pre-money = post − investment.",
+   "concept": "c5",
+   "topic": "Special situations: distress, start-ups, digital platforms and ESG",
+   "difficulty": "core"
+  },
+  {
+   "id": "m7",
+   "q": "The Gordon terminal value formula is:",
+   "options": [
+    "CF × (1 + g) ÷ (k − g)",
+    "CF ÷ g",
+    "CF × k",
+    "CF × (k − g)"
+   ],
+   "answer": 0,
+   "explain": "Perpetual growth. In practice: g below economy growth.",
+   "concept": "c1",
+   "topic": "Valuation approaches: asset, income and cash flow",
+   "difficulty": "core"
+  },
+  {
+   "id": "m8",
+   "q": "ESG factors affect valuation through:",
+   "options": [
+    "Cash flows and discount rates",
+    "Only accounting policies",
+    "Nothing",
+    "Only tax"
+   ],
+   "answer": 0,
+   "explain": "Both channels. In practice: transition risks.",
+   "concept": "c5",
+   "topic": "Special situations: distress, start-ups, digital platforms and ESG",
+   "difficulty": "core"
+  }
+ ],
+ "questions": [
+  {
+   "id": "q1",
+   "marks": 6,
+   "minutes": 11,
+   "difficulty": "core",
+   "pad": "table",
+   "q": "A listed comparable has equity beta 1.5 and debt-to-equity 0.5. The unlisted target will have debt-to-equity 0.3. Tax rate 25%; risk-free rate 7%; market risk premium 6%. Assuming debt beta is zero, compute the target's cost of equity.",
+   "model": [
+    {
+     "t": "table",
+     "head": [
+      "Step",
+      "Working",
+      "Result"
+     ],
+     "rows": [
+      [
+       "Unlever comparable",
+       "1.5 ÷ [1 + 0.75 × 0.5]",
+       "1.09"
+      ],
+      [
+       "Relever for target",
+       "1.0909 × [1 + 0.75 × 0.3]",
+       "1.34"
+      ],
+      [
+       "Cost of equity",
+       "7% + 1.3364 × 6%",
+       "15.02%"
+      ]
+     ],
+     "title": "βa = βe ÷ [1 + (1 − t)D/E]"
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "Unlever",
+     "m": 2,
+     "skill": "computation",
+     "kw": [
+      "unlever|asset beta"
+     ],
+     "min": 1,
+     "nums": [
+      1.09
+     ]
+    },
+    {
+     "id": "s2",
+     "pt": "Relever",
+     "m": 2,
+     "skill": "computation",
+     "kw": [
+      "relever"
+     ],
+     "min": 1,
+     "nums": [
+      1.34
+     ]
+    },
+    {
+     "id": "s3",
+     "pt": "Ke",
+     "m": 2,
+     "skill": "computation",
+     "kw": [
+      "cost of equity"
+     ],
+     "min": 1,
+     "nums": [
+      15.02
+     ]
+    }
+   ],
+   "remarks": [
+    "Use after-tax D/E."
+   ],
+   "mistakes": [
+    "Ignoring tax in unlevering."
+   ],
+   "tips": [
+    "Table."
+   ],
+   "extra_ok": true,
+   "checks": [
+    {
+     "expr": "round(1.5/(1+(1-0.25)*0.5),4)",
+     "value": 1.09,
+     "label": "Asset (unlevered) beta"
+    },
+    {
+     "expr": "round(1.5/(1+(1-0.25)*0.5)*(1+(1-0.25)*0.3),4)",
+     "value": 1.34,
+     "label": "Relevered equity beta"
+    },
+    {
+     "expr": "round(7+1.5/(1+(1-0.25)*0.5)*(1+(1-0.25)*0.3)*6,2)",
+     "value": 15.02,
+     "label": "Cost of equity (%)"
+    }
+   ]
+  },
+  {
+   "id": "q2",
+   "marks": 6,
+   "minutes": 11,
+   "difficulty": "core",
+   "pad": "table",
+   "q": "(a) Jade Ltd. has EBIT of ₹200 crore, tax rate 25%, capital employed ₹1,000 crore and WACC 12%. Compute EVA. (b) Its free cash flow to firm in year 5 is ₹80 crore, growing at 5% thereafter. Compute the terminal value at the end of year 5.",
+   "model": [
+    {
+     "t": "table",
+     "head": [
+      "Item",
+      "Working",
+      "₹ crore"
+     ],
+     "rows": [
+      [
+       "NOPAT",
+       "200 × (1 − 0.25)",
+       "150"
+      ],
+      [
+       "Capital charge",
+       "1,000 × 12%",
+       "120"
+      ],
+      [
+       "EVA",
+       "150 − 120",
+       "30"
+      ],
+      [
+       "Terminal value",
+       "80 × 1.05 ÷ (0.12 − 0.05)",
+       "1,200"
+      ]
+     ],
+     "title": "EVA and Gordon terminal value"
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "NOPAT",
+     "m": 1.5,
+     "skill": "computation",
+     "kw": [
+      "nopat"
+     ],
+     "min": 1,
+     "nums": [
+      150
+     ]
+    },
+    {
+     "id": "s2",
+     "pt": "EVA",
+     "m": 2,
+     "skill": "computation",
+     "kw": [
+      "eva"
+     ],
+     "min": 1,
+     "nums": [
+      30
+     ]
+    },
+    {
+     "id": "s3",
+     "pt": "TV",
+     "m": 2.5,
+     "skill": "computation",
+     "kw": [
+      "terminal"
+     ],
+     "min": 1,
+     "nums": [
+      1200
+     ]
+    }
+   ],
+   "remarks": [
+    "Use next-year cash flow for TV."
+   ],
+   "mistakes": [
+    "Using year-5 flow without growth."
+   ],
+   "tips": [
+    "Table."
+   ],
+   "extra_ok": true,
+   "checks": [
+    {
+     "expr": "200*(1-0.25)",
+     "value": 150,
+     "label": "NOPAT (₹ crore)"
+    },
+    {
+     "expr": "200*(1-0.25)-1000*0.12",
+     "value": 30,
+     "label": "EVA (₹ crore)"
+    },
+    {
+     "expr": "round(80*(1+0.05)/(0.12-0.05),2)",
+     "value": 1200,
+     "label": "Terminal value at end of year 5 (₹ crore)"
+    }
+   ]
+  }
+ ],
+ "revision": {
+  "summary": [
+   "NAV, earnings multiples, DCF with terminal value.",
+   "βa = βe ÷ [1 + (1 − t)D/E].",
+   "Relative valuation; chop-shop for conglomerates.",
+   "EVA = NOPAT − WACC × capital; MVA = MV − capital.",
+   "VC method, First Chicago for start-ups."
+  ],
+  "remember": [
+   "TV uses next year's cash flow."
+  ],
+  "traps": [
+   "Relevering without the tax adjustment."
+  ]
+ },
+ "quickref": [
+  {
+   "k": "Unlever",
+   "v": "βe ÷ [1 + (1−t)D/E]"
+  },
+  {
+   "k": "EVA",
+   "v": "NOPAT − WACC × CE"
+  },
+  {
+   "k": "TV",
+   "v": "CF(1+g)/(k−g)"
+  },
+  {
+   "k": "VC post-money",
+   "v": "Exit ÷ (1+r)^n"
+  }
+ ],
+ "viva": [
+  {
+   "id": "v1",
+   "q": "Name the three broad valuation approaches.",
+   "model": "Asset-based, income-based (earnings) and cash-flow based (DCF) approaches.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Asset and income",
+     "w": 5,
+     "kw": [
+      "asset|income"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Cash flow",
+     "w": 5,
+     "kw": [
+      "cash"
+     ]
+    }
+   ],
+   "concept": "c1"
+  },
+  {
+   "id": "v2",
+   "q": "How do you estimate beta for an unlisted company?",
+   "model": "Unlever comparable listed companies' betas to asset betas, average them and relever at the target's debt-equity ratio.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Unlever comparables",
+     "w": 5,
+     "kw": [
+      "unlever"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Relever",
+     "w": 5,
+     "kw": [
+      "relever"
+     ]
+    }
+   ],
+   "concept": "c2"
+  },
+  {
+   "id": "v3",
+   "q": "What is relative valuation?",
+   "model": "Valuing a business by applying multiples such as P/E or EV/EBITDA from comparable companies or transactions.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Multiples",
+     "w": 5,
+     "kw": [
+      "multiple"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Comparables",
+     "w": 5,
+     "kw": [
+      "compar"
+     ]
+    }
+   ],
+   "concept": "c3"
+  },
+  {
+   "id": "v4",
+   "q": "What does a positive EVA indicate?",
+   "model": "The business earns more than the cost of all the capital employed, so it creates value.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Above cost of capital",
+     "w": 5,
+     "kw": [
+      "cost"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Creates value",
+     "w": 5,
+     "kw": [
+      "creates value"
+     ]
+    }
+   ],
+   "concept": "c4"
+  },
+  {
+   "id": "v5",
+   "q": "Why are traditional methods hard to apply to start-ups?",
+   "model": "They have little history, negative profits and uncertain cash flows, so value depends on qualitative drivers and scenarios.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Little history",
+     "w": 5,
+     "kw": [
+      "history"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Uncertain flows",
+     "w": 5,
+     "kw": [
+      "uncertain"
+     ]
+    }
+   ],
+   "concept": "c5"
+  }
+ ],
+ "cases": [
+  {
+   "id": "k1",
+   "title": "BrightPath EdTech",
+   "difficulty": "moderate",
+   "case": "A VC plans to invest ₹20 crore in BrightPath EdTech, expecting an exit value of ₹300 crore in 5 years and a target return of 50% a year. A diversified parent of BrightPath has two divisions: education (EBITDA ₹40 crore; peer EV/EBITDA 12) and printing (EBITDA ₹30 crore; peer 6). The parent's EV is ₹580 crore.",
+   "mcqs": [
+    {
+     "id": "k1a",
+     "q": "Post-money value of BrightPath (₹ crore, nearest whole):",
+     "options": [
+      "40",
+      "300",
+      "20",
+      "60"
+     ],
+     "answer": 0,
+     "explain": "300 ÷ 1.5^5 = 300 ÷ 7.59 = 39.5. In practice: target return is high.",
+     "difficulty": "moderate",
+     "check": 40,
+     "topic": "Special situations: distress, start-ups, digital platforms and ESG"
+    },
+    {
+     "id": "k1b",
+     "q": "Pre-money value (₹ crore, nearest whole):",
+     "options": [
+      "20",
+      "40",
+      "60",
+      "0"
+     ],
+     "answer": 0,
+     "explain": "39.5 − 20 ≈ 20. In practice: negotiation basis.",
+     "difficulty": "moderate",
+     "check": 20,
+     "topic": "Special situations: distress, start-ups, digital platforms and ESG"
+    },
+    {
+     "id": "k1c",
+     "q": "Chop-shop value of the parent (₹ crore):",
+     "options": [
+      "660",
+      "580",
+      "480",
+      "840"
+     ],
+     "answer": 0,
+     "explain": "40 × 12 + 30 × 6. In practice: compare with EV.",
+     "difficulty": "core",
+     "check": 660,
+     "topic": "Relative valuation and chop-shop"
+    },
+    {
+     "id": "k1d",
+     "q": "The parent trades at a conglomerate discount of (₹ crore):",
+     "options": [
+      "80",
+      "0",
+      "160",
+      "20"
+     ],
+     "answer": 0,
+     "explain": "660 − 580. In practice: break-up may unlock value.",
+     "difficulty": "core",
+     "check": 80,
+     "topic": "Relative valuation and chop-shop"
+    }
+   ]
+  }
+ ]
+}
