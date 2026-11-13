@@ -37,7 +37,7 @@ def build():
               ['Expected return on plan assets', '9% × 40,00,000', f'({inr(er)})'],
               ['Actuarial loss', 'Recognised immediately', inr(140000)],
               ['Expense', '', inr(exp)],
-              ['Closing obligation', '50,00,000 + 6,00,000 + 4,00,000 − 3,00,000 + 1,40,000', inr(dbo)],
+              ['Closing obligation', 'Opening + service cost + interest − benefits paid + actuarial loss', inr(dbo)],
               ['Closing plan assets', '40,00,000 + 3,60,000 + 7,00,000 − 3,00,000', inr(pa)],
               ['Net liability', '', inr(net)]], title='Defined benefit plan'),
               note('Check: opening net liability ₹10,00,000 + expense ₹7,80,000 − contributions ₹7,00,000 = ₹10,80,000.')],

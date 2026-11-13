@@ -58,7 +58,7 @@ def build():
     i3 = {'id': 'i3', 'title': 'Donations and the 10% ceiling', 'difficulty': 'hard', 'minutes': 10,
           'q': 'Mr. Ravi (optional regime) has GTI of ₹12,00,000, which includes long-term capital gain on land of ₹1,00,000 (s. 197) and short-term capital gain on STT-paid shares of ₹50,000 (s. 196). His deductions under sections 123 and 126 are ₹1,50,000 and ₹25,000. By cheque he donated: Prime Minister\'s National Relief Fund ₹30,000; Prime Minister\'s Drought Relief Fund ₹20,000; an approved charitable trust ₹1,40,000; Government for promoting family planning ₹15,000. He also gave ₹5,000 in cash to another approved trust. Compute the deduction under section 133.',
           'solution': [table(['Step', 'Working', '₹'], [
-              ['Adjusted GTI', '12,00,000 − 1,00,000 − 50,000 − 1,50,000 − 25,000', inr(adj)],
+              ['Adjusted GTI', 'GTI less s. 197 gain, s. 196 gain and deductions under ss. 123 and 126', inr(adj)],
               ['10% of adjusted GTI', '', inr(lim)],
               ['Category II + IV donations', 'Family planning 15,000 + trust 1,40,000 = 1,55,000', inr(q)],
               ['Deduction within the limit', '15,000 at 100% + (87,500 − 15,000) × 50%', inr(lim_part)],

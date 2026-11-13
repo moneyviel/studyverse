@@ -50,7 +50,7 @@ def build():
         C('c2', T2, [
             'The initial disclosure event is the earlier of: (a) the enterprise entering into a binding sale agreement for substantially all the assets of the operation; or (b) the board or similar body both approving a detailed formal plan for discontinuance and announcing the plan.',
             'A detailed formal plan identifies the business, main assets, expected sale method, period of completion and principal locations affected.',
-            'If the event occurs after the balance sheet date but before approval of the statements, the statements give only the disclosures about the plan as a non-adjusting event.'],
+            'If the event occurs after the year end but before the Board approves the statements, the statements give only the disclosures about the plan as a non-adjusting event.'],
           'Disclosure starts when the decision becomes binding or public, whichever is first.',
           'A board decision kept confidential does not trigger AS 24 until it is announced or a sale is signed.'),
         C('c3', T3, [

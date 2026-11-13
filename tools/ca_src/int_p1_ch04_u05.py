@@ -58,7 +58,7 @@ def build():
             'Bonus issues, share splits and consolidations change the number of shares without changing resources. They are treated as if they occurred at the start of the earliest period presented, and earlier EPS figures are restated.',
             'A rights issue below fair value has a bonus element. Shares before the issue are multiplied by: fair value per share immediately before exercise ÷ theoretical ex-rights fair value per share.',
             'Theoretical ex-rights fair value = (total fair value of existing shares + rights proceeds) ÷ shares after the issue.',
-            'If such changes occur after the balance sheet date but before approval of the statements, EPS is still computed on the new number and this is disclosed.'],
+            'If such changes occur after the year end but before the Board approves the statements, EPS is still computed on the new number and this is disclosed.'],
           'Bonus shares are free slices of the same cake, so they are counted from the very beginning.',
           'A 1:1 bonus halves both this year\'s and last year\'s EPS as reported.'),
         C('c4', T4, [

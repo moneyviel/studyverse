@@ -56,7 +56,7 @@ def build():
     concepts = [
         C('c1', T1, [
             'A cash flow statement shows how an enterprise generated and used cash during the period, helping users judge its ability to produce cash and its need for cash. It also improves comparability, since cash flows do not depend on accounting policies.',
-            'Cash means cash on hand and demand deposits with banks. Cash equivalents are short-term, highly liquid investments readily convertible into known amounts of cash with insignificant risk of value change — normally with a maturity of three months or less from the date of acquisition.',
+            'Cash covers notes and coins held plus money in bank accounts withdrawable on demand. Cash equivalents are short-dated, easily encashed investments readily convertible into known amounts of cash with insignificant risk of value change — normally with a maturity of three months or less from the date of acquisition.',
             'Equity shares are not cash equivalents. Movements between cash and cash equivalents are part of cash management, not cash flows.'],
           'Profit is an opinion; cash is a fact.',
           'A 90-day treasury bill bought on the day is a cash equivalent; a 1-year deposit is not.'),
@@ -106,8 +106,8 @@ def build():
           'In a financial enterprise, lending is the main revenue-producing activity, so interest received (and interest paid) are operating cash flows. For other enterprises interest received is investing. In practice: look at the nature of business.', 'c4', T4),
         Q('m5', 'Under the indirect method, an increase in trade creditors is:', ['Added to profit', 'Deducted from profit', 'Shown under financing', 'Ignored'], 0,
           'A rise in creditors means expenses were charged but not paid in cash, so cash is higher than profit suggests; the increase is added back. A rise in debtors would be deducted. In practice: watch the direction of each change.', 'c3', T3),
-        Q('m6', 'Profit before tax ₹5,00,000, depreciation ₹80,000, profit on sale of investment ₹20,000, increase in inventory ₹60,000. Cash generated from operations:', ['₹5,00,000', '₹5,60,000', '₹6,00,000', '₹4,40,000'], 0,
-          'Add depreciation and deduct the profit on sale (an investing item) to get ₹5,60,000 before working capital; then deduct the increase in inventory of ₹60,000 to get ₹5,00,000. In practice: compute in two stages.', 'c3', T3, 'hard', check=500000),
+        Q('m6', 'Profit before tax ₹5,40,000, depreciation ₹70,000, gain on sale of investment ₹30,000, inventory up by ₹40,000. Cash generated from operations:', ['₹5,40,000', '₹5,80,000', '₹6,40,000', '₹5,00,000'], 0,
+          'Add back depreciation and remove the gain on sale (an investing item) to get ₹5,80,000 before working capital; then deduct the ₹40,000 rise in inventory to get ₹5,40,000. In practice: compute in two stages.', 'c3', T3, 'hard', check=540000),
         Q('m7', 'Income tax paid is generally classified as:', ['Operating, unless specifically identified with investing or financing', 'Always financing', 'Always investing', 'Excluded'], 0,
           'AS 3 treats taxes on income as operating cash flows unless they can be specifically linked with investing or financing activities, in which case they follow those activities. In practice: tax on capital gains could be investing if identifiable.', 'c4', T4),
         Q('m8', 'Acquisition of land by issuing equity shares to the seller:', ['Is excluded from the cash flow statement and disclosed elsewhere', 'Is an investing outflow and financing inflow', 'Is an operating flow', 'Is shown net'], 0,
