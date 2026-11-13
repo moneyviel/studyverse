@@ -1,0 +1,855 @@
+{
+ "schema": "ca-unit/1",
+ "id": "int-p4-ch08-u01",
+ "level": "inter",
+ "paper": "p4",
+ "chapter": "int-p4-ch08",
+ "n": 1,
+ "title": "Unit & Batch Costing",
+ "outcomes": [
+  "Prepare a unit cost sheet.",
+  "Apply batch costing and compute economic batch quantity."
+ ],
+ "meta": {
+  "difficulty": "core",
+  "minutes": {
+   "learn": 25,
+   "practice": 35
+  },
+  "prereq": [
+   "int-p4-ch07-u01"
+  ],
+  "exam_tip": "Always show total and per-unit columns; in EBQ, verify that set-up and carrying costs are equal."
+ },
+ "concepts": [
+  {
+   "id": "c1",
+   "title": "Unit (output/single) costing",
+   "body": [
+    "Unit costing (output or single costing) suits industries producing one product, or a few grades of it, in a continuous flow — bricks, cement, sugar, mining, dairies.",
+    "All costs for the period are collected and divided by the units produced to get cost per unit; a cost sheet shows prime cost, works cost, cost of production, cost of goods sold and cost of sales, each in total and per unit.",
+    "Opening and closing finished stock and work-in-progress adjustments are made at the appropriate levels; a statement of profit follows from sales less cost of sales. Tenders and quotations are prepared from the cost sheet with expected changes in prices and volumes."
+   ],
+   "analogy": "When every unit is alike, one division — total cost ÷ units — tells you what each costs.",
+   "work": "A dairy producing 5 lakh litres of milk at a total cost of ₹2 crore has a unit cost of ₹40 a litre."
+  },
+  {
+   "id": "c2",
+   "title": "Batch costing and economic batch quantity",
+   "body": [
+    "Batch costing treats a group of identical units made together as the cost unit; batch cost ÷ units in the batch gives unit cost. It suits medicines, toys, shoes, spare parts and readymade garments.",
+    "Each batch gets a batch number; costs are collected on a batch cost sheet just as in job costing.",
+    "Economic batch quantity balances set-up cost (falls as batches get bigger) and carrying cost (rises with batch size): EBQ = √(2DS ÷ C), where D is annual demand, S set-up cost per batch and C carrying cost per unit per year."
+   ],
+   "analogy": "Batch costing is job costing for a group of identical items; EBQ is EOQ applied to production runs.",
+   "work": "A pharma firm making tablets in lots of 50,000 records each lot's costs separately and divides by good tablets produced."
+  },
+  {
+   "id": "c3",
+   "title": "Comparing unit, batch and job costing",
+   "body": [
+    "Unit costing: continuous, identical output; cost per period ÷ units. Job costing: customer-specific orders; costs per job. Batch costing: identical items made in lots; costs per batch.",
+    "All three are methods within the same cost accounting principles; the choice depends on how production is organised.",
+    "Common errors: averaging costs across different products in unit costing, and ignoring set-up costs when deciding batch sizes."
+   ],
+   "analogy": "Match the method to the production pattern — product, order or lot.",
+   "work": "A garment exporter making 2,000 identical shirts for one order may use batch costing within a job."
+  }
+ ],
+ "illustrations": [
+  {
+   "id": "i1",
+   "title": "Cost per brick",
+   "difficulty": "core",
+   "minutes": 8,
+   "q": "Kiln Bricks produced and sold 20,000 units of a single product. Costs: direct materials ₹4,80,000; direct wages ₹3,20,000; direct expenses ₹40,000; factory overheads ₹2,00,000; administration overheads (production-related) ₹80,000; selling overheads ₹60,000. Prepare a cost sheet and find cost per unit.",
+   "solution": [
+    {
+     "t": "table",
+     "head": [
+      "Item",
+      "Total ₹",
+      "Per unit ₹"
+     ],
+     "rows": [
+      [
+       "Prime cost",
+       "8,40,000",
+       "42.00"
+      ],
+      [
+       "Factory overheads",
+       "2,00,000",
+       "10.00"
+      ],
+      [
+       "Works cost",
+       "10,40,000",
+       "52.00"
+      ],
+      [
+       "Administration overheads",
+       "80,000",
+       "4.00"
+      ],
+      [
+       "Cost of production",
+       "11,20,000",
+       "56.00"
+      ],
+      [
+       "Selling overheads",
+       "60,000",
+       "3.00"
+      ],
+      [
+       "Cost of sales",
+       "11,80,000",
+       "59"
+      ]
+     ],
+     "title": "Unit cost sheet"
+    }
+   ],
+   "checks": [
+    {
+     "expr": "480000+320000+40000",
+     "value": 840000,
+     "label": "Prime cost"
+    },
+    {
+     "expr": "840000+200000",
+     "value": 1040000,
+     "label": "Works cost"
+    },
+    {
+     "expr": "1040000+80000",
+     "value": 1120000,
+     "label": "Cost of production"
+    },
+    {
+     "expr": "1120000+60000",
+     "value": 1180000,
+     "label": "Cost of sales"
+    },
+    {
+     "expr": "1180000/20000",
+     "value": 59,
+     "label": "Cost per unit"
+    }
+   ]
+  },
+  {
+   "id": "i2",
+   "title": "How big should a batch be?",
+   "difficulty": "moderate",
+   "minutes": 9,
+   "q": "A toy maker needs 60,000 units a year. Each production set-up costs ₹1,200 and the carrying cost is ₹4 per unit per year. It currently produces in batches of 3,000. Compute the economic batch quantity and the annual saving from switching to it.",
+   "solution": [
+    {
+     "t": "table",
+     "head": [
+      "Item",
+      "Working",
+      "Value"
+     ],
+     "rows": [
+      [
+       "EBQ",
+       "√(2 × 60,000 × 1,200 ÷ 4)",
+       "6,000 units"
+      ],
+      [
+       "Batches at EBQ",
+       "60,000 ÷ 6,000",
+       "10"
+      ],
+      [
+       "Cost at EBQ",
+       "Set-up 10 × 1,200 + carrying 3,000 × 4",
+       "₹24,000"
+      ],
+      [
+       "Cost at 3,000 per batch",
+       "Set-up 20 × 1,200 + carrying 1,500 × 4",
+       "₹30,000"
+      ],
+      [
+       "Saving",
+       "",
+       "₹6,000"
+      ]
+     ],
+     "title": "Economic batch quantity"
+    },
+    {
+     "t": "note",
+     "text": "At EBQ, total set-up cost equals total carrying cost — a quick check of the arithmetic."
+    }
+   ],
+   "checks": [
+    {
+     "expr": "(2*60000*1200/4)**0.5",
+     "value": 6000,
+     "label": "Economic batch quantity"
+    },
+    {
+     "expr": "60000/6000",
+     "value": 10,
+     "label": "Number of batches at EBQ"
+    },
+    {
+     "expr": "10*1200 + 6000/2*4",
+     "value": 24000,
+     "label": "Set-up + carrying cost at EBQ"
+    },
+    {
+     "expr": "20*1200 + 3000/2*4",
+     "value": 30000,
+     "label": "Set-up + carrying cost at current batch of 3,000"
+    },
+    {
+     "expr": "30000-24000",
+     "value": 6000,
+     "label": "Annual saving"
+    }
+   ]
+  }
+ ],
+ "jobs": [
+  {
+   "id": "j1",
+   "title": "Batch size review",
+   "role": "Cost accountant trainee",
+   "situation": "The production head runs small batches to keep stock low; set-up costs keep rising.",
+   "steps": [
+    "Estimate annual demand, set-up cost and carrying cost.",
+    "Compute EBQ.",
+    "Compare total cost at current size and at EBQ.",
+    "Recommend a size and number of runs."
+   ],
+   "takeaway": "Smaller is not always cheaper — set-ups cost money too."
+  }
+ ],
+ "mcqs": [
+  {
+   "id": "m1",
+   "q": "Unit costing is most suitable for:",
+   "options": [
+    "A cement plant",
+    "A shipbuilder",
+    "An interior decorator",
+    "A printing press taking orders"
+   ],
+   "answer": 0,
+   "explain": "Single, homogeneous product in continuous production — cement — fits unit costing. The others are order-based. In practice: cost per tonne is the key figure.",
+   "concept": "c1",
+   "topic": "Unit (output/single) costing",
+   "difficulty": "core"
+  },
+  {
+   "id": "m2",
+   "q": "In batch costing, the cost unit is:",
+   "options": [
+    "A batch",
+    "A single item",
+    "A job",
+    "A process"
+   ],
+   "answer": 0,
+   "explain": "Costs are collected per batch and divided by units in it. In practice: each batch gets a number.",
+   "concept": "c2",
+   "topic": "Batch costing and economic batch quantity",
+   "difficulty": "core"
+  },
+  {
+   "id": "m3",
+   "q": "EBQ with D = 18,000, S = ₹400, C = ₹4:",
+   "options": [
+    "1,897 units",
+    "3,600 units",
+    "1,200 units",
+    "6,000 units"
+   ],
+   "answer": 0,
+   "explain": "√(2 × 18,000 × 400 ÷ 4) = √3,600,000 ≈ 1,897. In practice: round to a practical size.",
+   "concept": "c2",
+   "topic": "Batch costing and economic batch quantity",
+   "difficulty": "moderate",
+   "check": 1897
+  },
+  {
+   "id": "m4",
+   "q": "At EBQ:",
+   "options": [
+    "Total set-up cost equals total carrying cost",
+    "Set-up cost is zero",
+    "Carrying cost is the highest",
+    "Batches are fewest possible"
+   ],
+   "answer": 0,
+   "explain": "The square-root formula minimises total cost where the two costs are equal. In practice: use this to check workings.",
+   "concept": "c2",
+   "topic": "Batch costing and economic batch quantity",
+   "difficulty": "core"
+  },
+  {
+   "id": "m5",
+   "q": "If set-up cost per batch rises, EBQ:",
+   "options": [
+    "Increases",
+    "Decreases",
+    "Remains same",
+    "Becomes zero"
+   ],
+   "answer": 0,
+   "explain": "S is in the numerator, so higher set-up cost means larger, fewer batches. In practice: automation lowers S and EBQ.",
+   "concept": "c2",
+   "topic": "Batch costing and economic batch quantity",
+   "difficulty": "core"
+  },
+  {
+   "id": "m6",
+   "q": "Cost of sales in a unit cost sheet = cost of goods sold plus:",
+   "options": [
+    "Selling and distribution overheads",
+    "Factory overheads",
+    "Direct materials",
+    "Administration overheads relating to production"
+   ],
+   "answer": 0,
+   "explain": "Selling and distribution overheads are added last. In practice: production-related administration is in cost of production.",
+   "concept": "c1",
+   "topic": "Unit (output/single) costing",
+   "difficulty": "core"
+  },
+  {
+   "id": "m7",
+   "q": "Total cost ₹9,00,000 for 30,000 identical units; unit cost is:",
+   "options": [
+    "₹30",
+    "₹27",
+    "₹33",
+    "₹300"
+   ],
+   "answer": 0,
+   "explain": "₹9,00,000 ÷ 30,000 = ₹30. In practice: compare with selling price per unit.",
+   "concept": "c1",
+   "topic": "Unit (output/single) costing",
+   "difficulty": "core",
+   "check": 30
+  },
+  {
+   "id": "m8",
+   "q": "Which industry typically uses batch costing?",
+   "options": [
+    "Pharmaceuticals",
+    "Mining",
+    "Construction",
+    "Electricity generation"
+   ],
+   "answer": 0,
+   "explain": "Medicines are made in identical lots. Mining and power fit unit costing; construction fits contract costing. In practice: batch records support quality control too.",
+   "concept": "c3",
+   "topic": "Comparing unit, batch and job costing",
+   "difficulty": "core"
+  }
+ ],
+ "questions": [
+  {
+   "id": "q1",
+   "marks": 5,
+   "minutes": 9,
+   "difficulty": "core",
+   "pad": "table",
+   "q": "Kiln Bricks produced and sold 20,000 units of a single product. Costs: direct materials ₹4,80,000; direct wages ₹3,20,000; direct expenses ₹40,000; factory overheads ₹2,00,000; administration overheads (production-related) ₹80,000; selling overheads ₹60,000. Prepare a cost sheet and find cost per unit.",
+   "model": [
+    {
+     "t": "table",
+     "head": [
+      "Item",
+      "Total ₹",
+      "Per unit ₹"
+     ],
+     "rows": [
+      [
+       "Prime cost",
+       "8,40,000",
+       "42.00"
+      ],
+      [
+       "Factory overheads",
+       "2,00,000",
+       "10.00"
+      ],
+      [
+       "Works cost",
+       "10,40,000",
+       "52.00"
+      ],
+      [
+       "Administration overheads",
+       "80,000",
+       "4.00"
+      ],
+      [
+       "Cost of production",
+       "11,20,000",
+       "56.00"
+      ],
+      [
+       "Selling overheads",
+       "60,000",
+       "3.00"
+      ],
+      [
+       "Cost of sales",
+       "11,80,000",
+       "59"
+      ]
+     ],
+     "title": "Unit cost sheet"
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "Prime cost",
+     "m": 1,
+     "skill": "computation",
+     "kw": [
+      "prime"
+     ],
+     "min": 1,
+     "nums": [
+      840000
+     ]
+    },
+    {
+     "id": "s2",
+     "pt": "Works cost",
+     "m": 1,
+     "skill": "computation",
+     "kw": [
+      "works"
+     ],
+     "min": 1,
+     "nums": [
+      1040000
+     ]
+    },
+    {
+     "id": "s3",
+     "pt": "Cost of production",
+     "m": 1,
+     "skill": "computation",
+     "kw": [
+      "production"
+     ],
+     "min": 1,
+     "nums": [
+      1120000
+     ]
+    },
+    {
+     "id": "s4",
+     "pt": "Cost per unit",
+     "m": 2,
+     "skill": "computation",
+     "kw": [
+      "per unit"
+     ],
+     "min": 1,
+     "nums": [
+      59
+     ]
+    }
+   ],
+   "remarks": [
+    "Show per-unit column."
+   ],
+   "mistakes": [
+    "Adding selling overheads to cost of production."
+   ],
+   "tips": [
+    "Cost sheet."
+   ],
+   "extra_ok": true,
+   "checks": [
+    {
+     "expr": "480000+320000+40000",
+     "value": 840000,
+     "label": "Prime cost"
+    },
+    {
+     "expr": "840000+200000",
+     "value": 1040000,
+     "label": "Works cost"
+    },
+    {
+     "expr": "1040000+80000",
+     "value": 1120000,
+     "label": "Cost of production"
+    },
+    {
+     "expr": "1120000+60000",
+     "value": 1180000,
+     "label": "Cost of sales"
+    },
+    {
+     "expr": "1180000/20000",
+     "value": 59,
+     "label": "Cost per unit"
+    }
+   ]
+  },
+  {
+   "id": "q2",
+   "marks": 5,
+   "minutes": 9,
+   "difficulty": "core",
+   "pad": "table",
+   "q": "A toy maker needs 60,000 units a year. Each production set-up costs ₹1,200 and the carrying cost is ₹4 per unit per year. It currently produces in batches of 3,000. Compute the economic batch quantity and the annual saving from switching to it.",
+   "model": [
+    {
+     "t": "table",
+     "head": [
+      "Item",
+      "Working",
+      "Value"
+     ],
+     "rows": [
+      [
+       "EBQ",
+       "√(2 × 60,000 × 1,200 ÷ 4)",
+       "6,000 units"
+      ],
+      [
+       "Batches at EBQ",
+       "60,000 ÷ 6,000",
+       "10"
+      ],
+      [
+       "Cost at EBQ",
+       "Set-up 10 × 1,200 + carrying 3,000 × 4",
+       "₹24,000"
+      ],
+      [
+       "Cost at 3,000 per batch",
+       "Set-up 20 × 1,200 + carrying 1,500 × 4",
+       "₹30,000"
+      ],
+      [
+       "Saving",
+       "",
+       "₹6,000"
+      ]
+     ],
+     "title": "Economic batch quantity"
+    },
+    {
+     "t": "note",
+     "text": "At EBQ, total set-up cost equals total carrying cost — a quick check of the arithmetic."
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "EBQ",
+     "m": 2,
+     "skill": "computation",
+     "kw": [
+      "EBQ"
+     ],
+     "min": 1,
+     "nums": [
+      6000
+     ]
+    },
+    {
+     "id": "s2",
+     "pt": "Costs compared",
+     "m": 2,
+     "skill": "computation",
+     "kw": [
+      "set-up"
+     ],
+     "min": 1,
+     "nums": [
+      24000,
+      30000
+     ]
+    },
+    {
+     "id": "s3",
+     "pt": "Saving",
+     "m": 1,
+     "skill": "computation",
+     "kw": [
+      "saving"
+     ],
+     "min": 1,
+     "nums": [
+      6000
+     ]
+    }
+   ],
+   "remarks": [
+    "Use average stock = batch ÷ 2."
+   ],
+   "mistakes": [
+    "Using whole batch for carrying cost."
+   ],
+   "tips": [
+    "Table."
+   ],
+   "extra_ok": true,
+   "checks": [
+    {
+     "expr": "(2*60000*1200/4)**0.5",
+     "value": 6000,
+     "label": "Economic batch quantity"
+    },
+    {
+     "expr": "60000/6000",
+     "value": 10,
+     "label": "Number of batches at EBQ"
+    },
+    {
+     "expr": "10*1200 + 6000/2*4",
+     "value": 24000,
+     "label": "Set-up + carrying cost at EBQ"
+    },
+    {
+     "expr": "20*1200 + 3000/2*4",
+     "value": 30000,
+     "label": "Set-up + carrying cost at current batch of 3,000"
+    },
+    {
+     "expr": "30000-24000",
+     "value": 6000,
+     "label": "Annual saving"
+    }
+   ]
+  }
+ ],
+ "revision": {
+  "summary": [
+   "Unit costing: total cost ÷ units for homogeneous output.",
+   "Batch costing: batch is the cost unit.",
+   "EBQ = √(2DS/C); at EBQ, set-up cost = carrying cost."
+  ],
+  "remember": [
+   "Average stock = batch size ÷ 2."
+  ],
+  "traps": [
+   "Selling overheads come after cost of production."
+  ]
+ },
+ "quickref": [
+  {
+   "k": "EBQ",
+   "v": "√(2DS/C)"
+  },
+  {
+   "k": "Unit cost",
+   "v": "Total cost ÷ units"
+  },
+  {
+   "k": "Average inventory",
+   "v": "Q/2"
+  }
+ ],
+ "viva": [
+  {
+   "id": "v1",
+   "q": "Where is unit costing used?",
+   "model": "In industries producing a single homogeneous product continuously, such as cement, bricks, sugar and mining.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Single product",
+     "w": 5,
+     "kw": [
+      "single|homogeneous"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Examples",
+     "w": 5,
+     "kw": [
+      "cement|brick|sugar|mining"
+     ]
+    }
+   ],
+   "concept": "c1"
+  },
+  {
+   "id": "v2",
+   "q": "What is batch costing?",
+   "model": "A method where a lot of identical units is the cost unit; batch cost divided by units gives unit cost.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Lot as cost unit",
+     "w": 6,
+     "kw": [
+      "batch|lot"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Divide by units",
+     "w": 4,
+     "kw": [
+      "divid|units"
+     ]
+    }
+   ],
+   "concept": "c2"
+  },
+  {
+   "id": "v3",
+   "q": "State the EBQ formula.",
+   "model": "The square root of two times annual demand times set-up cost per batch, divided by carrying cost per unit per year.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Square root",
+     "w": 4,
+     "kw": [
+      "square root"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Variables",
+     "w": 6,
+     "kw": [
+      "demand|set-up|carrying"
+     ]
+    }
+   ],
+   "concept": "c2"
+  },
+  {
+   "id": "v4",
+   "q": "Why does EBQ minimise cost?",
+   "model": "Because larger batches cut set-up cost but raise carrying cost; EBQ is the size where their total is lowest, where the two are equal.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Trade-off",
+     "w": 5,
+     "kw": [
+      "set-up|carrying"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Equal",
+     "w": 5,
+     "kw": [
+      "equal|lowest"
+     ]
+    }
+   ],
+   "concept": "c2"
+  },
+  {
+   "id": "v5",
+   "q": "What does a unit cost sheet show?",
+   "model": "Prime cost, works cost, cost of production, cost of goods sold and cost of sales, in total and per unit.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Cost stages",
+     "w": 6,
+     "kw": [
+      "prime|works|production"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Per unit",
+     "w": 4,
+     "kw": [
+      "per unit"
+     ]
+    }
+   ],
+   "concept": "c1"
+  }
+ ],
+ "cases": [
+  {
+   "id": "k1",
+   "title": "Glow Candles",
+   "difficulty": "moderate",
+   "case": "Glow Candles makes scented candles in batches. Annual demand is 1,00,000 candles; set-up cost ₹2,000 per batch; carrying cost ₹1 per candle per year. It currently runs 50 batches a year.",
+   "mcqs": [
+    {
+     "id": "k1a",
+     "q": "Current batch size:",
+     "options": [
+      "2,000 candles",
+      "5,000 candles",
+      "1,000 candles",
+      "20,000 candles"
+     ],
+     "answer": 0,
+     "explain": "1,00,000 ÷ 50 = 2,000. In practice: start from current practice.",
+     "difficulty": "core",
+     "check": 2000,
+     "topic": "Batch costing and economic batch quantity"
+    },
+    {
+     "id": "k1b",
+     "q": "EBQ:",
+     "options": [
+      "20,000 candles",
+      "10,000 candles",
+      "14,142 candles",
+      "2,000 candles"
+     ],
+     "answer": 0,
+     "explain": "√(2 × 1,00,000 × 2,000 ÷ 1) = √400,000,000 = 20,000. In practice: 5 runs a year.",
+     "difficulty": "moderate",
+     "check": 20000,
+     "topic": "Batch costing and economic batch quantity"
+    },
+    {
+     "id": "k1c",
+     "q": "Total set-up + carrying cost at current size:",
+     "options": [
+      "₹1,01,000",
+      "₹20,000",
+      "₹40,000",
+      "₹1,00,000"
+     ],
+     "answer": 0,
+     "explain": "Set-up 50 × 2,000 = 1,00,000; carrying 2,000 ÷ 2 × 1 = 1,000; total ₹1,01,000. In practice: set-up dominates.",
+     "difficulty": "moderate",
+     "check": 101000,
+     "topic": "Batch costing and economic batch quantity"
+    },
+    {
+     "id": "k1d",
+     "q": "Total cost at EBQ:",
+     "options": [
+      "₹20,000",
+      "₹10,000",
+      "₹40,000",
+      "₹1,01,000"
+     ],
+     "answer": 0,
+     "explain": "Set-up 5 × 2,000 = 10,000; carrying 20,000 ÷ 2 × 1 = 10,000; total ₹20,000. In practice: saving of ₹81,000.",
+     "difficulty": "moderate",
+     "check": 20000,
+     "topic": "Batch costing and economic batch quantity"
+    }
+   ]
+  }
+ ]
+}
