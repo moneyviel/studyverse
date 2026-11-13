@@ -1,0 +1,744 @@
+{
+ "schema": "ca-unit/1",
+ "id": "int-p4-ch12-u01",
+ "level": "inter",
+ "paper": "p4",
+ "chapter": "int-p4-ch12",
+ "n": 1,
+ "title": "Service Costing",
+ "outcomes": [
+  "Choose suitable cost units for services.",
+  "Compute transport costs using absolute and commercial tonne-km.",
+  "Cost and price hotel, hospital and other services."
+ ],
+ "meta": {
+  "difficulty": "core",
+  "minutes": {
+   "learn": 25,
+   "practice": 35
+  },
+  "prereq": [
+   "int-p4-ch11-u01"
+  ],
+  "exam_tip": "Compute the service units (room-days, tonne-km) first; every rupee answer divides by them."
+ },
+ "concepts": [
+  {
+   "id": "c1",
+   "title": "Features of service costing and cost units",
+   "body": [
+    "Service costing (operating costing) finds the cost of services such as transport, power, hotels, hospitals, education, IT and toll roads. Services cannot be stored, are largely fixed-cost businesses, and need cost units that capture the work done.",
+    "Composite cost units combine two measures: passenger-km, tonne-km, room-day, patient-day, kilowatt-hour, student-hour, vehicle-km.",
+    "Costs are classified as fixed (standing) charges, semi-variable (maintenance) charges and variable (running) charges, and collected on a log sheet or service cost sheet."
+   ],
+   "analogy": "A good cost unit captures both \"how much\" and \"how far\" or \"how long\".",
+   "work": "A bus company uses passenger-km because both passengers carried and distance matter."
+  },
+  {
+   "id": "c2",
+   "title": "Transport costing",
+   "body": [
+    "Absolute tonne-km (or passenger-km) = sum of (load × distance) for each leg.",
+    "Commercial tonne-km = average load × total distance, where average load is the simple average of loads on the legs.",
+    "Standing charges: garage rent, insurance, road tax, driver's salary, depreciation (if time-based); running charges: fuel, oil, tyres, depreciation (if usage-based); maintenance: repairs, servicing. Fare or freight = cost per unit plus profit margin."
+   ],
+   "analogy": "Absolute tonne-km tracks each leg exactly; commercial tonne-km uses the average.",
+   "work": "A bus with 40 passengers for 50 km does 2,000 passenger-km."
+  },
+  {
+   "id": "c3",
+   "title": "Hotels, hospitals and other services",
+   "body": [
+    "Hotels: room-day or bed-night; occupancy rate is crucial, and costs such as laundry, food and housekeeping are separated by department.",
+    "Hospitals: patient-day or bed-day for wards; per test for labs; per procedure for operation theatres. Idle capacity costs must be watched.",
+    "Other services: power (kWh), education (student-year), IT and ITeS (per user or per transaction), toll roads (per vehicle crossing; build-operate-transfer model needs recovery of investment over the concession period)."
+   ],
+   "analogy": "Pricing a service is recovering largely fixed costs over expected usage.",
+   "work": "A 100-bed hospital at 75% occupancy over 365 days provides 27,375 patient-days."
+  }
+ ],
+ "illustrations": [
+  {
+   "id": "i1",
+   "title": "Measuring a truck's work",
+   "difficulty": "moderate",
+   "minutes": 8,
+   "q": "A truck carries 8 tonnes from Nashik to Pune (100 km) and unloads it all; it then carries 5 tonnes from Pune to Satara (60 km). Trip costs: fuel ₹4,800, driver ₹3,000, other ₹1,500. Compute absolute and commercial tonne-km and cost per absolute tonne-km.",
+   "solution": [
+    {
+     "t": "table",
+     "head": [
+      "Measure",
+      "Working",
+      "Value"
+     ],
+     "rows": [
+      [
+       "Absolute tonne-km",
+       "8 × 100 + 5 × 60",
+       "1,100"
+      ],
+      [
+       "Commercial tonne-km",
+       "Average load (8 + 5) ÷ 2 × total distance 160 km",
+       "1,040"
+      ],
+      [
+       "Trip cost",
+       "4,800 + 3,000 + 1,500",
+       "₹9,300"
+      ],
+      [
+       "Cost per absolute tonne-km",
+       "9,300 ÷ 1,100",
+       "₹8.45"
+      ]
+     ],
+     "title": "Composite cost units"
+    }
+   ],
+   "checks": [
+    {
+     "expr": "8*100+5*60",
+     "value": 1100,
+     "label": "Absolute tonne-km"
+    },
+    {
+     "expr": "(8+5)/2*(100+60)",
+     "value": 1040,
+     "label": "Commercial tonne-km"
+    },
+    {
+     "expr": "(4800+3000+1500)",
+     "value": 9300,
+     "label": "Trip cost (fuel, driver, other)"
+    },
+    {
+     "expr": "9300/1100",
+     "value": 8.45,
+     "label": "Cost per absolute tonne-km"
+    }
+   ]
+  },
+  {
+   "id": "i2",
+   "title": "Pricing a hotel room",
+   "difficulty": "moderate",
+   "minutes": 7,
+   "q": "Lakeview Hotel has 50 rooms, open 360 days a year, with expected occupancy of 80%. Total annual cost is ₹1,15,20,000. Compute cost per room-day and the room rent to earn 20% on cost.",
+   "solution": [
+    {
+     "t": "table",
+     "head": [
+      "Item",
+      "Working",
+      "Value"
+     ],
+     "rows": [
+      [
+       "Room-days occupied",
+       "50 × 360 × 80%",
+       "14,400"
+      ],
+      [
+       "Cost per room-day",
+       "1,15,20,000 ÷ 14,400",
+       "₹800"
+      ],
+      [
+       "Rent per room-day",
+       "800 × 120%",
+       "₹960"
+      ]
+     ],
+     "title": "Hotel costing"
+    }
+   ],
+   "checks": [
+    {
+     "expr": "50*360*80/100",
+     "value": 14400,
+     "label": "Room-days occupied"
+    },
+    {
+     "expr": "11520000/14400",
+     "value": 800,
+     "label": "Cost per room-day"
+    },
+    {
+     "expr": "800*1.2",
+     "value": 960,
+     "label": "Rent per room-day for 20% profit on cost"
+    }
+   ]
+  }
+ ],
+ "jobs": [
+  {
+   "id": "j1",
+   "title": "Freight rate setting",
+   "role": "Cost accountant trainee",
+   "situation": "A fleet owner wants a freight rate per tonne-km for a new route.",
+   "steps": [
+    "Estimate distance and loads per leg.",
+    "Classify costs as standing, running and maintenance.",
+    "Compute cost per tonne-km.",
+    "Add margin and compare with market rates."
+   ],
+   "takeaway": "Empty return trips raise cost per tonne-km sharply."
+  }
+ ],
+ "mcqs": [
+  {
+   "id": "m1",
+   "q": "The cost unit for a hospital ward is usually:",
+   "options": [
+    "Patient-day",
+    "Tonne-km",
+    "Kilowatt-hour",
+    "Room-day"
+   ],
+   "answer": 0,
+   "explain": "Patient-day (or bed-day) captures patients and time. In practice: labs use cost per test.",
+   "concept": "c1",
+   "topic": "Features of service costing and cost units",
+   "difficulty": "core"
+  },
+  {
+   "id": "m2",
+   "q": "A bus carries 30 passengers for 40 km and 20 passengers for 60 km. Passenger-km:",
+   "options": [
+    "2,400",
+    "5,000",
+    "3,000",
+    "1,200"
+   ],
+   "answer": 0,
+   "explain": "30 × 40 + 20 × 60 = 1,200 + 1,200 = 2,400. In practice: use for fare per passenger-km.",
+   "concept": "c2",
+   "topic": "Transport costing",
+   "difficulty": "core",
+   "check": 2400
+  },
+  {
+   "id": "m3",
+   "q": "Commercial tonne-km is calculated as:",
+   "options": [
+    "Average load × total distance",
+    "Sum of load × distance per leg",
+    "Maximum load × distance",
+    "Load × time"
+   ],
+   "answer": 0,
+   "explain": "The average of loads on each leg multiplied by total distance. In practice: absolute tonne-km is leg-wise.",
+   "concept": "c2",
+   "topic": "Transport costing",
+   "difficulty": "core"
+  },
+  {
+   "id": "m4",
+   "q": "Which is a standing charge in transport costing?",
+   "options": [
+    "Insurance",
+    "Fuel",
+    "Tyres",
+    "Lubricants"
+   ],
+   "answer": 0,
+   "explain": "Insurance is fixed regardless of distance. The others vary with running. In practice: driver salary is usually standing.",
+   "concept": "c2",
+   "topic": "Transport costing",
+   "difficulty": "core"
+  },
+  {
+   "id": "m5",
+   "q": "Hotel with 40 rooms, 300 days, 75% occupancy. Room-days:",
+   "options": [
+    "9,000",
+    "12,000",
+    "7,500",
+    "10,000"
+   ],
+   "answer": 0,
+   "explain": "40 × 300 × 75% = 9,000. In practice: divide total cost by this.",
+   "concept": "c3",
+   "topic": "Hotels, hospitals and other services",
+   "difficulty": "core",
+   "check": 9000
+  },
+  {
+   "id": "m6",
+   "q": "Service costing is also called:",
+   "options": [
+    "Operating costing",
+    "Batch costing",
+    "Contract costing",
+    "Marginal costing"
+   ],
+   "answer": 0,
+   "explain": "Operating costing applies to services. In practice: power and transport are common examples.",
+   "concept": "c1",
+   "topic": "Features of service costing and cost units",
+   "difficulty": "core"
+  },
+  {
+   "id": "m7",
+   "q": "Cost per room-day ₹1,000; required profit 25% on rent. Rent:",
+   "options": [
+    "₹1,333",
+    "₹1,250",
+    "₹1,200",
+    "₹1,500"
+   ],
+   "answer": 0,
+   "explain": "1,000 ÷ 0.75 = ₹1,333. In practice: 25% on cost would give ₹1,250.",
+   "concept": "c3",
+   "topic": "Hotels, hospitals and other services",
+   "difficulty": "moderate",
+   "check": 1333
+  },
+  {
+   "id": "m8",
+   "q": "Toll road costing under BOT recovers:",
+   "options": [
+    "Construction and operating costs over the concession period",
+    "Only maintenance costs",
+    "Only fuel costs",
+    "Nothing"
+   ],
+   "answer": 0,
+   "explain": "Build-operate-transfer projects price tolls to recover investment and running costs before handover. In practice: traffic forecasts drive the toll.",
+   "concept": "c3",
+   "topic": "Hotels, hospitals and other services",
+   "difficulty": "core"
+  }
+ ],
+ "questions": [
+  {
+   "id": "q1",
+   "marks": 5,
+   "minutes": 9,
+   "difficulty": "core",
+   "pad": "table",
+   "q": "A truck carries 8 tonnes from Nashik to Pune (100 km) and unloads it all; it then carries 5 tonnes from Pune to Satara (60 km). Trip costs: fuel ₹4,800, driver ₹3,000, other ₹1,500. Compute absolute and commercial tonne-km and cost per absolute tonne-km.",
+   "model": [
+    {
+     "t": "table",
+     "head": [
+      "Measure",
+      "Working",
+      "Value"
+     ],
+     "rows": [
+      [
+       "Absolute tonne-km",
+       "8 × 100 + 5 × 60",
+       "1,100"
+      ],
+      [
+       "Commercial tonne-km",
+       "Average load (8 + 5) ÷ 2 × total distance 160 km",
+       "1,040"
+      ],
+      [
+       "Trip cost",
+       "4,800 + 3,000 + 1,500",
+       "₹9,300"
+      ],
+      [
+       "Cost per absolute tonne-km",
+       "9,300 ÷ 1,100",
+       "₹8.45"
+      ]
+     ],
+     "title": "Composite cost units"
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "Absolute tonne-km",
+     "m": 2,
+     "skill": "computation",
+     "kw": [
+      "absolute"
+     ],
+     "min": 1,
+     "nums": [
+      1100
+     ]
+    },
+    {
+     "id": "s2",
+     "pt": "Commercial tonne-km",
+     "m": 2,
+     "skill": "computation",
+     "kw": [
+      "commercial"
+     ],
+     "min": 1,
+     "nums": [
+      1040
+     ]
+    },
+    {
+     "id": "s3",
+     "pt": "Cost per unit",
+     "m": 1,
+     "skill": "computation",
+     "kw": [
+      "per"
+     ],
+     "min": 1,
+     "nums": [
+      8.45
+     ]
+    }
+   ],
+   "remarks": [
+    "Show each leg."
+   ],
+   "mistakes": [
+    "Mixing up the two measures."
+   ],
+   "tips": [
+    "Table."
+   ],
+   "extra_ok": true,
+   "checks": [
+    {
+     "expr": "8*100+5*60",
+     "value": 1100,
+     "label": "Absolute tonne-km"
+    },
+    {
+     "expr": "(8+5)/2*(100+60)",
+     "value": 1040,
+     "label": "Commercial tonne-km"
+    },
+    {
+     "expr": "(4800+3000+1500)",
+     "value": 9300,
+     "label": "Trip cost (fuel, driver, other)"
+    },
+    {
+     "expr": "9300/1100",
+     "value": 8.45,
+     "label": "Cost per absolute tonne-km"
+    }
+   ]
+  },
+  {
+   "id": "q2",
+   "marks": 4,
+   "minutes": 7,
+   "difficulty": "core",
+   "pad": "table",
+   "q": "Lakeview Hotel has 50 rooms, open 360 days a year, with expected occupancy of 80%. Total annual cost is ₹1,15,20,000. Compute cost per room-day and the room rent to earn 20% on cost.",
+   "model": [
+    {
+     "t": "table",
+     "head": [
+      "Item",
+      "Working",
+      "Value"
+     ],
+     "rows": [
+      [
+       "Room-days occupied",
+       "50 × 360 × 80%",
+       "14,400"
+      ],
+      [
+       "Cost per room-day",
+       "1,15,20,000 ÷ 14,400",
+       "₹800"
+      ],
+      [
+       "Rent per room-day",
+       "800 × 120%",
+       "₹960"
+      ]
+     ],
+     "title": "Hotel costing"
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "Room-days",
+     "m": 2,
+     "skill": "computation",
+     "kw": [
+      "room-days"
+     ],
+     "min": 1,
+     "nums": [
+      14400
+     ]
+    },
+    {
+     "id": "s2",
+     "pt": "Cost and rent",
+     "m": 2,
+     "skill": "computation",
+     "kw": [
+      "rent"
+     ],
+     "min": 1,
+     "nums": [
+      800,
+      960
+     ]
+    }
+   ],
+   "remarks": [
+    "Apply occupancy."
+   ],
+   "mistakes": [
+    "Ignoring occupancy."
+   ],
+   "tips": [
+    "Table."
+   ],
+   "extra_ok": true,
+   "checks": [
+    {
+     "expr": "50*360*80/100",
+     "value": 14400,
+     "label": "Room-days occupied"
+    },
+    {
+     "expr": "11520000/14400",
+     "value": 800,
+     "label": "Cost per room-day"
+    },
+    {
+     "expr": "800*1.2",
+     "value": 960,
+     "label": "Rent per room-day for 20% profit on cost"
+    }
+   ]
+  }
+ ],
+ "revision": {
+  "summary": [
+   "Composite units: tonne-km, passenger-km, room-day, patient-day, kWh.",
+   "Absolute t-km = Σ load × distance; commercial = average load × total distance.",
+   "Standing, running and maintenance charges.",
+   "Hotels and hospitals: occupancy drives unit cost."
+  ],
+  "remember": [
+   "Profit on price: divide; on cost: multiply."
+  ],
+  "traps": [
+   "Ignoring occupancy overstates capacity."
+  ]
+ },
+ "quickref": [
+  {
+   "k": "Absolute t-km",
+   "v": "Σ load × distance"
+  },
+  {
+   "k": "Commercial t-km",
+   "v": "Avg load × total km"
+  },
+  {
+   "k": "Room-days",
+   "v": "Rooms × days × occupancy"
+  }
+ ],
+ "viva": [
+  {
+   "id": "v1",
+   "q": "What is a composite cost unit?",
+   "model": "A unit combining two measures of service, such as tonne-km or patient-day, to capture both volume and distance or time.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Two measures",
+     "w": 6,
+     "kw": [
+      "two|combin"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Example",
+     "w": 4,
+     "kw": [
+      "tonne-km|patient-day|passenger"
+     ]
+    }
+   ],
+   "concept": "c1"
+  },
+  {
+   "id": "v2",
+   "q": "How is absolute tonne-km computed?",
+   "model": "By multiplying the load carried on each leg by the distance of that leg and adding the products.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Each leg",
+     "w": 5,
+     "kw": [
+      "each leg|leg"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Load × distance",
+     "w": 5,
+     "kw": [
+      "load|distance"
+     ]
+    }
+   ],
+   "concept": "c2"
+  },
+  {
+   "id": "v3",
+   "q": "Name two running charges in transport.",
+   "model": "Fuel and lubricants, along with tyres and usage-based depreciation.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Fuel",
+     "w": 5,
+     "kw": [
+      "fuel"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Others",
+     "w": 5,
+     "kw": [
+      "lubricant|tyre|oil"
+     ]
+    }
+   ],
+   "concept": "c2"
+  },
+  {
+   "id": "v4",
+   "q": "Why is occupancy important in hotel costing?",
+   "model": "Because costs are largely fixed, so cost per room-day depends on how many rooms are actually occupied.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Fixed costs",
+     "w": 5,
+     "kw": [
+      "fixed"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Occupied rooms",
+     "w": 5,
+     "kw": [
+      "occupied|occupancy"
+     ]
+    }
+   ],
+   "concept": "c3"
+  },
+  {
+   "id": "v5",
+   "q": "What is the cost unit for power generation?",
+   "model": "The kilowatt-hour of electricity generated or supplied.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "kWh",
+     "w": 6,
+     "kw": [
+      "kilowatt"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Generated",
+     "w": 4,
+     "kw": [
+      "generat|suppl"
+     ]
+    }
+   ],
+   "concept": "c3"
+  }
+ ],
+ "cases": [
+  {
+   "id": "k1",
+   "title": "City Clinic",
+   "difficulty": "moderate",
+   "case": "City Clinic has 40 beds; average occupancy 90% over 365 days. Annual ward costs: fixed ₹78,84,000, variable ₹500 per patient-day. It wants 25% profit on cost.",
+   "mcqs": [
+    {
+     "id": "k1a",
+     "q": "Patient-days:",
+     "options": [
+      "13,140",
+      "14,600",
+      "12,000",
+      "10,950"
+     ],
+     "answer": 0,
+     "explain": "40 × 365 × 90% = 13,140. In practice: track daily census.",
+     "difficulty": "core",
+     "check": 13140,
+     "topic": "Hotels, hospitals and other services"
+    },
+    {
+     "id": "k1b",
+     "q": "Fixed cost per patient-day:",
+     "options": [
+      "₹600",
+      "₹540",
+      "₹500",
+      "₹650"
+     ],
+     "answer": 0,
+     "explain": "78,84,000 ÷ 13,140 = 600. In practice: rises if occupancy falls.",
+     "difficulty": "core",
+     "check": 600,
+     "topic": "Hotels, hospitals and other services"
+    },
+    {
+     "id": "k1c",
+     "q": "Total cost per patient-day:",
+     "options": [
+      "₹1,100",
+      "₹1,000",
+      "₹1,040",
+      "₹600"
+     ],
+     "answer": 0,
+     "explain": "600 fixed + 500 variable = 1,100. In practice: separate food and medicines.",
+     "difficulty": "core",
+     "check": 1100,
+     "topic": "Hotels, hospitals and other services"
+    },
+    {
+     "id": "k1d",
+     "q": "Charge per patient-day:",
+     "options": [
+      "₹1,375",
+      "₹1,467",
+      "₹1,320",
+      "₹1,250"
+     ],
+     "answer": 0,
+     "explain": "1,100 × 1.25 = 1,375. In practice: 25% on cost.",
+     "difficulty": "moderate",
+     "check": 1375,
+     "topic": "Hotels, hospitals and other services"
+    }
+   ]
+  }
+ ]
+}
