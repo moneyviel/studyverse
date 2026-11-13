@@ -9,7 +9,7 @@ CASES = cases()
 HERE = os.path.dirname(os.path.abspath(__file__))
 ONLY = [a for a in sys.argv[1:] if not a.startswith('-')]   # optional filters, e.g. build.py fnd_p3_ch01 fnd_p3_ch02
 FAILED = []
-for f in sorted(glob.glob(os.path.join(HERE, 'fnd_*.py')) + glob.glob(os.path.join(HERE, 'int_*.py'))):
+for f in sorted(glob.glob(os.path.join(HERE, 'fnd_*.py')) + glob.glob(os.path.join(HERE, 'int_*.py')) + glob.glob(os.path.join(HERE, 'fin_*.py'))):
     name = os.path.basename(f)[:-3]
     if ONLY and not any(name.startswith(o) for o in ONLY): continue
     try:
