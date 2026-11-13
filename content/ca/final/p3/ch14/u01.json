@@ -1,0 +1,701 @@
+{
+ "schema": "ca-unit/1",
+ "id": "fin-p3-ch14-u01",
+ "level": "final",
+ "paper": "p3",
+ "chapter": "fin-p3-ch14",
+ "n": 1,
+ "title": "Special Features of Audit of Banks",
+ "outcomes": [
+  "Explain the legal framework and appointment of bank auditors.",
+  "Evaluate internal controls and CRR/SLR compliance.",
+  "Apply IRAC norms in auditing advances.",
+  "Verify capital adequacy and prepare LFAR and other reports."
+ ],
+ "meta": {
+  "difficulty": "hard",
+  "minutes": {
+   "learn": 45,
+   "practice": 25
+  },
+  "prereq": [
+   "fin-p3-ch13-u01"
+  ],
+  "exam_tip": "For advances, test the 90-day rule, borrower-wise classification and income reversal."
+ },
+ "concepts": [
+  {
+   "id": "c1",
+   "title": "Legal framework, appointment and conducting a bank audit",
+   "body": [
+    "Banks are governed by the Banking Regulation Act, 1949, RBI Act, and Companies Act (for banking companies); statements follow the Third Schedule forms. Statutory central auditors and branch auditors are appointed with RBI approval; eligibility norms and numbers of auditors depend on asset size, with rotation limits.",
+    "RBI requires statutory central auditors to audit top branches covering a minimum proportion of advances (e.g. top 20 branches or top 20% for smaller banks, covering at least 15% of gross advances); section 143(8) applies to branch audits.",
+    "Conducting the audit involves understanding the bank's systems (core banking), reviewing internal audit, inspection and concurrent audit reports, RBI inspection findings and closing instructions, and assessing risks in advances, investments and treasury."
+   ],
+   "analogy": "Bank audits run on RBI rules as much as on SAs.",
+   "work": "Central auditors review branch auditors' reports before consolidating findings."
+  },
+  {
+   "id": "c2",
+   "title": "Internal controls and CRR/SLR compliance",
+   "body": [
+    "Key internal control areas: cash, deposits, advances (sanction, disbursement, monitoring), investments and treasury (segregation of front, mid and back office), foreign exchange, inter-branch reconciliation, suspense accounts, IT and access controls.",
+    "CRR (cash reserve ratio) requires a percentage of net demand and time liabilities to be kept with RBI; SLR (statutory liquidity ratio) requires holding liquid assets such as government securities. The auditor verifies computation of NDTL and compliance, reporting defaults.",
+    "Weak controls are reported in the Long Form Audit Report (LFAR) and to management."
+   ],
+   "analogy": "Liquidity and control compliance are audit focus areas in banks.",
+   "work": "Old unreconciled inter-branch entries signal fraud risk."
+  },
+  {
+   "id": "c3",
+   "title": "Advances: IRAC norms and NPA verification",
+   "body": [
+    "Income recognition and asset classification (IRAC) norms: an advance becomes non-performing when interest or instalment remains overdue for more than 90 days (term loans), or the account remains out of order for 90 days (cash credit/overdraft), or bills remain overdue 90 days; agricultural loans follow crop season rules.",
+    "NPAs are classified as substandard, doubtful (sub-categories by age) or loss assets; interest on NPAs is not recognised as income until realised; provisions follow RBI percentages on secured and unsecured portions.",
+    "Auditors verify sanction, documentation, security, drawing power, stock statements, regularisation near year end, restructuring, ever-greening and provisioning; and the classification is borrower-wise, not facility-wise."
+   ],
+   "analogy": "90 days overdue is the line between performing and non-performing.",
+   "work": "Regularising an account by sanctioning a new loan from the same bank is ever-greening."
+  },
+  {
+   "id": "c4",
+   "title": "Capital, Basel III, reports, LFAR and concurrent audit",
+   "body": [
+    "Capital: Basel III requires minimum CRAR (9% in India) plus capital conservation buffer, with common equity tier 1 and additional tier 1 components; stress testing assesses resilience. Auditors verify capital computation and risk weights.",
+    "Reports: the main audit report under the Banking Regulation Act and/or Companies Act; the Long Form Audit Report (LFAR) prescribed by RBI covering detailed matters on advances, deposits, controls; and certificates such as on SLR, CRR, and compliance.",
+    "Concurrent audit is a real-time examination of transactions at branches or treasury, covering a specified share of business, appointed by the bank, with reporting systems to management and the audit committee. The bank's audit committee oversees audit functions."
+   ],
+   "analogy": "Capital adequacy, LFAR and concurrent audit complete the bank audit picture.",
+   "work": "A CRAR of 10.8% exceeds the 9% minimum but must also meet buffers."
+  }
+ ],
+ "illustrations": [
+  {
+   "id": "i1",
+   "title": "Is the loan an NPA?",
+   "difficulty": "moderate",
+   "minutes": 8,
+   "q": "(a) A term loan instalment fell due on 31 December and is still unpaid at the bank's year end of 31 March (in a leap year). Is the loan an NPA? (b) The bank's total capital is ₹1,080 crore and risk-weighted assets ₹10,000 crore. Compute CRAR and compare with RBI's minimum of 9%.",
+   "solution": [
+    {
+     "t": "table",
+     "head": [
+      "Item",
+      "Working",
+      "Result"
+     ],
+     "rows": [
+      [
+       "Days overdue",
+       "January 31 + February 29 + March 31",
+       "91 days"
+      ],
+      [
+       "NPA status",
+       "Overdue more than 90 days",
+       "NPA — substandard"
+      ],
+      [
+       "CRAR",
+       "1,080 ÷ 10,000",
+       "10.8%"
+      ],
+      [
+       "Compliance",
+       "10.8% vs 9% minimum (plus conservation buffer)",
+       "Meets minimum CRAR"
+      ]
+     ],
+     "title": "IRAC and capital"
+    }
+   ],
+   "checks": [
+    {
+     "expr": "31+29+31",
+     "value": 91,
+     "label": "Days overdue from 31 December to 31 March in a leap year"
+    },
+    {
+     "expr": "round(1080/10000*100,2)",
+     "value": 10.8,
+     "label": "Capital to risk-weighted assets ratio (%)"
+    }
+   ]
+  },
+  {
+   "id": "i2",
+   "title": "Red flags in a branch audit",
+   "difficulty": "moderate",
+   "minutes": 7,
+   "q": "In a branch audit, the auditor finds: (a) cash credit accounts with drawing power based on stock statements six months old; (b) a large account regularised on 30 March by a fresh loan from the same bank; (c) suspense accounts with old unreconciled entries; (d) gold loans where valuation was not done. Comment.",
+   "solution": [
+    {
+     "t": "table",
+     "head": [
+      "Finding",
+      "Comment"
+     ],
+     "rows": [
+      [
+       "(a)",
+       "Drawing power based on stale stock statements — irregular; account may need NPA review"
+      ],
+      [
+       "(b)",
+       "Ever-greening — regularisation through fresh funds from the bank is not genuine; treat as NPA if criteria met"
+      ],
+      [
+       "(c)",
+       "Risk of fraud/misstatement; report in LFAR and to management"
+      ],
+      [
+       "(d)",
+       "Security not verified — weakness; check valuations and provisioning"
+      ]
+     ],
+     "title": "Advances audit"
+    }
+   ],
+   "checks": []
+  }
+ ],
+ "jobs": [
+  {
+   "id": "j1",
+   "title": "Branch statutory audit",
+   "role": "Branch auditor",
+   "situation": "Large advances branch with 2,000 borrower accounts.",
+   "steps": [
+    "Review RBI closing instructions and prior LFAR.",
+    "Test top advances for IRAC compliance.",
+    "Verify CRR/SLR-related returns and cash.",
+    "Report in main report and LFAR."
+   ],
+   "takeaway": "Focus on advances — that is where most misstatements arise."
+  }
+ ],
+ "mcqs": [
+  {
+   "id": "m1",
+   "q": "A term loan becomes an NPA when interest or instalment remains overdue for more than:",
+   "options": [
+    "Ninety days",
+    "Thirty days",
+    "One year",
+    "Sixty days"
+   ],
+   "answer": 0,
+   "explain": "IRAC norm. In practice: borrower-wise.",
+   "concept": "c3",
+   "topic": "Advances: IRAC norms and NPA verification",
+   "difficulty": "core"
+  },
+  {
+   "id": "m2",
+   "q": "Interest on NPAs is recognised:",
+   "options": [
+    "Only when actually realised",
+    "On accrual",
+    "Never",
+    "At year end"
+   ],
+   "answer": 0,
+   "explain": "Income recognition. In practice: reverse unrealised interest.",
+   "concept": "c3",
+   "topic": "Advances: IRAC norms and NPA verification",
+   "difficulty": "core"
+  },
+  {
+   "id": "m3",
+   "q": "RBI's minimum CRAR for banks in India is:",
+   "options": [
+    "Nine percent plus buffers",
+    "Eight percent",
+    "Twelve percent",
+    "Five percent"
+   ],
+   "answer": 0,
+   "explain": "Plus capital conservation buffer. In practice: Basel III.",
+   "concept": "c4",
+   "topic": "Capital, Basel III, reports, LFAR and concurrent audit",
+   "difficulty": "core"
+  },
+  {
+   "id": "m4",
+   "q": "The Long Form Audit Report is prescribed by:",
+   "options": [
+    "RBI",
+    "SEBI",
+    "ICAI only",
+    "MCA"
+   ],
+   "answer": 0,
+   "explain": "Detailed reporting. In practice: separate from main report.",
+   "concept": "c4",
+   "topic": "Capital, Basel III, reports, LFAR and concurrent audit",
+   "difficulty": "core"
+  },
+  {
+   "id": "m5",
+   "q": "SLR requires banks to hold:",
+   "options": [
+    "Liquid assets such as government securities",
+    "Cash with RBI only",
+    "Equity shares",
+    "Gold only"
+   ],
+   "answer": 0,
+   "explain": "CRR is cash with RBI. In practice: verify NDTL.",
+   "concept": "c2",
+   "topic": "Internal controls and CRR/SLR compliance",
+   "difficulty": "core"
+  },
+  {
+   "id": "m6",
+   "q": "Regularising an NPA account by a fresh loan from the same bank is:",
+   "options": [
+    "Ever-greening and not genuine",
+    "Acceptable",
+    "Required",
+    "A KAM"
+   ],
+   "answer": 0,
+   "explain": "Classification stays NPA. In practice: check source of funds.",
+   "concept": "c3",
+   "topic": "Advances: IRAC norms and NPA verification",
+   "difficulty": "core"
+  },
+  {
+   "id": "m7",
+   "q": "Asset classification of a borrower is done:",
+   "options": [
+    "Borrower-wise across facilities",
+    "Facility-wise only",
+    "Branch-wise",
+    "Randomly"
+   ],
+   "answer": 0,
+   "explain": "One NPA facility taints all. In practice: check all accounts.",
+   "concept": "c3",
+   "topic": "Advances: IRAC norms and NPA verification",
+   "difficulty": "core"
+  },
+  {
+   "id": "m8",
+   "q": "Concurrent audit is:",
+   "options": [
+    "Real-time examination of transactions during the year",
+    "Year-end audit",
+    "Tax audit",
+    "Peer review"
+   ],
+   "answer": 0,
+   "explain": "Appointed by bank. In practice: reports to management.",
+   "concept": "c4",
+   "topic": "Capital, Basel III, reports, LFAR and concurrent audit",
+   "difficulty": "core"
+  }
+ ],
+ "questions": [
+  {
+   "id": "q1",
+   "marks": 6,
+   "minutes": 11,
+   "difficulty": "core",
+   "pad": "table",
+   "q": "(a) A term loan instalment fell due on 31 December and is still unpaid at the bank's year end of 31 March (in a leap year). Is the loan an NPA? (b) The bank's total capital is ₹1,080 crore and risk-weighted assets ₹10,000 crore. Compute CRAR and compare with RBI's minimum of 9%.",
+   "model": [
+    {
+     "t": "table",
+     "head": [
+      "Item",
+      "Working",
+      "Result"
+     ],
+     "rows": [
+      [
+       "Days overdue",
+       "January 31 + February 29 + March 31",
+       "91 days"
+      ],
+      [
+       "NPA status",
+       "Overdue more than 90 days",
+       "NPA — substandard"
+      ],
+      [
+       "CRAR",
+       "1,080 ÷ 10,000",
+       "10.8%"
+      ],
+      [
+       "Compliance",
+       "10.8% vs 9% minimum (plus conservation buffer)",
+       "Meets minimum CRAR"
+      ]
+     ],
+     "title": "IRAC and capital"
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "Overdue days",
+     "m": 2,
+     "skill": "computation",
+     "kw": [
+      "overdue|days"
+     ],
+     "min": 1,
+     "nums": [
+      91
+     ]
+    },
+    {
+     "id": "s2",
+     "pt": "NPA",
+     "m": 1.5,
+     "skill": "concept",
+     "kw": [
+      "npa"
+     ],
+     "min": 1
+    },
+    {
+     "id": "s3",
+     "pt": "CRAR",
+     "m": 2.5,
+     "skill": "computation",
+     "kw": [
+      "crar"
+     ],
+     "min": 1,
+     "nums": [
+      10.8
+     ]
+    }
+   ],
+   "remarks": [
+    "Count days carefully."
+   ],
+   "mistakes": [
+    "Treating 90 days exactly as NPA."
+   ],
+   "tips": [
+    "Table."
+   ],
+   "extra_ok": true,
+   "checks": [
+    {
+     "expr": "31+29+31",
+     "value": 91,
+     "label": "Days overdue from 31 December to 31 March in a leap year"
+    },
+    {
+     "expr": "round(1080/10000*100,2)",
+     "value": 10.8,
+     "label": "Capital to risk-weighted assets ratio (%)"
+    }
+   ]
+  },
+  {
+   "id": "q2",
+   "marks": 6,
+   "minutes": 11,
+   "difficulty": "core",
+   "pad": "table",
+   "q": "In a branch audit, the auditor finds: (a) cash credit accounts with drawing power based on stock statements six months old; (b) a large account regularised on 30 March by a fresh loan from the same bank; (c) suspense accounts with old unreconciled entries; (d) gold loans where valuation was not done. Comment.",
+   "model": [
+    {
+     "t": "table",
+     "head": [
+      "Finding",
+      "Comment"
+     ],
+     "rows": [
+      [
+       "(a)",
+       "Drawing power based on stale stock statements — irregular; account may need NPA review"
+      ],
+      [
+       "(b)",
+       "Ever-greening — regularisation through fresh funds from the bank is not genuine; treat as NPA if criteria met"
+      ],
+      [
+       "(c)",
+       "Risk of fraud/misstatement; report in LFAR and to management"
+      ],
+      [
+       "(d)",
+       "Security not verified — weakness; check valuations and provisioning"
+      ]
+     ],
+     "title": "Advances audit"
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "Drawing power",
+     "m": 1.5,
+     "skill": "concept",
+     "kw": [
+      "drawing power"
+     ],
+     "min": 1
+    },
+    {
+     "id": "s2",
+     "pt": "Ever-greening",
+     "m": 2,
+     "skill": "concept",
+     "kw": [
+      "ever-greening"
+     ],
+     "min": 1
+    },
+    {
+     "id": "s3",
+     "pt": "Suspense and security",
+     "m": 2.5,
+     "skill": "concept",
+     "kw": [
+      "suspense|security|valuation"
+     ],
+     "min": 1
+    }
+   ],
+   "remarks": [
+    "Link to IRAC."
+   ],
+   "mistakes": [
+    "Accepting year-end regularisation."
+   ],
+   "tips": [
+    "Table."
+   ],
+   "extra_ok": true
+  }
+ ],
+ "revision": {
+  "summary": [
+   "BR Act, RBI rules, Third Schedule.",
+   "CRR/SLR compliance verified.",
+   "NPA: > 90 days overdue/out of order.",
+   "Borrower-wise; no income on NPAs until realised.",
+   "Basel III CRAR 9%+; LFAR; concurrent audit."
+  ],
+  "remember": [
+   "Watch for ever-greening near year end."
+  ],
+  "traps": [
+   "Classifying facility-wise."
+  ]
+ },
+ "quickref": [
+  {
+   "k": "NPA",
+   "v": "> 90 days"
+  },
+  {
+   "k": "CRAR",
+   "v": "9% + buffer"
+  },
+  {
+   "k": "LFAR",
+   "v": "RBI-prescribed"
+  },
+  {
+   "k": "Classification",
+   "v": "Borrower-wise"
+  }
+ ],
+ "viva": [
+  {
+   "id": "v1",
+   "q": "When does a cash credit account become an NPA?",
+   "model": "When it remains out of order for 90 days, such as outstanding continuously above the drawing power or with no credits sufficient to cover interest.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Out of order",
+     "w": 5,
+     "kw": [
+      "out of order"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "90 days",
+     "w": 5,
+     "kw": [
+      "90 days"
+     ]
+    }
+   ],
+   "concept": "c3"
+  },
+  {
+   "id": "v2",
+   "q": "What are the NPA categories?",
+   "model": "Substandard, doubtful and loss assets.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Substandard and doubtful",
+     "w": 5,
+     "kw": [
+      "substandard|doubtful"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Loss",
+     "w": 5,
+     "kw": [
+      "loss"
+     ]
+    }
+   ],
+   "concept": "c3"
+  },
+  {
+   "id": "v3",
+   "q": "Distinguish CRR and SLR.",
+   "model": "CRR is cash kept with RBI as a share of NDTL; SLR is liquid assets like government securities held by the bank.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Cash with RBI",
+     "w": 5,
+     "kw": [
+      "cash"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Liquid assets",
+     "w": 5,
+     "kw": [
+      "liquid"
+     ]
+    }
+   ],
+   "concept": "c2"
+  },
+  {
+   "id": "v4",
+   "q": "What is the LFAR?",
+   "model": "A detailed report prescribed by RBI that auditors submit on matters like advances, deposits and controls in addition to the main audit report.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Prescribed by RBI",
+     "w": 5,
+     "kw": [
+      "rbi"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Detailed matters",
+     "w": 5,
+     "kw": [
+      "advances|controls"
+     ]
+    }
+   ],
+   "concept": "c4"
+  },
+  {
+   "id": "v5",
+   "q": "What should auditors check in advances?",
+   "model": "Sanction, documentation, security, drawing power, stock statements, year-end regularisation, restructuring and provisioning.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Sanction and security",
+     "w": 5,
+     "kw": [
+      "sanction|security"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Provisioning",
+     "w": 5,
+     "kw": [
+      "provision"
+     ]
+    }
+   ],
+   "concept": "c3"
+  }
+ ],
+ "cases": [
+  {
+   "id": "k1",
+   "title": "Unity Co-op Bank branch",
+   "difficulty": "moderate",
+   "case": "A branch has a ₹3 crore cash credit to Manish Traders, outstanding above drawing power since 15 November; the bank year end is 31 March. The borrower also has a term loan with the branch that is regular. Interest of ₹18 lakh on the cash credit was credited to income.",
+   "mcqs": [
+    {
+     "id": "k1a",
+     "q": "The cash credit at 31 March is:",
+     "options": [
+      "An NPA, being out of order over 90 days",
+      "Standard",
+      "Special mention only",
+      "Written off"
+     ],
+     "answer": 0,
+     "explain": "Continuously above DP > 90 days. In practice: verify dates.",
+     "difficulty": "core",
+     "topic": "Advances: IRAC norms and NPA verification"
+    },
+    {
+     "id": "k1b",
+     "q": "The regular term loan of the same borrower is:",
+     "options": [
+      "Also classified NPA (borrower-wise)",
+      "Standard",
+      "Loss asset",
+      "Excluded"
+     ],
+     "answer": 0,
+     "explain": "Borrower-wise classification. In practice: check all facilities.",
+     "difficulty": "moderate",
+     "topic": "Advances: IRAC norms and NPA verification"
+    },
+    {
+     "id": "k1c",
+     "q": "The ₹18 lakh interest credited to income should be:",
+     "options": [
+      "Reversed if unrealised",
+      "Kept",
+      "Doubled",
+      "Moved to capital"
+     ],
+     "answer": 0,
+     "explain": "Income recognition on NPAs. In practice: memorandum account.",
+     "difficulty": "core",
+     "topic": "Advances: IRAC norms and NPA verification"
+    },
+    {
+     "id": "k1d",
+     "q": "These matters are also reported in:",
+     "options": [
+      "The LFAR",
+      "CARO",
+      "SA 810 report",
+      "Tax audit report"
+     ],
+     "answer": 0,
+     "explain": "RBI-prescribed. In practice: CARO not applicable to banks.",
+     "difficulty": "core",
+     "topic": "Capital, Basel III, reports, LFAR and concurrent audit"
+    }
+   ]
+  }
+ ]
+}
