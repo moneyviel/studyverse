@@ -1,0 +1,48 @@
+"""Concept cards for Mathematics Unit 10 — Coordinate Geometry (written for StudyVerse)."""
+TOPICS = {'line': 'Straight lines & triangle centres', 'circle': 'Circles', 'parab': 'Parabola', 'ellhyp': 'Ellipse & hyperbola'}
+CARDS = [
+ dict(id='c1', t='Lines in one look', e='📏', lvl='f', topic='line',
+  body=['Slope m = \\f{y_{2} − y_{1}}{x_{2} − x_{1}}. Parallel lines share m; perpendicular lines have m_{1}m_{2} = −1.',
+        'Distance of (x_{1}, y_{1}) from ax + by + c = 0 is \\f{|ax_{1} + by_{1} + c|}{√{a^{2} + b^{2}}}. Between parallel lines: \\f{|c_{1} − c_{2}|}{√{a^{2} + b^{2}}}.',
+        'Image of a point in a line: move twice the signed distance along the normal (a, b).'],
+  check=dict(q='Distance between 3x + 4y = 2 and 3x + 4y = 12:', o=['2', '10', '\\f{14}{5}', '5'], a=0, why='\\f{10}{5} = 2.')),
+ dict(id='c2', t='Centres of a triangle', e='🔺', lvl='m', topic='line',
+  body=['Centroid G = average of the vertices. Incentre = \\f{aA + bB + cC}{a + b + c} (a, b, c = opposite side lengths).',
+        'Orthocentre H: meet of altitudes. Circumcentre O: meet of perpendicular bisectors. G lies on OH with OG : GH = 1 : 2.',
+        'In a right triangle, H is the right-angle vertex and O is the mid-point of the hypotenuse.'],
+  check=dict(q='Orthocentre of the triangle (0, 0), (4, 0), (0, 3):', o=['(0, 0)', '(2, \\f{3}{2})', '(\\f{4}{3}, 1)', '(1, 1)'], a=0, why='Right angle at the origin.')),
+ dict(id='c3', t='Circles', e='⭕', lvl='m', topic='circle',
+  body=['x^{2} + y^{2} + 2gx + 2fy + c = 0 has centre (−g, −f) and radius √{g^{2} + f^{2} − c}.',
+        'A line at distance d from the centre: cuts if d < r (chord 2√{r^{2} − d^{2}}), touches if d = r.',
+        'Tangent length from P: √{S(P)}. Two circles: subtract the equations to get the common chord / radical axis.',
+        'Touching circles: |C_{1}C_{2}| = r_{1} + r_{2} (external) or |r_{1} − r_{2}| (internal).'],
+  check=dict(q='Centre of x^{2} + y^{2} − 4x + 6y − 3 = 0:', o=['(2, −3)', '(−2, 3)', '(4, −6)', '(−4, 6)'], a=0, why='(−g, −f) with g = −2, f = 3.')),
+ dict(id='c4', t='Parabola', e='🎯', lvl='m', topic='parab',
+  body=['y^{2} = 4ax: focus (a, 0), directrix x = −a, latus rectum 4a. Every point is as far from the focus as from the directrix.',
+        'Parametric point (at^{2}, 2at). A focal chord joins t and −\\f{1}{t}; its length is a(t + \\f{1}{t})^{2}.',
+        'Tangent of slope m: y = mx + \\f{a}{m}, touching at (\\f{a}{m^{2}}, \\f{2a}{m}).',
+        'Chord with mid-point (h, k): T = S_{1}, slope \\f{2a}{k}.'],
+  check=dict(q='Latus rectum of y^{2} = 12x:', o=['12', '3', '6', '4'], a=0, why='4a with a = 3.')),
+ dict(id='c5', t='Ellipse', e='🥚', lvl='m', topic='ellhyp',
+  body=['\\f{x^{2}}{a^{2}} + \\f{y^{2}}{b^{2}} = 1 (a > b): b^{2} = a^{2}(1 − e^{2}), foci (±ae, 0), directrices x = ±\\f{a}{e}.',
+        'Latus rectum \\f{2b^{2}}{a}. For any point, PS + PS\' = 2a and focal distances are a ± ex.',
+        'y = mx + c touches when c^{2} = a^{2}m^{2} + b^{2}.'],
+  check=dict(q='Eccentricity of \\f{x^{2}}{25} + \\f{y^{2}}{16} = 1:', o=['\\f{3}{5}', '\\f{4}{5}', '\\f{9}{25}', '\\f{5}{3}'], a=0, why='e^{2} = 1 − \\f{16}{25}.')),
+ dict(id='c6', t='Hyperbola', e='〰️', lvl='h', topic='ellhyp',
+  body=['\\f{x^{2}}{a^{2}} − \\f{y^{2}}{b^{2}} = 1: b^{2} = a^{2}(e^{2} − 1), foci (±ae, 0), asymptotes y = ±\\f{b}{a}x.',
+        '|PS − PS\'| = 2a; focal distances ex ± a. Latus rectum \\f{2b^{2}}{a}.',
+        'y = mx + c touches when c^{2} = a^{2}m^{2} − b^{2}. Rectangular hyperbola xy = c^{2}: point (ct, \\f{c}{t}), e = √2.'],
+  check=dict(q='Eccentricity of \\f{x^{2}}{9} − \\f{y^{2}}{16} = 1:', o=['\\f{5}{3}', '\\f{4}{3}', '\\f{5}{4}', '\\f{3}{5}'], a=0, why='e^{2} = 1 + \\f{16}{9}.')),
+]
+FORMULAS = [('Point–line distance', '\\f{|ax_{1} + by_{1} + c|}{√{a^{2} + b^{2}}}'), ('Circle', 'r = √{g^{2} + f^{2} − c}'), ('Chord', '2√{r^{2} − d^{2}}'), ('Tangent length', '√{S_{1}}'),
+            ('Parabola tangent', 'y = mx + \\f{a}{m}'), ('Focal chord', 'a(t + \\f{1}{t})^{2}'), ('Ellipse', 'b^{2} = a^{2}(1 − e^{2})'), ('Hyperbola', 'b^{2} = a^{2}(e^{2} − 1)'),
+            ('Latus rectum', '\\f{2b^{2}}{a}'), ('Ellipse tangent', 'c^{2} = a^{2}m^{2} + b^{2}'), ('Hyperbola tangent', 'c^{2} = a^{2}m^{2} − b^{2}'), ('Chord with mid-point', 'T = S_{1}')]
+TRAPS = ['Write the line as ax + by + c = 0 before using the distance formula — watch the sign of c.', 'Radius needs g^{2} + f^{2} − c > 0; otherwise there is no real circle.',
+         'Internal touching uses the difference of radii, not the sum.', 'For y^{2} = 4ax, a is a quarter of the coefficient of x.',
+         'In an ellipse a is the larger semi-axis — check whether the major axis is along y.', 'Ellipse: b^{2} = a^{2} − c^{2}; hyperbola: c^{2} = a^{2} + b^{2}. Don\'t mix them.']
+STEPS = [dict(k='s1', t='Lines', e='📏', cards=['c1', 'c2'], need=['line'], note='Distances, images, triangle centres'),
+         dict(k='s2', t='Circles', e='⭕', cards=['c3'], need=['circle'], note='Chords, tangents, two circles'),
+         dict(k='s3', t='Parabola', e='🎯', cards=['c4'], need=['parab'], note='Focal chords and tangents'),
+         dict(k='s4', t='Ellipse & hyperbola', e='🥚', cards=['c5', 'c6'], need=['ellhyp'], note='Eccentricity, foci, tangency')]
+META = dict(unit='math-u10', subject='math', n=10, title='Coordinate Geometry', cls=11, labs=['conic'],
+            syllabus='Cartesian system of rectangular coordinates in a plane, distance formula, section formula, locus and its equation, the slope of a line, parallel and perpendicular lines, intercepts of a line on the coordinate axis. Straight line: various forms of equations of a line, intersection of lines, angles between two lines, conditions for concurrence of three lines, the distance of a point from a line, coordinates of centroid, orthocentre, and circumcentre of a triangle. Circle, conic sections: a standard form of equations of a circle, the general form of the equation of a circle, its radius and centre, equation of a circle when the endpoints of a diameter are given, points of intersection of a line and a circle with the centre at the origin and sections of conics, equations of conic sections (parabola, ellipse, and hyperbola) in standard forms.')

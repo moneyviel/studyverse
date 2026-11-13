@@ -288,6 +288,13 @@ async def _(pg):
     await pg.click('[data-e="circ"]'); await tapxy(pg, '#sfS', *P(1, 1))
     await pg.click('[data-e="log"]'); await tapxy(pg, '#sfS', *P(-2, 0.3))
     await pg.click('[data-e="gauss"]'); await tapxy(pg, '#sfS', *P(0, 2))
+@lab('math-u10', 'conic')
+async def _(pg):
+    await setr(pg, 'input[data-k=e]', 1)
+    for v in (30, 60, 90): await setr(pg, 'input[data-k=th]', v)
+    await setr(pg, 'input[data-k=e]', 0.3)
+    await setr(pg, 'input[data-k=e]', 1.5)
+
 async def main(only=None):
     async with async_playwright() as pw:
         b = await pw.chromium.launch(executable_path='/usr/bin/google-chrome', args=['--no-sandbox'])
