@@ -335,6 +335,13 @@ async def _(pg):
     await setr(pg, 'input[data-k=f]', 10); await setr(pg, 'input[data-k=u]', 20); await setr(pg, 'input[data-k=u]', 15); await setr(pg, 'input[data-k=u]', 10)
     await setr(pg, 'input[data-k=u]', 5); await tap(pg, '#obK button', 1); await setr(pg, 'input[data-k=u]', 10)
 
+@lab('phy-u19', 'gates')
+async def _(pg):
+    await tap(pg, '#gtG button', 2); await tap(pg, '#gtA'); await tap(pg, '#gtB')
+    await tap(pg, '#gtIA'); await tap(pg, '#gtIB')
+    await tap(pg, '#gtG button', 3); await tap(pg, '#gtIB')
+    await tap(pg, '#gtG button', 1); await tap(pg, '#gtIA'); await tap(pg, '#gtG button', 4)
+
 async def main(only=None):
     async with async_playwright() as pw:
         b = await pw.chromium.launch(executable_path='/usr/bin/google-chrome', args=['--no-sandbox'])
