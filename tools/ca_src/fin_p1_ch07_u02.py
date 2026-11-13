@@ -42,7 +42,7 @@ def build():
 
     concepts = [
         C('c1', T1, [
-            'An entity\'s functional currency is the one used in the main economic setting where it does business. Primary indicators: the currency that mainly influences sales prices, and the currency of the country whose competitive forces and regulations mainly set prices; the currency that mainly influences labour, material and other costs.',
+            'An entity\'s functional currency is the one used in the main economic setting where it does business. Primary indicators: the currency that mainly influences sales prices, and the currency of the country whose competitive forces and regulations mainly set prices; and the currency that chiefly drives what it pays for staff, materials and other inputs.',
             'Secondary indicators: currency in which financing is raised and operating receipts are retained. For a foreign operation, consider autonomy from the parent, proportion of transactions with the parent, direct cash-flow effects on the parent, and self-sufficiency in servicing debts.',
             'Presentation currency is the currency in which statements are presented and may be any currency. Functional currency changes only when underlying conditions change, applied prospectively.'],
           'Functional currency is where the entity lives economically; presentation currency is just the display.',
