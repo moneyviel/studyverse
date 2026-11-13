@@ -1,0 +1,791 @@
+{
+ "schema": "ca-unit/1",
+ "id": "fin-p1-ch05-u04",
+ "level": "final",
+ "paper": "p1",
+ "chapter": "fin-p1-ch05",
+ "n": 4,
+ "title": "Ind AS 36 \"Impairment of Assets\"",
+ "outcomes": [
+  "Identify assets in scope and indicators of impairment.",
+  "Measure recoverable amount using FVLCD and value in use.",
+  "Identify CGUs and allocate goodwill and corporate assets.",
+  "Recognise, allocate and reverse impairment losses."
+ ],
+ "meta": {
+  "difficulty": "hard",
+  "minutes": {
+   "learn": 45,
+   "practice": 40
+  },
+  "prereq": [
+   "fin-p1-ch05-u03"
+  ],
+  "exam_tip": "Write CA, FVLCD, VIU and RA in a line before concluding — it prevents mixing up \"higher\" and \"lower\"."
+ },
+ "concepts": [
+  {
+   "id": "c1",
+   "title": "Scope and when to test for impairment",
+   "body": [
+    "Ind AS 36 ensures assets are not carried above their recoverable amount. It applies to most non-financial assets (PPE, intangibles, goodwill, right-of-use assets, investments in subsidiaries, associates and joint ventures in separate statements); not to inventories, contract assets, deferred tax assets, employee benefit assets, financial assets under Ind AS 109, investment property at fair value, biological assets at fair value less costs to sell, or assets held for sale.",
+    "At each reporting date the entity assesses indicators. External: significant fall in market value, adverse changes in technology, market, economic or legal environment, rise in market interest rates affecting discount rates, net assets above market capitalisation. Internal: obsolescence or physical damage, adverse changes in how an asset is used (idle, restructuring, disposal plans), and evidence that economic performance is or will be worse than expected.",
+    "Regardless of indicators, test annually: goodwill acquired in a business combination, intangible assets with indefinite useful lives, and intangible assets not yet available for use."
+   ],
+   "analogy": "Impairment testing asks whether the books promise more than the asset can deliver.",
+   "work": "A sharp rise in interest rates can trigger impairment tests because it lowers present values."
+  },
+  {
+   "id": "c2",
+   "title": "Recoverable amount: FVLCD versus value in use",
+   "body": [
+    "Recoverable amount is the higher of FVLCD (fair value less costs of disposal) and VIU (value in use). If either exceeds carrying amount, no impairment; it is normally worked out asset by asset, moving to a group of assets only when one asset cannot produce cash inflows on its own.",
+    "FVLCD: fair value under Ind AS 113 less incremental disposal costs (legal costs, stamp duty, removal costs) — not finance costs or tax.",
+    "VIU: present value of future cash flows from continued use and ultimate disposal, based on reasonable and supportable assumptions and most recent approved budgets (normally up to five years, then extrapolated with steady or declining growth). Cash flows are for the asset in its current condition — excluding future restructurings not yet committed, enhancements, financing flows and income taxes. The discount rate is pre-tax and reflects current market time value and asset-specific risks."
+   ],
+   "analogy": "Recoverable amount is the better of selling now or using to the end.",
+   "work": "Planned upgrades that would raise output are left out of VIU until the money is spent."
+  },
+  {
+   "id": "c3",
+   "title": "Cash-generating units, goodwill and corporate assets",
+   "body": [
+    "A cash-generating unit (CGU) is the smallest identifiable group of assets generating cash inflows largely independent of other assets. If an active market exists for the output, the unit is a CGU even if the output is used internally.",
+    "Goodwill is allocated to the CGUs (or groups) expected to benefit from the combination's synergies — no larger than an operating segment. A CGU with goodwill is tested annually and whenever indicators exist; if assets inside are tested at the same time, they are tested first.",
+    "Corporate assets (head office, IT centre) do not generate separate inflows; they are allocated to CGUs on a reasonable and consistent basis, or tested at the smallest group of CGUs to which they can be allocated.",
+    "Where goodwill relates to a subsidiary with non-controlling interest measured at proportionate share, goodwill is grossed up for the notional NCI share before testing; the loss is then allocated between parent and NCI."
+   ],
+   "analogy": "When assets cannot be tested alone, test the smallest group that earns independent cash.",
+   "work": "Each hotel in a chain is usually a separate CGU; the reservation system is a corporate asset."
+  },
+  {
+   "id": "c4",
+   "title": "Recognising and reversing impairment losses",
+   "body": [
+    "An impairment loss hits profit or loss at once, except for a revalued asset, in which case it is a revaluation decrease (OCI to the extent of surplus). Depreciation is then based on the revised carrying amount.",
+    "For a CGU, the loss first reduces goodwill and then other assets pro rata to carrying amounts — but each asset keeps a floor equal to the highest of its FVLCD, VIU and zero; any unallocated amount goes to other assets.",
+    "At each reporting date, indications that a loss may have decreased are assessed. A reversal is recognised if the estimates used have changed; the increased carrying amount cannot exceed what it would have been (net of depreciation) without the impairment. Reversals go to profit or loss (or revaluation surplus for revalued assets). Impairment of goodwill is never reversed."
+   ],
+   "analogy": "Losses go first to goodwill; recoveries never come back to goodwill.",
+   "work": "A plant written down two years ago can be written back up, but not beyond its depreciated original cost."
+  }
+ ],
+ "illustrations": [
+  {
+   "id": "i1",
+   "title": "Testing a single machine",
+   "difficulty": "moderate",
+   "minutes": 8,
+   "q": "A machine with carrying amount ₹500 lakh shows signs of impairment after a competitor launches better technology. It could be sold for ₹440 lakh with disposal costs of ₹20 lakh. Expected net cash inflows are ₹150 lakh a year for 3 years; pre-tax discount rate 10% (factors 0.909, 0.826, 0.751). Compute the impairment loss.",
+   "solution": [
+    {
+     "t": "table",
+     "head": [
+      "Measure",
+      "Working",
+      "₹ lakh"
+     ],
+     "rows": [
+      [
+       "Fair value less costs of disposal",
+       "440 − 20",
+       "420"
+      ],
+      [
+       "Value in use",
+       "150 × 2.486",
+       "372.9"
+      ],
+      [
+       "Recoverable amount (higher)",
+       "",
+       "420"
+      ],
+      [
+       "Impairment loss",
+       "500 − 420",
+       "80"
+      ]
+     ],
+     "title": "Ind AS 36 test"
+    },
+    {
+     "t": "note",
+     "text": "Recoverable amount is the higher of the two measures — the entity would choose the better of selling or using."
+    }
+   ],
+   "checks": [
+    {
+     "expr": "150*(0.909+0.826+0.751)",
+     "value": 372.9,
+     "label": "Value in use (₹ lakh)"
+    },
+    {
+     "expr": "max(420, 372.9)",
+     "value": 420,
+     "label": "Recoverable amount (₹ lakh)"
+    },
+    {
+     "expr": "500-420",
+     "value": 80,
+     "label": "Impairment loss (₹ lakh)"
+    }
+   ]
+  },
+  {
+   "id": "i2",
+   "title": "Spreading a CGU loss",
+   "difficulty": "hard",
+   "minutes": 10,
+   "q": "A CGU contains goodwill ₹60 crore, plant ₹240 crore and other non-current assets ₹120 crore. Its recoverable amount is ₹300 crore. No individual asset's fair value less costs of disposal is determinable. Allocate the impairment loss.",
+   "solution": [
+    {
+     "t": "table",
+     "head": [
+      "Asset",
+      "Carrying ₹ crore",
+      "Loss ₹ crore",
+      "After ₹ crore"
+     ],
+     "rows": [
+      [
+       "Goodwill",
+       "60",
+       "60",
+       "0"
+      ],
+      [
+       "Plant",
+       "240",
+       "40",
+       "200"
+      ],
+      [
+       "Other assets",
+       "120",
+       "20",
+       "100"
+      ],
+      [
+       "Total",
+       "420",
+       "120",
+       "300"
+      ]
+     ],
+     "title": "Allocation of impairment loss"
+    },
+    {
+     "t": "note",
+     "text": "Goodwill is written off first; the balance is spread pro rata on carrying amounts, but no asset goes below the highest of its FVLCD, value in use and zero."
+    }
+   ],
+   "checks": [
+    {
+     "expr": "420-300",
+     "value": 120,
+     "label": "Impairment loss for the CGU (₹ crore)"
+    },
+    {
+     "expr": "60*240/360",
+     "value": 40,
+     "label": "Loss allocated to plant (₹ crore)"
+    },
+    {
+     "expr": "60*120/360",
+     "value": 20,
+     "label": "Loss allocated to other assets (₹ crore)"
+    }
+   ]
+  }
+ ],
+ "jobs": [
+  {
+   "id": "j1",
+   "title": "Annual goodwill test",
+   "role": "Audit senior",
+   "situation": "A group with three CGUs carries goodwill from a past acquisition.",
+   "steps": [
+    "Check goodwill allocation to CGUs.",
+    "Review budgets, growth and discount rate assumptions.",
+    "Compare recoverable amount with carrying amount including goodwill.",
+    "Allocate any loss and check sensitivity disclosures."
+   ],
+   "takeaway": "Assumptions in VIU models drive the answer — challenge them."
+  }
+ ],
+ "mcqs": [
+  {
+   "id": "m1",
+   "q": "Recoverable amount is:",
+   "options": [
+    "The higher of FVLCD and VIU",
+    "The lower of FVLCD and VIU",
+    "Fair value only",
+    "Carrying amount"
+   ],
+   "answer": 0,
+   "explain": "An entity would pick the better of selling or using. In practice: compute only one if it exceeds carrying amount.",
+   "concept": "c2",
+   "topic": "Recoverable amount: FVLCD versus value in use",
+   "difficulty": "core"
+  },
+  {
+   "id": "m2",
+   "q": "Which asset must be tested annually regardless of indicators?",
+   "options": [
+    "Goodwill",
+    "Freehold land",
+    "Machinery",
+    "Inventory"
+   ],
+   "answer": 0,
+   "explain": "Goodwill, indefinite-life intangibles and intangibles not yet available for use. In practice: same date each year allowed.",
+   "concept": "c1",
+   "topic": "Scope and when to test for impairment",
+   "difficulty": "core"
+  },
+  {
+   "id": "m3",
+   "q": "Value in use cash flows exclude:",
+   "options": [
+    "Income tax and financing flows",
+    "Cash inflows from continuing use",
+    "Disposal proceeds at end of life",
+    "Maintenance costs"
+   ],
+   "answer": 0,
+   "explain": "VIU uses pre-tax, pre-financing cash flows. In practice: discount at a pre-tax rate.",
+   "concept": "c2",
+   "topic": "Recoverable amount: FVLCD versus value in use",
+   "difficulty": "core"
+  },
+  {
+   "id": "m4",
+   "q": "Which is outside the scope of Ind AS 36?",
+   "options": [
+    "Inventories",
+    "Goodwill",
+    "Right-of-use assets",
+    "Intangible assets"
+   ],
+   "answer": 0,
+   "explain": "Inventories follow Ind AS 2. In practice: deferred tax and financial assets are also excluded.",
+   "concept": "c1",
+   "topic": "Scope and when to test for impairment",
+   "difficulty": "core"
+  },
+  {
+   "id": "m5",
+   "q": "In a CGU, the impairment loss is first allocated to:",
+   "options": [
+    "Goodwill",
+    "Plant",
+    "Inventory",
+    "Cash"
+   ],
+   "answer": 0,
+   "explain": "Goodwill absorbs the loss first, then other assets pro rata. In practice: respect individual floors.",
+   "concept": "c4",
+   "topic": "Recognising and reversing impairment losses",
+   "difficulty": "core"
+  },
+  {
+   "id": "m6",
+   "q": "An impairment loss on goodwill:",
+   "options": [
+    "Is never reversed",
+    "Is reversed if conditions improve",
+    "Is reversed through OCI",
+    "Is reversed after 5 years"
+   ],
+   "answer": 0,
+   "explain": "Reversal would amount to recognising internally generated goodwill. In practice: other assets can be reversed.",
+   "concept": "c4",
+   "topic": "Recognising and reversing impairment losses",
+   "difficulty": "core"
+  },
+  {
+   "id": "m7",
+   "q": "Carrying amount ₹90; FVLCD ₹70; VIU ₹82. Impairment loss:",
+   "options": [
+    "₹8",
+    "₹20",
+    "₹12",
+    "Nil"
+   ],
+   "answer": 0,
+   "explain": "Recoverable amount = 82 (higher); loss = 90 − 82 = 8. In practice: depreciate the revised amount.",
+   "concept": "c2",
+   "topic": "Recoverable amount: FVLCD versus value in use",
+   "difficulty": "moderate",
+   "check": 8
+  },
+  {
+   "id": "m8",
+   "q": "A cash-generating unit is:",
+   "options": [
+    "The smallest group of assets generating largely independent cash inflows",
+    "The whole company",
+    "Any group of assets chosen by management",
+    "Only goodwill"
+   ],
+   "answer": 0,
+   "explain": "Identified consistently period to period. In practice: active market for output makes a CGU.",
+   "concept": "c3",
+   "topic": "Cash-generating units, goodwill and corporate assets",
+   "difficulty": "core"
+  }
+ ],
+ "questions": [
+  {
+   "id": "q1",
+   "marks": 5,
+   "minutes": 9,
+   "difficulty": "core",
+   "pad": "table",
+   "q": "A machine with carrying amount ₹500 lakh shows signs of impairment after a competitor launches better technology. It could be sold for ₹440 lakh with disposal costs of ₹20 lakh. Expected net cash inflows are ₹150 lakh a year for 3 years; pre-tax discount rate 10% (factors 0.909, 0.826, 0.751). Compute the impairment loss.",
+   "model": [
+    {
+     "t": "table",
+     "head": [
+      "Measure",
+      "Working",
+      "₹ lakh"
+     ],
+     "rows": [
+      [
+       "Fair value less costs of disposal",
+       "440 − 20",
+       "420"
+      ],
+      [
+       "Value in use",
+       "150 × 2.486",
+       "372.9"
+      ],
+      [
+       "Recoverable amount (higher)",
+       "",
+       "420"
+      ],
+      [
+       "Impairment loss",
+       "500 − 420",
+       "80"
+      ]
+     ],
+     "title": "Ind AS 36 test"
+    },
+    {
+     "t": "note",
+     "text": "Recoverable amount is the higher of the two measures — the entity would choose the better of selling or using."
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "FVLCD",
+     "m": 1,
+     "skill": "computation",
+     "kw": [
+      "disposal"
+     ],
+     "min": 1
+    },
+    {
+     "id": "s2",
+     "pt": "VIU",
+     "m": 2,
+     "skill": "computation",
+     "kw": [
+      "value in use"
+     ],
+     "min": 1,
+     "nums": [
+      372.9
+     ]
+    },
+    {
+     "id": "s3",
+     "pt": "Loss",
+     "m": 2,
+     "skill": "computation",
+     "kw": [
+      "loss"
+     ],
+     "min": 1,
+     "nums": [
+      80
+     ]
+    }
+   ],
+   "remarks": [
+    "Take the higher measure."
+   ],
+   "mistakes": [
+    "Taking the lower measure."
+   ],
+   "tips": [
+    "Table."
+   ],
+   "extra_ok": true,
+   "checks": [
+    {
+     "expr": "150*(0.909+0.826+0.751)",
+     "value": 372.9,
+     "label": "Value in use (₹ lakh)"
+    },
+    {
+     "expr": "max(420, 372.9)",
+     "value": 420,
+     "label": "Recoverable amount (₹ lakh)"
+    },
+    {
+     "expr": "500-420",
+     "value": 80,
+     "label": "Impairment loss (₹ lakh)"
+    }
+   ]
+  },
+  {
+   "id": "q2",
+   "marks": 6,
+   "minutes": 11,
+   "difficulty": "core",
+   "pad": "table",
+   "q": "A CGU contains goodwill ₹60 crore, plant ₹240 crore and other non-current assets ₹120 crore. Its recoverable amount is ₹300 crore. No individual asset's fair value less costs of disposal is determinable. Allocate the impairment loss.",
+   "model": [
+    {
+     "t": "table",
+     "head": [
+      "Asset",
+      "Carrying ₹ crore",
+      "Loss ₹ crore",
+      "After ₹ crore"
+     ],
+     "rows": [
+      [
+       "Goodwill",
+       "60",
+       "60",
+       "0"
+      ],
+      [
+       "Plant",
+       "240",
+       "40",
+       "200"
+      ],
+      [
+       "Other assets",
+       "120",
+       "20",
+       "100"
+      ],
+      [
+       "Total",
+       "420",
+       "120",
+       "300"
+      ]
+     ],
+     "title": "Allocation of impairment loss"
+    },
+    {
+     "t": "note",
+     "text": "Goodwill is written off first; the balance is spread pro rata on carrying amounts, but no asset goes below the highest of its FVLCD, value in use and zero."
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "Total loss",
+     "m": 1,
+     "skill": "computation",
+     "kw": [
+      "loss"
+     ],
+     "min": 1,
+     "nums": [
+      120
+     ]
+    },
+    {
+     "id": "s2",
+     "pt": "Goodwill first",
+     "m": 2,
+     "skill": "concept",
+     "kw": [
+      "goodwill"
+     ],
+     "min": 1
+    },
+    {
+     "id": "s3",
+     "pt": "Pro rata",
+     "m": 3,
+     "skill": "computation",
+     "kw": [
+      "pro rata"
+     ],
+     "min": 1,
+     "nums": [
+      40,
+      20
+     ]
+    }
+   ],
+   "remarks": [
+    "Show goodwill then pro rata."
+   ],
+   "mistakes": [
+    "Allocating pro rata including goodwill."
+   ],
+   "tips": [
+    "Table."
+   ],
+   "extra_ok": true,
+   "checks": [
+    {
+     "expr": "420-300",
+     "value": 120,
+     "label": "Impairment loss for the CGU (₹ crore)"
+    },
+    {
+     "expr": "60*240/360",
+     "value": 40,
+     "label": "Loss allocated to plant (₹ crore)"
+    },
+    {
+     "expr": "60*120/360",
+     "value": 20,
+     "label": "Loss allocated to other assets (₹ crore)"
+    }
+   ]
+  }
+ ],
+ "revision": {
+  "summary": [
+   "Assess indicators yearly; annual tests for goodwill and certain intangibles.",
+   "RA = higher of FVLCD and VIU.",
+   "VIU: pre-tax, current condition, no financing or tax flows.",
+   "CGU allocation: goodwill first, then pro rata with floors.",
+   "Reversals allowed except goodwill; capped at depreciated amount."
+  ],
+  "remember": [
+   "NCI gross-up for goodwill under proportionate method."
+  ],
+  "traps": [
+   "Inventories and financial assets are outside Ind AS 36."
+  ]
+ },
+ "quickref": [
+  {
+   "k": "RA",
+   "v": "Higher of FVLCD and VIU"
+  },
+  {
+   "k": "Annual test",
+   "v": "Goodwill, indefinite intangibles"
+  },
+  {
+   "k": "CGU loss",
+   "v": "Goodwill first"
+  },
+  {
+   "k": "Goodwill reversal",
+   "v": "Never"
+  }
+ ],
+ "viva": [
+  {
+   "id": "v1",
+   "q": "Give two internal indicators of impairment.",
+   "model": "Physical damage or obsolescence, and evidence that the asset's economic performance is worse than expected.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Damage or obsolescence",
+     "w": 5,
+     "kw": [
+      "damage|obsolescen"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Poor performance",
+     "w": 5,
+     "kw": [
+      "performance|worse"
+     ]
+    }
+   ],
+   "concept": "c1"
+  },
+  {
+   "id": "v2",
+   "q": "What discount rate is used for value in use?",
+   "model": "A pre-tax rate built from today's market view of the time value of money plus the particular risks of the asset.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Pre-tax",
+     "w": 5,
+     "kw": [
+      "pre-tax"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Asset-specific risk",
+     "w": 5,
+     "kw": [
+      "risk"
+     ]
+    }
+   ],
+   "concept": "c2"
+  },
+  {
+   "id": "v3",
+   "q": "How is goodwill allocated for testing?",
+   "model": "To the cash-generating units expected to benefit from the combination's synergies, kept at operating segment level or below.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "CGUs benefiting",
+     "w": 5,
+     "kw": [
+      "synerg|benefit"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Segment limit",
+     "w": 5,
+     "kw": [
+      "segment"
+     ]
+    }
+   ],
+   "concept": "c3"
+  },
+  {
+   "id": "v4",
+   "q": "What is the floor when allocating a CGU loss to an asset?",
+   "model": "Each asset's floor is the highest of its FVLCD, its value in use and zero.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Highest of measures",
+     "w": 6,
+     "kw": [
+      "highest"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Zero",
+     "w": 4,
+     "kw": [
+      "zero"
+     ]
+    }
+   ],
+   "concept": "c4"
+  },
+  {
+   "id": "v5",
+   "q": "What is the limit on reversing an impairment loss?",
+   "model": "The carrying amount after reversal cannot exceed the depreciated amount that would have existed had no impairment been recognised.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Depreciated amount",
+     "w": 6,
+     "kw": [
+      "depreciat"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "No impairment",
+     "w": 4,
+     "kw": [
+      "had no|without"
+     ]
+    }
+   ],
+   "concept": "c4"
+  }
+ ],
+ "cases": [
+  {
+   "id": "k1",
+   "title": "Bharat Cement Ltd.",
+   "difficulty": "hard",
+   "case": "Bharat Cement Ltd. bought a smaller cement company two years ago, recognising goodwill of ₹50 crore allocated to its Western CGU. The Western CGU's assets (excluding goodwill) are ₹400 crore. Due to a new competitor, recoverable amount is ₹380 crore. Market capitalisation of the group has fallen below net assets.",
+   "mcqs": [
+    {
+     "id": "k1a",
+     "q": "Market capitalisation below net assets is:",
+     "options": [
+      "An external indicator of impairment",
+      "Irrelevant",
+      "An internal indicator only",
+      "Proof of impairment"
+     ],
+     "answer": 0,
+     "explain": "It suggests the market values the net assets less than book. In practice: test all relevant CGUs.",
+     "difficulty": "core",
+     "topic": "Scope and when to test for impairment"
+    },
+    {
+     "id": "k1b",
+     "q": "Impairment loss for the Western CGU (₹ crore):",
+     "options": [
+      "70",
+      "20",
+      "50",
+      "450"
+     ],
+     "answer": 0,
+     "explain": "Carrying amount 450 (400 + 50) − 380 = 70. In practice: goodwill absorbs 50 first.",
+     "difficulty": "moderate",
+     "check": 70,
+     "topic": "Recognising and reversing impairment losses"
+    },
+    {
+     "id": "k1c",
+     "q": "Loss allocated to other assets after goodwill (₹ crore):",
+     "options": [
+      "20",
+      "70",
+      "50",
+      "Nil"
+     ],
+     "answer": 0,
+     "explain": "70 − 50 = 20, spread pro rata over the other assets. In practice: respect floors.",
+     "difficulty": "moderate",
+     "check": 20,
+     "topic": "Recognising and reversing impairment losses"
+    },
+    {
+     "id": "k1d",
+     "q": "If next year the CGU's recoverable amount recovers to ₹460 crore:",
+     "options": [
+      "Only the ₹20 crore on other assets may be reversed (within limits); goodwill stays written off",
+      "All ₹70 crore is reversed",
+      "Nothing can be reversed",
+      "Goodwill is reinstated first"
+     ],
+     "answer": 0,
+     "explain": "Goodwill impairment is never reversed; other assets can be, capped at depreciated amounts. In practice: assess estimate changes.",
+     "difficulty": "hard",
+     "topic": "Recognising and reversing impairment losses"
+    }
+   ]
+  }
+ ]
+}
