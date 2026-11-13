@@ -38,7 +38,7 @@ def build():
 
     concepts = [
         C('c1', T1, [
-            'A business combination happens when one party (the acquirer) gains control over one business or several. A business is an integrated set of activities and assets capable of being conducted and managed to provide goods or services to customers or generate investment or other income; at minimum it must combine an input with a substantive process, which jointly make a significant contribution to producing outputs.',
+            'A business combination happens when one party (the acquirer) gains control over one business or several. A business means activities and assets working together that can be run to deliver goods or services to customers or to earn investment or other income; at minimum it must combine an input with a substantive process, which jointly make a significant contribution to producing outputs.',
             'An optional concentration test: if nearly the whole fair value of the gross assets bought sits in one identifiable asset (or a group of similar ones), the set is not a business (asset acquisition).',
             'The acquisition method requires: identifying the acquirer (the entity obtaining control, per Ind AS 110 — considering relative voting rights, board composition, size, and who issues equity); determining the acquisition date (when control passes); recognising and measuring assets, liabilities and NCI; and recognising goodwill or a bargain purchase gain. Reverse acquisitions occur when the legal acquirer is the accounting acquiree.'],
           'No business, no business combination — test the set first.',
