@@ -401,6 +401,11 @@ async def _(pg):
     for c in (2, 3, 6, 10, 9):                                   # benzaldehyde, acetone, ethanol, formic acid, phenol
         await tap(pg, '#ctC button', c); await tap(pg, '#ctT button', 6)   # run all
 
+@lab('chem-u18', 'amineid')
+async def _(pg):
+    for a in (2, 0, 4, 6):                                       # aniline, methylamine, dimethylamine, trimethylamine
+        await tap(pg, '#amA button', a); await tap(pg, '#amT button', 4)   # run all
+
 async def main(only=None):
     async with async_playwright() as pw:
         b = await pw.chromium.launch(executable_path='/usr/bin/google-chrome', args=['--no-sandbox'])
