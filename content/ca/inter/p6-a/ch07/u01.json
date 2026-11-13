@@ -1,0 +1,872 @@
+{
+ "schema": "ca-unit/1",
+ "id": "int-p6-a-ch07-u01",
+ "level": "inter",
+ "paper": "p6",
+ "chapter": "int-p6-a-ch07",
+ "n": 1,
+ "title": "Investment Decisions",
+ "outcomes": [
+  "Estimate relevant cash flows for capital budgeting.",
+  "Apply payback and ARR.",
+  "Apply NPV, PI and discounted payback.",
+  "Compute IRR and MIRR and resolve ranking conflicts."
+ ],
+ "meta": {
+  "difficulty": "hard",
+  "minutes": {
+   "learn": 45,
+   "practice": 60
+  },
+  "prereq": [
+   "int-p6-a-ch06-u01"
+  ],
+  "exam_tip": "Lay out a year-wise table of cash flows, PV factors and cumulative PV; most answers fall out of it."
+ },
+ "concepts": [
+  {
+   "id": "c1",
+   "title": "Capital budgeting process and cash flows",
+   "body": [
+    "Capital budgeting is planning long-term investments whose returns come over several years: identify proposals, screen, evaluate, select, implement and review (post-audit).",
+    "Decisions rest on incremental after-tax cash flows, not accounting profits: initial outflow (cost, installation, working capital), operating inflows (profit after tax + depreciation, or (revenue − cash costs)(1 − t) + depreciation × t), and terminal flows (salvage after tax and release of working capital). Sunk costs are ignored; opportunity costs are included; financing costs are excluded because the discount rate captures them.",
+    "Types of decisions: expansion, replacement, modernisation, diversification; mutually exclusive, independent and contingent projects; capital rationing."
+   ],
+   "analogy": "Value comes from future cash, measured after tax and only where it changes because of the decision.",
+   "work": "Land already owned but saleable for ₹50 lakh is an opportunity cost of using it for a project."
+  },
+  {
+   "id": "c2",
+   "title": "Non-discounted techniques: payback and ARR",
+   "body": [
+    "Payback period = time to recover the initial investment from undiscounted inflows; simple and good for liquidity, but ignores time value and cash flows after payback. Payback reciprocal approximates IRR for long-life projects with even flows.",
+    "Accounting rate of return = average annual accounting profit after tax ÷ average investment (or initial investment); uses accounting data and ignores timing.",
+    "Both are easy to understand but can mislead when projects differ in timing or life."
+   ],
+   "analogy": "Payback answers \"how soon do we get our money back?\", not \"how much value is created?\".",
+   "work": "Two projects with a 3-year payback can differ widely if one has large flows in years 4 to 10."
+  },
+  {
+   "id": "c3",
+   "title": "Discounted techniques: NPV, PI, discounted payback",
+   "body": [
+    "Net present value = PV of inflows − PV of outflows at the cost of capital; accept if NPV ≥ 0. NPV measures the increase in shareholders' wealth and is additive across projects.",
+    "Profitability index = PV of inflows ÷ PV of outflows; accept if PI ≥ 1. Useful in capital rationing to rank divisible projects.",
+    "Discounted payback = time to recover the investment from discounted inflows; it adds time value to payback but still ignores later flows."
+   ],
+   "analogy": "NPV is the wealth test: positive NPV means the project earns more than investors demand.",
+   "work": "A project costing ₹5 lakh with PV of inflows ₹5.6 lakh adds ₹60,000 of value."
+  },
+  {
+   "id": "c4",
+   "title": "IRR, MIRR and conflicting rankings",
+   "body": [
+    "Internal rate of return is the discount rate at which NPV = 0; accept if IRR ≥ cost of capital. It is found by trial and interpolation: IRR = lower rate + NPV at lower rate ÷ (difference in NPVs) × difference in rates.",
+    "Problems: multiple IRRs with non-conventional cash flows; reinvestment at IRR assumed. Modified IRR assumes reinvestment at the cost of capital: compounding inflows to the terminal year and finding the rate equating their terminal value with the PV of outflows.",
+    "NPV and IRR may rank mutually exclusive projects differently due to size, timing or life differences; NPV is preferred because it measures absolute wealth and uses a realistic reinvestment rate."
+   ],
+   "analogy": "IRR gives a percentage; NPV gives rupees — when they disagree, choose rupees of value.",
+   "work": "A small project with 30% IRR may add less value than a large one with 18% IRR when cost of capital is 12%."
+  }
+ ],
+ "illustrations": [
+  {
+   "id": "i1",
+   "title": "Evaluating a new line",
+   "difficulty": "moderate",
+   "minutes": 12,
+   "q": "A project costs ₹10,00,000 and is expected to generate cash inflows of ₹3,00,000, ₹4,00,000, ₹5,00,000 and ₹2,00,000 over four years. Cost of capital 10% (PV factors 0.909, 0.826, 0.751, 0.683). Compute NPV, PI, payback and discounted payback.",
+   "solution": [
+    {
+     "t": "table",
+     "head": [
+      "Year",
+      "Inflow ₹",
+      "PV factor",
+      "PV ₹",
+      "Cumulative PV ₹"
+     ],
+     "rows": [
+      [
+       "1",
+       "3,00,000",
+       "0.909",
+       "2,72,700",
+       "2,72,700"
+      ],
+      [
+       "2",
+       "4,00,000",
+       "0.826",
+       "3,30,400",
+       "6,03,100"
+      ],
+      [
+       "3",
+       "5,00,000",
+       "0.751",
+       "3,75,500",
+       "9,78,600"
+      ],
+      [
+       "4",
+       "2,00,000",
+       "0.683",
+       "1,36,600",
+       "11,15,200"
+      ]
+     ],
+     "title": "Discounted cash flows"
+    },
+    {
+     "t": "table",
+     "head": [
+      "Measure",
+      "Answer"
+     ],
+     "rows": [
+      [
+       "NPV",
+       "₹1,15,200"
+      ],
+      [
+       "PI",
+       "1.12"
+      ],
+      [
+       "Payback",
+       "2.6 years (₹3,00,000 of year 3's ₹5,00,000 needed)"
+      ],
+      [
+       "Discounted payback",
+       "3.16 years"
+      ]
+     ],
+     "title": "Results"
+    },
+    {
+     "t": "note",
+     "text": "Accept: NPV is positive and PI exceeds 1."
+    }
+   ],
+   "checks": [
+    {
+     "expr": "300000*0.909+400000*0.826+500000*0.751+200000*0.683",
+     "value": 1115200,
+     "label": "PV of inflows at 10%"
+    },
+    {
+     "expr": "1115200-1000000",
+     "value": 115200,
+     "label": "NPV"
+    },
+    {
+     "expr": "1115200/1000000",
+     "value": 1.12,
+     "label": "Profitability index"
+    },
+    {
+     "expr": "2+300000/500000",
+     "value": 2.6,
+     "label": "Payback period (years)"
+    },
+    {
+     "expr": "3+(1000000-978600)/136600",
+     "value": 3.16,
+     "label": "Discounted payback (years)"
+    }
+   ]
+  },
+  {
+   "id": "i2",
+   "title": "Finding the IRR",
+   "difficulty": "moderate",
+   "minutes": 8,
+   "q": "An investment of ₹1,00,000 yields ₹40,000 a year for 3 years. Annuity factors: 9% — 2.531; 10% — 2.487. Find the IRR and decide if it is acceptable at a cost of capital of 9.5%.",
+   "solution": [
+    {
+     "t": "table",
+     "head": [
+      "Rate",
+      "PV of inflows ₹",
+      "NPV ₹"
+     ],
+     "rows": [
+      [
+       "9%",
+       "1,01,240",
+       "1,240"
+      ],
+      [
+       "10%",
+       "99,480",
+       "(520)"
+      ]
+     ],
+     "title": "Trial rates"
+    },
+    {
+     "t": "p",
+     "text": "IRR = 9% + 1,240 ÷ (1,01,240 − 99,480) × 1% = 9.7%. It exceeds 9.5%, so accept."
+    }
+   ],
+   "checks": [
+    {
+     "expr": "40000*2.531",
+     "value": 101240,
+     "label": "PV at 9%"
+    },
+    {
+     "expr": "40000*2.487",
+     "value": 99480,
+     "label": "PV at 10%"
+    },
+    {
+     "expr": "9+(101240-100000)/(101240-99480)",
+     "value": 9.7,
+     "label": "IRR by interpolation (%)"
+    }
+   ]
+  }
+ ],
+ "jobs": [
+  {
+   "id": "j1",
+   "title": "Project appraisal note",
+   "role": "Finance analyst trainee",
+   "situation": "The board asks whether to buy a new packaging machine.",
+   "steps": [
+    "Estimate incremental after-tax cash flows.",
+    "Discount at the cost of capital.",
+    "Compute NPV, IRR and payback.",
+    "Recommend with sensitivity to key assumptions."
+   ],
+   "takeaway": "The decision rule is NPV; other measures add context."
+  }
+ ],
+ "mcqs": [
+  {
+   "id": "m1",
+   "q": "Which is ignored in project cash flows?",
+   "options": [
+    "Sunk costs",
+    "Opportunity costs",
+    "Working capital release",
+    "Tax savings on depreciation"
+   ],
+   "answer": 0,
+   "explain": "Sunk costs are already incurred and do not change with the decision. In practice: past research costs are irrelevant.",
+   "concept": "c1",
+   "topic": "Capital budgeting process and cash flows",
+   "difficulty": "core"
+  },
+  {
+   "id": "m2",
+   "q": "Investment ₹6,00,000; equal annual inflows ₹1,50,000. Payback:",
+   "options": [
+    "4 years",
+    "5 years",
+    "3 years",
+    "6 years"
+   ],
+   "answer": 0,
+   "explain": "6,00,000 ÷ 1,50,000 = 4 years. In practice: check life beyond payback.",
+   "concept": "c2",
+   "topic": "Non-discounted techniques: payback and ARR",
+   "difficulty": "core",
+   "check": 4
+  },
+  {
+   "id": "m3",
+   "q": "A project is acceptable under NPV if:",
+   "options": [
+    "NPV ≥ 0",
+    "NPV < 0",
+    "IRR < cost of capital",
+    "PI < 1"
+   ],
+   "answer": 0,
+   "explain": "Non-negative NPV means returns meet or exceed the required rate. In practice: rank by NPV for mutually exclusive projects.",
+   "concept": "c3",
+   "topic": "Discounted techniques: NPV, PI, discounted payback",
+   "difficulty": "core"
+  },
+  {
+   "id": "m4",
+   "q": "PV of inflows ₹2,40,000; investment ₹2,00,000. PI:",
+   "options": [
+    "1.2",
+    "0.83",
+    "1.4",
+    "0.2"
+   ],
+   "answer": 0,
+   "explain": "2,40,000 ÷ 2,00,000 = 1.2. In practice: PI above 1 is acceptable.",
+   "concept": "c3",
+   "topic": "Discounted techniques: NPV, PI, discounted payback",
+   "difficulty": "core",
+   "check": 1.2
+  },
+  {
+   "id": "m5",
+   "q": "IRR is the rate at which:",
+   "options": [
+    "NPV equals zero",
+    "PI equals 2",
+    "Payback equals life",
+    "ARR equals cost of capital"
+   ],
+   "answer": 0,
+   "explain": "IRR equates PV of inflows with PV of outflows. In practice: found by trial and interpolation.",
+   "concept": "c4",
+   "topic": "IRR, MIRR and conflicting rankings",
+   "difficulty": "core"
+  },
+  {
+   "id": "m6",
+   "q": "MIRR assumes reinvestment of intermediate cash flows at:",
+   "options": [
+    "The cost of capital",
+    "The IRR",
+    "Zero",
+    "The risk-free rate always"
+   ],
+   "answer": 0,
+   "explain": "MIRR corrects IRR's reinvestment assumption. In practice: gives a single rate.",
+   "concept": "c4",
+   "topic": "IRR, MIRR and conflicting rankings",
+   "difficulty": "core"
+  },
+  {
+   "id": "m7",
+   "q": "When NPV and IRR conflict for mutually exclusive projects, choose by:",
+   "options": [
+    "NPV",
+    "IRR",
+    "Payback",
+    "ARR"
+   ],
+   "answer": 0,
+   "explain": "NPV directly measures wealth added. In practice: conflicts arise from size or timing differences.",
+   "concept": "c4",
+   "topic": "IRR, MIRR and conflicting rankings",
+   "difficulty": "core"
+  },
+  {
+   "id": "m8",
+   "q": "Average annual profit ₹30,000; initial investment ₹2,00,000 with nil salvage. ARR on average investment:",
+   "options": [
+    "30%",
+    "15%",
+    "20%",
+    "10%"
+   ],
+   "answer": 0,
+   "explain": "Average investment = 1,00,000; 30,000 ÷ 1,00,000 = 30%. In practice: state the base used.",
+   "concept": "c2",
+   "topic": "Non-discounted techniques: payback and ARR",
+   "difficulty": "core",
+   "check": 30
+  }
+ ],
+ "questions": [
+  {
+   "id": "q1",
+   "marks": 8,
+   "minutes": 14,
+   "difficulty": "core",
+   "pad": "table",
+   "q": "A project costs ₹10,00,000 and is expected to generate cash inflows of ₹3,00,000, ₹4,00,000, ₹5,00,000 and ₹2,00,000 over four years. Cost of capital 10% (PV factors 0.909, 0.826, 0.751, 0.683). Compute NPV, PI, payback and discounted payback.",
+   "model": [
+    {
+     "t": "table",
+     "head": [
+      "Year",
+      "Inflow ₹",
+      "PV factor",
+      "PV ₹",
+      "Cumulative PV ₹"
+     ],
+     "rows": [
+      [
+       "1",
+       "3,00,000",
+       "0.909",
+       "2,72,700",
+       "2,72,700"
+      ],
+      [
+       "2",
+       "4,00,000",
+       "0.826",
+       "3,30,400",
+       "6,03,100"
+      ],
+      [
+       "3",
+       "5,00,000",
+       "0.751",
+       "3,75,500",
+       "9,78,600"
+      ],
+      [
+       "4",
+       "2,00,000",
+       "0.683",
+       "1,36,600",
+       "11,15,200"
+      ]
+     ],
+     "title": "Discounted cash flows"
+    },
+    {
+     "t": "table",
+     "head": [
+      "Measure",
+      "Answer"
+     ],
+     "rows": [
+      [
+       "NPV",
+       "₹1,15,200"
+      ],
+      [
+       "PI",
+       "1.12"
+      ],
+      [
+       "Payback",
+       "2.6 years (₹3,00,000 of year 3's ₹5,00,000 needed)"
+      ],
+      [
+       "Discounted payback",
+       "3.16 years"
+      ]
+     ],
+     "title": "Results"
+    },
+    {
+     "t": "note",
+     "text": "Accept: NPV is positive and PI exceeds 1."
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "PV of inflows",
+     "m": 2,
+     "skill": "computation",
+     "kw": [
+      "PV"
+     ],
+     "min": 1,
+     "nums": [
+      1115200
+     ]
+    },
+    {
+     "id": "s2",
+     "pt": "NPV and PI",
+     "m": 2,
+     "skill": "computation",
+     "kw": [
+      "NPV"
+     ],
+     "min": 1,
+     "nums": [
+      115200,
+      1.12
+     ]
+    },
+    {
+     "id": "s3",
+     "pt": "Payback",
+     "m": 2,
+     "skill": "computation",
+     "kw": [
+      "payback"
+     ],
+     "min": 1,
+     "nums": [
+      2.6
+     ]
+    },
+    {
+     "id": "s4",
+     "pt": "Discounted payback",
+     "m": 2,
+     "skill": "computation",
+     "kw": [
+      "discounted"
+     ],
+     "min": 1,
+     "nums": [
+      3.16
+     ]
+    }
+   ],
+   "remarks": [
+    "Use a cumulative column."
+   ],
+   "mistakes": [
+    "Using undiscounted flows for discounted payback."
+   ],
+   "tips": [
+    "Table."
+   ],
+   "extra_ok": true,
+   "checks": [
+    {
+     "expr": "300000*0.909+400000*0.826+500000*0.751+200000*0.683",
+     "value": 1115200,
+     "label": "PV of inflows at 10%"
+    },
+    {
+     "expr": "1115200-1000000",
+     "value": 115200,
+     "label": "NPV"
+    },
+    {
+     "expr": "1115200/1000000",
+     "value": 1.12,
+     "label": "Profitability index"
+    },
+    {
+     "expr": "2+300000/500000",
+     "value": 2.6,
+     "label": "Payback period (years)"
+    },
+    {
+     "expr": "3+(1000000-978600)/136600",
+     "value": 3.16,
+     "label": "Discounted payback (years)"
+    }
+   ]
+  },
+  {
+   "id": "q2",
+   "marks": 5,
+   "minutes": 9,
+   "difficulty": "core",
+   "pad": "table",
+   "q": "An investment of ₹1,00,000 yields ₹40,000 a year for 3 years. Annuity factors: 9% — 2.531; 10% — 2.487. Find the IRR and decide if it is acceptable at a cost of capital of 9.5%.",
+   "model": [
+    {
+     "t": "table",
+     "head": [
+      "Rate",
+      "PV of inflows ₹",
+      "NPV ₹"
+     ],
+     "rows": [
+      [
+       "9%",
+       "1,01,240",
+       "1,240"
+      ],
+      [
+       "10%",
+       "99,480",
+       "(520)"
+      ]
+     ],
+     "title": "Trial rates"
+    },
+    {
+     "t": "p",
+     "text": "IRR = 9% + 1,240 ÷ (1,01,240 − 99,480) × 1% = 9.7%. It exceeds 9.5%, so accept."
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "Trial PVs",
+     "m": 2,
+     "skill": "computation",
+     "kw": [
+      "PV"
+     ],
+     "min": 1,
+     "nums": [
+      101240,
+      99480
+     ]
+    },
+    {
+     "id": "s2",
+     "pt": "Interpolation",
+     "m": 2,
+     "skill": "computation",
+     "kw": [
+      "IRR"
+     ],
+     "min": 1,
+     "nums": [
+      9.7
+     ]
+    },
+    {
+     "id": "s3",
+     "pt": "Decision",
+     "m": 1,
+     "skill": "concept",
+     "kw": [
+      "accept"
+     ],
+     "min": 1
+    }
+   ],
+   "remarks": [
+    "Show both trial rates."
+   ],
+   "mistakes": [
+    "Interpolating on PV factors wrongly."
+   ],
+   "tips": [
+    "Table."
+   ],
+   "extra_ok": true,
+   "checks": [
+    {
+     "expr": "40000*2.531",
+     "value": 101240,
+     "label": "PV at 9%"
+    },
+    {
+     "expr": "40000*2.487",
+     "value": 99480,
+     "label": "PV at 10%"
+    },
+    {
+     "expr": "9+(101240-100000)/(101240-99480)",
+     "value": 9.7,
+     "label": "IRR by interpolation (%)"
+    }
+   ]
+  }
+ ],
+ "revision": {
+  "summary": [
+   "Incremental after-tax cash flows; ignore sunk costs, include opportunity costs.",
+   "Payback, ARR: simple but ignore time value or later flows.",
+   "NPV ≥ 0 and PI ≥ 1 to accept.",
+   "IRR by interpolation; MIRR uses cost of capital for reinvestment.",
+   "Conflicts: prefer NPV."
+  ],
+  "remember": [
+   "Depreciation enters only through its tax saving."
+  ],
+  "traps": [
+   "Do not deduct interest from project cash flows."
+  ]
+ },
+ "quickref": [
+  {
+   "k": "NPV",
+   "v": "PV inflows − PV outflows"
+  },
+  {
+   "k": "PI",
+   "v": "PV inflows ÷ PV outflows"
+  },
+  {
+   "k": "IRR",
+   "v": "Rate where NPV = 0"
+  },
+  {
+   "k": "Payback",
+   "v": "Time to recover cost"
+  }
+ ],
+ "viva": [
+  {
+   "id": "v1",
+   "q": "Why use cash flows instead of profits?",
+   "model": "Because cash, not accounting profit, can be reinvested or distributed, and profits include non-cash items like depreciation and accruals.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Cash usable",
+     "w": 5,
+     "kw": [
+      "cash"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Non-cash items",
+     "w": 5,
+     "kw": [
+      "depreciation|non-cash"
+     ]
+    }
+   ],
+   "concept": "c1"
+  },
+  {
+   "id": "v2",
+   "q": "Give two limitations of payback.",
+   "model": "It ignores the time value of money and cash flows after the payback period.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Time value",
+     "w": 5,
+     "kw": [
+      "time value"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Later flows",
+     "w": 5,
+     "kw": [
+      "after"
+     ]
+    }
+   ],
+   "concept": "c2"
+  },
+  {
+   "id": "v3",
+   "q": "What does a positive NPV mean?",
+   "model": "The project earns more than the cost of capital and increases shareholders' wealth by that amount in present value terms.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Above cost of capital",
+     "w": 5,
+     "kw": [
+      "cost of capital"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Wealth",
+     "w": 5,
+     "kw": [
+      "wealth"
+     ]
+    }
+   ],
+   "concept": "c3"
+  },
+  {
+   "id": "v4",
+   "q": "How is IRR found?",
+   "model": "By trying discount rates until NPV changes sign and interpolating between the two rates to where NPV is zero.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Trial rates",
+     "w": 5,
+     "kw": [
+      "trial|trying"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Interpolation",
+     "w": 5,
+     "kw": [
+      "interpolat"
+     ]
+    }
+   ],
+   "concept": "c4"
+  },
+  {
+   "id": "v5",
+   "q": "Why can NPV and IRR give different rankings?",
+   "model": "Because of differences in project size, timing of cash flows or life, and different reinvestment assumptions.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Size or timing",
+     "w": 5,
+     "kw": [
+      "size|timing|life"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Reinvestment",
+     "w": 5,
+     "kw": [
+      "reinvest"
+     ]
+    }
+   ],
+   "concept": "c4"
+  }
+ ],
+ "cases": [
+  {
+   "id": "k1",
+   "title": "Orchid Hotels expansion",
+   "difficulty": "moderate",
+   "case": "Orchid Hotels considers a ₹50 lakh spa. Expected after-tax inflows: ₹15 lakh a year for 5 years. Cost of capital 12% (5-year annuity factor 3.605). An alternative café costs ₹20 lakh with inflows of ₹7 lakh a year for 5 years.",
+   "mcqs": [
+    {
+     "id": "k1a",
+     "q": "NPV of the spa (₹ lakh):",
+     "options": [
+      "4.075",
+      "25.00",
+      "3.605",
+      "-4.075"
+     ],
+     "answer": 0,
+     "explain": "15 × 3.605 = 54.075 − 50 = 4.075. In practice: positive, so acceptable.",
+     "difficulty": "moderate",
+     "check": 4.075,
+     "topic": "Discounted techniques: NPV, PI, discounted payback"
+    },
+    {
+     "id": "k1b",
+     "q": "NPV of the café (₹ lakh):",
+     "options": [
+      "5.235",
+      "15.00",
+      "7.00",
+      "2.235"
+     ],
+     "answer": 0,
+     "explain": "7 × 3.605 = 25.235 − 20 = 5.235. In practice: smaller project, higher NPV.",
+     "difficulty": "moderate",
+     "check": 5.235,
+     "topic": "Discounted techniques: NPV, PI, discounted payback"
+    },
+    {
+     "id": "k1c",
+     "q": "PI of the spa:",
+     "options": [
+      "1.08",
+      "1.26",
+      "0.92",
+      "1.50"
+     ],
+     "answer": 0,
+     "explain": "54.075 ÷ 50 = 1.08. In practice: café PI = 1.26.",
+     "difficulty": "moderate",
+     "check": 1.08,
+     "topic": "Discounted techniques: NPV, PI, discounted payback"
+    },
+    {
+     "id": "k1d",
+     "q": "If only one can be chosen (mutually exclusive), choose:",
+     "options": [
+      "The café — higher NPV",
+      "The spa — larger size",
+      "Either",
+      "Neither"
+     ],
+     "answer": 0,
+     "explain": "For mutually exclusive projects, select the higher NPV. In practice: consider strategic fit too.",
+     "difficulty": "core",
+     "topic": "IRR, MIRR and conflicting rankings"
+    }
+   ]
+  }
+ ]
+}
