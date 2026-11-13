@@ -1,0 +1,819 @@
+{
+ "schema": "ca-unit/1",
+ "id": "fin-p1-ch07-u02",
+ "level": "final",
+ "paper": "p1",
+ "chapter": "fin-p1-ch07",
+ "n": 2,
+ "title": "Ind AS 21 \"The Effects of Changes in Foreign Exchange Rates\"",
+ "outcomes": [
+  "Determine functional and presentation currency.",
+  "Record and report foreign currency transactions.",
+  "Translate the statements of a foreign operation.",
+  "Apply net investment, disposal and exchangeability rules."
+ ],
+ "meta": {
+  "difficulty": "core",
+  "minutes": {
+   "learn": 35,
+   "practice": 30
+  },
+  "prereq": [
+   "fin-p1-ch07-u01"
+  ],
+  "exam_tip": "Label every item monetary or non-monetary before choosing a rate."
+ },
+ "concepts": [
+  {
+   "id": "c1",
+   "title": "Functional and presentation currency",
+   "body": [
+    "An entity's functional currency is the one used in the main economic setting where it does business. Primary indicators: the currency that mainly influences sales prices, and the currency of the country whose competitive forces and regulations mainly set prices; the currency that mainly influences labour, material and other costs.",
+    "Secondary indicators: currency in which financing is raised and operating receipts are retained. For a foreign operation, consider autonomy from the parent, proportion of transactions with the parent, direct cash-flow effects on the parent, and self-sufficiency in servicing debts.",
+    "Presentation currency is the currency in which statements are presented and may be any currency. Functional currency changes only when underlying conditions change, applied prospectively."
+   ],
+   "analogy": "Functional currency is where the entity lives economically; presentation currency is just the display.",
+   "work": "An Indian company selling and buying in rupees has INR as functional currency, even if it reports in USD."
+  },
+  {
+   "id": "c2",
+   "title": "Reporting foreign currency transactions",
+   "body": [
+    "A foreign currency transaction is first recorded in the functional currency at the spot rate on the transaction date (an average rate may be used if rates do not fluctuate significantly).",
+    "At each reporting date: monetary items (cash, receivables, payables, loans) are retranslated at the closing rate; non-monetary items at historical cost stay at the transaction-date rate; non-monetary items at fair value use the rate when fair value was measured.",
+    "Exchange differences on monetary items go to profit or loss. For non-monetary items, the exchange component follows the gain or loss: OCI if the gain goes to OCI (e.g. revaluation), otherwise profit or loss. Advance consideration (prepayments) uses the rate on the date of the advance, which sets the transaction date."
+   ],
+   "analogy": "Monetary items move with the rate; non-monetary items stay frozen unless revalued.",
+   "work": "An advance paid to a foreign supplier fixes the rate for the related asset."
+  },
+  {
+   "id": "c3",
+   "title": "Translating a foreign operation",
+   "body": [
+    "Results and position of an entity whose functional currency is not hyperinflationary are translated into a different presentation currency as follows: assets and liabilities at the closing rate on each balance sheet date; income and expenses at transaction-date rates (average rates as a practical proxy).",
+    "Resulting exchange differences are recognised in OCI and accumulated in a separate component of equity; the share attributable to non-controlling interests is allocated to them.",
+    "Goodwill and fair value adjustments on acquiring a foreign operation are treated as its assets and liabilities, translated at the closing rate. Intra-group monetary balances still produce exchange differences in consolidated profit or loss, as they represent real exposure."
+   ],
+   "analogy": "Closing rate for the balance sheet, average for profit — the gap goes to OCI.",
+   "work": "A strengthening dollar increases the rupee value of a US subsidiary's net assets."
+  },
+  {
+   "id": "c4",
+   "title": "Net investment, disposal and exchangeability",
+   "body": [
+    "A balance owed to or by a foreign operation, whose settlement is neither planned nor likely in the foreseeable future, forms part of the net investment. Its exchange differences go to profit or loss in separate statements, but to OCI in consolidated statements.",
+    "On disposal of a foreign operation, the cumulative exchange differences in OCI are reclassified to profit or loss. On partial disposal of a subsidiary without loss of control, a proportionate share is reattributed to non-controlling interests, not recycled.",
+    "Lack of exchangeability: when a currency cannot be exchanged into another currency at the measurement date, the entity estimates the spot rate that would have applied to an orderly transaction between market participants under prevailing conditions, and discloses the effects and risks."
+   ],
+   "analogy": "OCI amounts wait until the foreign operation is sold.",
+   "work": "A long-term loan to a subsidiary with no repayment plan is part of the net investment."
+  }
+ ],
+ "illustrations": [
+  {
+   "id": "i1",
+   "title": "An imported machine on credit",
+   "difficulty": "core",
+   "minutes": 7,
+   "q": "Arya Ltd. (functional currency INR) buys a machine for USD 50,000 on 1 February when USD 1 = ₹82, payable on 30 April. At 31 March, USD 1 = ₹84; on 30 April it pays at ₹83.5. Record the machine, the payable, and the exchange differences.",
+   "solution": [
+    {
+     "t": "table",
+     "head": [
+      "Date",
+      "Working",
+      "₹ lakh"
+     ],
+     "rows": [
+      [
+       "1 Feb — machine and payable",
+       "50,000 × 82",
+       "41"
+      ],
+      [
+       "31 Mar — payable retranslated",
+       "50,000 × 84",
+       "42"
+      ],
+      [
+       "Exchange loss in profit or loss",
+       "50,000 × 2",
+       "1"
+      ],
+      [
+       "Machine (non-monetary at historical cost)",
+       "Stays at 41.00",
+       "41"
+      ],
+      [
+       "30 Apr — exchange gain on payment",
+       "50,000 × 0.5",
+       "0.25"
+      ]
+     ],
+     "title": "Monetary vs non-monetary"
+    }
+   ],
+   "checks": [
+    {
+     "expr": "50000*82/100000",
+     "value": 41,
+     "label": "Payable at transaction date (₹ lakh)"
+    },
+    {
+     "expr": "50000*84/100000",
+     "value": 42,
+     "label": "Payable at year end (₹ lakh)"
+    },
+    {
+     "expr": "50000*(84-82)/100000",
+     "value": 1,
+     "label": "Exchange loss at year end (₹ lakh)"
+    },
+    {
+     "expr": "50000*(84-83.5)/100000",
+     "value": 0.25,
+     "label": "Exchange gain on settlement (₹ lakh)"
+    }
+   ]
+  },
+  {
+   "id": "i2",
+   "title": "Translating a US subsidiary",
+   "difficulty": "moderate",
+   "minutes": 9,
+   "q": "A US subsidiary (functional currency USD) was set up with net assets of USD 400 thousand when USD 1 = ₹80. This year it earned profit of USD 200 thousand (average rate ₹83). At year end, assets are USD 1,000 thousand and liabilities USD 400 thousand; closing rate ₹85. Translate and compute the exchange difference.",
+   "solution": [
+    {
+     "t": "table",
+     "head": [
+      "Item",
+      "Working",
+      "₹ thousand"
+     ],
+     "rows": [
+      [
+       "Assets",
+       "1,000 × 85",
+       "85,000"
+      ],
+      [
+       "Liabilities",
+       "400 × 85",
+       "34,000"
+      ],
+      [
+       "Opening net assets",
+       "400 × 80",
+       "32,000"
+      ],
+      [
+       "Profit",
+       "200 × 83",
+       "16,600"
+      ],
+      [
+       "Exchange difference (OCI, foreign currency translation reserve)",
+       "51,000 − (32,000 + 16,600)",
+       "2,400"
+      ]
+     ],
+     "title": "Translation"
+    }
+   ],
+   "checks": [
+    {
+     "expr": "1000*85",
+     "value": 85000,
+     "label": "Assets translated at closing rate (₹ thousand)"
+    },
+    {
+     "expr": "400*85",
+     "value": 34000,
+     "label": "Liabilities translated at closing rate (₹ thousand)"
+    },
+    {
+     "expr": "200*83",
+     "value": 16600,
+     "label": "Profit translated at average rate (₹ thousand)"
+    },
+    {
+     "expr": "1000*85-400*85-(400*80+200*83)",
+     "value": 2400,
+     "label": "Exchange difference to OCI (₹ thousand)"
+    }
+   ]
+  }
+ ],
+ "jobs": [
+  {
+   "id": "j1",
+   "title": "Consolidating a foreign subsidiary",
+   "role": "Group accountant",
+   "situation": "A Singapore subsidiary reports in SGD; the group presents in INR.",
+   "steps": [
+    "Confirm the subsidiary's functional currency.",
+    "Translate assets and liabilities at closing, P&L at average rates.",
+    "Post the difference to the translation reserve.",
+    "Treat intra-group loans with no repayment plan as net investment."
+   ],
+   "takeaway": "Rate choice depends on the line item; the plug goes to OCI."
+  }
+ ],
+ "mcqs": [
+  {
+   "id": "m1",
+   "q": "Monetary items in foreign currency are reported at the reporting date using:",
+   "options": [
+    "The closing rate",
+    "The historical rate",
+    "The average rate",
+    "The forward rate"
+   ],
+   "answer": 0,
+   "explain": "They are retranslated each period. In practice: loans and payables.",
+   "concept": "c2",
+   "topic": "Reporting foreign currency transactions",
+   "difficulty": "core"
+  },
+  {
+   "id": "m2",
+   "q": "Exchange differences on translating a foreign operation are recognised in:",
+   "options": [
+    "OCI",
+    "Profit or loss",
+    "Revenue",
+    "Retained earnings directly"
+   ],
+   "answer": 0,
+   "explain": "Accumulated in equity until disposal. In practice: foreign currency translation reserve.",
+   "concept": "c3",
+   "topic": "Translating a foreign operation",
+   "difficulty": "core"
+  },
+  {
+   "id": "m3",
+   "q": "A primary indicator of functional currency is the currency that:",
+   "options": [
+    "Mainly influences sales prices",
+    "Is used to raise finance",
+    "Is used to present statements",
+    "The parent uses"
+   ],
+   "answer": 0,
+   "explain": "Financing is secondary. In practice: assess sales and costs first.",
+   "concept": "c1",
+   "topic": "Functional and presentation currency",
+   "difficulty": "core"
+  },
+  {
+   "id": "m4",
+   "q": "A non-monetary asset measured at historical cost is translated at:",
+   "options": [
+    "The rate at the date of the transaction",
+    "The closing rate",
+    "The average rate",
+    "The forward rate"
+   ],
+   "answer": 0,
+   "explain": "It is not retranslated. In practice: PPE and inventory at cost.",
+   "concept": "c2",
+   "topic": "Reporting foreign currency transactions",
+   "difficulty": "core"
+  },
+  {
+   "id": "m5",
+   "q": "On disposal of a foreign operation, cumulative translation differences are:",
+   "options": [
+    "Reclassified to profit or loss",
+    "Left in equity",
+    "Transferred to retained earnings",
+    "Written off to OCI"
+   ],
+   "answer": 0,
+   "explain": "They are recycled. In practice: part of the gain on disposal.",
+   "concept": "c4",
+   "topic": "Net investment, disposal and exchangeability",
+   "difficulty": "core"
+  },
+  {
+   "id": "m6",
+   "q": "Goodwill on acquiring a foreign operation is translated at:",
+   "options": [
+    "The closing rate",
+    "The historical rate",
+    "The average rate",
+    "Not translated"
+   ],
+   "answer": 0,
+   "explain": "It is treated as an asset of the foreign operation. In practice: creates translation differences.",
+   "concept": "c3",
+   "topic": "Translating a foreign operation",
+   "difficulty": "core"
+  },
+  {
+   "id": "m7",
+   "q": "A payment in advance to a foreign supplier is:",
+   "options": [
+    "A non-monetary item; it sets the rate for the related asset",
+    "Monetary and retranslated",
+    "Translated at closing rate",
+    "Expensed"
+   ],
+   "answer": 0,
+   "explain": "Appendix B guidance. In practice: no exchange difference on the advance.",
+   "concept": "c2",
+   "topic": "Reporting foreign currency transactions",
+   "difficulty": "core"
+  },
+  {
+   "id": "m8",
+   "q": "If a currency lacks exchangeability, the entity:",
+   "options": [
+    "Estimates the spot rate for an orderly transaction",
+    "Uses last year's rate",
+    "Stops translating",
+    "Uses the forward rate"
+   ],
+   "answer": 0,
+   "explain": "The 2025 amendment requires an estimate with disclosure. In practice: use observable rates if suitable.",
+   "concept": "c4",
+   "topic": "Net investment, disposal and exchangeability",
+   "difficulty": "core"
+  }
+ ],
+ "questions": [
+  {
+   "id": "q1",
+   "marks": 5,
+   "minutes": 9,
+   "difficulty": "core",
+   "pad": "table",
+   "q": "Arya Ltd. (functional currency INR) buys a machine for USD 50,000 on 1 February when USD 1 = ₹82, payable on 30 April. At 31 March, USD 1 = ₹84; on 30 April it pays at ₹83.5. Record the machine, the payable, and the exchange differences.",
+   "model": [
+    {
+     "t": "table",
+     "head": [
+      "Date",
+      "Working",
+      "₹ lakh"
+     ],
+     "rows": [
+      [
+       "1 Feb — machine and payable",
+       "50,000 × 82",
+       "41"
+      ],
+      [
+       "31 Mar — payable retranslated",
+       "50,000 × 84",
+       "42"
+      ],
+      [
+       "Exchange loss in profit or loss",
+       "50,000 × 2",
+       "1"
+      ],
+      [
+       "Machine (non-monetary at historical cost)",
+       "Stays at 41.00",
+       "41"
+      ],
+      [
+       "30 Apr — exchange gain on payment",
+       "50,000 × 0.5",
+       "0.25"
+      ]
+     ],
+     "title": "Monetary vs non-monetary"
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "Initial",
+     "m": 1,
+     "skill": "computation",
+     "kw": [
+      "initial|transaction"
+     ],
+     "min": 1,
+     "nums": [
+      41
+     ]
+    },
+    {
+     "id": "s2",
+     "pt": "Year end loss",
+     "m": 2,
+     "skill": "computation",
+     "kw": [
+      "loss"
+     ],
+     "min": 1,
+     "nums": [
+      1
+     ]
+    },
+    {
+     "id": "s3",
+     "pt": "Settlement gain",
+     "m": 1,
+     "skill": "computation",
+     "kw": [
+      "gain"
+     ],
+     "min": 1,
+     "nums": [
+      0.25
+     ]
+    },
+    {
+     "id": "s4",
+     "pt": "Machine unchanged",
+     "m": 1,
+     "skill": "concept",
+     "kw": [
+      "historical|non-monetary"
+     ],
+     "min": 1
+    }
+   ],
+   "remarks": [
+    "Separate monetary items."
+   ],
+   "mistakes": [
+    "Retranslating the machine."
+   ],
+   "tips": [
+    "Table."
+   ],
+   "extra_ok": true,
+   "checks": [
+    {
+     "expr": "50000*82/100000",
+     "value": 41,
+     "label": "Payable at transaction date (₹ lakh)"
+    },
+    {
+     "expr": "50000*84/100000",
+     "value": 42,
+     "label": "Payable at year end (₹ lakh)"
+    },
+    {
+     "expr": "50000*(84-82)/100000",
+     "value": 1,
+     "label": "Exchange loss at year end (₹ lakh)"
+    },
+    {
+     "expr": "50000*(84-83.5)/100000",
+     "value": 0.25,
+     "label": "Exchange gain on settlement (₹ lakh)"
+    }
+   ]
+  },
+  {
+   "id": "q2",
+   "marks": 6,
+   "minutes": 11,
+   "difficulty": "core",
+   "pad": "table",
+   "q": "A US subsidiary (functional currency USD) was set up with net assets of USD 400 thousand when USD 1 = ₹80. This year it earned profit of USD 200 thousand (average rate ₹83). At year end, assets are USD 1,000 thousand and liabilities USD 400 thousand; closing rate ₹85. Translate and compute the exchange difference.",
+   "model": [
+    {
+     "t": "table",
+     "head": [
+      "Item",
+      "Working",
+      "₹ thousand"
+     ],
+     "rows": [
+      [
+       "Assets",
+       "1,000 × 85",
+       "85,000"
+      ],
+      [
+       "Liabilities",
+       "400 × 85",
+       "34,000"
+      ],
+      [
+       "Opening net assets",
+       "400 × 80",
+       "32,000"
+      ],
+      [
+       "Profit",
+       "200 × 83",
+       "16,600"
+      ],
+      [
+       "Exchange difference (OCI, foreign currency translation reserve)",
+       "51,000 − (32,000 + 16,600)",
+       "2,400"
+      ]
+     ],
+     "title": "Translation"
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "Closing rate items",
+     "m": 2,
+     "skill": "computation",
+     "kw": [
+      "closing"
+     ],
+     "min": 1,
+     "nums": [
+      85000,
+      34000
+     ]
+    },
+    {
+     "id": "s2",
+     "pt": "Profit at average",
+     "m": 2,
+     "skill": "computation",
+     "kw": [
+      "average"
+     ],
+     "min": 1,
+     "nums": [
+      16600
+     ]
+    },
+    {
+     "id": "s3",
+     "pt": "Difference",
+     "m": 2,
+     "skill": "computation",
+     "kw": [
+      "oci|reserve"
+     ],
+     "min": 1,
+     "nums": [
+      2400
+     ]
+    }
+   ],
+   "remarks": [
+    "Show the reserve."
+   ],
+   "mistakes": [
+    "Using closing rate for profit."
+   ],
+   "tips": [
+    "Table."
+   ],
+   "extra_ok": true,
+   "checks": [
+    {
+     "expr": "1000*85",
+     "value": 85000,
+     "label": "Assets translated at closing rate (₹ thousand)"
+    },
+    {
+     "expr": "400*85",
+     "value": 34000,
+     "label": "Liabilities translated at closing rate (₹ thousand)"
+    },
+    {
+     "expr": "200*83",
+     "value": 16600,
+     "label": "Profit translated at average rate (₹ thousand)"
+    },
+    {
+     "expr": "1000*85-400*85-(400*80+200*83)",
+     "value": 2400,
+     "label": "Exchange difference to OCI (₹ thousand)"
+    }
+   ]
+  }
+ ],
+ "revision": {
+  "summary": [
+   "Functional currency: primary economic environment.",
+   "Transactions at spot rate; monetary items at closing rate.",
+   "Monetary differences → profit or loss.",
+   "Foreign operation: closing for B/S, average for P&L, difference to OCI.",
+   "Disposal: recycle translation reserve."
+  ],
+  "remember": [
+   "Advances fix the transaction date rate."
+  ],
+  "traps": [
+   "Retranslating non-monetary items at cost."
+  ]
+ },
+ "quickref": [
+  {
+   "k": "Monetary",
+   "v": "Closing rate"
+  },
+  {
+   "k": "Non-monetary at cost",
+   "v": "Historical rate"
+  },
+  {
+   "k": "Translation difference",
+   "v": "OCI"
+  },
+  {
+   "k": "Disposal",
+   "v": "Recycle"
+  }
+ ],
+ "viva": [
+  {
+   "id": "v1",
+   "q": "What is functional currency?",
+   "model": "The currency of the main economic environment where the entity operates, mainly the one driving its prices and costs.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Economic environment",
+     "w": 5,
+     "kw": [
+      "economic environment"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Prices and costs",
+     "w": 5,
+     "kw": [
+      "price|cost"
+     ]
+    }
+   ],
+   "concept": "c1"
+  },
+  {
+   "id": "v2",
+   "q": "How are monetary and non-monetary items treated at year end?",
+   "model": "Monetary items use the closing rate; non-monetary items at cost keep the transaction-date rate, and those at fair value use the valuation-date rate.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Closing rate for monetary",
+     "w": 5,
+     "kw": [
+      "closing"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Historical for non-monetary",
+     "w": 5,
+     "kw": [
+      "transaction-date|historical"
+     ]
+    }
+   ],
+   "concept": "c2"
+  },
+  {
+   "id": "v3",
+   "q": "What rates are used to translate a foreign operation?",
+   "model": "Closing rate for assets and liabilities and transaction or average rates for income and expenses, with differences to OCI.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Closing and average",
+     "w": 6,
+     "kw": [
+      "closing|average"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "OCI",
+     "w": 4,
+     "kw": [
+      "oci"
+     ]
+    }
+   ],
+   "concept": "c3"
+  },
+  {
+   "id": "v4",
+   "q": "What is a net investment in a foreign operation?",
+   "model": "The parent's share of its net assets, including long-term monetary balances whose settlement is neither planned nor likely in the foreseeable future.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Share of net assets",
+     "w": 5,
+     "kw": [
+      "net assets"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Long-term balances",
+     "w": 5,
+     "kw": [
+      "settlement|foreseeable"
+     ]
+    }
+   ],
+   "concept": "c4"
+  },
+  {
+   "id": "v5",
+   "q": "What happens to the translation reserve on disposal?",
+   "model": "It is reclassified from equity to profit or loss as part of the gain or loss on disposal.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Reclassified",
+     "w": 6,
+     "kw": [
+      "reclassif"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Profit or loss",
+     "w": 4,
+     "kw": [
+      "profit or loss"
+     ]
+    }
+   ],
+   "concept": "c4"
+  }
+ ],
+ "cases": [
+  {
+   "id": "k1",
+   "title": "Ganga Exports Ltd.",
+   "difficulty": "moderate",
+   "case": "Ganga Exports Ltd. (INR functional currency) sells goods for EUR 20,000 on 1 March (EUR 1 = ₹90). At 31 March EUR 1 = ₹92. It also has a long-term EUR loan to its German subsidiary with no repayment plan, and holds an equity investment in a French company measured at fair value through OCI.",
+   "mcqs": [
+    {
+     "id": "k1a",
+     "q": "Exchange gain on the receivable at 31 March (₹):",
+     "options": [
+      "40,000",
+      "20,000",
+      "18,40,000",
+      "Nil"
+     ],
+     "answer": 0,
+     "explain": "20,000 × (92 − 90) = 40,000. In practice: to profit or loss.",
+     "difficulty": "core",
+     "check": 40000,
+     "topic": "Reporting foreign currency transactions"
+    },
+    {
+     "id": "k1b",
+     "q": "Revenue recognised for the sale (₹ lakh):",
+     "options": [
+      "18",
+      "18.4",
+      "20",
+      "9"
+     ],
+     "answer": 0,
+     "explain": "20,000 × 90 = ₹18 lakh at the transaction date. In practice: revenue is not retranslated.",
+     "difficulty": "core",
+     "check": 18,
+     "topic": "Reporting foreign currency transactions"
+    },
+    {
+     "id": "k1c",
+     "q": "In consolidated statements, exchange differences on the loan to the subsidiary go to:",
+     "options": [
+      "OCI",
+      "Profit or loss",
+      "Revenue",
+      "Goodwill"
+     ],
+     "answer": 0,
+     "explain": "It is part of the net investment. In practice: P&L in separate statements.",
+     "difficulty": "moderate",
+     "topic": "Net investment, disposal and exchangeability"
+    },
+    {
+     "id": "k1d",
+     "q": "The exchange component of the fair value change on the French equity investment goes to:",
+     "options": [
+      "OCI, with the fair value change",
+      "Profit or loss",
+      "Retained earnings directly",
+      "Capital reserve"
+     ],
+     "answer": 0,
+     "explain": "It follows the gain. In practice: never recycled for FVOCI equity.",
+     "difficulty": "moderate",
+     "topic": "Reporting foreign currency transactions"
+    }
+   ]
+  }
+ ]
+}
