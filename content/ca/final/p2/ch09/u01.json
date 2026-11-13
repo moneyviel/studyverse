@@ -1,0 +1,789 @@
+{
+ "schema": "ca-unit/1",
+ "id": "fin-p2-ch09-u01",
+ "level": "final",
+ "paper": "p2",
+ "chapter": "fin-p2-ch09",
+ "n": 1,
+ "title": "Derivatives Analysis and Valuation",
+ "outcomes": [
+  "Price forwards and futures and use them to hedge.",
+  "Analyse option types and pay-offs.",
+  "Value options using binomial, risk-neutral and Black-Scholes methods.",
+  "Interpret Greeks and exotic options.",
+  "Explain credit, commodity and real options."
+ ],
+ "meta": {
+  "difficulty": "hard",
+  "minutes": {
+   "learn": 50,
+   "practice": 50
+  },
+  "prereq": [
+   "fin-p2-ch08-u01"
+  ],
+  "exam_tip": "Always state whether rates are continuous or discrete before pricing."
+ },
+ "concepts": [
+  {
+   "id": "c1",
+   "title": "Forwards and futures: features and pricing",
+   "body": [
+    "A derivative's value comes from an underlying asset. Forwards are private, customised agreements to buy or sell later at a fixed price, with counterparty risk and settlement at maturity. Futures are standardised, exchange-traded, cleared through a clearing house, margined and marked to market daily.",
+    "Cost-of-carry pricing: F = S × e^(rt) with continuous compounding (or S(1 + r)^t discretely); deduct the present value of dividends or add storage costs as relevant. If the market futures price is above fair value, sell futures and buy spot (cash-and-carry arbitrage); if below, the reverse.",
+    "Index futures let investors hedge or take market views cheaply; hedging a portfolio needs number of contracts = portfolio value × beta ÷ value of one futures contract."
+   ],
+   "analogy": "Futures price = spot carried forward at the financing cost.",
+   "work": "A ₹220 share with 8% carry for 3 months has a futures price near ₹224.44."
+  },
+  {
+   "id": "c2",
+   "title": "Options: types and pay-offs",
+   "body": [
+    "An option gives the buyer the right, not obligation, to buy (call) or sell (put) at a strike price; the writer receives a premium and bears the obligation. European options exercise only at expiry; American options at any time up to expiry.",
+    "Pay-offs at expiry: long call = max(S − K, 0) − premium; short call is the mirror; long put = max(K − S, 0) − premium; short put is the mirror. Options can be in, at or out of the money.",
+    "Compared with futures, options limit the buyer's loss to the premium while keeping upside, at the cost of paying that premium."
+   ],
+   "analogy": "Buyers pay for rights; writers are paid to take obligations.",
+   "work": "A call with strike ₹105 is worthless at expiry if the share ends at ₹90."
+  },
+  {
+   "id": "c3",
+   "title": "Option valuation: binomial, risk-neutral and Black-Scholes",
+   "body": [
+    "Binomial model: the share moves up or down each period; build a riskless hedge or use risk-neutral probability p = (1 + r − d) ÷ (u − d), value = expected pay-off under p discounted at the risk-free rate. Multi-period trees work backwards.",
+    "Black-Scholes (European, non-dividend): C = S·N(d₁) − K·e^(−rt)·N(d₂), with d₁ = [ln(S/K) + (r + σ²/2)t] ÷ (σ√t) and d₂ = d₁ − σ√t. Assumptions: lognormal prices, constant volatility and rate, no transaction costs, continuous trading.",
+    "Put-call parity: C + K·e^(−rt) = P + S (or with discrete discounting). Deviations create arbitrage."
+   ],
+   "analogy": "Value options as if investors were risk-neutral, then discount at the risk-free rate.",
+   "work": "With equal up and down probabilities, the call worth ₹15 in the up state is worth ₹7.14 today."
+  },
+  {
+   "id": "c4",
+   "title": "Greeks and exotic options",
+   "body": [
+    "Factors raising call value: higher share price, lower strike, longer time, higher volatility, higher interest rates, lower dividends (puts mostly reverse).",
+    "Greeks: delta (change in option price per ₹1 change in share price; hedge ratio), gamma (change in delta), theta (time decay), rho (sensitivity to interest rate) and vega (sensitivity to volatility).",
+    "Exotic options have non-standard features: Asian (average price), barrier (knock-in/out), binary (fixed payout), lookback (best price over life), basket and compound options."
+   ],
+   "analogy": "Greeks tell traders how options react to each driver.",
+   "work": "A delta of 0.6 means the call gains about 60 paise when the share rises ₹1."
+  },
+  {
+   "id": "c5",
+   "title": "Credit, commodity and real options",
+   "body": [
+    "Credit derivatives transfer credit risk: credit default swaps (protection buyer pays a spread; seller pays on a credit event, settled physically or in cash) and collateralised debt obligations (pools of debt sliced into tranches — risky when underlying quality is poor).",
+    "Commodity derivatives hedge prices of metals, energy and agricultural goods; weather and electricity derivatives hedge volume and price risks linked to temperature, rainfall or power demand. Past derivative mishaps show the dangers of leverage, poor controls and model risk.",
+    "Real options are flexibility in real projects — options to expand, abandon, delay or switch — valued with option models; they can make a project worth more than its static NPV."
+   ],
+   "analogy": "Derivatives can move credit, commodity and even project flexibility risk.",
+   "work": "An option to abandon a mine if prices crash has real value."
+  }
+ ],
+ "illustrations": [
+  {
+   "id": "i1",
+   "title": "Futures and a one-step binomial",
+   "difficulty": "moderate",
+   "minutes": 10,
+   "q": "(a) A share trades at ₹220; the continuously compounded risk-free rate is 8% a year; no dividends. Price a 3-month future. (b) Another share is at ₹100 and can go to ₹120 or ₹90 in one period; the risk-free rate per period is 5%. Value a European call with strike ₹105 and the matching put.",
+   "solution": [
+    {
+     "t": "table",
+     "head": [
+      "Step",
+      "Working",
+      "Result"
+     ],
+     "rows": [
+      [
+       "Futures price",
+       "220 × e^(0.08 × 0.25)",
+       "₹224.44"
+      ],
+      [
+       "Risk-neutral p",
+       "(1.05 − 0.90) ÷ (1.20 − 0.90)",
+       "0.5"
+      ],
+      [
+       "Call pay-offs",
+       "Up: 15; down: 0",
+       "—"
+      ],
+      [
+       "Call value",
+       "0.5 × 15 ÷ 1.05",
+       "₹7.14"
+      ],
+      [
+       "Put by parity",
+       "C − S + K ÷ 1.05 = 7.14 − 100 + 100",
+       "₹7.14"
+      ]
+     ],
+     "title": "Cost of carry and binomial"
+    }
+   ],
+   "checks": [
+    {
+     "expr": "round(220*2.718281828459045**(0.08*3/12),2)",
+     "value": 224.44,
+     "label": "Fair futures price (₹)"
+    },
+    {
+     "expr": "(1.05-0.9)/(1.2-0.9)",
+     "value": 0.5,
+     "label": "Risk-neutral probability of up move"
+    },
+    {
+     "expr": "round((1.05-0.9)/(1.2-0.9)*15/1.05,2)",
+     "value": 7.14,
+     "label": "One-period call value (₹)"
+    },
+    {
+     "expr": "round((1.05-0.9)/(1.2-0.9)*15/1.05-100+105/1.05,2)",
+     "value": 7.14,
+     "label": "Put value by parity (₹)"
+    }
+   ]
+  },
+  {
+   "id": "i2",
+   "title": "Black-Scholes call",
+   "difficulty": "hard",
+   "minutes": 10,
+   "q": "S = ₹100, K = ₹100, time 1 year, continuously compounded risk-free rate 10%, volatility 20%. Given d₁ = 0.60 and d₂ = 0.40, N(0.60) = 0.7257 and N(0.40) = 0.6554, compute the call value. Show how d₁ is derived.",
+   "solution": [
+    {
+     "t": "table",
+     "head": [
+      "Step",
+      "Working",
+      "Result"
+     ],
+     "rows": [
+      [
+       "d₁",
+       "[ln(100/100) + (0.10 + 0.02) × 1] ÷ (0.20 × 1)",
+       "0.60"
+      ],
+      [
+       "d₂",
+       "d₁ − 0.20",
+       "0.40"
+      ],
+      [
+       "PV of strike",
+       "100 × e^(−0.10)",
+       "90.48"
+      ],
+      [
+       "Call value",
+       "100 × 0.7257 − 90.48 × 0.6554",
+       "₹13.27"
+      ]
+     ],
+     "title": "C = S·N(d₁) − K·e^(−rt)·N(d₂)"
+    }
+   ],
+   "checks": [
+    {
+     "expr": "round(100*0.7257-100*2.718281828459045**(-0.1)*0.6554,2)",
+     "value": 13.27,
+     "label": "Black-Scholes call value (₹)"
+    }
+   ]
+  }
+ ],
+ "jobs": [
+  {
+   "id": "j1",
+   "title": "Hedging a portfolio with derivatives",
+   "role": "Derivatives dealer",
+   "situation": "A fund worries about a market fall over the next month.",
+   "steps": [
+    "Compute futures contracts needed using beta.",
+    "Compare with buying index puts.",
+    "Check fair value and arbitrage gaps.",
+    "Monitor Greeks and margins daily."
+   ],
+   "takeaway": "Futures lock in, options insure."
+  }
+ ],
+ "mcqs": [
+  {
+   "id": "m1",
+   "q": "Futures differ from forwards in being:",
+   "options": [
+    "Standardised and exchange-traded with daily margining",
+    "Customised",
+    "Settled only at maturity",
+    "Free of margins"
+   ],
+   "answer": 0,
+   "explain": "Clearing house reduces counterparty risk. In practice: mark to market.",
+   "concept": "c1",
+   "topic": "Forwards and futures: features and pricing",
+   "difficulty": "core"
+  },
+  {
+   "id": "m2",
+   "q": "Under cost of carry with continuous compounding, F equals:",
+   "options": [
+    "S × e^(rt)",
+    "S ÷ e^(rt)",
+    "S × r",
+    "S − rt"
+   ],
+   "answer": 0,
+   "explain": "Financing cost added. In practice: deduct dividends.",
+   "concept": "c1",
+   "topic": "Forwards and futures: features and pricing",
+   "difficulty": "core"
+  },
+  {
+   "id": "m3",
+   "q": "The maximum loss to a call buyer is:",
+   "options": [
+    "The premium paid",
+    "Unlimited",
+    "Strike price",
+    "Nil"
+   ],
+   "answer": 0,
+   "explain": "Right, not obligation. In practice: writer faces large loss.",
+   "concept": "c2",
+   "topic": "Options: types and pay-offs",
+   "difficulty": "core"
+  },
+  {
+   "id": "m4",
+   "q": "Risk-neutral probability of an up move equals:",
+   "options": [
+    "(1 + r − d) ÷ (u − d)",
+    "(u − d) ÷ (1 + r)",
+    "r ÷ u",
+    "0.5 always"
+   ],
+   "answer": 0,
+   "explain": "Binomial model. In practice: discount at risk-free.",
+   "concept": "c3",
+   "topic": "Option valuation: binomial, risk-neutral and Black-Scholes",
+   "difficulty": "core"
+  },
+  {
+   "id": "m5",
+   "q": "Put-call parity states:",
+   "options": [
+    "C + PV(K) = P + S",
+    "C = P",
+    "C − P = K",
+    "C + S = P + K"
+   ],
+   "answer": 0,
+   "explain": "Arbitrage relation. In practice: European options.",
+   "concept": "c3",
+   "topic": "Option valuation: binomial, risk-neutral and Black-Scholes",
+   "difficulty": "core"
+  },
+  {
+   "id": "m6",
+   "q": "Theta measures:",
+   "options": [
+    "Time decay of an option",
+    "Sensitivity to volatility",
+    "Change in delta",
+    "Interest sensitivity"
+   ],
+   "answer": 0,
+   "explain": "Options lose value with time. In practice: writers benefit.",
+   "concept": "c4",
+   "topic": "Greeks and exotic options",
+   "difficulty": "core"
+  },
+  {
+   "id": "m7",
+   "q": "Higher volatility generally makes a call option:",
+   "options": [
+    "More valuable",
+    "Less valuable",
+    "Unchanged",
+    "Worthless"
+   ],
+   "answer": 0,
+   "explain": "Greater upside chance. In practice: vega positive.",
+   "concept": "c4",
+   "topic": "Greeks and exotic options",
+   "difficulty": "core"
+  },
+  {
+   "id": "m8",
+   "q": "A credit default swap protection seller:",
+   "options": [
+    "Receives a spread and pays on a credit event",
+    "Pays a spread",
+    "Owns the bond",
+    "Issues the bond"
+   ],
+   "answer": 0,
+   "explain": "Insurance-like. In practice: settlement physical or cash.",
+   "concept": "c5",
+   "topic": "Credit, commodity and real options",
+   "difficulty": "core"
+  }
+ ],
+ "questions": [
+  {
+   "id": "q1",
+   "marks": 8,
+   "minutes": 14,
+   "difficulty": "core",
+   "pad": "table",
+   "q": "(a) A share trades at ₹220; the continuously compounded risk-free rate is 8% a year; no dividends. Price a 3-month future. (b) Another share is at ₹100 and can go to ₹120 or ₹90 in one period; the risk-free rate per period is 5%. Value a European call with strike ₹105 and the matching put.",
+   "model": [
+    {
+     "t": "table",
+     "head": [
+      "Step",
+      "Working",
+      "Result"
+     ],
+     "rows": [
+      [
+       "Futures price",
+       "220 × e^(0.08 × 0.25)",
+       "₹224.44"
+      ],
+      [
+       "Risk-neutral p",
+       "(1.05 − 0.90) ÷ (1.20 − 0.90)",
+       "0.5"
+      ],
+      [
+       "Call pay-offs",
+       "Up: 15; down: 0",
+       "—"
+      ],
+      [
+       "Call value",
+       "0.5 × 15 ÷ 1.05",
+       "₹7.14"
+      ],
+      [
+       "Put by parity",
+       "C − S + K ÷ 1.05 = 7.14 − 100 + 100",
+       "₹7.14"
+      ]
+     ],
+     "title": "Cost of carry and binomial"
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "Futures",
+     "m": 2,
+     "skill": "computation",
+     "kw": [
+      "futures"
+     ],
+     "min": 1,
+     "nums": [
+      224.44
+     ]
+    },
+    {
+     "id": "s2",
+     "pt": "Probability",
+     "m": 2,
+     "skill": "computation",
+     "kw": [
+      "risk-neutral|probability"
+     ],
+     "min": 1,
+     "nums": [
+      0.5
+     ]
+    },
+    {
+     "id": "s3",
+     "pt": "Call",
+     "m": 2,
+     "skill": "computation",
+     "kw": [
+      "call"
+     ],
+     "min": 1,
+     "nums": [
+      7.14
+     ]
+    },
+    {
+     "id": "s4",
+     "pt": "Put",
+     "m": 2,
+     "skill": "computation",
+     "kw": [
+      "put|parity"
+     ],
+     "min": 1,
+     "nums": [
+      7.14
+     ]
+    }
+   ],
+   "remarks": [
+    "Use discrete rate for binomial."
+   ],
+   "mistakes": [
+    "Discounting at expected return."
+   ],
+   "tips": [
+    "Table."
+   ],
+   "extra_ok": true,
+   "checks": [
+    {
+     "expr": "round(220*2.718281828459045**(0.08*3/12),2)",
+     "value": 224.44,
+     "label": "Fair futures price (₹)"
+    },
+    {
+     "expr": "(1.05-0.9)/(1.2-0.9)",
+     "value": 0.5,
+     "label": "Risk-neutral probability of up move"
+    },
+    {
+     "expr": "round((1.05-0.9)/(1.2-0.9)*15/1.05,2)",
+     "value": 7.14,
+     "label": "One-period call value (₹)"
+    },
+    {
+     "expr": "round((1.05-0.9)/(1.2-0.9)*15/1.05-100+105/1.05,2)",
+     "value": 7.14,
+     "label": "Put value by parity (₹)"
+    }
+   ]
+  },
+  {
+   "id": "q2",
+   "marks": 6,
+   "minutes": 11,
+   "difficulty": "core",
+   "pad": "table",
+   "q": "S = ₹100, K = ₹100, time 1 year, continuously compounded risk-free rate 10%, volatility 20%. Given d₁ = 0.60 and d₂ = 0.40, N(0.60) = 0.7257 and N(0.40) = 0.6554, compute the call value. Show how d₁ is derived.",
+   "model": [
+    {
+     "t": "table",
+     "head": [
+      "Step",
+      "Working",
+      "Result"
+     ],
+     "rows": [
+      [
+       "d₁",
+       "[ln(100/100) + (0.10 + 0.02) × 1] ÷ (0.20 × 1)",
+       "0.60"
+      ],
+      [
+       "d₂",
+       "d₁ − 0.20",
+       "0.40"
+      ],
+      [
+       "PV of strike",
+       "100 × e^(−0.10)",
+       "90.48"
+      ],
+      [
+       "Call value",
+       "100 × 0.7257 − 90.48 × 0.6554",
+       "₹13.27"
+      ]
+     ],
+     "title": "C = S·N(d₁) − K·e^(−rt)·N(d₂)"
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "d₁ and d₂",
+     "m": 2,
+     "skill": "concept",
+     "kw": [
+      "d1|d₁|ln"
+     ],
+     "min": 1
+    },
+    {
+     "id": "s2",
+     "pt": "PV of strike",
+     "m": 2,
+     "skill": "computation",
+     "kw": [
+      "pv|strike"
+     ],
+     "min": 1
+    },
+    {
+     "id": "s3",
+     "pt": "Call",
+     "m": 2,
+     "skill": "computation",
+     "kw": [
+      "call"
+     ],
+     "min": 1,
+     "nums": [
+      13.27
+     ]
+    }
+   ],
+   "remarks": [
+    "Show formula."
+   ],
+   "mistakes": [
+    "Not discounting strike."
+   ],
+   "tips": [
+    "Table."
+   ],
+   "extra_ok": true,
+   "checks": [
+    {
+     "expr": "round(100*0.7257-100*2.718281828459045**(-0.1)*0.6554,2)",
+     "value": 13.27,
+     "label": "Black-Scholes call value (₹)"
+    }
+   ]
+  }
+ ],
+ "revision": {
+  "summary": [
+   "F = S·e^(rt) less PV dividends.",
+   "Hedge contracts = value × β ÷ contract value.",
+   "Binomial: p = (1 + r − d) ÷ (u − d).",
+   "Black-Scholes: C = S·N(d₁) − K·e^(−rt)·N(d₂).",
+   "Greeks: delta, gamma, theta, rho, vega."
+  ],
+  "remember": [
+   "Put-call parity links calls and puts."
+  ],
+  "traps": [
+   "Discounting option pay-offs at the expected return."
+  ]
+ },
+ "quickref": [
+  {
+   "k": "Futures",
+   "v": "S·e^(rt)"
+  },
+  {
+   "k": "Binomial p",
+   "v": "(1+r−d)/(u−d)"
+  },
+  {
+   "k": "Parity",
+   "v": "C + PV(K) = P + S"
+  },
+  {
+   "k": "Delta",
+   "v": "Hedge ratio"
+  }
+ ],
+ "viva": [
+  {
+   "id": "v1",
+   "q": "What is marking to market?",
+   "model": "Daily settlement of gains and losses on futures positions through the margin account based on closing prices.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Daily settlement",
+     "w": 5,
+     "kw": [
+      "daily"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Margin account",
+     "w": 5,
+     "kw": [
+      "margin"
+     ]
+    }
+   ],
+   "concept": "c1"
+  },
+  {
+   "id": "v2",
+   "q": "Distinguish European and American options.",
+   "model": "European options can be exercised only at expiry; American options at any time up to expiry.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Only at expiry",
+     "w": 5,
+     "kw": [
+      "only at expiry"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Any time",
+     "w": 5,
+     "kw": [
+      "any time"
+     ]
+    }
+   ],
+   "concept": "c2"
+  },
+  {
+   "id": "v3",
+   "q": "State the Black-Scholes call formula.",
+   "model": "Call value equals share price times N of d1 minus the discounted strike times N of d2.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "N of d1",
+     "w": 5,
+     "kw": [
+      "d1"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Discounted strike",
+     "w": 5,
+     "kw": [
+      "discounted strike"
+     ]
+    }
+   ],
+   "concept": "c3"
+  },
+  {
+   "id": "v4",
+   "q": "What is delta?",
+   "model": "The change in option value for a one-unit change in the underlying price, used as the hedge ratio.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Change per unit",
+     "w": 5,
+     "kw": [
+      "change"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Hedge ratio",
+     "w": 5,
+     "kw": [
+      "hedge"
+     ]
+    }
+   ],
+   "concept": "c4"
+  },
+  {
+   "id": "v5",
+   "q": "Give three types of real options.",
+   "model": "Options to expand, to abandon and to delay or wait.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Expand and abandon",
+     "w": 5,
+     "kw": [
+      "expand|abandon"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Delay",
+     "w": 5,
+     "kw": [
+      "delay|wait"
+     ]
+    }
+   ],
+   "concept": "c5"
+  }
+ ],
+ "cases": [
+  {
+   "id": "k1",
+   "title": "Nova Capital desk",
+   "difficulty": "moderate",
+   "case": "Nova Capital holds a ₹10 crore equity portfolio with beta 1.2. Nifty futures trade at 25,000 with a lot size of 75. It also writes a call with strike ₹500 on a share now at ₹480, receiving ₹15 premium. At expiry the share is ₹530.",
+   "mcqs": [
+    {
+     "id": "k1a",
+     "q": "Value of one Nifty futures contract (₹ lakh):",
+     "options": [
+      "18.75",
+      "25",
+      "1.875",
+      "7.5"
+     ],
+     "answer": 0,
+     "explain": "25,000 × 75 = ₹18.75 lakh. In practice: lot size changes over time.",
+     "difficulty": "core",
+     "check": 18.75,
+     "topic": "Forwards and futures: features and pricing"
+    },
+    {
+     "id": "k1b",
+     "q": "Contracts to sell to hedge fully (nearest whole):",
+     "options": [
+      "64",
+      "53",
+      "75",
+      "40"
+     ],
+     "answer": 0,
+     "explain": "10 crore × 1.2 ÷ 18.75 lakh = 64. In practice: beta-adjusted hedge.",
+     "difficulty": "moderate",
+     "check": 64,
+     "topic": "Forwards and futures: features and pricing"
+    },
+    {
+     "id": "k1c",
+     "q": "Net result for the call writer per share (₹):",
+     "options": [
+      "-15",
+      "15",
+      "-30",
+      "0"
+     ],
+     "answer": 0,
+     "explain": "Pays 30 (530 − 500), keeps 15 premium. In practice: unlimited upside risk.",
+     "difficulty": "moderate",
+     "check": -15,
+     "topic": "Options: types and pay-offs"
+    },
+    {
+     "id": "k1d",
+     "q": "The call writer's break-even share price (₹):",
+     "options": [
+      "515",
+      "500",
+      "485",
+      "530"
+     ],
+     "answer": 0,
+     "explain": "Strike + premium. In practice: above it, losses.",
+     "difficulty": "core",
+     "check": 515,
+     "topic": "Options: types and pay-offs"
+    }
+   ]
+  }
+ ]
+}
