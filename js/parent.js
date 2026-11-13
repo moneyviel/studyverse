@@ -403,6 +403,7 @@
     try { if (window.Family && Family.resume) Family.resume(kids); } catch (e) {}   // refresh keeps the game / page
     try { if (window.Squad && Squad.hubCard) Squad.hubCard(body, k, A); } catch (e) {}   // ⚔️ parent challenge card (js/squad.js)
     try { if (window.PlayReady && PlayReady.hubCard) PlayReady.hubCard(body, k, A); } catch (e) {}   // 🛡️ friends / rooms / news controls (js/playready.js)
+    try { if (window.Notify && Notify.hubNote) Notify.hubNote(body); } catch (e) {}   // 🆕 one-time note about phone reminders (js/notify.js)
   }
 
   /* ---------- three ways to add a child ---------- */

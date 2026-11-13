@@ -9,7 +9,9 @@
      and the Edge Function knowtopia-nudge (daily 17:31 India time, max one a day, skips students who studied today).
    • Only the push address and keys made by the browser are stored, plus the "topics to the next Mind Gym pack" number.
    • Parents (Parent Hub accounts), signed-out phones and the demo login never see any of this.
-   window.Notify = { afterTopic, enable, disable, isOn } */
+   • Everyone (existing and new students) also sees a one-time "🆕 New: one study reminder a day" card on the home screen,
+     and parents a one-time "🆕 Phone reminders" note in Parent Hub (Notify.hubNote, called by js/parent.js).
+   window.Notify = { afterTopic, enable, disable, isOn, hubNote } */
 (function () {
   'use strict';
   const D = document, LS = localStorage;
@@ -95,18 +97,43 @@
     if (Notification.permission === 'denied' || !parentAllows() || s.no >= 2 || Date.now() - (s.ask || 0) < 3 * 864e5) return;
     setTimeout(offer, 2500);   // after the "well done" moment, not on top of it
   }
-  function offer() {
+  function offer(intro) {
     if (D.getElementById('ntOffer') || st().on) return;
-    style(); put({ ask: Date.now() });
+    style(); put(intro ? { ask: Date.now(), intro: 1 } : { ask: Date.now() });
     const w = isCA() ? 'unit' : 'topic';
     D.body.insertAdjacentHTML('beforeend', `<div id="ntOffer" class="nt-offer" role="dialog" aria-labelledby="ntOfT" aria-describedby="ntOfD">
-      <div class="nt-big" aria-hidden="true">📳</div><b id="ntOfT">Want one reminder a day?</b>
-      <p id="ntOfD">Nice work finishing that ${w}! We can send one short reminder around 5:30 pm to keep your 🔥 streak and tell you when new Mind Gym challenges are close. Never at night or in school hours. Turn it off any time in Me.</p>
+      <div class="nt-big" aria-hidden="true">📳</div><b id="ntOfT">${intro ? '🆕 New: one study reminder a day' : 'Want one reminder a day?'}</b>
+      <p id="ntOfD">${intro ? 'Want a little nudge?' : `Nice work finishing that ${w}!`} We can send one short reminder around 5:30 pm to keep your 🔥 streak and tell you when new Mind Gym challenges are close. Never at night or in school hours. Turn it off any time in Me.</p>
       <div class="nt-btns"><button type="button" class="btn" id="ntYes">🔔 Yes, remind me</button><button type="button" class="btn ghost" id="ntNo">Not now</button></div></div>`);
     const box = D.getElementById('ntOffer'); tap('open');
     box.querySelector('#ntYes').onclick = async () => { box.remove(); await enable(); };
     box.querySelector('#ntNo').onclick = () => { box.remove(); put({ no: (st().no || 0) + 1 }); };
     setTimeout(() => { const y = D.getElementById('ntYes'); if (y) y.focus(); }, 50);
+  }
+
+  /* one-time "New" banner for every student (existing and new), shown once on the home screen a few seconds after opening */
+  function intro() {
+    if (!signedIn() || isParent() || !supported() || D.getElementById('ntOffer')) return;
+    const s = st();
+    if (s.on || s.intro || Notification.permission !== 'default' || !parentAllows() || s.no >= 2) return;
+    try { if (!ST || !ST.profile) return; } catch (e) { return; }
+    const a = D.querySelector('.screen.active'); if (!a || !/^s-(world|ca)$/.test(a.id)) return;   // only on the home screen, never mid-lesson
+    if (D.querySelector('.sheet.open, [role="dialog"]:not(#ntOffer)')) return;
+    offer(true);
+  }
+
+  /* Parent Hub: one-time "New" note telling parents about reminders and where the switch is (called by js/parent.js) */
+  function hubNote(body) {
+    if (!body || jget('sv_push_pnote', 0) || body.querySelector('#ntPar')) return;
+    style();
+    const head = body.querySelector('.pv-prof'); if (!head) return;
+    head.insertAdjacentHTML('afterend', `<section class="pv-card nt-par" id="ntPar" aria-labelledby="ntParT"><h3 id="ntParT">🆕 Phone reminders</h3>
+      <p>Your child can now choose <b>one study reminder a day</b> on their phone, around 5:30 pm, only on days they haven't studied yet. Never at night or in school hours, and never ads. It stays off until your child switches it on.</p>
+      <p class="pv-mut">You can turn it off any time in 🛡️ Controls below.</p>
+      <div class="nt-btns"><button class="pv-btn" type="button" id="ntParGo">Show Controls</button><button class="pv-btn ghost" type="button" id="ntParOk">Got it</button></div></section>`);
+    const box = body.querySelector('#ntPar'), done = () => { jset('sv_push_pnote', 1); box.remove(); };
+    box.querySelector('#ntParOk').onclick = done;
+    box.querySelector('#ntParGo').onclick = () => { done(); const c = D.getElementById('prCtl'); if (c) { c.scrollIntoView({ behavior: 'smooth', block: 'start' }); const i = c.querySelector('#prSw-push'); if (i) setTimeout(() => i.focus({ preventScroll: true }), 500); } };
   }
 
   /* ---------- Me → Settings card ---------- */
@@ -148,6 +175,7 @@
 .nt-sw input+span{flex:none;width:52px;height:30px;border-radius:30px;background:#c9c2b2;position:relative;transition:background .2s}
 .nt-sw input+span::after{content:'';position:absolute;top:3px;left:3px;width:24px;height:24px;border-radius:50%;background:#fff;transition:transform .2s;box-shadow:0 1px 3px rgba(0,0,0,.3)}
 .nt-sw input:checked+span{background:#1d7a46}.nt-sw input:checked+span::after{transform:translateX(22px)}.nt-sw input:disabled+span{opacity:.5}
+#ntPar{border:2px solid #1d7a46}.nt-par p{margin:6px 0}
 .nt-sw input:focus-visible+span{outline:3px solid #8A6A2E;outline-offset:2px}.nt-warn{color:#9a1b1b!important;margin-top:6px}
 </style>`);
   }
@@ -159,9 +187,10 @@
     try { mo.observe(D.querySelector('main') || D.body, { childList: true, subtree: true, attributes: true, attributeFilter: ['class'] }); } catch (e) {}
     place();
     setTimeout(() => refresh(false), 6000);
+    setTimeout(intro, 12000);
     setTimeout(async () => { try { if (window.PlayReady && PlayReady.pullSocial) { await PlayReady.pullSocial(); if (!parentAllows() && st().on) await disable(true); } } catch (e) {} render(); }, 9000);
   }
   D.readyState === 'loading' ? D.addEventListener('DOMContentLoaded', start) : start();
 
-  window.Notify = { afterTopic, enable, disable, isOn };
+  window.Notify = { afterTopic, enable, disable, isOn, hubNote };
 })();
