@@ -295,6 +295,13 @@ async def _(pg):
     await setr(pg, 'input[data-k=e]', 0.3)
     await setr(pg, 'input[data-k=e]', 1.5)
 
+@lab('math-u11', 'skew')
+async def _(pg):
+    await setr(pg, 'input[data-k=s]', 0.45); await setr(pg, 'input[data-k=t]', 0.05)
+    await setr(pg, 'input[data-k=h]', 3); await setr(pg, 'input[data-k=s]', -0.3); await setr(pg, 'input[data-k=t]', -0.95)
+    await setr(pg, 'input[data-k=h]', -1.125); await setr(pg, 'input[data-k=s]', 1.75); await setr(pg, 'input[data-k=t]', 1.85)
+    for v in (60, 100, 140): await setr(pg, 'input[data-k=v]', v)
+
 async def main(only=None):
     async with async_playwright() as pw:
         b = await pw.chromium.launch(executable_path='/usr/bin/google-chrome', args=['--no-sandbox'])

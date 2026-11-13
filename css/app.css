@@ -1730,3 +1730,13 @@ html.sv-zoomfix .ca-phvbar,html.sv-zoomfix .ca-phvnav{zoom:var(--zf)}
 #s-jee>.cbar,#s-ca>.cbar{margin:8px 12px}
 @media (prefers-reduced-motion:reduce){.cbar-ind{transition:none}}
 html.sv-hc .cbar-row{background:#fff;border:2px solid #000}html.sv-hc .cbar-b{color:#000}
+
+/* FitZoom: diagrams that spill past their frame get thin scroll bars and tiny zoom buttons (js/fitzoom.js) */
+.fz{position:relative;width:100%;margin-left:auto;margin-right:auto}
+.fz-sc{overflow:auto;width:100%;scrollbar-width:thin;scrollbar-color:rgba(124,58,237,.55) transparent;-webkit-overflow-scrolling:touch;overscroll-behavior:contain}
+.fz-sc::-webkit-scrollbar{width:4px;height:4px}.fz-sc::-webkit-scrollbar-thumb{background:rgba(124,58,237,.55);border-radius:4px}.fz-sc::-webkit-scrollbar-track{background:transparent}
+.fz-in{position:relative}
+.fz-ctl{position:absolute;top:6px;right:6px;display:flex;gap:3px;z-index:2}
+.fz-ctl[hidden]{display:none}
+.fz-ctl button{width:24px;height:24px;padding:0;border:0;border-radius:7px;background:rgba(17,24,39,.55);color:#fff;font:700 15px/24px system-ui,sans-serif;cursor:pointer;opacity:.8}
+.fz-ctl button:active{opacity:1;transform:scale(.94)}
