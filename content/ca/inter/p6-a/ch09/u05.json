@@ -1,0 +1,692 @@
+{
+ "schema": "ca-unit/1",
+ "id": "int-p6-a-ch09-u05",
+ "level": "inter",
+ "paper": "p6",
+ "chapter": "int-p6-a-ch09",
+ "n": 5,
+ "title": "Management of Payables (Creditors)",
+ "outcomes": [
+  "Explain trade credit and its costs and benefits.",
+  "Compute the cost of forgoing cash discounts.",
+  "Apply good payables practices including MSME rules."
+ ],
+ "meta": {
+  "difficulty": "core",
+  "minutes": {
+   "learn": 15,
+   "practice": 25
+  },
+  "prereq": [
+   "int-p6-a-ch09-u04"
+  ],
+  "exam_tip": "Always compare the cost of forgoing a discount with the borrowing rate given."
+ },
+ "concepts": [
+  {
+   "id": "c1",
+   "title": "Trade credit as a source of finance",
+   "body": [
+    "Trade credit is a spontaneous short-term source of finance arising from normal purchases; it grows automatically with business volume and needs no formal agreement.",
+    "Costs of using it: discounts forgone, loss of goodwill if terms are overstepped, administrative costs and conditions such as minimum order sizes.",
+    "Costs of not using it: interest cost of paying early (trade credit is otherwise interest-free), and with inflation, paying later in money of lower value is beneficial."
+   ],
+   "analogy": "Supplier credit is cheap money — until you give up a discount for it.",
+   "work": "A retailer taking 30 days' credit on ₹10 lakh of monthly purchases effectively borrows ₹10 lakh interest-free."
+  },
+  {
+   "id": "c2",
+   "title": "Cost of forgoing cash discounts",
+   "body": [
+    "Simple annual cost of forgoing a discount = [d ÷ (100 − d)] × (365 ÷ t), where d is the discount % and t the extra days of credit obtained (credit period − discount period).",
+    "Effective annual cost, allowing for compounding = (100 ÷ (100 − d))^(365 ÷ t) − 1.",
+    "Decision: if the cost of forgoing exceeds the firm's cost of borrowing (or return on alternative investment), take the discount; otherwise use the full credit period."
+   ],
+   "analogy": "A small discount for a short wait can carry a very high annual cost.",
+   "work": "\"1/10, net 30\" costs about 18.4% a year if forgone."
+  },
+  {
+   "id": "c3",
+   "title": "Managing payables in practice",
+   "body": [
+    "Good practice: pay on the due date (not earlier, not later), negotiate better terms with key suppliers, centralise payments, and use electronic payments.",
+    "Monitor creditors' days and ageing; avoid stretching payables, which damages reputation and supply.",
+    "Small suppliers (MSMEs) must be paid within the agreed period subject to a maximum of 45 days under the MSMED Act, with interest at three times the bank rate on delays, and companies report MSME dues; delayed MSME payments also affect tax deductibility of the expense."
+   ],
+   "analogy": "Payables management is about timing and trust, not just delay.",
+   "work": "A firm that delays MSME payments beyond 45 days faces penal interest and disclosure."
+  }
+ ],
+ "illustrations": [
+  {
+   "id": "i1",
+   "title": "Is the discount worth taking?",
+   "difficulty": "moderate",
+   "minutes": 7,
+   "q": "A supplier offers \"3/15, net 60\". Compute the simple and compound annual cost of not taking the discount. The firm can borrow from its bank at 14%. Advise.",
+   "solution": [
+    {
+     "t": "table",
+     "head": [
+      "Measure",
+      "Working",
+      "Cost"
+     ],
+     "rows": [
+      [
+       "Days gained by not paying early",
+       "60 − 15",
+       "45 days"
+      ],
+      [
+       "Simple annual cost",
+       "3/97 × 365/45",
+       "25.09%"
+      ],
+      [
+       "Effective annual cost",
+       "(100/97)^(365/45) − 1",
+       "28.03%"
+      ]
+     ],
+     "title": "Cost of trade credit"
+    },
+    {
+     "t": "p",
+     "text": "Forgoing the discount costs about 25–28% a year, far above the 14% bank rate. Borrow from the bank and pay on day 15."
+    }
+   ],
+   "checks": [
+    {
+     "expr": "3/97*365/45*100",
+     "value": 25.09,
+     "label": "Simple annual cost of not taking the discount (%)"
+    },
+    {
+     "expr": "((100/97)**(365/45)-1)*100",
+     "value": 28.03,
+     "label": "Effective (compound) annual cost (%)"
+    }
+   ]
+  },
+  {
+   "id": "i2",
+   "title": "How long do we take to pay?",
+   "difficulty": "core",
+   "minutes": 5,
+   "q": "Average trade creditors ₹6 lakh; annual credit purchases ₹48.67 lakh. Compute creditors' days (365-day year) and comment if supplier terms are 45 days.",
+   "solution": [
+    {
+     "t": "table",
+     "head": [
+      "Item",
+      "Working",
+      "Answer"
+     ],
+     "rows": [
+      [
+       "Creditors' days",
+       "6 ÷ (48.67 ÷ 365)",
+       "45 days"
+      ]
+     ],
+     "title": "Payables period"
+    },
+    {
+     "t": "p",
+     "text": "The firm pays in about 45 days — in line with terms. Stretching further could strain supplier relations and lose discounts."
+    }
+   ],
+   "checks": [
+    {
+     "expr": "6/(48.67/365)",
+     "value": 45,
+     "label": "Creditors days"
+    }
+   ]
+  }
+ ],
+ "jobs": [
+  {
+   "id": "j1",
+   "title": "Discount policy",
+   "role": "Finance analyst trainee",
+   "situation": "Procurement wants to know which supplier discounts to take.",
+   "steps": [
+    "List suppliers with discount terms.",
+    "Compute the annual cost of forgoing each.",
+    "Compare with the bank borrowing rate.",
+    "Recommend which discounts to take."
+   ],
+   "takeaway": "Take any discount whose forgone cost exceeds the cost of borrowing."
+  }
+ ],
+ "mcqs": [
+  {
+   "id": "m1",
+   "q": "Trade credit is called a spontaneous source because it:",
+   "options": [
+    "Arises automatically from normal purchases",
+    "Needs a formal loan agreement",
+    "Is long-term",
+    "Is from banks"
+   ],
+   "answer": 0,
+   "explain": "It rises and falls with purchases without negotiation each time. In practice: grows with sales.",
+   "concept": "c1",
+   "topic": "Trade credit as a source of finance",
+   "difficulty": "core"
+  },
+  {
+   "id": "m2",
+   "q": "Simple annual cost of forgoing \"2/10, net 30\" (365 days):",
+   "options": [
+    "37.24%",
+    "24.83%",
+    "18.43%",
+    "2%"
+   ],
+   "answer": 0,
+   "explain": "2/98 × 365/20 = 37.24%. In practice: almost always worth taking.",
+   "concept": "c2",
+   "topic": "Cost of forgoing cash discounts",
+   "difficulty": "moderate",
+   "check": 37.24
+  },
+  {
+   "id": "m3",
+   "q": "In the formula, t equals:",
+   "options": [
+    "Credit period minus discount period",
+    "Discount period",
+    "Credit period",
+    "365 minus credit period"
+   ],
+   "answer": 0,
+   "explain": "t is the extra days gained by not taking the discount. In practice: 30 − 10 = 20 for \"2/10, net 30\".",
+   "concept": "c2",
+   "topic": "Cost of forgoing cash discounts",
+   "difficulty": "core"
+  },
+  {
+   "id": "m4",
+   "q": "If the cost of forgoing a discount is 20% and bank interest is 12%, the firm should:",
+   "options": [
+    "Take the discount using bank funds",
+    "Forgo the discount",
+    "Pay after the due date",
+    "Ignore the supplier"
+   ],
+   "answer": 0,
+   "explain": "Borrowing at 12% to save 20% is profitable. In practice: check bank limits.",
+   "concept": "c2",
+   "topic": "Cost of forgoing cash discounts",
+   "difficulty": "core"
+  },
+  {
+   "id": "m5",
+   "q": "Stretching payables beyond terms may cause:",
+   "options": [
+    "Loss of supplier goodwill and discounts",
+    "Lower inventory",
+    "Higher sales",
+    "Lower interest cost always"
+   ],
+   "answer": 0,
+   "explain": "Suppliers may restrict supply or credit. In practice: reputation matters.",
+   "concept": "c3",
+   "topic": "Managing payables in practice",
+   "difficulty": "core"
+  },
+  {
+   "id": "m6",
+   "q": "Under the MSMED Act the maximum agreed payment period to MSME suppliers is:",
+   "options": [
+    "45 days",
+    "90 days",
+    "30 days",
+    "120 days"
+   ],
+   "answer": 0,
+   "explain": "Payment must be within the agreed period, not beyond 45 days. In practice: interest at three times bank rate applies on delay.",
+   "concept": "c3",
+   "topic": "Managing payables in practice",
+   "difficulty": "core",
+   "check": 45
+  },
+  {
+   "id": "m7",
+   "q": "Average creditors ₹4 lakh; credit purchases ₹36.5 lakh (365 days). Creditors' days:",
+   "options": [
+    "40 days",
+    "36 days",
+    "45 days",
+    "30 days"
+   ],
+   "answer": 0,
+   "explain": "4 ÷ (36.5 ÷ 365) = 4 ÷ 0.1 = 40 days. In practice: compare with supplier terms.",
+   "concept": "c3",
+   "topic": "Managing payables in practice",
+   "difficulty": "core",
+   "check": 40
+  },
+  {
+   "id": "m8",
+   "q": "The compound cost of forgoing a discount is:",
+   "options": [
+    "Higher than the simple cost",
+    "Lower than the simple cost",
+    "Equal to it",
+    "Zero"
+   ],
+   "answer": 0,
+   "explain": "Compounding over multiple periods in a year raises the effective cost. In practice: use for precise comparisons.",
+   "concept": "c2",
+   "topic": "Cost of forgoing cash discounts",
+   "difficulty": "core"
+  }
+ ],
+ "questions": [
+  {
+   "id": "q1",
+   "marks": 5,
+   "minutes": 9,
+   "difficulty": "core",
+   "pad": "table",
+   "q": "A supplier offers \"3/15, net 60\". Compute the simple and compound annual cost of not taking the discount. The firm can borrow from its bank at 14%. Advise.",
+   "model": [
+    {
+     "t": "table",
+     "head": [
+      "Measure",
+      "Working",
+      "Cost"
+     ],
+     "rows": [
+      [
+       "Days gained by not paying early",
+       "60 − 15",
+       "45 days"
+      ],
+      [
+       "Simple annual cost",
+       "3/97 × 365/45",
+       "25.09%"
+      ],
+      [
+       "Effective annual cost",
+       "(100/97)^(365/45) − 1",
+       "28.03%"
+      ]
+     ],
+     "title": "Cost of trade credit"
+    },
+    {
+     "t": "p",
+     "text": "Forgoing the discount costs about 25–28% a year, far above the 14% bank rate. Borrow from the bank and pay on day 15."
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "Days t",
+     "m": 1,
+     "skill": "computation",
+     "kw": [
+      "45"
+     ],
+     "min": 1
+    },
+    {
+     "id": "s2",
+     "pt": "Simple cost",
+     "m": 1.5,
+     "skill": "computation",
+     "kw": [
+      "simple"
+     ],
+     "min": 1,
+     "nums": [
+      25.09
+     ]
+    },
+    {
+     "id": "s3",
+     "pt": "Compound cost",
+     "m": 1.5,
+     "skill": "computation",
+     "kw": [
+      "effective"
+     ],
+     "min": 1,
+     "nums": [
+      28.03
+     ]
+    },
+    {
+     "id": "s4",
+     "pt": "Advice",
+     "m": 1,
+     "skill": "concept",
+     "kw": [
+      "borrow|bank"
+     ],
+     "min": 1
+    }
+   ],
+   "remarks": [
+    "Show both formulas."
+   ],
+   "mistakes": [
+    "Using 60 days for t."
+   ],
+   "tips": [
+    "Table."
+   ],
+   "extra_ok": true,
+   "checks": [
+    {
+     "expr": "3/97*365/45*100",
+     "value": 25.09,
+     "label": "Simple annual cost of not taking the discount (%)"
+    },
+    {
+     "expr": "((100/97)**(365/45)-1)*100",
+     "value": 28.03,
+     "label": "Effective (compound) annual cost (%)"
+    }
+   ]
+  },
+  {
+   "id": "q2",
+   "marks": 3,
+   "minutes": 5,
+   "difficulty": "core",
+   "pad": "table",
+   "q": "Average trade creditors ₹6 lakh; annual credit purchases ₹48.67 lakh. Compute creditors' days (365-day year) and comment if supplier terms are 45 days.",
+   "model": [
+    {
+     "t": "table",
+     "head": [
+      "Item",
+      "Working",
+      "Answer"
+     ],
+     "rows": [
+      [
+       "Creditors' days",
+       "6 ÷ (48.67 ÷ 365)",
+       "45 days"
+      ]
+     ],
+     "title": "Payables period"
+    },
+    {
+     "t": "p",
+     "text": "The firm pays in about 45 days — in line with terms. Stretching further could strain supplier relations and lose discounts."
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "Days",
+     "m": 2,
+     "skill": "computation",
+     "kw": [
+      "days"
+     ],
+     "min": 1,
+     "nums": [
+      45
+     ]
+    },
+    {
+     "id": "s2",
+     "pt": "Comment",
+     "m": 1,
+     "skill": "concept",
+     "kw": [
+      "terms|supplier"
+     ],
+     "min": 1
+    }
+   ],
+   "remarks": [
+    "Use credit purchases."
+   ],
+   "mistakes": [
+    "Using sales instead of purchases."
+   ],
+   "tips": [
+    "Table."
+   ],
+   "extra_ok": true,
+   "checks": [
+    {
+     "expr": "6/(48.67/365)",
+     "value": 45,
+     "label": "Creditors days"
+    }
+   ]
+  }
+ ],
+ "revision": {
+  "summary": [
+   "Trade credit: spontaneous, interest-free unless discounts are forgone.",
+   "Simple cost = d/(100 − d) × 365/t; compound = (100/(100 − d))^(365/t) − 1.",
+   "Take discount if its cost exceeds borrowing cost.",
+   "Pay on due date; MSME limit 45 days."
+  ],
+  "remember": [
+   "t = credit period − discount period."
+  ],
+  "traps": [
+   "Using the full credit period as t."
+  ]
+ },
+ "quickref": [
+  {
+   "k": "Simple cost",
+   "v": "d/(100 − d) × 365/t"
+  },
+  {
+   "k": "Compound",
+   "v": "(100/(100 − d))^(365/t) − 1"
+  },
+  {
+   "k": "MSME",
+   "v": "45 days"
+  }
+ ],
+ "viva": [
+  {
+   "id": "v1",
+   "q": "Why is trade credit not free?",
+   "model": "Because using the full credit period often means forgoing a cash discount, and overstepping terms damages goodwill.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Discount forgone",
+     "w": 6,
+     "kw": [
+      "discount"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Goodwill",
+     "w": 4,
+     "kw": [
+      "goodwill"
+     ]
+    }
+   ],
+   "concept": "c1"
+  },
+  {
+   "id": "v2",
+   "q": "State the simple cost formula.",
+   "model": "Discount divided by one hundred minus discount, multiplied by 365 divided by the extra days of credit.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "d/(100 − d)",
+     "w": 5,
+     "kw": [
+      "hundred minus|100 −"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "365/t",
+     "w": 5,
+     "kw": [
+      "365"
+     ]
+    }
+   ],
+   "concept": "c2"
+  },
+  {
+   "id": "v3",
+   "q": "When should a discount be taken?",
+   "model": "When the annual cost of forgoing it is higher than the firm's cost of borrowing or its return on surplus funds.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Compare costs",
+     "w": 5,
+     "kw": [
+      "higher|compare"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Borrowing rate",
+     "w": 5,
+     "kw": [
+      "borrow"
+     ]
+    }
+   ],
+   "concept": "c2"
+  },
+  {
+   "id": "v4",
+   "q": "What is the MSMED Act requirement on payments?",
+   "model": "Payments to micro and small suppliers must be made within the agreed period, not exceeding 45 days, with penal interest on delays.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "45 days",
+     "w": 6,
+     "kw": [
+      "45"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Penal interest",
+     "w": 4,
+     "kw": [
+      "interest"
+     ]
+    }
+   ],
+   "concept": "c3"
+  },
+  {
+   "id": "v5",
+   "q": "Name one good practice in managing payables.",
+   "model": "Paying on the due date rather than early or late, while negotiating better terms with key suppliers.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Due date",
+     "w": 5,
+     "kw": [
+      "due date"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Negotiation",
+     "w": 5,
+     "kw": [
+      "negotiat|terms"
+     ]
+    }
+   ],
+   "concept": "c3"
+  }
+ ],
+ "cases": [
+  {
+   "id": "k1",
+   "title": "Metro Electricals",
+   "difficulty": "moderate",
+   "case": "Metro Electricals buys ₹1.2 crore a year from a supplier offering \"1/10, net 40\". Its overdraft rate is 11%. It currently pays on day 40.",
+   "mcqs": [
+    {
+     "id": "k1a",
+     "q": "Simple annual cost of forgoing the discount:",
+     "options": [
+      "12.29%",
+      "9.09%",
+      "18.43%",
+      "1.01%"
+     ],
+     "answer": 0,
+     "explain": "1/99 × 365/30 = 12.29%. In practice: slightly above overdraft cost.",
+     "difficulty": "moderate",
+     "check": 12.29,
+     "topic": "Cost of forgoing cash discounts"
+    },
+    {
+     "id": "k1b",
+     "q": "Should Metro take the discount?",
+     "options": [
+      "Yes, as 12.29% exceeds the 11% overdraft rate",
+      "No",
+      "Only in March",
+      "Only if it has surplus cash"
+     ],
+     "answer": 0,
+     "explain": "Borrowing at 11% to avoid a 12.29% cost is beneficial. In practice: margin is thin, so check limits.",
+     "difficulty": "moderate",
+     "topic": "Cost of forgoing cash discounts"
+    },
+    {
+     "id": "k1c",
+     "q": "Annual discount saved (₹):",
+     "options": [
+      "1,20,000",
+      "12,000",
+      "2,40,000",
+      "60,000"
+     ],
+     "answer": 0,
+     "explain": "1% of ₹1.2 crore = ₹1,20,000. In practice: offset extra interest on 30 days' funds.",
+     "difficulty": "core",
+     "check": 120000,
+     "topic": "Cost of forgoing cash discounts"
+    },
+    {
+     "id": "k1d",
+     "q": "Extra interest from paying 30 days earlier (₹, approx.):",
+     "options": [
+      "1,07,000",
+      "1,32,000",
+      "33,000",
+      "12,000"
+     ],
+     "answer": 0,
+     "explain": "Average extra borrowing ≈ 1.19 crore × 30/365 ≈ ₹9.8 lakh × 11% ≈ ₹1.07 lakh — less than ₹1.2 lakh saved. In practice: net gain about ₹13,000.",
+     "difficulty": "hard",
+     "check": 107000,
+     "topic": "Cost of forgoing cash discounts"
+    }
+   ]
+  }
+ ]
+}
