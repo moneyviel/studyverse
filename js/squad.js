@@ -150,7 +150,7 @@ html[data-age=pro] #s-ca .sq-link{color:#C9A76A}html[data-age=pro] #s-ca .sq-bar
     show('squad', 'squad'); return D.getElementById('s-squad');
   }
   const h2 = (t, id) => isCA() ? `<h2 class="ca-h2s" id="${id}">${t}</h2>` : `<h3 id="${id}">${t}</h3>`;
-  const top = () => (isCA() ? '<h1 class="ca-h1 ca-onDark">Group</h1>' : '') + (window.League && League.banner ? League.banner() : '');   // 💎 Ratna League entry
+  const top = () => (isCA() ? '<h1 class="ca-h1 ca-onDark">Group</h1>' : '') + (window.League && League.banner ? League.banner() : '');   // 🌱 Seed to Stars entry
   const caExtra = () => isCA() && window.Ca && Ca.group ? `<div class="card sq-card"><p class="sub" style="margin:0 0 8px">Study group without accounts? Send one unit's MCQ set by link — everyone gets the same questions.</p><button class="btn ghost" id="sqCaGroup">📚 Group MCQ set by link</button></div>` : '';
   const wireCaExtra = () => { const b = D.getElementById('sqCaGroup'); if (b) b.onclick = () => Ca.group(); };
 

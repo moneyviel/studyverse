@@ -201,7 +201,7 @@ function logAns(id, ok, secs) {
   try { const l = Array.isArray(ST.ans) ? ST.ans : (ST.ans = []);
     const s = secs == null || !isFinite(secs) || secs <= 0 ? null : Math.round(Math.min(600, secs) * 10) / 10;
     l.push([Math.floor(Date.now() / 6e4), String(id || '').split('#')[0], ok ? 1 : 0, s]); if (l.length > 400) l.splice(0, l.length - 400); } catch (e) {}
-  try { if (window.League) League.ans(id, ok); } catch (e) {}   // 💎 Ratna League (js/league.js; the server decides points)
+  try { if (window.League) League.ans(id, ok); } catch (e) {}   // 🌱 Seed to Stars (js/league.js; the server decides points)
 }
 const today = () => new Date().toISOString().slice(0, 10);
 

@@ -1,5 +1,5 @@
 -- ============================================================================================
--- 💎 Ratna League: weekly league of up to 30 students at the same level. Points come only from learning
+-- 🌱→🌌 Seed to Stars (first built as the Ratna League; reshaped in 20261118_seed_to_stars.sql).
 -- (topics/units finished, right answers, fixing past mistakes, revision) and are set HERE, never by the app.
 -- Top 5 move up a tier on Monday (IST), bottom 5 move down (groups of 10+ only). Tiers 0..6:
 -- Mitti, Tamba, Chandi, Sona, Heera, Navratna, Kohinoor.
