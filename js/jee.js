@@ -337,6 +337,7 @@
     const u = U(uid), a = u.ans[q.id] || (u.ans[q.id] = { n: 0 });
     a.n++; if (a.f === undefined) a.f = ok ? 1 : 0; a.ok = ok ? 1 : 0; a.t = Date.now();
     const m = J().mist, key = uid + '|' + q.id, k = m.indexOf(key);
+    try { if (window.League) { League.ans('jee.' + uid + '#' + q.id, ok); if (ok && k >= 0) League.fix('jee.' + uid + '.' + q.id); } } catch (e) {}   // 🌱 Seed to Stars (server sets points)
     if (!ok && k < 0) m.push(key); if (ok && k >= 0) m.splice(k, 1);
     save();
   }
@@ -356,16 +357,23 @@
     $('#jxT1').onclick = () => { tap('open'); test(uid); };
   }
   function test(uid) {
-    const d = CACHE[uid], el = screen(); here('unit', uid, 'test'); TOP = d.topics || TOP1;
+    const d = CACHE[uid]; here('unit', uid, 'test');
     const mc = shuffle(d.pyq.filter(q => q.o)).slice(0, 9).concat(shuffle(d.prac.filter(q => q.o)).slice(0, 6));
     const nm = shuffle(d.pyq.filter(q => q.n !== undefined)).slice(0, 2).concat(shuffle(d.prac.filter(q => q.n !== undefined))).slice(0, 5);
-    const list = shuffle(mc).concat(nm), S = list.map(() => ({ v: null, rev: false, seen: false }));
-    let i = 0, left = 48 * 60, t0 = Date.now(), timer, armed = false, over = false;
-    const fmt = s => `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`;
+    testRun(shuffle(mc).concat(nm).map(q => ({ q, uid })), { secs: 48 * 60, done: 'Back to the unit', back: () => unit(uid, 'test'),
+      save: rec => U(uid).tests.push(rec) });
+  }
+  /* one exam engine for the unit test, the full JEE Main mock and "Build a test": NTA palette, +4 / −1, timer */
+  function testRun(list, o) {
+    const el = screen(), S = list.map(() => ({ v: null, rev: false, seen: false })), max = 4 * list.length;
+    let i = 0, left = o.secs, t0 = Date.now(), timer, armed = false, over = false; const tok = String(t0) + Math.random().toString(36).slice(2, 6);
+    const fmt = s => `${Math.floor(s / 3600) ? Math.floor(s / 3600) + ':' + String(Math.floor(s % 3600 / 60)).padStart(2, '0') : Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`;
     const stOf = s => s.v != null && s.v !== '' ? (s.rev ? 'ar' : 'a') : s.rev ? 'r' : s.seen ? 'na' : 'nv';
+    const topicOf = it => ((CACHE[it.uid] || {}).topics || TOP1)[it.q.t] || unitName(it.uid);
+    const secName = it => (o.subjects ? SUBJ[subjOfU(it.uid)].n + ' · ' : 'Section ') + (it.q.n !== undefined ? (o.subjects ? 'Numerical' : 'B · Numerical') : (o.subjects ? 'MCQ' : 'A · MCQ'));
     const draw = () => {
-      const q = list[i], s = S[i], num = q.n !== undefined; s.seen = true;
-      el.innerHTML = `<div class="jx jx-test"><div class="jx-tbar"><b>Section ${num ? 'B · Numerical' : 'A · MCQ'}</b><span id="jxClock">⏱ ${fmt(left)}</span><button class="jx-btn ghost sm" id="jxSub">Submit</button></div>
+      const it = list[i], q = it.q, s = S[i], num = q.n !== undefined; s.seen = true;
+      el.innerHTML = `<div class="jx jx-test" data-run="${tok}"><div class="jx-tbar"><b>${secName(it)}</b><span id="jxClock">⏱ ${fmt(left)}</span><button class="jx-btn ghost sm" id="jxSub">Submit</button></div>
         <div class="jx-pal">${list.map((x, k) => `<button data-j="${k}" class="p-${stOf(S[k])}${k === i ? ' cur' : ''}">${k + 1}</button>`).join('')}</div>
         <div class="jx-card jx-q"><div class="jx-qt"><span class="jx-tag">Q${i + 1} · +4 / −1</span></div><div class="jx-qq">${mx(q.q)}</div>${q.fig ? `<div class="jx-figw">${q.fig}</div>` : ''}
         ${num ? `<div class="jx-num"><input id="jxN" inputmode="decimal" placeholder="Enter a number" value="${s.v != null ? esc(s.v) : ''}"></div>` : `<div class="jx-os">${q.o.map((x, k) => `<button class="jx-o ${s.v === k ? 'sel' : ''}" data-k="${k}"><i class="jx-on">${k + 1}</i><span>${mx(x)}</span></button>`).join('')}</div>`}</div>
@@ -381,18 +389,21 @@
     };
     const finish = () => {
       if (over) return; over = true; clearInterval(timer); let r = 0, w = 0;
-      const res = list.map((q, k) => { const v = S[k].v; if (v == null || v === '') return 0; const ok = q.n !== undefined ? Math.round(parseFloat(String(v).replace(/[^0-9.\-]/g, ''))) === q.n : v === q.a; ok ? r++ : w++; record(uid, q, ok); return ok ? 1 : -1; });
-      const sc = 4 * r - w, sec = Math.round((Date.now() - t0) / 1000), p = Math.max(0, Math.round(100 * sc / 80));
-      U(uid).tests.push({ sc, r, w, pct: p, sec, at: Date.now() }); save(); tap('unlock');
-      el.innerHTML = `<div class="jx"><div class="jx-card jx-sum"><h2>${sc}/80</h2><p class="jx-p">${r} correct (+${4 * r}) · ${w} wrong (−${w}) · ${list.length - r - w} skipped · ${Math.round(sec / 60)} min</p>
-        <p class="jx-p">${w > r / 2 ? '⚠️ Many negatives: in the real exam, skip a question unless you can rule out at least two options.' : r >= 16 ? '🔥 Exam-ready on this unit.' : 'Review each wrong answer below — the steps show where it went off.'}</p></div>
-        ${list.map((q, k) => `<details class="jx-card jx-rv ${res[k] > 0 ? 'ok' : res[k] < 0 ? 'no' : ''}"><summary>Q${k + 1} · ${res[k] > 0 ? '✅ +4' : res[k] < 0 ? '❌ −1' : '— 0'} · ${TOP[q.t]}</summary><div class="jx-qq">${mx(q.q)}</div>${q.fig ? `<div class="jx-figw">${q.fig}</div>` : ''}
+      const res = list.map((it, k) => { const q = it.q, v = S[k].v; if (v == null || v === '') return 0; const ok = q.n !== undefined ? Math.round(parseFloat(String(v).replace(/[^0-9.\-]/g, ''))) === q.n : v === q.a; ok ? r++ : w++; record(it.uid, q, ok); return ok ? 1 : -1; });
+      const sc = 4 * r - w, sec = Math.round((Date.now() - t0) / 1000), p = Math.max(0, Math.round(100 * sc / max));
+      if (o.save) o.save({ sc, max, r, w, pct: p, sec, at: Date.now() }); save(); tap('unlock');
+      const bySub = o.subjects ? Object.keys(SUBJ).map(k => { let a = 0, rr = 0, ww = 0; list.forEach((it, j) => { if (subjOfU(it.uid) !== k) return; a++; if (res[j] > 0) rr++; if (res[j] < 0) ww++; }); return a ? `<span>${SUBJ[k].e} ${SUBJ[k].n}: <b>${4 * rr - ww}/${4 * a}</b></span>` : ''; }).join('') : '';
+      el.innerHTML = `<div class="jx"><div class="jx-card jx-sum"><h2>${sc}/${max}</h2><p class="jx-p">${r} correct (+${4 * r}) · ${w} wrong (−${w}) · ${list.length - r - w} skipped · ${Math.round(sec / 60)} min</p>
+        ${bySub ? `<p class="jx-p jx-bysub">${bySub}</p>` : ''}
+        <p class="jx-p">${w > r / 2 ? '⚠️ Many negatives: in the real exam, skip a question unless you can rule out at least two options.' : p >= 80 ? '🔥 Exam-ready here.' : 'Review each wrong answer below — the steps show where it went off.'}</p></div>
+        ${list.map((it, k) => { const q = it.q; return `<details class="jx-card jx-rv ${res[k] > 0 ? 'ok' : res[k] < 0 ? 'no' : ''}"><summary>Q${k + 1} · ${res[k] > 0 ? '✅ +4' : res[k] < 0 ? '❌ −1' : '— 0'} · ${esc(topicOf(it))}</summary><div class="jx-qq">${mx(q.q)}</div>${q.fig ? `<div class="jx-figw">${q.fig}</div>` : ''}
           <p><b>Answer:</b> ${q.n !== undefined ? q.n : '(' + (q.a + 1) + ') ' + mx(q.o[q.a])}${S[k].v != null && S[k].v !== '' ? ` · <b>You:</b> ${q.n !== undefined ? esc(S[k].v) : '(' + (S[k].v + 1) + ')'}` : ''}</p>
-          <div class="jx-sol">${q.sol.map((x, n) => `<p><i class="jx-sn">${n + 1}</i><span>${mx(x)}</span></p>`).join('')}</div></details>`).join('')}
-        <button class="jx-btn wide" id="jxDone">Back to the unit</button></div>`;
-      $('#jxDone').onclick = () => unit(uid, 'test');
+          <div class="jx-sol">${q.sol.map((x, n) => `<p><i class="jx-sn">${n + 1}</i><span>${mx(x)}</span></p>`).join('')}</div></details>`; }).join('')}
+        <button class="jx-btn wide" id="jxDone">${esc(o.done || 'Done')}</button></div>`;
+      $('#jxDone').onclick = () => o.back();
     };
-    timer = setInterval(() => { left--; const c = $('#jxClock'); if (c) c.textContent = `⏱ ${fmt(left)}`; else if (!D.getElementById('s-jee').classList.contains('active')) clearInterval(timer); if (left <= 0) finish(); }, 1000);
+    /* only this test's own screen may tick; a test left for another screen stops instead of driving the next test's clock */
+    timer = setInterval(() => { if (over) return clearInterval(timer); const box = D.querySelector(`.jx-test[data-run="${tok}"]`); if (!box) return clearInterval(timer); left--; const c = box.querySelector('#jxClock'); if (c) c.textContent = `⏱ ${fmt(left)}`; if (left <= 0) finish(); }, 1000);
     draw();
   }
 
@@ -3299,6 +3310,8 @@
   .jx-hero p{margin:6px 0;opacity:.95}.jx-hero.sm{padding:14px}.jx-hero.adv{background:linear-gradient(135deg,#0f172a,#334155)}
   .jx-ht{display:flex;justify-content:space-between;align-items:center}.jx-badge{background:#ffffff26;border-radius:999px;padding:4px 10px;font-size:13px;font-weight:700}
   .jx-lnk{background:none;border:0;color:inherit;text-decoration:underline;cursor:pointer;font:inherit;padding:2px}
+  .jx-btk h3{margin:12px 0 6px;font-size:14px}.jx-btk h3:first-child{margin-top:0}.jx-fcs{display:flex;flex-wrap:wrap;gap:6px}.jx-bysub{display:flex;flex-wrap:wrap;gap:6px 14px}
+  .jx-ws{display:grid;grid-template-columns:120px 1fr 44px;gap:8px;align-items:center;margin:6px 0}.jx-wbar{height:10px;border-radius:6px;background:#eef0f6;overflow:hidden}.jx-wbar i{display:block;height:100%;border-radius:6px}
   .jx-chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}.jx-chip{background:#ffffff26;border:1px solid #ffffff40;color:#fff;border-radius:999px;padding:4px 10px;font-size:12.5px;font-weight:700}
   .jx-chip.ok{background:#16a34a}.jx-chip.no{background:#dc2626}.jx-chip.lnk{cursor:pointer}
   .jx-card{background:#fff;border-radius:16px;padding:14px;margin:10px 0;box-shadow:0 2px 10px #1b184014;border:1px solid #ece9ff;display:block;width:100%;text-align:left;color:inherit;font:inherit;box-sizing:border-box}
@@ -3592,6 +3605,118 @@
     const ms = $('#jxMust'); if (ms) ms.onclick = () => { tap('open'); mark(4); const ids = el.dataset.must.split(','); run(uid, ids, { title: 'Crash course', back: () => crash(uid, 3) }); };
   }
 
+  /* ================= JEE PRACTICE TOOLS: Daily mix · Build a test · Full mock · Weak spots · Formula sheets ================= */
+  const openedUnits = () => Object.keys(READY).filter(u => Object.keys(U(u).ans).length);
+  async function loadUnits(uids) { const out = []; for (const u of uids) { try { const d = await data(u); [...d.pyq, ...d.prac].forEach(q => out.push({ q, uid: u })); } catch (e) {} } return out; }
+  const wrongNow = it => J().mist.includes(it.uid + '|' + it.q.id);
+  const seenOk = it => { const a = U(it.uid).ans[it.q.id]; return !!(a && a.ok); };
+  const busy = (el, t) => { el.innerHTML = `<div class="jx"><p class="jx-p">${esc(t)}</p></div>`; };
+
+  /* 🎯 10 questions from units you opened — ones you got wrong first, then new ones */
+  async function dailyMix() {
+    NAVP = true; const el = screen('practice'); here('daily'); busy(el, 'Picking today’s 10…');
+    let us = openedUnits(); if (!us.length) us = shuffle(Object.keys(READY)).slice(0, 3);
+    const all = await loadUnits(shuffle(us).slice(0, 8));
+    const wr = shuffle(all.filter(wrongNow)), nw = shuffle(all.filter(it => !U(it.uid).ans[it.q.id]));
+    const L = wr.slice(0, 4).concat(nw).slice(0, 10);
+    if (!L.length) { toast('You have solved everything in your units — open a new unit'); return practiceHub(); }
+    run(L[0].uid, [], { items: L, title: 'Daily mix', back: practiceHub });
+  }
+
+  /* 🧩 pick subjects, source, difficulty, how many, practice or timed test */
+  const BT = { subj: [], src: [], diff: [], mine: false, n: 20, mode: 'test' };
+  function buildTest() {
+    NAVP = true; const el = screen('practice'); here('build');
+    const cur = g => g === 'mine' ? (BT.mine ? 'yes' : 'no') : g === 'n' ? String(BT.n) : BT[g];
+    const chip = (g, v, label) => `<button class="jx-fc ${(Array.isArray(BT[g]) ? BT[g].includes(v) : cur(g) === v) ? 'on' : ''}" data-g="${g}" data-v="${v}">${label}</button>`;
+    const draw = () => {
+      el.innerHTML = `<div class="jx"><button class="jx-back" id="jxBack">← Practice</button>
+        <div class="jx-hero sm"><h1>🧩 Build a test</h1><p>Choose what goes in. Leave a row empty to include everything.</p></div>
+        <div class="jx-card jx-btk"><h3>Subjects</h3><div class="jx-fcs">${Object.entries(SUBJ).map(([k, x]) => chip('subj', k, x.e + ' ' + x.n)).join('')}</div>
+          <h3>Questions</h3><div class="jx-fcs">${chip('src', 'pyq', 'Real JEE Main')}${chip('src', 'prac', 'Practice')}</div>
+          <h3>Difficulty</h3><div class="jx-fcs">${chip('diff', '1', 'Easy')}${chip('diff', '2', 'Medium')}${chip('diff', '3', 'Hard')}</div>
+          <h3>Units</h3><div class="jx-fcs">${chip('mine', 'no', 'All ready units')}${chip('mine', 'yes', 'Only units I have opened')}</div>
+          <h3>How many</h3><div class="jx-fcs">${[10, 20, 30, 45].map(n => chip('n', String(n), String(n))).join('')}</div>
+          <h3>Mode</h3><div class="jx-fcs">${chip('mode', 'test', '⏱ Timed test · +4 / −1')}${chip('mode', 'prac', '📖 Practice · answer after each')}</div>
+          <p class="jx-fine">${BT.mode === 'test' ? `Time: ${Math.round(BT.n * 2.4)} minutes (JEE pace — 2.4 minutes a question).` : 'No timer. See the answer and steps after each question.'}</p>
+          <button class="jx-btn wide" id="jxGo">Start ▶</button></div></div>`;
+      $('#jxBack').onclick = () => { tap(); practiceHub(); };
+      el.querySelectorAll('[data-g]').forEach(b => b.onclick = () => { tap(); const g = b.dataset.g, v = b.dataset.v;
+        if (g === 'n') BT.n = +v; else if (g === 'mode') BT.mode = v; else if (g === 'mine') BT.mine = v === 'yes';
+        else { const a = BT[g], k = a.indexOf(v); k < 0 ? a.push(v) : a.splice(k, 1); } draw(); });
+      $('#jxGo').onclick = go;
+    };
+    async function go() {
+      tap('open'); busy(el, 'Building your test…');
+      let us = (BT.mine ? openedUnits() : Object.keys(READY)).filter(u => !BT.subj.length || BT.subj.includes(subjOfU(u)));
+      if (!us.length) { toast(BT.mine ? 'Open a unit first, or choose All ready units' : 'No units ready for that choice yet'); return draw(); }
+      /* spread over subjects: up to 6 units from each */
+      const pick = Object.keys(SUBJ).flatMap(k => shuffle(us.filter(u => subjOfU(u) === k)).slice(0, 6));
+      const all = (await loadUnits(pick)).filter(it => (!BT.src.length || BT.src.includes(it.q.kind)) && (!BT.diff.length || BT.diff.includes(String(it.q.diff || 2))));
+      if (!all.length) { toast('No questions match — loosen a filter'); return draw(); }
+      const subs = [...new Set(all.map(it => subjOfU(it.uid)))], per = Math.ceil(BT.n / subs.length);
+      let L = subs.flatMap(k => shuffle(all.filter(it => subjOfU(it.uid) === k)).sort((a, b) => seenOk(a) - seenOk(b)).slice(0, per)).slice(0, BT.n);
+      L = Object.keys(SUBJ).flatMap(k => L.filter(it => subjOfU(it.uid) === k));
+      if (BT.mode === 'prac') return run(L[0].uid, [], { items: L, title: 'My test', back: buildTest });
+      testRun(L, { secs: Math.round(L.length * 2.4 * 60), subjects: true, done: 'Back to Practice', back: practiceHub, save: rec => (J().built || (J().built = [])).push(rec) });
+    }
+    draw();
+  }
+
+  /* 📝 Full JEE Main mock: 75 questions — each subject 20 MCQs + 5 numericals, 3 hours, +4 / −1, out of 300 */
+  function mockHome() {
+    NAVP = true; const el = screen('practice'); here('mock');
+    const M = J().mocks || [];
+    el.innerHTML = `<div class="jx"><button class="jx-back" id="jxBack">← Practice</button>
+      <div class="jx-hero sm"><h1>📝 Full mock test</h1><p>The JEE Main pattern: Physics, Chemistry and Mathematics — each 20 MCQs + 5 numerical answers. 75 questions, 3 hours, out of 300.</p></div>
+      <div class="jx-card"><h3>Before you start</h3><p class="jx-p">✅ +4 for a right answer · ❌ −1 for a wrong one (numericals too) · skipped = 0.</p>
+        <p class="jx-p">Questions come from the units that are ready now (${Object.keys(READY).length} units), so this is a strong practice paper, not the full syllabus yet.</p>
+        <p class="jx-p">Sit somewhere quiet for 3 hours. The timer keeps running if you switch screens inside the app.</p>
+        <button class="jx-btn wide" id="jxMk">Start the mock ▶</button>
+        ${M.length ? `<h3>Your mocks</h3>${M.slice(-5).reverse().map(t => `<div class="jx-ta"><b>${t.sc}/${t.max}</b><span>${t.pct}% · ${t.r} right · ${t.w} wrong · ${Math.round(t.sec / 60)} min</span></div>`).join('')}` : ''}</div></div>`;
+    $('#jxBack').onclick = () => { tap(); practiceHub(); };
+    $('#jxMk').onclick = async () => {
+      tap('open'); busy(el, 'Setting the paper…');
+      const L = [];
+      for (const k of Object.keys(SUBJ)) {
+        const us = shuffle(Object.keys(READY).filter(u => subjOfU(u) === k)).slice(0, 10), all = shuffle(await loadUnits(us));
+        const per = {}; const fair = arr => arr.filter(it => (per[it.uid] = (per[it.uid] || 0) + 1) <= 4);   // no more than 4 from one unit per section
+        const mc = fair(all.filter(it => it.q.o).sort((a, b) => (b.q.kind === 'pyq') - (a.q.kind === 'pyq') + (Math.random() - 0.5))).slice(0, 20);
+        Object.keys(per).forEach(x => delete per[x]);
+        const nm = fair(all.filter(it => it.q.n !== undefined)).slice(0, 5);
+        L.push(...mc, ...nm);
+      }
+      testRun(L, { secs: 3 * 3600, subjects: true, done: 'Back to Practice', back: practiceHub, save: rec => (J().mocks || (J().mocks = [])).push(rec) });
+    };
+  }
+
+  /* 📈 where marks are leaking: units by accuracy, weakest first */
+  function weakSpots() {
+    NAVP = true; const el = screen('practice'); here('weak');
+    const rows = Object.keys(READY).map(u => { const a = Object.values(U(u).ans), ok = a.filter(x => x.ok).length, w = J().mist.filter(k => k.startsWith(u + '|')).length; return { u, n: a.length, ok, w, p: pct(ok, a.length) }; })
+      .filter(r => r.n >= 3).sort((a, b) => a.p - b.p || b.w - a.w);
+    const bySub = Object.entries(SUBJ).map(([k, x]) => { const r = rows.filter(y => subjOfU(y.u) === k), n = r.reduce((t, y) => t + y.n, 0), ok = r.reduce((t, y) => t + y.ok, 0); return n ? `<div class="jx-ws"><span>${x.e} ${x.n}</span><div class="jx-wbar"><i style="width:${pct(ok, n)}%;background:${x.c}"></i></div><b>${pct(ok, n)}%</b></div>` : ''; }).join('');
+    el.innerHTML = `<div class="jx"><button class="jx-back" id="jxBack">← Practice</button>
+      <div class="jx-hero sm"><h1>📈 Weak spots</h1><p>Your accuracy by subject and by unit — weakest first. Fix these and your score rises fastest.</p></div>
+      ${rows.length ? `<div class="jx-card"><h3>By subject</h3>${bySub}</div>
+        <div class="jx-card"><h3>By unit</h3>${rows.map(r => `<button class="jx-ur on" data-u="${r.u}"><span>${SUBJ[subjOfU(r.u)].e}</span><b>${esc(unitName(r.u))}</b><small>${r.p}% right of ${r.n}${r.w ? ` · ${r.w} to fix` : ''}</small><em>${r.p < 60 ? 'Fix ▶' : 'Practise ▶'}</em></button>`).join('')}</div>`
+        : `<div class="jx-card"><p class="jx-p">Answer at least 3 questions in a unit and it shows up here.</p><button class="jx-btn wide" id="jxDM">🎯 Start with a Daily mix ▶</button></div>`}</div>`;
+    $('#jxBack').onclick = () => { tap(); practiceHub(); };
+    const dm = $('#jxDM'); if (dm) dm.onclick = () => { tap('open'); dailyMix(); };
+    el.querySelectorAll('[data-u]').forEach(b => b.onclick = () => { tap('open'); NAVP = false; unit(b.dataset.u, 'prac'); });
+  }
+
+  /* 🔑 every unit's formula sheet in one place */
+  function formulaSheets() {
+    NAVP = true; const el = screen('practice'); here('formulas');
+    el.innerHTML = `<div class="jx"><button class="jx-back" id="jxBack">← Practice</button>
+      <div class="jx-hero sm"><h1>🔑 Formula sheets</h1><p>Every ready unit's formulas, ready for quick revision before a test.</p></div>
+      ${Object.entries(SUBJ).map(([k, x]) => { const r = x.u.map((u, i) => uidOf(k, i)).filter(u => READY[u]); return r.length ? `<details class="jx-sub" style="--c:${x.c}" open><summary><span>${x.e}</span><b>${x.n}</b><small>${r.length} units</small></summary>
+        ${r.map(u => `<button class="jx-ur on" data-u="${u}"><span>Unit ${+u.split('-u')[1]}</span><b>${esc(unitName(u))}</b><small>Formulas</small><em>Open ▶</em></button>`).join('')}</details>` : ''; }).join('')}</div>`;
+    $('#jxBack').onclick = () => { tap(); practiceHub(); };
+    el.querySelectorAll('[data-u]').forEach(b => b.onclick = () => { tap('open'); NAVP = false; unit(b.dataset.u, 'vault'); });
+  }
+
   /* ================= JEE PRACTICE HUB (Practice tab while JEE is the active course) ================= */
   async function practiceHub() {
     NAVP = true; const el = screen('practice'); here('practice');
@@ -3602,10 +3727,14 @@
       <div class="jx-hub">
         <button class="jx-ht2" id="jxQB"><span>📚</span><b>Question bank</b><small>${all} questions · filter by subject, unit, topic, year, difficulty</small></button>
         <button class="jx-ht2" id="jxCC"><span>⚡</span><b>Crash course</b><small>Each unit in 15 minutes: ideas, formula flips, traps, must-do JEE</small></button>
-        <button class="jx-ht2" id="jxPlay"><span>🎮</span><b>Play</b><small>Quiz Show, Snakes, Boss Battle, crosswords — all with JEE questions</small></button>
-        <button class="jx-ht2" id="jxMG"><span>🧠</span><b>Mind Gym</b><small>Reasoning, IQ and focus puzzles for exam days</small></button>
         <button class="jx-ht2" id="jxMB"><span>📕</span><b>Mistake book</b><small>${wrong ? wrong + ' questions to fix' : 'Empty — great work'}</small></button>
-        <button class="jx-ht2" id="jxRooms"><span>🏁</span><b>Game rooms</b><small>Race friends live — everyone gets JEE questions</small></button>
+        <button class="jx-ht2" id="jxDaily"><span>🎯</span><b>Daily mix</b><small>10 questions from units you opened — missed ones first</small></button>
+        <button class="jx-ht2" id="jxBuild"><span>🧩</span><b>Build a test</b><small>Subjects, real JEE or practice, difficulty, timer</small></button>
+        <button class="jx-ht2" id="jxMock"><span>📝</span><b>Full mock test</b><small>JEE Main pattern — 75 questions, 3 hours, out of 300${(J().mocks || []).length ? ` · last ${J().mocks[J().mocks.length - 1].sc}` : ''}</small></button>
+        <button class="jx-ht2" id="jxWeak"><span>📈</span><b>Weak spots</b><small>Accuracy by subject and unit — weakest first</small></button>
+        <button class="jx-ht2" id="jxFS"><span>🔑</span><b>Formula sheets</b><small>Every ready unit's formulas in one place</small></button>
+        <button class="jx-ht2" id="jxPlay"><span>🎮</span><b>Play</b><small>Quiz Show, Snakes, Boss Battle, crosswords — alone or with friends, all with JEE questions</small></button>
+        <button class="jx-ht2" id="jxMG"><span>🧠</span><b>Mind Gym</b><small>Reasoning, IQ and focus puzzles for exam days</small></button>
       </div>
       <details class="jx-sec" data-sec="pu" ${secOpen('pu', true)}><summary><h2 class="jx-h">🎯 Practise by unit</h2><small>${ready.length} ready</small></summary>
         ${Object.entries(SUBJ).map(([k, s0]) => { const r = s0.u.map((u, i) => uidOf(k, i)).filter(u => READY[u]); return r.length ? `<details class="jx-sub" style="--c:${s0.c}"><summary><span>${s0.e}</span><b>${s0.n}</b><small>${r.length} units</small></summary>
@@ -3617,7 +3746,11 @@
     $('#jxPlay').onclick = () => { tap('open'); if (window.PlayHub) PlayHub.open(); };
     $('#jxMG').onclick = () => { tap('open'); if (window.MindGym) MindGym.open(); };
     $('#jxMB').onclick = () => { tap(); mistakes(); };
-    $('#jxRooms').onclick = () => { tap('open'); if (window.Live && Live.open) Live.open(); };
+    $('#jxDaily').onclick = () => { tap('open'); dailyMix(); };
+    $('#jxBuild').onclick = () => { tap('open'); buildTest(); };
+    $('#jxMock').onclick = () => { tap('open'); mockHome(); };
+    $('#jxWeak').onclick = () => { tap('open'); weakSpots(); };
+    $('#jxFS').onclick = () => { tap('open'); formulaSheets(); };
     el.querySelectorAll('[data-u]').forEach(b => b.onclick = () => { tap('open'); NAVP = false; unit(b.dataset.u, 'prac'); });
   }
   const _practiceJ = practiceScreen;

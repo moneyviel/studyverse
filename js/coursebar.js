@@ -9,10 +9,10 @@
   function list() {
     const p = ST.profile; if (!p || parent()) return [];
     const out = [], j = ST.jee || {};
-    if (p.grade) out.push({ k: 'school', e: '🏫', n: 'School', s: '', b: 0 });
+    if (p.grade) out.push({ k: 'school', e: '🏫', n: 'School', s: 'Class ' + p.grade, b: 0 });
     let hasJ = false; try { hasJ = !!(j.track && window.Jee && (Jee.has ? Jee.has() : true)); } catch (e) {}
-    if (hasJ) out.push({ k: 'jee', e: '🎯', n: 'JEE', s: '', b: (j.mist || []).length });
-    if (ST.ca && ST.ca.level && window.Ca) out.push({ k: 'ca', e: '📊', n: 'CA', s: '', b: Object.keys(ST.ca.revise || {}).length });
+    if (hasJ) out.push({ k: 'jee', e: '🎯', n: 'JEE', s: j.track === 'found' ? 'Foundation' : 'Main', b: (j.mist || []).length });
+    if (ST.ca && ST.ca.level && window.Ca) out.push({ k: 'ca', e: '📊', n: 'CA', s: ({ foundation: 'Foundation', inter: 'Intermediate', final: 'Final' })[ST.ca.level] || '', b: Object.keys(ST.ca.revise || {}).length });
     return out;
   }
   function cur() {
@@ -42,7 +42,7 @@
     if (!bar) { bar = BAR = D.createElement('div'); bar.id = 'cbar'; bar.className = 'cbar'; bar.setAttribute('role', 'tablist'); bar.setAttribute('aria-label', 'Your courses'); wire(bar); }
     if (bar.dataset.sig !== sig) {
       bar.dataset.sig = sig;
-      bar.innerHTML = `<div class="cbar-row">${L.map(c => `<button type="button" role="tab" class="cbar-b${c.k === k ? ' on' : ''}" aria-selected="${c.k === k}" data-k="${c.k}"><span class="cbar-e" aria-hidden="true">${c.e}</span><b class="cbar-t">${esc(c.n)}</b>${c.b && c.k !== k ? `<i class="cbar-n" aria-label="${c.b} to fix">${c.b > 99 ? '99+' : c.b}</i>` : ''}</button>`).join('')}<span class="cbar-ind" aria-hidden="true"></span></div>`;
+      bar.innerHTML = `<div class="cbar-row">${L.map(c => `<button type="button" role="tab" class="cbar-b${c.k === k ? ' on' : ''}" aria-selected="${c.k === k}" data-k="${c.k}"><span class="cbar-e" aria-hidden="true">${c.e}</span><span class="cbar-tx"><b class="cbar-t">${esc(c.n)}</b>${c.s ? `<small class="cbar-s">${esc(c.s)}</small>` : ''}</span>${c.b && c.k !== k ? `<i class="cbar-n" aria-label="${c.b} to fix">${c.b > 99 ? '99+' : c.b}</i>` : ''}</button>`).join('')}<span class="cbar-ind" aria-hidden="true"></span></div>`;
       bar.querySelectorAll('[data-k]').forEach(b => b.onclick = () => go(b.dataset.k));
     }
     const moved = bar.parentElement !== scr || scr.firstElementChild !== bar;

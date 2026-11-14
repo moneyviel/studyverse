@@ -1187,6 +1187,10 @@
         ${T2('phWeak', '📈', 'Weak spots', 'By unit and by examiner skill')}
         ${SP() ? T2('phSpeed', '⚡', `Speed drill${SP().count() ? ` (${SP().count()})` : ''}`, 'Right but slow? Beat 72 seconds a question') + T2('phTricks', '💡', 'Shortcut tricks', `${SP().TRICKS.length} quick methods with worked examples`) + T2('phFocus', '📌', 'Exam focus list', 'What to study first') : ''}
         ${window.CaKeys ? T2('phKeys', '🔑', 'Key rules', `Sections, rules, formulas${CaKeys.dueCount() ? ` · ${CaKeys.dueCount()} to revise` : ''}`) : ''}
+        ${window.PlayHub ? T2('phPlay', '🎮', 'Play', 'Quiz Show, Snakes, Boss Battle, crosswords — alone or with friends, all with your CA MCQs') : ''}
+        ${window.MindGym ? T2('phMG', '🧠', 'Mind Gym', 'Thinking, reasoning and focus challenges') : ''}
+        ${window.CalcAcademy ? T2('phCalc', '🧮', 'Calculator Academy', 'Press real keys to learn exam-hall calculator speed') : ''}
+        ${window.GK ? T2('phGK', '🧭', 'GK Explorer', 'Quizzes, speed rounds and fact streaks') : ''}
       </div>
       <details class="jx-sec" data-sec="pp" open><summary><h2 class="jx-h">🎯 Practise by paper</h2><small>${papers.length} papers</small></summary><div class="jx-sub" style="--c:#7c3aed">
         ${papers.map(pp => { const us = inL.filter(b => b.p.id === pp.id), t = us.reduce((n, b) => n + Object.keys(c.mcq).filter(k => k.startsWith(b.u.id + '#')).length, 0);
@@ -1198,6 +1202,7 @@
     on('phViva', vivaHub); on('phBank', () => bank()); on('phMock', mocks); on('phWeak', X.weakScreen);
     if (SP()) { on('phSpeed', () => SP().drill()); on('phTricks', () => SP().tricks()); on('phFocus', () => SP().focusList()); }
     if (window.CaKeys) on('phKeys', () => CaKeys.open({ from: 'practice' }));
+    on('phPlay', () => PlayHub.open()); on('phMG', () => MindGym.open()); on('phCalc', () => CalcAcademy.open({ from: 'practice' })); on('phGK', () => GK.open({ from: 'practice' }));
     el.querySelectorAll('[data-pp]').forEach(b => b.onclick = () => { tap('open'); Ca.paper(c.level, b.dataset.pp); });
   }
 

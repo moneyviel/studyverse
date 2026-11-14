@@ -115,7 +115,7 @@
 .lg-pill{background:rgba(0,0,0,.32);border-radius:999px;padding:6px 11px;font-size:.84rem;text-shadow:none}
 .lg-path{display:flex;justify-content:space-between;align-items:center;margin:14px 0 4px;padding:10px 8px;border-radius:16px;background:rgba(255,255,255,.06);position:relative}
 .lg-path:before{content:"";position:absolute;left:24px;right:24px;top:24px;border-top:2px dashed rgba(255,255,255,.25)}
-.lg-st{position:relative;text-align:center;font-size:.58rem;width:12.5%;opacity:.45}.lg-st i{display:block;font-style:normal;font-size:1.35rem;line-height:28px;width:30px;height:30px;margin:0 auto 3px;border-radius:50%;background:#1e1b45}
+.lg-st{position:relative;text-align:center;font:inherit;font-size:.58rem;width:12.5%;opacity:.45;background:none;border:0;color:#fff;padding:0;cursor:pointer}.lg-st.peek{opacity:1}.lg-st.peek i{box-shadow:0 0 0 2px #fff}.lg-mine{border:0;color:#fff;font:inherit;font-size:.84rem;cursor:pointer;background:rgba(0,0,0,.45)}.lg-st i{display:block;font-style:normal;font-size:1.35rem;line-height:28px;width:30px;height:30px;margin:0 auto 3px;border-radius:50%;background:#1e1b45}
 .lg-st.past{opacity:.85}.lg-st.on{opacity:1;font-weight:800}.lg-st.on i{background:#ffe27a;box-shadow:0 0 0 3px rgba(255,226,122,.35);transform:scale(1.15)}
 .lg-card{background:rgba(255,255,255,.07);border-radius:16px;padding:13px;margin-top:12px}
 .lg-card h3{margin:0 0 8px;font-size:1rem;color:#fff}.lg-card p{margin:0;color:#fff}
@@ -226,10 +226,8 @@
     const pct = Math.min(100, (r.today || 0) / (r.cap || 200) * 100);
     const body = OV.querySelector('#lgBody');
     body.innerHTML = `
-      <div class="lg-scene" style="${scene(tier)}">${deco(tier)}<span class="lg-big" aria-hidden="true">${t.e}</span>
-        <div class="lg-tn">${esc(t.n)}</div><div class="lg-th">${esc(t.h)}</div>
-        <div class="lg-pills"><span class="lg-pill">🏅 ${esc(place(r.rank, r.n))}</span><span class="lg-pill">⭐ ${pts} this week</span><span class="lg-pill" id="lgLeft">⏳ ${left(r.ends)}</span></div></div>
-      <div class="lg-path" aria-label="Your journey">${TIERS.map((x, i) => `<div class="lg-st${i === tier ? ' on' : i < tier ? ' past' : ''}"><i aria-hidden="true">${x.e}</i>${esc(x.n)}</div>`).join('')}</div>
+      <div id="lgHero">${hero(tier, r)}</div>
+      <div class="lg-path" aria-label="Your journey — tap a level to see it">${TIERS.map((x, i) => `<button type="button" class="lg-st${i === tier ? ' on' : i < tier ? ' past' : ''}" data-tier="${i}" aria-label="See ${esc(x.n)}"><i aria-hidden="true">${x.e}</i>${esc(x.n)}</button>`).join('')}</div>
       <div class="lg-card"><h3>🌱 Grow this week</h3>${climb}<div class="lg-bar"><i style="width:${Math.min(100, pts / tgt * 100)}%"></i></div></div>
       <div class="lg-card"><h3>🪞 You vs last week's you</h3>${self}</div>
       <div class="lg-card"><h3>🎯 Next to pass</h3>${nearH}</div>
@@ -241,7 +239,21 @@
       <div class="lg-card"><h3>⭐ How to earn points</h3><p>Today: <b>${r.today || 0}</b> of ${r.cap || 200}</p><div class="lg-bar"><i style="width:${pct}%"></i></div><div style="height:8px"></div>
         ${EARN.map(([e, d, p]) => `<div class="lg-earn"><span aria-hidden="true">${e}</span><span>${esc(d)}</span><b>+${p}</b></div>`).join('')}
         <p class="lg-note">Points come only from studying, not from games, up to 200 a day. A new week starts every Monday (India time). Reach your weekly target and you grow one level. You only go back a level after a whole week with no study.</p></div>`;
+    body.querySelectorAll('[data-tier]').forEach(b => b.onclick = () => {
+      const i = +b.dataset.tier; try { if (window.sfx) sfx('tap'); } catch (e) {}
+      body.querySelectorAll('[data-tier]').forEach(x => x.classList.toggle('peek', +x.dataset.tier === i && i !== tier));
+      body.querySelector('#lgHero').innerHTML = hero(i, r);
+      const bk = body.querySelector('#lgMine'); if (bk) bk.onclick = () => { body.querySelectorAll('.peek').forEach(x => x.classList.remove('peek')); body.querySelector('#lgHero').innerHTML = hero(tier, r); };
+    });
     clearInterval(tick); tick = setInterval(() => { const el = OV && OV.querySelector('#lgLeft'); if (!el) return clearInterval(tick); el.textContent = '⏳ ' + left(r.ends); }, 30000);
+  }
+  /* the big scene: your own level, or a preview of another level when you tap it on the path */
+  function hero(i, r) {
+    const t = T(i), mine = i === (r.tier | 0), tg = 100 + 50 * i;
+    return `<div class="lg-scene" style="${scene(i)}">${deco(i)}<span class="lg-big" aria-hidden="true">${t.e}</span>
+      <div class="lg-tn">${esc(t.n)}</div><div class="lg-th">${esc(t.h)}</div>
+      ${mine ? `<div class="lg-pills"><span class="lg-pill">🏅 ${esc(place(r.rank, r.n))}</span><span class="lg-pill">⭐ ${r.points || 0} this week</span><span class="lg-pill" id="lgLeft">⏳ ${left(r.ends)}</span></div>`
+        : `<div class="lg-pills"><span class="lg-pill">👀 Level ${i + 1} of 8</span><span class="lg-pill">🎯 Weekly target ${tg}</span><button type="button" class="lg-pill lg-mine" id="lgMine">↩ My level</button></div>`}</div>`;
   }
   function result(res) {
     const [k, v, p] = String(res).split(':'), i = Math.max(0, Math.min(7, +v || 0)), t = T(i);
