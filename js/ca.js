@@ -30,7 +30,7 @@
      and CA level, see every level) on this device. The passcode sits in this file, so it is NOT real security —
      it just keeps students from switching by accident. Real roles arrive with the backend. */
   const OWNER = () => { try { return localStorage.getItem('sv_owner') === '1' || !!(window.Cloud && Cloud.admin && Cloud.admin()); } catch (e) { return false; } };
-  const LIVE_LEVELS = ['foundation'];                       // students see CA Foundation only for now
+  const LIVE_LEVELS = ['foundation', 'inter', 'final'];     // all three CA levels are open to students (14 Nov 2026)
   const levelOK = k => OWNER() || LIVE_LEVELS.includes(k);
   const todayISO = () => { const d = new Date(); return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`; };
   function C() {

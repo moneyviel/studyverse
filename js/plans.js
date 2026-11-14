@@ -29,7 +29,7 @@
     { id: 'caf-4m', course: 'ca-final', label: 'CA Final · 4 months', months: 4, price_inr: 3799, sort: 15 },
   ];
   /* CA levels students can use now — KEEP IN SYNC with LIVE_LEVELS in js/ca.js (other levels show "Coming soon", no buy button) */
-  const CA_LIVE = ['foundation'];
+  const CA_LIVE = ['foundation', 'inter', 'final'];
   const CA_NAME = { foundation: 'CA Foundation', inter: 'CA Intermediate', final: 'CA Final' };
   const GST = 'Prices are + GST as applicable.';
   let plans = DEF_PLANS;
