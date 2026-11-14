@@ -13,14 +13,14 @@
   const D = document;
   const NAME = 'Seed to Stars';
   const TIERS = [
-    { n: 'Seed', e: '🌱', h: 'you have just started', sky: '#ffd9a8', mid: '#f3b27a', gr: '#7a4a2a', dk: false },
-    { n: 'Sprout', e: '🌿', h: 'your first steady week', sky: '#d9f5c9', mid: '#9fdc7c', gr: '#4f8a2f', dk: false },
-    { n: 'Bloom', e: '🌸', h: 'studying regularly', sky: '#ffe1ef', mid: '#ffb3d1', gr: '#5c9a3a', dk: false },
-    { n: 'Tree', e: '🌳', h: 'strong roots', sky: '#c9ecd4', mid: '#5fb27a', gr: '#2f6b3d', dk: false },
-    { n: 'Summit', e: '⛰️', h: 'above the clouds', sky: '#cfe0f5', mid: '#8fa9c9', gr: '#4d5d78', dk: false },
-    { n: 'Sky', e: '☁️', h: 'flying high', sky: '#7cc4ff', mid: '#4b9cf0', gr: '#2c6fd0', dk: true },
-    { n: 'Star', e: '⭐', h: 'shining for others', sky: '#1c2a5e', mid: '#2b2470', gr: '#120f3a', dk: true },
-    { n: 'Galaxy', e: '🌌', h: 'the very top', sky: '#3a1d6e', mid: '#5a2a8a', gr: '#12062e', dk: true }
+    { n: 'Seed', e: '🌱', h: 'you have just started', sky: '#8a5a2b', mid: '#5e3a1a', gr: '#3a2210', dk: false },
+    { n: 'Sprout', e: '🌿', h: 'your first steady week', sky: '#3f9a4a', mid: '#2a7036', gr: '#174a22', dk: false },
+    { n: 'Bloom', e: '🌸', h: 'studying regularly', sky: '#c2408a', mid: '#8e2a66', gr: '#5a1742', dk: false },
+    { n: 'Tree', e: '🌳', h: 'strong roots', sky: '#1f8a5c', mid: '#146642', gr: '#0b432b', dk: false },
+    { n: 'Summit', e: '⛰️', h: 'above the clouds', sky: '#5a6f9a', mid: '#3f5178', gr: '#273352', dk: false },
+    { n: 'Sky', e: '☁️', h: 'flying high', sky: '#2f8fe8', mid: '#1f6cc4', gr: '#134a8e', dk: true },
+    { n: 'Star', e: '⭐', h: 'shining for others', sky: '#2b3a8a', mid: '#1d2766', gr: '#111842', dk: true },
+    { n: 'Galaxy', e: '🌌', h: 'the very top', sky: '#6a35b8', mid: '#4a2290', gr: '#2a1160', dk: true }
   ];
   const T = i => TIERS[Math.max(0, Math.min(7, i | 0))];
   const EARN = [['📗', 'Finish a topic or unit', 20], ['🔁', 'Revise a topic you finished', 10], ['🩹', 'Get right a question you once got wrong', 4], ['✅', 'Right answer', 2], ['👋', 'Come back after 3+ days', 15]];
@@ -104,8 +104,8 @@
 .lg-top{display:flex;align-items:center;gap:10px;margin-bottom:10px}.lg-top h1{font-size:1.1rem;margin:0;flex:1;color:#fff}
 .lg-x{background:rgba(255,255,255,.14);border:0;color:#fff;border-radius:12px;padding:8px 12px;font:inherit;cursor:pointer}
 .lg-scene{position:relative;overflow:hidden;border-radius:22px;padding:22px 16px 18px;text-align:center;min-height:230px;
- background:linear-gradient(180deg,var(--sky) 0%,var(--mid) 70%,var(--gr) 100%);text-shadow:0 1px 4px rgba(0,0,0,.45)}
-.lg-scene:after{content:"";position:absolute;left:-10%;right:-10%;bottom:-38px;height:70px;border-radius:50%;background:var(--gr);opacity:.9}
+ background:linear-gradient(180deg,var(--sky) 0%,var(--mid) 70%,var(--gr) 100%);text-shadow:0 1px 3px rgba(0,0,0,.35);box-shadow:inset 0 1px 0 rgba(255,255,255,.15)}
+.lg-scene:after{content:"";position:absolute;left:-10%;right:-10%;bottom:-40px;height:72px;border-radius:50%;background:var(--gr);opacity:.55}
 .lg-deco{position:absolute;font-size:1.1rem;opacity:.75;animation:lgDrift 7s ease-in-out infinite}
 @keyframes lgDrift{50%{transform:translate(8px,-5px)}}
 .lg-big{position:relative;z-index:1;font-size:4.6rem;line-height:1;display:inline-block;animation:lgGrow 3.6s ease-in-out infinite;filter:drop-shadow(0 6px 10px rgba(0,0,0,.3))}
