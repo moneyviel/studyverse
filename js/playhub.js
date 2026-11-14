@@ -44,36 +44,39 @@
     const el = screen(); show('play', 'practice'); window.scrollTo(0, 0);
     const ca = isCA(), back = resume();
     const live = LIVE.filter(g => !g.ca || ca);
-    const row = (e, n, d, alone, friends, extra) => `<div class="ph-g"><span class="ph-ge" aria-hidden="true">${e}</span><div class="ph-gt"><b>${E(n)}</b><small>${E(d)}</small>${extra || ''}</div>
-      <div class="ph-gb">${alone ? `<button class="ph-b solo" type="button" ${alone} aria-label="${E(n)}: play alone"><span aria-hidden="true">🙋</span> Alone</button>` : ''}${friends ? `<button class="ph-b fr" type="button" ${friends} aria-label="${E(n)}: play with friends"><span aria-hidden="true">👫</span> Friends</button>` : ''}</div></div>`;
+    const row = (e, n, d, alone, friends, extra, fam) => `<div class="ph-g"><span class="ph-ge" aria-hidden="true">${e}</span><div class="ph-gt"><b>${E(n)}</b><small>${E(d)}</small>${extra || ''}</div>
+      <div class="ph-gb">${alone ? `<button class="ph-b solo" type="button" ${alone} aria-label="${E(n)}: play alone"><span aria-hidden="true">🙋</span> Alone</button>` : ''}${friends ? `<button class="ph-b fr" type="button" ${friends} aria-label="${E(n)}: play with friends"><span aria-hidden="true">👫</span> Friends</button>` : ''}${fam ? `<button class="ph-b fm" type="button" ${fam} aria-label="${E(n)}: play with family"><span aria-hidden="true">👨‍👩‍👧</span> Family</button>` : ''}</div></div>`;
+    const QG = window.QuickGames && QuickGames.visible() ? QuickGames.GAMES : [];
     el.innerHTML = `<div class="ph-root${ca ? ' ph-ca' : ''}"><button class="back" id="phBack">← Practice</button>
       <div class="hello ph-hello" role="heading" aria-level="1"><span aria-hidden="true">🎮</span> Play <small>Games and puzzles · alone or with friends</small></div>
-      ${window.DesiGames && DesiGames.tileHTML ? DesiGames.tileHTML() : ''}
       ${savedHTML()}${back ? `<button class="card ph-resume" type="button" id="phResume"><span aria-hidden="true">🔁</span> <b>Back to your room ${E(back)}</b><span class="ph-chev" aria-hidden="true">›</span></button>` : ''}
       <div class="card ph-friends"><h3><span aria-hidden="true">👫</span> Play with friends</h3><p class="sub">Make a room and share its code, or type a friend’s code.</p>
         <div class="ph-join"><input id="phCode" inputmode="text" autocomplete="off" maxlength="8" placeholder="Room code" aria-label="Room code"><button class="btn" type="button" id="phJoin">Join</button></div>
         <button class="btn ghost" type="button" id="phMake">➕ Make a room</button></div>
-      <button class="card ph-resume ph-fam" type="button" id="phFam"><span aria-hidden="true">👨‍👩‍👧</span> <b>Play with family<small>Mum, Dad, both parents or a guardian · one phone, one laptop or each on your own</small></b><span class="ph-chev" aria-hidden="true">›</span></button>
-      <div class="card"><h3><span aria-hidden="true">🎲</span> Games</h3>${live.map(g => row(g.e, g.n, g.d, `data-solo="${g.id}"`, `data-fr="${g.id}"`, `<small class="ph-alone">🙋 Alone: ${E(g.soloN)}</small>`)).join('')}</div>
+      <div class="card"><h3><span aria-hidden="true">🎲</span> Games</h3>${QG.map(g => row(g.e, g.n, g.d, `data-qg="${g.id}"`, `data-qgf="${g.id}"`, `<small class="ph-alone ph-new">✨ New${!QuickGames.live ? ' · 🔑 only you can see this' : ''}</small>`, `data-qgm="${g.id}"`)).join('')}
+        ${live.map(g => row(g.e, g.n, g.d, `data-solo="${g.id}"`, `data-fr="${g.id}"`, `<small class="ph-alone">🙋 Alone: ${E(g.soloN)}</small>`, `data-fm="${g.id}"`)).join('')}</div>
       <div class="card"><h3><span aria-hidden="true">🧩</span> Puzzles</h3>
         ${row('📅', 'Daily puzzle', 'A new puzzle every day from your chapter. Keep your puzzle streak!', 'data-daily="1"', '')}
-        ${pzKinds().map(k => row(k.e, k.n, k.d + (k.chapter ? ' Pick any chapter.' : ''), `data-pz="${E(k.id)}"`, `data-pzf="${E(k.id)}"`)).join('')}
+        ${pzKinds().map(k => row(k.e, k.n, k.d + (k.chapter ? ' Pick any chapter.' : ''), `data-pz="${E(k.id)}"`, `data-pzf="${E(k.id)}"`, '', `data-pzm="${E(k.id)}"`)).join('')}
         <button class="btn ghost ph-all" type="button" id="phPzHub">🏅 Puzzle badges & best times</button></div>
       ${ca || isJEE() ? '' : `<div class="card"><h3><span aria-hidden="true">🕹️</span> More solo games</h3><div class="ph-more">${MORE.map(id => { const g = arcGame(id); return g ? `<button class="ph-m" type="button" data-arc="${id}"><span aria-hidden="true">${g.e}</span><b>${E(g.n)}</b><small>${E(g.d)}</small></button>` : ''; }).join('')}</div>
         <button class="btn ghost ph-all" type="button" id="phArc">🕹️ All arcade games</button></div>`}
       <div class="card ph-calc"><h3><span aria-hidden="true">🧮</span> Calculator Academy</h3><p class="sub">Free bonus course: learn every key with real missions.</p><button class="btn ghost" type="button" id="phCalc">Open Calculator Academy ▶</button></div></div>`;
     $1('#phBack').onclick = () => { S('tap'); backToPractice(); };
-    { const dg = $1('#dgTile', el); if (dg) dg.onclick = () => { S('open'); DesiGames.open({ back: open }); }; }   // 🪔 owner preview games (js/desi-games.js)
     wireSaved(el);
     if (back) $1('#phResume').onclick = () => { S('open'); Live.join(back); };
     $1('#phMake').onclick = () => { S('open'); liveOpen(); };
-    $1('#phFam').onclick = () => { S('open'); family(open); };
     const join = () => { const c = ($1('#phCode').value || '').trim().toUpperCase(); if (!c) { $1('#phCode').focus(); return; } S('open'); if (window.Live) Live.join(c); };
     $1('#phJoin').onclick = join; $1('#phCode').onkeydown = e => { if (e.key === 'Enter') join(); };
     el.querySelectorAll('[data-fr]').forEach(b => b.onclick = () => { S('open'); liveOpen({ game: b.dataset.fr }); });
     el.querySelectorAll('[data-solo]').forEach(b => b.onclick = () => { S('open'); solo(b.dataset.solo); });
     el.querySelectorAll('[data-pz]').forEach(b => b.onclick = () => { S('open'); if (window.Puzzles && Puzzles.quick) Puzzles.quick(b.dataset.pz, { from: 'play' }); else if (window.Puzzles) Puzzles.hub({ from: 'play' }); });
     el.querySelectorAll('[data-pzf]').forEach(b => b.onclick = () => { S('open'); liveOpen({ game: 'puzzle', kind: b.dataset.pzf }); });
+    el.querySelectorAll('[data-fm]').forEach(b => b.onclick = () => { S('open'); family({ game: b.dataset.fm, back: open }); });
+    el.querySelectorAll('[data-pzm]').forEach(b => b.onclick = () => { S('open'); family({ puzzle: b.dataset.pzm, back: open }); });
+    el.querySelectorAll('[data-qg]').forEach(b => b.onclick = () => { S('open'); QuickGames.open(b.dataset.qg, { back: open }); });
+    el.querySelectorAll('[data-qgf]').forEach(b => b.onclick = () => { S('open'); QuickGames.challenge(b.dataset.qgf, open); });
+    el.querySelectorAll('[data-qgm]').forEach(b => b.onclick = () => { S('open'); family({ quick: b.dataset.qgm, back: open }); });
     const dl = $1('[data-daily]', el); if (dl) dl.onclick = () => { S('open'); if (window.Puzzles) Puzzles.daily(); };
     $1('#phPzHub').onclick = () => { S('open'); if (window.Puzzles) Puzzles.hub({ from: 'play' }); };
     el.querySelectorAll('[data-arc]').forEach(b => b.onclick = () => { S('open'); arcade(b.dataset.arc); });
@@ -110,27 +113,28 @@
     try { Live.open(o); } catch (e) { console.error(e); Live.open(); }
   }
 
-  /* ---------- 👨‍👩‍👧 play with family: one device (pass-and-play) or each on their own device (family Game Room) ---------- */
-  function family(back) {
-    style(); back = typeof back === 'function' ? back : backToPractice;
+  /* ---------- 👨‍👩‍👧 Family button (on every game and puzzle): two simple choices ----------
+     o = { game } live game · { puzzle } puzzle kind · { quick } Quick Game id · {} (no game picked: quiz + room)
+     📱 One phone — take turns:  live games → Family Quiz Night (pass the phone) · Quick Games → same questions in turns
+     📲 Own phones — share a code: live games / puzzles → a Game Room (grown-ups join from Parent Hub) · Quick Games → challenge code */
+  function family(o) {
+    if (typeof o === 'function') o = { back: o };
+    o = o || {}; style(); const back = typeof o.back === 'function' ? o.back : backToPractice;
     const el = screen(); show('play', 'practice'); window.scrollTo(0, 0);
-    const W = [['mum', '👩 Mum'], ['dad', '👨 Dad'], ['both', '👪 Both parents'], ['guardian', '🧑 Guardian']];
-    let who = 'mum';
-    const draw = () => {
-      el.innerHTML = `<div class="ph-root${isCA() ? ' ph-ca' : ''}"><button class="back" id="phFBack">← Back</button>
-        <div class="hello ph-hello" role="heading" aria-level="1"><span aria-hidden="true">👨‍👩‍👧</span> Play with family <small>Learn and laugh together — you get your syllabus, grown-ups get general knowledge</small></div>
-        <div class="card"><h3>Who is playing with you?</h3><div class="ph-who" role="radiogroup" aria-label="Who is playing">${W.map(([k, t]) => `<button type="button" role="radio" class="ph-wb${k === who ? ' on' : ''}" aria-checked="${k === who}" data-who="${k}">${t}</button>`).join('')}</div>
-          <p class="sub" style="margin-top:6px">You can change names or add more grown-ups (Nani, Dadu…) on the next screen.</p></div>
-        <button class="card ph-resume ph-fam" type="button" id="phF1"><span aria-hidden="true">📱</span> <b>On one phone or one laptop<small>Sit together and pass it around. Works on this device right now — no codes, no second device.</small></b><span class="ph-chev" aria-hidden="true">›</span></button>
-        <button class="card ph-resume ph-fam" type="button" id="phF2"><span aria-hidden="true">💻📱</span> <b>Each on our own phone or laptop<small>You start a room and read out its code. Grown-ups open Knowtopia on their device → Parent Hub → 🎮 Play with my child → type the code.</small></b><span class="ph-chev" aria-hidden="true">›</span></button>
-        <p class="sub" style="padding:0 6px">Grown-ups join from a <b>parent account linked to you</b> (Me → Link to my parent). On one device nobody needs to sign in again.</p></div>`;
-      $1('#phFBack').onclick = () => { S('tap'); back(); };
-      el.querySelectorAll('[data-who]').forEach(b => b.onclick = () => { S('tap'); who = b.dataset.who; draw(); });
-      $1('#phF1').onclick = () => { S('open'); if (!window.Family || !Family.student) { try { toast('Family games are loading. Please try again.'); } catch (e) {} return; }
-        Family.student({ with: who === 'both' ? ['mum', 'dad'] : [who], backLabel: 'Back', onClose: () => family(back) }); };
-      $1('#phF2').onclick = () => { S('open'); liveOpen({ game: 'quiz' }); };
-    };
-    draw();
+    const name = o.quick ? ((QuickGames.GAMES.find(g => g.id === o.quick) || {}).n || '') : o.puzzle ? ((pzKinds().find(k => k.id === o.puzzle) || {}).n || 'Puzzle') : o.game ? ((LIVE.find(g => g.id === o.game) || {}).n || '') : '';
+    const one = !o.puzzle;
+    el.innerHTML = `<div class="ph-root${isCA() ? ' ph-ca' : ''}"><button class="back" id="phFBack">← Back</button>
+      <div class="hello ph-hello" role="heading" aria-level="1"><span aria-hidden="true">👨‍👩‍👧</span> ${name ? E(name) + ' · family' : 'Play with family'}</div>
+      ${one ? `<button class="card ph-resume ph-fam" type="button" id="phF1"><span aria-hidden="true">📱</span> <b>One phone<small>Take turns</small></b><span class="ph-chev" aria-hidden="true">›</span></button>` : ''}
+      <button class="card ph-resume ph-fam" type="button" id="phF2"><span aria-hidden="true">📲</span> <b>Own phones<small>Share a code</small></b><span class="ph-chev" aria-hidden="true">›</span></button></div>`;
+    $1('#phFBack').onclick = () => { S('tap'); back(); };
+    if (one) $1('#phF1').onclick = () => { S('open');
+      if (o.quick) return QuickGames.family(o.quick, () => family(o));
+      if (!window.Family || !Family.student) { try { toast('Family games are loading. Please try again.'); } catch (e) {} return; }
+      Family.student({ with: ['mum'], backLabel: 'Back', onClose: () => family(o) }); };
+    $1('#phF2').onclick = () => { S('open');
+      if (o.quick) return QuickGames.challenge(o.quick, () => family(o));
+      liveOpen(o.puzzle ? { game: 'puzzle', kind: o.puzzle } : { game: o.game || 'quiz' }); };
   }
 
   /* ---------- 🙋 alone ---------- */
@@ -195,11 +199,9 @@
     else host.insertAdjacentHTML('beforeend', CalcAcademy.tileHTML());
     const t = D.getElementById('cxaTile'); if (t) { t.classList.add('ph-cxa'); t.onclick = () => { S('open'); CalcAcademy.open({ from: 'practice' }); }; }
   }
-  const famTile = dark => dark ? caTile('phFamTile', '👨‍👩‍👧', 'Play with family', 'Mum, Dad, both parents or a guardian · one device or each on your own')
-    : `<button type="button" class="card ph-tile ph-famtile" id="phFamTile" aria-label="Play with family"><span class="ph-te" aria-hidden="true">👨‍👩‍👧</span><span class="ph-tt"><b>Play with family</b><small>Mum, Dad, both parents or a guardian · one phone, one laptop or each on your own</small></span><span class="ph-chev" aria-hidden="true">›</span></button>`;
   function wire() {
-    const t = D.getElementById('phTile'); if (t) { t.onclick = () => { S('open'); open(); }; if (!D.getElementById('phFamTile')) t.insertAdjacentHTML('afterend', famTile(isCA())); }
-    const f = D.getElementById('phFamTile'); if (f) f.onclick = () => { S('open'); family(); };
+    const t = D.getElementById('phTile'); if (t) { t.onclick = () => { S('open'); open(); }; }
+    const f = D.getElementById('phFamTile'); if (f) f.remove();
   }
 
   let css = false;
@@ -216,11 +218,11 @@
       .ph-hello small{display:block}
       .ph-resume{display:flex;align-items:center;gap:8px;width:100%;border:none;background:#fff7d6;cursor:pointer;font-family:inherit;font-size:16px;text-align:left}.ph-resume b{flex:1}
       .ph-join{display:flex;gap:8px;margin:6px 0 10px}.ph-join input{flex:1;min-width:0;font-size:18px;letter-spacing:2px;text-transform:uppercase;padding:10px 12px;border-radius:12px;border:2px solid #dcd6f5;font-family:inherit}.ph-join .btn{width:auto;padding:10px 18px}
-      .ph-g{display:flex;align-items:center;gap:10px;padding:10px 0;border-top:1px solid #eee}.ph-g:first-of-type{border-top:none}
+      .ph-g{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;padding:10px 0;border-top:1px solid #eee}.ph-g:first-of-type{border-top:none}
       .ph-ge{font-size:28px;width:36px;text-align:center;flex:none}.ph-gt{flex:1;min-width:0;display:flex;flex-direction:column}.ph-gt b{font-size:16px}.ph-gt small{color:#666;font-size:12.5px;line-height:1.3}.ph-gt .ph-alone{color:#6d4aff;margin-top:2px}
-      .ph-gb{display:flex;flex-direction:column;gap:6px;flex:none}
+      .ph-gb{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;flex:0 0 100%}.ph-gb .ph-b{min-width:0}
       .ph-b{border:none;border-radius:12px;padding:8px 10px;font-weight:800;font-size:13.5px;cursor:pointer;font-family:inherit;min-width:92px;min-height:40px}
-      .ph-b.solo{background:#eef2ff;color:#3b3b8f}.ph-b.fr{background:#6d4aff;color:#fff}
+      .ph-b.solo{background:#eef2ff;color:#3b3b8f}.ph-b.fr{background:#6d4aff;color:#fff}.ph-b.fm{background:#ff8a3d;color:#fff}.ph-new{color:#d81b60!important;font-weight:800}
       .ph-more{display:grid;grid-template-columns:1fr 1fr;gap:8px}.ph-m{border:none;border-radius:14px;background:#f4f1ff;padding:10px;text-align:left;cursor:pointer;font-family:inherit;display:flex;flex-direction:column;gap:2px}.ph-m span{font-size:24px}.ph-m small{color:#666;font-size:12px;line-height:1.25}
       .ph-all{margin-top:10px}
     </style>`);

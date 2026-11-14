@@ -3600,7 +3600,6 @@
         <button class="jx-ht2" id="jxQB"><span>📚</span><b>Question bank</b><small>${all} questions · filter by subject, unit, topic, year, difficulty</small></button>
         <button class="jx-ht2" id="jxCC"><span>⚡</span><b>Crash course</b><small>Each unit in 15 minutes: ideas, formula flips, traps, must-do JEE</small></button>
         <button class="jx-ht2" id="jxPlay"><span>🎮</span><b>Play</b><small>Quiz Show, Snakes, Boss Battle, crosswords — all with JEE questions</small></button>
-        <button class="jx-ht2" id="jxFam"><span>👨‍👩‍👧</span><b>Play with family</b><small>Mum, Dad or a guardian · one device or each on your own</small></button>
         <button class="jx-ht2" id="jxMG"><span>🧠</span><b>Mind Gym</b><small>Reasoning, IQ and focus puzzles for exam days</small></button>
         <button class="jx-ht2" id="jxMB"><span>📕</span><b>Mistake book</b><small>${wrong ? wrong + ' questions to fix' : 'Empty — great work'}</small></button>
         <button class="jx-ht2" id="jxRooms"><span>🏁</span><b>Game rooms</b><small>Race friends live — everyone gets JEE questions</small></button>
@@ -3614,7 +3613,6 @@
     $('#jxCC').onclick = () => { tap('open'); crash(); };
     $('#jxPlay').onclick = () => { tap('open'); if (window.PlayHub) PlayHub.open(); };
     $('#jxMG').onclick = () => { tap('open'); if (window.MindGym) MindGym.open(); };
-    $('#jxFam').onclick = () => { tap('open'); if (window.PlayHub && PlayHub.family) PlayHub.family(practiceHub); };
     $('#jxMB').onclick = () => { tap(); mistakes(); };
     $('#jxRooms').onclick = () => { tap('open'); if (window.Live && Live.open) Live.open(); };
     el.querySelectorAll('[data-u]').forEach(b => b.onclick = () => { tap('open'); NAVP = false; unit(b.dataset.u, 'prac'); });
