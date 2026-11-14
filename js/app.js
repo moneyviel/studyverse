@@ -201,6 +201,7 @@ function logAns(id, ok, secs) {
   try { const l = Array.isArray(ST.ans) ? ST.ans : (ST.ans = []);
     const s = secs == null || !isFinite(secs) || secs <= 0 ? null : Math.round(Math.min(600, secs) * 10) / 10;
     l.push([Math.floor(Date.now() / 6e4), String(id || '').split('#')[0], ok ? 1 : 0, s]); if (l.length > 400) l.splice(0, l.length - 400); } catch (e) {}
+  try { if (window.League) League.ans(id, ok); } catch (e) {}   // 💎 Ratna League (js/league.js; the server decides points)
 }
 const today = () => new Date().toISOString().slice(0, 10);
 
@@ -657,6 +658,7 @@ function quizRunner(b, list, done) {
       const k = +btn.dataset.k, ok = k === q.answer; hist[i] = { order, k, ok }; hb.done();
       b.querySelectorAll('.opt.gp-out').forEach(x => { x.classList.remove('gp-out'); x.removeAttribute('aria-label'); });
       const qs = ST.qstats[qid] || { s: 0, w: 0 }; qs.s++;
+      if (ok && qs.w > 0) { try { if (window.League) League.fix(qid); } catch (e) {} }
       if (ok) { right++; sfx('correct'); addXP(hints[i].n ? 5 : 10); }
       else { sfx('wrong'); qs.w++; mistakes.push(q.mistake); ST.mistakes[q.mistake] = (ST.mistakes[q.mistake] || 0) + 1; }
       logAns(qid, ok, (Date.now() - shownAt) / 1000);
@@ -749,6 +751,7 @@ function doneStep(b) {
   const q = RUN.quiz, pct = q.total ? q.right / q.total : 0;
   const stars = pct >= .9 ? 3 : pct >= .7 ? 2 : pct >= .4 ? 1 : 1;
   const prev = ST.topics[RUN.t.id]?.stars || 0;
+  try { if (window.League && pct > 0) League.topic(RUN.t.id, !!prev); } catch (e) {}
   ST.topics[RUN.t.id] = { stars: Math.max(prev, stars), last: today() }; bumpStreak(); save();
   if (window.Garden) Garden.learned(RUN.t.id, pct);
   sfx('unlock');

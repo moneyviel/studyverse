@@ -113,7 +113,7 @@
   function markTab(uid, k) {
     const c = C(); const u = c.units[uid] = c.units[uid] || {};
     if (u[k]) return; u[k] = today(); u.t = today(); c.last = uid; save(); bumpStreak(); addXP(5);
-    if (TABS.every(([t]) => u[t])) toast('Unit complete ✓');
+    if (TABS.every(([t]) => u[t])) { toast('Unit complete ✓'); try { if (window.League) League.unit(uid); } catch (e) {} }
   }
   function paperProg(p) { let n = 0, s = 0; p.chapters.forEach(c => c.units.forEach(u => { n++; s += unitProg(u.id); })); return n ? s / n : 0; }
   const builtCount = p => p.chapters.reduce((a, c) => a + c.units.filter(u => u.status === 'built').length, 0);
@@ -129,7 +129,9 @@
   function daysLeft() { const e = C().exam; if (!e) return null; const ms = new Date(e + 'T09:00:00') - new Date(todayISO() + 'T09:00:00'); return Math.round(ms / 864e5); }
 
   function recordAns(key, ok, ms, q) {
-    const c = C(); const s = c.mcq[key] = c.mcq[key] || { s: 0, w: 0 }; s.s++; if (!ok) s.w++; s.last = today();
+    const c = C(); const s = c.mcq[key] = c.mcq[key] || { s: 0, w: 0 };
+    try { if (window.League) { League.ans('ca.' + key, ok); if (ok && s.w > 0) League.fix('ca.' + key); } } catch (e) {}
+    s.s++; if (!ok) s.w++; s.last = today();
     try { if (window.CaSpeed) CaSpeed.note(key, ok, ms, q, true); } catch (e) {}   // correct but slow → ⚡ Speed drill (js/ca-speed.js)
     s.ms = (s.ms || 0) + Math.min(ms || 0, 600000);
     c.mlog = c.mlog || []; c.mlog.push([Math.floor(Date.now() / 6e4), key, ok ? 1 : 0, Math.round(Math.min(ms || 0, 600000) / 100) / 10]);
