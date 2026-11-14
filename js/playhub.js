@@ -48,6 +48,7 @@
       <div class="ph-gb">${alone ? `<button class="ph-b solo" type="button" ${alone} aria-label="${E(n)}: play alone"><span aria-hidden="true">🙋</span> Alone</button>` : ''}${friends ? `<button class="ph-b fr" type="button" ${friends} aria-label="${E(n)}: play with friends"><span aria-hidden="true">👫</span> Friends</button>` : ''}</div></div>`;
     el.innerHTML = `<div class="ph-root${ca ? ' ph-ca' : ''}"><button class="back" id="phBack">← Practice</button>
       <div class="hello ph-hello" role="heading" aria-level="1"><span aria-hidden="true">🎮</span> Play <small>Games and puzzles · alone or with friends</small></div>
+      ${window.DesiGames && DesiGames.tileHTML ? DesiGames.tileHTML() : ''}
       ${savedHTML()}${back ? `<button class="card ph-resume" type="button" id="phResume"><span aria-hidden="true">🔁</span> <b>Back to your room ${E(back)}</b><span class="ph-chev" aria-hidden="true">›</span></button>` : ''}
       <div class="card ph-friends"><h3><span aria-hidden="true">👫</span> Play with friends</h3><p class="sub">Make a room and share its code, or type a friend’s code.</p>
         <div class="ph-join"><input id="phCode" inputmode="text" autocomplete="off" maxlength="8" placeholder="Room code" aria-label="Room code"><button class="btn" type="button" id="phJoin">Join</button></div>
@@ -62,6 +63,7 @@
         <button class="btn ghost ph-all" type="button" id="phArc">🕹️ All arcade games</button></div>`}
       <div class="card ph-calc"><h3><span aria-hidden="true">🧮</span> Calculator Academy</h3><p class="sub">Free bonus course: learn every key with real missions.</p><button class="btn ghost" type="button" id="phCalc">Open Calculator Academy ▶</button></div></div>`;
     $1('#phBack').onclick = () => { S('tap'); backToPractice(); };
+    { const dg = $1('#dgTile', el); if (dg) dg.onclick = () => { S('open'); DesiGames.open({ back: open }); }; }   // 🪔 owner preview games (js/desi-games.js)
     wireSaved(el);
     if (back) $1('#phResume').onclick = () => { S('open'); Live.join(back); };
     $1('#phMake').onclick = () => { S('open'); liveOpen(); };
