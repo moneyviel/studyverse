@@ -3258,7 +3258,10 @@
     if (!ST.profile || ST.profile.course || (window.Cloud && Cloud.isParent && Cloud.isParent())) return;
     const g = +ST.profile.grade || 0, j = ST.jee, own = !!(window.Cloud && Cloud.admin && Cloud.admin());
     if (g < 9 && !(j && j.track) && !own) return;
-    const p = D.getElementById('s-practice');
+    /* School pages show only School: no JEE card on School Practice (the School · JEE · CA strip switches courses).
+       The Me card stays only for students who have a JEE course (and the owner). */
+    if (!(j && j.track) && !own) return;
+    const p = null;
     if (p && p.classList.contains('active') && !p.querySelector(':scope > #jeeTile')) {
       const first = p.querySelector(':scope > #phTile') || p.querySelector(':scope > .card');
       if (first) first.insertAdjacentHTML('beforebegin', `<button type="button" class="card mg-tile jx-tile0" id="jeeTile"><span class="mg-te" aria-hidden="true">🎯</span><span class="mg-tt"><b>JEE Main</b><small>${j && j.track ? TRACKS[j.track].n + ' · Units and Measurements ready' : 'Check eligibility and start your track'}</small></span><span class="mg-chev" aria-hidden="true">›</span></button>`);
